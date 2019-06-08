@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Custom
+.DS_Store
+.zip
+
 # User-specific files
 *.suo
 *.user
