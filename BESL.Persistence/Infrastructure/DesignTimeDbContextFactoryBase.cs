@@ -7,10 +7,12 @@
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
 
+    using BESL.Common;
+
     public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> 
         where TContext : DbContext
     {
-        private const string ConnectionStringName = "DefaultConnection";
+        private string ConnectionStringName = DbConnectionStringHandler.GetConnectionStringNameForCurrentOS();
         private const string AspNetCoreEnvironment = "ASPNETCORE_ENVIRONMENT";
 
         public TContext CreateDbContext(string[] args)

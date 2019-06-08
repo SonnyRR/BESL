@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BESL.Persistence;
 using BESL.Domain.Entities;
+using BESL.Common;
 
 namespace BESL.Web
 {
@@ -39,7 +40,8 @@ namespace BESL.Web
             
                 services.AddDbContext<ApplicationContext>(options =>
                     options.UseSqlServer(
-                        this.Configuration.GetConnectionString("DefaultConnection")));
+                        this.Configuration
+                            .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
 
                 services.AddDefaultIdentity<User>()
                     .AddEntityFrameworkStores<ApplicationContext>();
