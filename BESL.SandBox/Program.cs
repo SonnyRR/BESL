@@ -2,16 +2,15 @@
 {
     using BESL.Persistence;
     using Microsoft.EntityFrameworkCore;
+    using ISO3166;
     using System;
+    using BESL.Domain.Extensions;
 
     public class Program
     {
         public static void Main()
         {
-            ApplicationContextFactory factory = new ApplicationContextFactory();
-            DbContextOptions<ApplicationDbContext> options = new DbContextOptions<ApplicationDbContext>();
-            factory.CreateDbContext(null);
-
+            Console.WriteLine(Country.List.GetCountryByValue("BG333").ThreeLetterCode);
         }
     }
 }
