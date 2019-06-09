@@ -30,4 +30,3 @@
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
     }
 }
-}
