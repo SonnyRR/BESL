@@ -2,7 +2,7 @@
 {
     using BESL.Domain.Infrastructure;   
 
-    public class Setting : BaseDeletableModel<int>
+    public class Setting : BaseDeletableModel<string>
     {
         public string Name { get; set; }
 

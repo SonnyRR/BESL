@@ -6,11 +6,10 @@
 
     public class Player : ApplicationUser
     {
-        public Guid Id { get; set; }
 
-        public ICollection<Team> Teams { get; set; }
+        public ICollection<Team> OwnedTeams { get; set; } = new HashSet<Team>();
 
-        public Country Country { get; set; }
+        public ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
 
     }
 }
