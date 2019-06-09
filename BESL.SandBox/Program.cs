@@ -9,7 +9,7 @@
         public static void Main()
         {
             ApplicationContextFactory factory = new ApplicationContextFactory();
-            DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
+            DbContextOptions<ApplicationDbContext> options = new DbContextOptions<ApplicationDbContext>();
             factory.CreateDbContext(null);
 
         }

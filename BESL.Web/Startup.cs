@@ -38,13 +38,13 @@ namespace BESL.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             
-                services.AddDbContext<ApplicationContext>(options =>
+                services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(
                         this.Configuration
                             .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
 
                 services.AddDefaultIdentity<ApplicationUser>()
-                    .AddEntityFrameworkStores<ApplicationContext>();
+                    .AddEntityFrameworkStores<Persistence.ApplicationDbContext>();
 
                 services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
