@@ -43,7 +43,7 @@ namespace BESL.Web
                         this.Configuration
                             .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
 
-                services.AddDefaultIdentity<User>()
+                services.AddDefaultIdentity<ApplicationUser>()
                     .AddEntityFrameworkStores<ApplicationContext>();
 
                 services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

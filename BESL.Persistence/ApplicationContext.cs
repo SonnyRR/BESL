@@ -5,7 +5,7 @@
 
     using BESL.Domain.Entities;
 
-    public class ApplicationContext : IdentityDbContext<User>
+    public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
