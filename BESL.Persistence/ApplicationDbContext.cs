@@ -49,7 +49,9 @@
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
-            ConfigureUserIdentityRelations(builder);            
+            ConfigureUserIdentityRelations(builder);
+
+            builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 

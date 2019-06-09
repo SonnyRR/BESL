@@ -4,14 +4,16 @@ using BESL.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BESL.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190609220530_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,8 +106,7 @@ namespace BESL.Persistence.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AwayTeamId")
-                        .IsRequired();
+                    b.Property<string>("AwayTeamId");
 
                     b.Property<int>("AwayTeamScore");
 
@@ -113,8 +114,7 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime?>("Date");
 
-                    b.Property<string>("HomeTeamId")
-                        .IsRequired();
+                    b.Property<string>("HomeTeamId");
 
                     b.Property<int>("HomeTeamScore");
 
@@ -318,13 +318,11 @@ namespace BESL.Persistence.Migrations
                 {
                     b.HasOne("BESL.Domain.Entities.Team", "AwayTeam")
                         .WithMany("AwayMatches")
-                        .HasForeignKey("AwayTeamId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("AwayTeamId");
 
                     b.HasOne("BESL.Domain.Entities.Team", "HomeTeam")
                         .WithMany("HomeMatches")
-                        .HasForeignKey("HomeTeamId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("HomeTeamId");
 
                     b.HasOne("BESL.Domain.Entities.Team", "Winner")
                         .WithMany("WonMatches")
