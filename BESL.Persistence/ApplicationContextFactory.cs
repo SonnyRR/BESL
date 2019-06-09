@@ -4,11 +4,11 @@
 
     using BESL.Persistence.Infrastructure;
 
-    public class ApplicationContextFactory : DesignTimeDbContextFactoryBase<ApplicationContext>
+    public class ApplicationContextFactory : DesignTimeDbContextFactoryBase<ApplicationDbContext>
     {
-        protected override ApplicationContext CreateNewInstance(DbContextOptions<ApplicationContext> options)
+        protected override ApplicationDbContext CreateNewInstance(DbContextOptions<ApplicationDbContext> options)
         {
-            return new ApplicationContext(options);
+            return new ApplicationDbContext(options);
         }
     }
 }

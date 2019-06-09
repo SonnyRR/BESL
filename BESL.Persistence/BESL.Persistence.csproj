@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
     <ProjectReference Include="..\BESL.Common\BESL.Common.csproj" />
+    <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
   </ItemGroup>
 
 </Project>
