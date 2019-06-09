@@ -1,4 +1,4 @@
-﻿namespace Northwind.Domain.Infrastructure
+﻿namespace BESL.Domain.Infrastructure
 {
     using System.Collections.Generic;
     using System.Linq;
