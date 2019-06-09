@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BESL.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190608162516_InitialCreate")]
+    [Migration("20190609130041_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace BESL.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BESL.Domain.Entities.User", b =>
+            modelBuilder.Entity("BESL.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -31,14 +31,22 @@ namespace BESL.Persistence.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<bool>("IsDeleted");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -122,6 +130,8 @@ namespace BESL.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("ClaimType");
 
                     b.Property<string>("ClaimValue");
@@ -130,6 +140,8 @@ namespace BESL.Persistence.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("UserId");
 
@@ -142,12 +154,16 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<string>("ProviderKey");
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("ProviderDisplayName");
 
                     b.Property<string>("UserId")
                         .IsRequired();
 
                     b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("UserId");
 
@@ -160,7 +176,11 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<string>("RoleId");
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("RoleId");
 
@@ -192,7 +212,11 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.User")
+                    b.HasOne("BESL.Domain.Entities.ApplicationUser")
+                        .WithMany("Claims")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("BESL.Domain.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -200,7 +224,11 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.User")
+                    b.HasOne("BESL.Domain.Entities.ApplicationUser")
+                        .WithMany("Logins")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("BESL.Domain.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -208,12 +236,16 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
+                    b.HasOne("BESL.Domain.Entities.ApplicationUser")
+                        .WithMany("Roles")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BESL.Domain.Entities.User")
+                    b.HasOne("BESL.Domain.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -221,7 +253,7 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.User")
+                    b.HasOne("BESL.Domain.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
