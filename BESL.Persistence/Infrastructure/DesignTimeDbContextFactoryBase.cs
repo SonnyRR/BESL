@@ -17,8 +17,7 @@
 
         public TContext CreateDbContext(string[] args)
         {
-            var basePath = Path.Combine(Directory.GetCurrentDirectory(), 
-                string.Format("{0}..{0}BESL.Web", Path.DirectorySeparatorChar));
+            var basePath = Path.Combine(Directory.GetCurrentDirectory(), $"..{Path.DirectorySeparatorChar}BESL.Web");
 
             return Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment));
         }
