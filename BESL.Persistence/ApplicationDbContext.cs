@@ -8,8 +8,9 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Domain.Entities;
+    using BESL.Application.Interfaces;
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {       
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

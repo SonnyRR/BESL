@@ -17,11 +17,13 @@ namespace BESL.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using MediatR;
+    using FluentValidation.AspNetCore;
 
     using BESL.Persistence;
     using BESL.Domain.Entities;
     using BESL.Common;
     using BESL.Application;
+    using BESL.Application.Games.Commands.CreateGame;
 
     public class Startup
     {
@@ -50,9 +52,11 @@ namespace BESL.Web
                 services.AddDefaultIdentity<ApplicationUser>()
                     .AddEntityFrameworkStores<Persistence.ApplicationDbContext>();
 
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateGameCommand>());
 
-                services.AddMediatR(typeof(TestClass).Assembly);                
+
+            services.AddMediatR(typeof(TestClass).Assembly);                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

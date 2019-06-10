@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using BESL.Web.Models;
-
-namespace BESL.Web.Controllers
+﻿namespace BESL.Web.Controllers
 {
-    public class HomeController : Controller
+    using System.Diagnostics;
+    using Microsoft.AspNetCore.Mvc;
+    using BESL.Web.Models;
+
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
