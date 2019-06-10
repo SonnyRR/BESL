@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<form class="w-50 mx-auto" action="/Game/Create" method="POST">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name..." />
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <button type="submit" class="btn bg-success text-white">Create</button>
+    </div>
+</form>
+

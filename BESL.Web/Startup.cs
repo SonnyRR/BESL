@@ -24,6 +24,7 @@ namespace BESL.Web
     using BESL.Common;
     using BESL.Application;
     using BESL.Application.Games.Commands.CreateGame;
+    using BESL.Application.Interfaces;
 
     public class Startup
     {
@@ -43,20 +44,24 @@ namespace BESL.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            
-                services.AddDbContext<ApplicationDbContext>(options =>
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    this.Configuration
+                        .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
+
+            services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
                     options.UseSqlServer(
                         this.Configuration
                             .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
-
-                services.AddDefaultIdentity<ApplicationUser>()
+            services.AddDefaultIdentity<ApplicationUser>()
                     .AddEntityFrameworkStores<Persistence.ApplicationDbContext>();
 
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateGameCommand>());
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateGameCommand>());
 
 
-            services.AddMediatR(typeof(TestClass).Assembly);                
+            services.AddMediatR(typeof(TestClass).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
