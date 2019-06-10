@@ -6,23 +6,6 @@
     // Source: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
     public abstract class ValueObject
     {
-        protected static bool EqualOperator(ValueObject left, ValueObject right)
-        {
-            if (left is null ^ right is null)
-            {
-                return false;
-            }
-
-            return left?.Equals(right) != false;
-        }
-
-        protected static bool NotEqualOperator(ValueObject left, ValueObject right)
-        {
-            return !(EqualOperator(left, right));
-        }
-
-        protected abstract IEnumerable<object> GetAtomicValues();
-
         public override bool Equals(object obj)
         {
             if (obj == null || obj.GetType() != GetType())
@@ -31,7 +14,7 @@
             }
 
             var other = (ValueObject)obj;
-            var thisValues = GetAtomicValues().GetEnumerator();
+            var thisValues = this.GetAtomicValues().GetEnumerator();
             var otherValues = other.GetAtomicValues().GetEnumerator();
 
             while (thisValues.MoveNext() && otherValues.MoveNext())
@@ -53,9 +36,26 @@
 
         public override int GetHashCode()
         {
-            return GetAtomicValues()
+            return this.GetAtomicValues()
                 .Select(x => x != null ? x.GetHashCode() : 0)
                 .Aggregate((x, y) => x ^ y);
         }
+
+        protected static bool EqualOperator(ValueObject left, ValueObject right)
+        {
+            if (left is null ^ right is null)
+            {
+                return false;
+            }
+
+            return left?.Equals(right) != false;
+        }
+
+        protected static bool NotEqualOperator(ValueObject left, ValueObject right)
+        {
+            return !(EqualOperator(left, right));
+        }
+
+        protected abstract IEnumerable<object> GetAtomicValues();
     }
 }

@@ -1,13 +1,11 @@
 ﻿namespace BESL.Domain.Entities
 {
-    using System;
     using System.Collections.Generic;
 
     using BESL.Domain.Infrastructure;
 
     public class Team : BaseModel<int>
     {
-
         public string Name { get; set; }
 
         public string OwnerId { get; set; }

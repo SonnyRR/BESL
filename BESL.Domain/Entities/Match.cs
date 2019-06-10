@@ -7,7 +7,6 @@
 
     public class Match : BaseModel<int>
     {
-
         public int HomeTeamId { get; set; }
         public Team HomeTeam { get; set; }
 
@@ -26,6 +25,5 @@
         public DateTime? Date { get; set; }
 
         public virtual ICollection<PlayerMatch> ParticipatedPlayers { get; set; } = new HashSet<PlayerMatch>();
-
     }
 }

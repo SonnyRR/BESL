@@ -1,7 +1,8 @@
 ﻿namespace BESL.Domain.Extensions
 {
-    using ISO3166;
     using System.Linq;
+
+    using ISO3166;
 
     public static class ISO3166Extensions
     {
@@ -15,7 +16,7 @@
                     .List
                     .FirstOrDefault(c => c.TwoLetterCode == nameOrCode.ToUpper());
             }
-            else if(nameOrCode.Length == 3)
+            else if (nameOrCode.Length == 3)
             {
                 if (int.TryParse(nameOrCode, out _))
                 {
