@@ -19,4 +19,7 @@
     <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
 </Project>

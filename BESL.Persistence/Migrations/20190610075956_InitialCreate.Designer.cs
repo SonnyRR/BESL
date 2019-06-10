@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BESL.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190609221128_MigrationDisableMatchTeamsToBeNull")]
-    partial class MigrationDisableMatchTeamsToBeNull
+    [Migration("20190610075956_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,8 +87,9 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("BESL.Domain.Entities.Game", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -103,11 +104,11 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("BESL.Domain.Entities.Match", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AwayTeamId")
-                        .IsRequired();
+                    b.Property<int>("AwayTeamId");
 
                     b.Property<int>("AwayTeamScore");
 
@@ -115,8 +116,7 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime?>("Date");
 
-                    b.Property<string>("HomeTeamId")
-                        .IsRequired();
+                    b.Property<int>("HomeTeamId");
 
                     b.Property<int>("HomeTeamScore");
 
@@ -124,7 +124,7 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime?>("ModifiedOn");
 
-                    b.Property<string>("WinnerTeamId");
+                    b.Property<int>("WinnerTeamId");
 
                     b.HasKey("Id");
 
@@ -141,7 +141,7 @@ namespace BESL.Persistence.Migrations
                 {
                     b.Property<string>("PlayerId");
 
-                    b.Property<string>("TeamId");
+                    b.Property<int>("TeamId");
 
                     b.HasKey("PlayerId", "TeamId");
 
@@ -174,12 +174,13 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("BESL.Domain.Entities.Team", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<string>("GameId");
+                    b.Property<int>("GameId");
 
                     b.Property<DateTime?>("ModifiedOn");
 
@@ -313,6 +314,10 @@ namespace BESL.Persistence.Migrations
                 {
                     b.HasBaseType("BESL.Domain.Entities.ApplicationUser");
 
+                    b.Property<int?>("MatchId");
+
+                    b.HasIndex("MatchId");
+
                     b.HasDiscriminator().HasValue("Player");
                 });
 
@@ -330,7 +335,8 @@ namespace BESL.Persistence.Migrations
 
                     b.HasOne("BESL.Domain.Entities.Team", "Winner")
                         .WithMany("WonMatches")
-                        .HasForeignKey("WinnerTeamId");
+                        .HasForeignKey("WinnerTeamId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BESL.Domain.Entities.PlayerTeam", b =>
@@ -350,7 +356,8 @@ namespace BESL.Persistence.Migrations
                 {
                     b.HasOne("BESL.Domain.Entities.Game", "Game")
                         .WithMany("Teams")
-                        .HasForeignKey("GameId");
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BESL.Domain.Entities.Player", "Owner")
                         .WithMany("OwnedTeams")
@@ -400,6 +407,13 @@ namespace BESL.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.Player", b =>
+                {
+                    b.HasOne("BESL.Domain.Entities.Match")
+                        .WithMany("ParticipatedPlayers")
+                        .HasForeignKey("MatchId");
                 });
 #pragma warning restore 612, 618
         }

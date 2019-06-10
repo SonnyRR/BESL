@@ -5,12 +5,12 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class Game : BaseModel<string>
+    public class Game : BaseModel<int>
     {
         
         public string Name { get; set; }
 
-        public ICollection<Team> Teams { get; set; } = new HashSet<Team>();
+        public virtual ICollection<Team> Teams { get; set; } = new HashSet<Team>();
      
     }
 }

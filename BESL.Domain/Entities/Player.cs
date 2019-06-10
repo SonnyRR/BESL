@@ -7,9 +7,9 @@
     public class Player : ApplicationUser
     {
 
-        public ICollection<Team> OwnedTeams { get; set; } = new HashSet<Team>();
+        public virtual ICollection<Team> OwnedTeams { get; set; } = new HashSet<Team>();
 
-        public ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
+        public virtual ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
 
     }
 }
