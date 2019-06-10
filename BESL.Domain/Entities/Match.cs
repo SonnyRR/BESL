@@ -25,7 +25,7 @@
 
         public DateTime? Date { get; set; }
 
-        public virtual ICollection<Player> ParticipatedPlayers { get; set; } = new HashSet<Player>();
+        public virtual ICollection<PlayerMatch> ParticipatedPlayers { get; set; } = new HashSet<PlayerMatch>();
 
     }
 }
