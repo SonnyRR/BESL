@@ -135,6 +135,19 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("Matches");
                 });
 
+            modelBuilder.Entity("BESL.Domain.Entities.PlayerMatch", b =>
+                {
+                    b.Property<string>("PlayerId");
+
+                    b.Property<int>("MatchId");
+
+                    b.HasKey("PlayerId", "MatchId");
+
+                    b.HasIndex("MatchId");
+
+                    b.ToTable("PlayerMatch");
+                });
+
             modelBuilder.Entity("BESL.Domain.Entities.PlayerTeam", b =>
                 {
                     b.Property<string>("PlayerId");
@@ -145,7 +158,7 @@ namespace BESL.Persistence.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("PlayerTeam");
+                    b.ToTable("PlayerTeams");
                 });
 
             modelBuilder.Entity("BESL.Domain.Entities.Setting", b =>
@@ -312,10 +325,6 @@ namespace BESL.Persistence.Migrations
                 {
                     b.HasBaseType("BESL.Domain.Entities.ApplicationUser");
 
-                    b.Property<int?>("MatchId");
-
-                    b.HasIndex("MatchId");
-
                     b.HasDiscriminator().HasValue("Player");
                 });
 
@@ -334,6 +343,19 @@ namespace BESL.Persistence.Migrations
                     b.HasOne("BESL.Domain.Entities.Team", "Winner")
                         .WithMany("WonMatches")
                         .HasForeignKey("WinnerTeamId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.PlayerMatch", b =>
+                {
+                    b.HasOne("BESL.Domain.Entities.Match", "Match")
+                        .WithMany("ParticipatedPlayers")
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BESL.Domain.Entities.Player", "Player")
+                        .WithMany("PlayerMatches")
+                        .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -405,13 +427,6 @@ namespace BESL.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("BESL.Domain.Entities.Player", b =>
-                {
-                    b.HasOne("BESL.Domain.Entities.Match")
-                        .WithMany("ParticipatedPlayers")
-                        .HasForeignKey("MatchId");
                 });
 #pragma warning restore 612, 618
         }

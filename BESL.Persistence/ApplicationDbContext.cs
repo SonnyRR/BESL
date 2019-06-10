@@ -8,7 +8,6 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Domain.Entities;
-    using BESL.Persistence.Infrastructure;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {       
@@ -26,6 +25,11 @@
         public DbSet<Team> Teams { get; set; }
 
         public DbSet<Match> Matches { get; set; }
+
+        public DbSet<PlayerTeam> PlayerTeams { get; set; }
+
+        public DbSet<PlayerMatch> PlayerMatch { get; set; }
+
 
         public override int SaveChanges() => this.SaveChanges(true);
 
