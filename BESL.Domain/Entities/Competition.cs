@@ -4,7 +4,7 @@
 
     using BESL.Domain.Infrastructure;
 
-    public class Competition : BaseModel<int>
+    public class Competition : BaseDeletableModel<int>
     {
         public string Name { get; set; }
 

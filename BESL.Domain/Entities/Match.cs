@@ -5,7 +5,7 @@
 
     using BESL.Domain.Infrastructure;
 
-    public class Match : BaseModel<int>
+    public class Match : BaseDeletableModel<int>
     {
         public int HomeTeamId { get; set; }
         public Team HomeTeam { get; set; }

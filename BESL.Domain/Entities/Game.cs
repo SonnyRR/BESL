@@ -5,7 +5,7 @@
 
     using BESL.Domain.Infrastructure;
 
-    public class Game : BaseModel<int>
+    public class Game : BaseDeletableModel<int>
     {
         public Game()
         {

@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-
+    using BESL.Domain.Infrastructure;
     using Microsoft.AspNetCore.Identity;
 
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, IDeletableEntity
     {
         public ApplicationUser()
         {

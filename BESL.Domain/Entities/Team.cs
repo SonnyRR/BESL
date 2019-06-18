@@ -4,7 +4,7 @@
 
     using BESL.Domain.Infrastructure;
 
-    public class Team : BaseModel<int>
+    public class Team : BaseDeletableModel<int>
     {
         public string Name { get; set; }
 

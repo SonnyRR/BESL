@@ -2,7 +2,7 @@
 {
     using BESL.Domain.Infrastructure;
 
-    public class CompetitionFormat : BaseModel<int>
+    public class CompetitionFormat : BaseDeletableModel<int>
     {
         public string Name { get; set; }
 
