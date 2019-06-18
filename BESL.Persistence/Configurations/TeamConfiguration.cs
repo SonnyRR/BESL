@@ -1,9 +1,9 @@
-﻿
-namespace BESL.Persistence.Configurations
+﻿namespace BESL.Persistence.Configurations
 {
-    using BESL.Domain.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using BESL.Domain.Entities;
 
     public class TeamConfiguration : IEntityTypeConfiguration<Team>
     {
@@ -25,7 +25,7 @@ namespace BESL.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(t => t.Description)
-                .HasMaxLength(10000)
+                .HasMaxLength(1000)
                 .IsUnicode();
 
             builder.Property(t => t.HomepageUrl)
