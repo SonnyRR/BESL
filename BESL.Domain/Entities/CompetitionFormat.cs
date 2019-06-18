@@ -2,15 +2,12 @@
 {
     using BESL.Domain.Infrastructure;
 
-    public class CompetitionType : BaseModel<int>
+    public class CompetitionFormat : BaseModel<int>
     {
         public string Name { get; set; }
 
         public int TotalPlayersCount { get; set; }
 
         public int TeamPlayersCount { get; set; }
-
-        public int GameId { get; set; }
-        public Game Game { get; set; }
     }
 }
