@@ -19,10 +19,18 @@ namespace BESL.Persistence.Configurations
                 .WithMany(g => g.Teams)
                 .HasForeignKey(t => t.GameId);
 
-            builder.Property(p => p.Name)
+            builder.Property(t => t.Name)
                 .HasMaxLength(25)
                 .IsUnicode()
                 .IsRequired();
+
+            builder.Property(t => t.Description)
+                .HasMaxLength(10000)
+                .IsUnicode();
+
+            builder.Property(t => t.HomepageUrl)
+                .HasMaxLength(256)
+                .IsRequired(false);
         }
     }
 }
