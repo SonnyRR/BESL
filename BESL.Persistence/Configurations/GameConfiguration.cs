@@ -12,6 +12,16 @@
             builder.HasMany(g => g.CompetitionTypes)
                 .WithOne(ct => ct.Game)
                 .HasForeignKey(ct => ct.GameId);
+
+            builder.Property(g => g.Name)
+                .IsRequired()
+                .IsUnicode()
+                .HasMaxLength(40);
+
+            builder.Property(g => g.Description)
+                .IsRequired()
+                .IsUnicode()
+                .HasMaxLength(100);
         }
     }
 }
