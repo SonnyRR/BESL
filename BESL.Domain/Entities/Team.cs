@@ -15,8 +15,8 @@
         public string OwnerId { get; set; }
         public Player Owner { get; set; }
             
-        public int GameId { get; set; }
-        public Game Game { get; set; }
+        public int CurrentCompetitionId { get; set; }
+        public Competition CurrentCompetition { get; set; }
 
         public virtual ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
         public virtual ICollection<Match> HomeMatches { get; set; } = new HashSet<Match>();
