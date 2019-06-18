@@ -91,6 +91,8 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -99,6 +101,8 @@ namespace BESL.Persistence.Migrations
                     b.Property<int>("FormatId");
 
                     b.Property<int>("GameId");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("ModifiedOn");
 
@@ -124,6 +128,10 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
                     b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("Name");
@@ -145,10 +153,14 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
                         .IsUnicode(true);
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("ModifiedOn");
 
@@ -174,9 +186,13 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<int>("HomeTeamId");
 
                     b.Property<int>("HomeTeamScore");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<bool>("IsDraw");
 
@@ -203,6 +219,10 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<int>("MatchId");
 
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
                     b.HasKey("PlayerId", "MatchId");
 
                     b.HasIndex("MatchId");
@@ -215,6 +235,10 @@ namespace BESL.Persistence.Migrations
                     b.Property<string>("PlayerId");
 
                     b.Property<int>("TeamId");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.HasKey("PlayerId", "TeamId");
 
@@ -255,12 +279,16 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<int>("CurrentCompetitionId");
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .IsUnicode(true);
 
                     b.Property<string>("HomepageUrl")
                         .HasMaxLength(256);
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("ModifiedOn");
 
