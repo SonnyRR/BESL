@@ -57,6 +57,7 @@ namespace BESL.Web
             services.AddDefaultIdentity<ApplicationUser>()
                     .AddEntityFrameworkStores<Persistence.ApplicationDbContext>();
 
+            services.AddAuthentication().AddSteam();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateGameCommand>());
 
