@@ -54,10 +54,12 @@ namespace BESL.Web
                     options.UseSqlServer(
                         this.Configuration
                             .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
+
             services.AddDefaultIdentity<ApplicationUser>()
-                    .AddEntityFrameworkStores<Persistence.ApplicationDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddAuthentication().AddSteam();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateGameCommand>());
 
