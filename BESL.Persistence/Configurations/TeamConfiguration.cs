@@ -15,9 +15,9 @@
                 .WithMany(p => p.OwnedTeams)
                 .HasForeignKey(t => t.OwnerId);
 
-            builder.HasOne(t => t.Game)
-                .WithMany(g => g.Teams)
-                .HasForeignKey(t => t.GameId);
+            builder.HasOne(t => t.CurrentCompetition)
+                .WithMany(cc => cc.Teams)
+                .HasForeignKey(t => t.CurrentCompetitionId);
 
             builder.Property(t => t.Name)
                 .HasMaxLength(25)

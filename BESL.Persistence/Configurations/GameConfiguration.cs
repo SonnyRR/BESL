@@ -18,6 +18,10 @@
                 .IsRequired()
                 .IsUnicode()
                 .HasMaxLength(100);
+
+            builder.HasMany(g => g.Competitions)
+                .WithOne(c => c.Game)
+                .HasForeignKey(c => c.GameId);
         }
     }
 }
