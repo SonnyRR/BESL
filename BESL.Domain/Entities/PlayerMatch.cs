@@ -11,7 +11,9 @@
 
         public int MatchId { get; set; }
         public Match Match { get; set; }
+
         public bool IsDeleted { get; set; }
+
         public DateTime? DeletedOn { get; set; }
     }
 }

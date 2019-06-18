@@ -13,6 +13,7 @@
         public Team Team { get; set; }
 
         public bool IsDeleted { get; set; }
+
         public DateTime? DeletedOn { get; set; }
     }
 }
