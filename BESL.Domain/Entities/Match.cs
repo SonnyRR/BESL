@@ -22,7 +22,7 @@
 
         public bool IsDraw { get; set; }
 
-        public DateTime? Date { get; set; }
+        public DateTime? ScheduledDate { get; set; }
 
         public virtual ICollection<PlayerMatch> ParticipatedPlayers { get; set; } = new HashSet<PlayerMatch>();
     }
