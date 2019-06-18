@@ -8,11 +8,7 @@
     public class GameConfiguration : IEntityTypeConfiguration<Game>
     {
         public void Configure(EntityTypeBuilder<Game> builder)
-        {
-            builder.HasMany(g => g.CompetitionTypes)
-                .WithOne(ct => ct.Game)
-                .HasForeignKey(ct => ct.GameId);
-
+        {            
             builder.Property(g => g.Name)
                 .IsRequired()
                 .IsUnicode()
