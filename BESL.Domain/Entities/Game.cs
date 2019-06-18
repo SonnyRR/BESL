@@ -9,7 +9,7 @@
     {
         public Game()
         {
-            base.CreatedOn = DateTime.UtcNow;
+            this.CreatedOn = DateTime.UtcNow;
         }
 
         public string Name { get; set; }
