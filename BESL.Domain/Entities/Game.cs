@@ -17,6 +17,6 @@
         public string Description { get; set; }
 
         public virtual ICollection<Team> Teams { get; set; } = new HashSet<Team>();
-                
+        public virtual ICollection<CompetitionType> CompetitionTypes { get; set; } = new HashSet<CompetitionType>();        
     }
 }

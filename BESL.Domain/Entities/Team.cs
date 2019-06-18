@@ -10,6 +10,8 @@
 
         public string Description { get; set; }
 
+        public string HomepageUrl { get; set; }
+
         public string OwnerId { get; set; }
         public Player Owner { get; set; }
             
