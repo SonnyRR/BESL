@@ -4,14 +4,16 @@ using BESL.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BESL.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190618134918_UpdateTeamDomainModelToIncludeCurrentCompetition")]
+    partial class UpdateTeamDomainModelToIncludeCurrentCompetition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,6 +261,8 @@ namespace BESL.Persistence.Migrations
                         .HasMaxLength(1000)
                         .IsUnicode(true);
 
+                    b.Property<int?>("GameId");
+
                     b.Property<string>("HomepageUrl")
                         .HasMaxLength(256);
 
@@ -274,6 +278,8 @@ namespace BESL.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CurrentCompetitionId");
+
+                    b.HasIndex("GameId");
 
                     b.HasIndex("OwnerId");
 
@@ -460,6 +466,10 @@ namespace BESL.Persistence.Migrations
                         .WithMany("Teams")
                         .HasForeignKey("CurrentCompetitionId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BESL.Domain.Entities.Game")
+                        .WithMany("Teams")
+                        .HasForeignKey("GameId");
 
                     b.HasOne("BESL.Domain.Entities.Player", "Owner")
                         .WithMany("OwnedTeams")

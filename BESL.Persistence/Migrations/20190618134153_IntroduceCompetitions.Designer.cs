@@ -4,14 +4,16 @@ using BESL.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BESL.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190618134153_IntroduceCompetitions")]
+    partial class IntroduceCompetitions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,13 +253,15 @@ namespace BESL.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedOn");
+                    b.Property<int?>("CompetitionId");
 
-                    b.Property<int>("CurrentCompetitionId");
+                    b.Property<DateTime>("CreatedOn");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .IsUnicode(true);
+
+                    b.Property<int>("GameId");
 
                     b.Property<string>("HomepageUrl")
                         .HasMaxLength(256);
@@ -273,7 +277,9 @@ namespace BESL.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurrentCompetitionId");
+                    b.HasIndex("CompetitionId");
+
+                    b.HasIndex("GameId");
 
                     b.HasIndex("OwnerId");
 
@@ -456,9 +462,13 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("BESL.Domain.Entities.Team", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.Competition", "CurrentCompetition")
+                    b.HasOne("BESL.Domain.Entities.Competition")
                         .WithMany("Teams")
-                        .HasForeignKey("CurrentCompetitionId")
+                        .HasForeignKey("CompetitionId");
+
+                    b.HasOne("BESL.Domain.Entities.Game", "Game")
+                        .WithMany("Teams")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BESL.Domain.Entities.Player", "Owner")
