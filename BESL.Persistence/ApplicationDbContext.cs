@@ -29,8 +29,15 @@
 
         public DbSet<PlayerTeam> PlayerTeams { get; set; }
 
-        public DbSet<PlayerMatch> PlayerMatch { get; set; }
+        public DbSet<PlayerMatch> PlayerMatches { get; set; }
 
+        public DbSet<CompetitionTableResult> CompetitionTableResults { get; set; }
+
+        public DbSet<Competition> Competitions { get; set; }
+
+        public DbSet<CompetitionFormat> CompetitionFormats { get; set; }
+
+        public DbSet<CompetitionTable> CompetitionTables { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

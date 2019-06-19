@@ -102,6 +102,8 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<int>("GameId");
 
+                    b.Property<bool>("IsActive");
+
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("ModifiedOn");
@@ -117,7 +119,7 @@ namespace BESL.Persistence.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Competition");
+                    b.ToTable("Competitions");
                 });
 
             modelBuilder.Entity("BESL.Domain.Entities.CompetitionFormat", b =>
@@ -142,7 +144,64 @@ namespace BESL.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CompetitionFormat");
+                    b.ToTable("CompetitionFormats");
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.CompetitionTable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompetitionId");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<int>("MaxNumberOfTeams");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .IsUnicode(true);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompetitionId");
+
+                    b.ToTable("CompetitionTables");
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.CompetitionTableResult", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<int>("CompetitionTableId");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<int>("PenaltyPoints");
+
+                    b.Property<int>("TeamId");
+
+                    b.Property<int>("TotalPoints");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompetitionTableId");
+
+                    b.ToTable("CompetitionTableResults");
                 });
 
             modelBuilder.Entity("BESL.Domain.Entities.Game", b =>
@@ -184,6 +243,8 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<int>("AwayTeamScore");
 
+                    b.Property<int>("CompetitionTableResultId");
+
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<DateTime?>("DeletedOn");
@@ -206,6 +267,8 @@ namespace BESL.Persistence.Migrations
 
                     b.HasIndex("AwayTeamId");
 
+                    b.HasIndex("CompetitionTableResultId");
+
                     b.HasIndex("HomeTeamId");
 
                     b.HasIndex("WinnerTeamId");
@@ -227,7 +290,7 @@ namespace BESL.Persistence.Migrations
 
                     b.HasIndex("MatchId");
 
-                    b.ToTable("PlayerMatch");
+                    b.ToTable("PlayerMatches");
                 });
 
             modelBuilder.Entity("BESL.Domain.Entities.PlayerTeam", b =>
@@ -277,13 +340,15 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<int>("CurrentCompetitionId");
+                    b.Property<int?>("CurrentActiveCompetitionTableId");
 
                     b.Property<DateTime?>("DeletedOn");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .IsUnicode(true);
+
+                    b.Property<int>("GameId");
 
                     b.Property<string>("HomepageUrl")
                         .HasMaxLength(256);
@@ -301,7 +366,9 @@ namespace BESL.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurrentCompetitionId");
+                    b.HasIndex("CurrentActiveCompetitionTableId");
+
+                    b.HasIndex("GameId");
 
                     b.HasIndex("OwnerId");
 
@@ -438,20 +505,46 @@ namespace BESL.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("BESL.Domain.Entities.CompetitionTable", b =>
+                {
+                    b.HasOne("BESL.Domain.Entities.Competition", "Competition")
+                        .WithMany("Tables")
+                        .HasForeignKey("CompetitionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.CompetitionTableResult", b =>
+                {
+                    b.HasOne("BESL.Domain.Entities.CompetitionTable", "CompetitionTable")
+                        .WithMany("CompetitionTableResults")
+                        .HasForeignKey("CompetitionTableId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BESL.Domain.Entities.Team", "Team")
+                        .WithMany("PreviousCompetitionTablesResults")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("BESL.Domain.Entities.Match", b =>
                 {
                     b.HasOne("BESL.Domain.Entities.Team", "AwayTeam")
-                        .WithMany("AwayMatches")
+                        .WithMany()
                         .HasForeignKey("AwayTeamId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("BESL.Domain.Entities.CompetitionTableResult", "CompetitionTableResult")
+                        .WithMany("PlayedMatches")
+                        .HasForeignKey("CompetitionTableResultId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("BESL.Domain.Entities.Team", "HomeTeam")
-                        .WithMany("HomeMatches")
+                        .WithMany()
                         .HasForeignKey("HomeTeamId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Team", "Winner")
-                        .WithMany("WonMatches")
+                    b.HasOne("BESL.Domain.Entities.Team", "WinnerTeam")
+                        .WithMany()
                         .HasForeignKey("WinnerTeamId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
@@ -484,9 +577,13 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("BESL.Domain.Entities.Team", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.Competition", "CurrentCompetition")
+                    b.HasOne("BESL.Domain.Entities.CompetitionTable", "CurrentActiveCompetitionTable")
+                        .WithMany("SignedUpTeams")
+                        .HasForeignKey("CurrentActiveCompetitionTableId");
+
+                    b.HasOne("BESL.Domain.Entities.Game", "Game")
                         .WithMany("Teams")
-                        .HasForeignKey("CurrentCompetitionId")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BESL.Domain.Entities.Player", "Owner")

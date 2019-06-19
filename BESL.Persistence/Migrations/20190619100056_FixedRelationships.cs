@@ -108,13 +108,6 @@ namespace BESL.Persistence.Migrations
                 table: "Competitions",
                 newName: "IX_Competitions_FormatId");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "Id",
-                table: "Matches",
-                nullable: false,
-                oldClrType: typeof(int))
-                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "CompetitionTables",

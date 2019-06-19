@@ -35,12 +35,12 @@ namespace BESL.Persistence.Migrations
                 table: "Teams",
                 nullable: true);
 
-            migrationBuilder.AlterColumn<int>(
-                name: "Id",
-                table: "Matches",
-                nullable: false,
-                oldClrType: typeof(int))
-                .OldAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            //migrationBuilder.AlterColumn<int>(
+            //    name: "Id",
+            //    table: "Matches",
+            //    nullable: false,
+            //    oldClrType: typeof(int))
+            //    .OldAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             migrationBuilder.AddColumn<int>(
                 name: "TeamTableResultId",
