@@ -7,6 +7,9 @@
 
     public class Match : BaseDeletableModel<int>
     {
+        public int CompetitionTableResultId { get; set; }
+        public CompetitionTableResult CompetitionTableResult { get; set; }
+
         public int HomeTeamId { get; set; }
         public Team HomeTeam { get; set; }
 
@@ -18,7 +21,7 @@
         public int AwayTeamScore { get; set; }
 
         public int WinnerTeamId { get; set; }
-        public Team Winner { get; set; }
+        public Team WinnerTeam { get; set; }
 
         public bool IsDraw { get; set; }
 

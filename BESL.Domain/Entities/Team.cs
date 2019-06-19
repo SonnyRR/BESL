@@ -14,13 +14,15 @@
 
         public string OwnerId { get; set; }
         public Player Owner { get; set; }
+
+        public int GameId { get; set; }
+        public Game Game { get; set; }
             
-        public int? CurrentCompetitionId { get; set; }
-        public Competition CurrentCompetition { get; set; }
+        public int? CurrentActiveCompetitionTableId { get; set; }
+        public CompetitionTable CurrentActiveCompetitionTable { get; set; }
 
         public virtual ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
-        public virtual ICollection<Match> HomeMatches { get; set; } = new HashSet<Match>();
-        public virtual ICollection<Match> AwayMatches { get; set; } = new HashSet<Match>();
-        public virtual ICollection<Match> WonMatches { get; set; } = new HashSet<Match>();
+        public virtual ICollection<CompetitionTableResult> PreviousCompetitionTablesResults { get; set; } = new HashSet<CompetitionTableResult>();
+        
     }
 }
