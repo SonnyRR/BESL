@@ -13,6 +13,10 @@
                 .WithMany(g => g.Competitions)
                 .HasForeignKey(c => c.GameId);
 
+            builder.HasMany(c => c.Tables)
+                .WithOne(ct => ct.Competition)
+                .HasForeignKey(ct => ct.CompetitionId);
+
             builder.Property(c => c.Name)
                 .IsRequired()
                 .IsUnicode()
