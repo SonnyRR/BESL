@@ -189,7 +189,7 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(1000)
                         .IsUnicode(true);
 
                     b.Property<bool>("IsDeleted");

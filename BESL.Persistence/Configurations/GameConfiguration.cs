@@ -17,7 +17,7 @@
             builder.Property(g => g.Description)
                 .IsRequired()
                 .IsUnicode()
-                .HasMaxLength(100);
+                .HasMaxLength(1000);
 
             builder.HasMany(g => g.Competitions)
                 .WithOne(c => c.Game)
