@@ -23,7 +23,7 @@
 
         DbSet<PlayerMatch> PlayerMatches { get; set; }
 
-        DbSet<CompetitionTableResult> CompetitionTableResults { get; set; }
+        DbSet<TeamTableResult> TeamTableResults { get; set; }
 
         DbSet<Competition> Competitions { get; set; }
 
