@@ -26,8 +26,8 @@ namespace BESL.Web
     using BESL.Application.Games.Commands.CreateGame;
     using BESL.Application.Interfaces;
     using System.Reflection;
-    using BESL.Application.Infrastructure.Automapper;
     using AutoMapper;
+    using BESL.Application.Infrastructure.AutoMapper;
 
     public class Startup
     {
@@ -69,7 +69,7 @@ namespace BESL.Web
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateGameCommand>());
 
 
-            services.AddMediatR(typeof(TestClass).Assembly);
+            services.AddMediatR(typeof(ApplicationDependencyInjectionHelper).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
