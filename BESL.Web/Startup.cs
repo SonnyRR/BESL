@@ -25,6 +25,9 @@ namespace BESL.Web
     using BESL.Application;
     using BESL.Application.Games.Commands.CreateGame;
     using BESL.Application.Interfaces;
+    using System.Reflection;
+    using BESL.Application.Infrastructure.Automapper;
+    using AutoMapper;
 
     public class Startup
     {
@@ -59,6 +62,8 @@ namespace BESL.Web
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddAuthentication().AddSteam();
+
+            services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateGameCommand>());

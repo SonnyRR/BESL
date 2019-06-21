@@ -7,6 +7,12 @@
 
     public class GameController : BaseController
     {
+
+        public IActionResult Index()
+        {
+            return this.View();
+        }
+
         public IActionResult Create()
         {
             return View();
