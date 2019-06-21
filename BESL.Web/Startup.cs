@@ -63,7 +63,7 @@ namespace BESL.Web
 
             services.AddAuthentication().AddSteam();
 
-            services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
+            services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).Assembly });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateGameCommand>());

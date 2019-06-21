@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<form class="w-50 mx-auto" asp-area="" asp-action="Create" asp-controller="Game" method="POST">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Game name..." />
+        <label>Description</label>
+        <input type="text" class="form-control" id="description" name="description" placeholder="Game name..." />
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <button type="submit" class="btn bg-success text-white">Create</button>
+    </div>
+</form>
+<a asp-controller="Games" asp-action="All">All games</a>
+
