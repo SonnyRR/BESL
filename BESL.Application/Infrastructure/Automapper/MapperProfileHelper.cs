@@ -1,10 +1,11 @@
 ﻿namespace BESL.Application.Infrastructure.AutoMapper
 {
-    using BESL.Application.Interfaces.Mapping;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+
+    using BESL.Application.Interfaces.Mapping;
 
     public sealed class Map
     {

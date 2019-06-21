@@ -9,7 +9,8 @@ namespace BESL.Application.Games.Commands.CreateGame
     {
         public CreateGameCommandValidator()
         {
-            RuleFor(x => x.Name).Length(2, 25).NotEmpty();
+            RuleFor(x => x.Name).Length(3, 40);
+            RuleFor(x => x.Description).Length(20, 1000).NotEmpty();
         }
     }
 }

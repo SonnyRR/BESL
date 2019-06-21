@@ -18,9 +18,10 @@
 
         public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
-            Game game = new Game
+            Game game = new Game()
             {
-                Name = request.Name
+                Name = request.Name,
+                Description = request.Description,
             };
 
             this.context.Games.Add(game);
