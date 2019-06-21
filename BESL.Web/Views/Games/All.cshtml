@@ -3,14 +3,20 @@
     ViewData["Title"] = "All games";
 }
 
-@foreach (var game in this.Model.Games)
-{
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">@game.Name</h5>
-            <p class="card-text">@game.Description.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+<div class="container">
+    <div class="row">
+    @foreach (var game in this.Model.Games)
+    {
+        <div class="col-sm-3">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@game.Name</h5>
+                    <p class="card-text">@game.Description.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
         </div>
+    }
     </div>
-}
+</div>
