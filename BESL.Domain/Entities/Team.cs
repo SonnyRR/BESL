@@ -22,7 +22,7 @@
         public CompetitionTable CurrentActiveCompetitionTable { get; set; }
 
         public virtual ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
-        public virtual ICollection<CompetitionTableResult> PreviousCompetitionTablesResults { get; set; } = new HashSet<CompetitionTableResult>();
+        public virtual ICollection<TeamTableResult> PreviousCompetitionTablesResults { get; set; } = new HashSet<TeamTableResult>();
         
     }
 }

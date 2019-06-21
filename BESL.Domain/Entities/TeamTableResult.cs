@@ -5,7 +5,7 @@
 
     using BESL.Domain.Infrastructure;
 
-    public class CompetitionTableResult : BaseDeletableModel<int>
+    public class TeamTableResult : BaseDeletableModel<int>
     {
         public int TeamId { get; set; }
         public Team Team { get; set; }

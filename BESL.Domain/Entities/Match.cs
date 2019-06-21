@@ -8,7 +8,7 @@
     public class Match : BaseDeletableModel<int>
     {
         public int CompetitionTableResultId { get; set; }
-        public CompetitionTableResult CompetitionTableResult { get; set; }
+        public TeamTableResult CompetitionTableResult { get; set; }
 
         public int HomeTeamId { get; set; }
         public Team HomeTeam { get; set; }

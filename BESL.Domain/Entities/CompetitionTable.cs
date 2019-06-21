@@ -14,6 +14,6 @@
         public Competition Competition { get; set; }
 
         public virtual ICollection<Team> SignedUpTeams { get; set; } = new HashSet<Team>();
-        public virtual ICollection<CompetitionTableResult> CompetitionTableResults { get; set; } = new HashSet<CompetitionTableResult>();
+        public virtual ICollection<TeamTableResult> CompetitionTableResults { get; set; } = new HashSet<TeamTableResult>();
     }
 }
