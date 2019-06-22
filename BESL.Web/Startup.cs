@@ -62,7 +62,7 @@ namespace BESL.Web
             services.AddIdentity<ApplicationUser, IdentityRole>(
                 opt =>
                 {
-                    opt.Password.RequiredLength = 8;
+                    opt.Password.RequiredLength = 6;
                     opt.Password.RequireDigit = true;
                     opt.Password.RequireLowercase = true;
                     opt.Password.RequireUppercase = true;

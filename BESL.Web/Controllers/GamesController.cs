@@ -1,10 +1,8 @@
 ﻿namespace BESL.Web.Controllers
 {
-    using BESL.Application.Games.Commands.CreateGame;
+    using System.Threading.Tasks;
     using BESL.Application.Games.Queries.GetAllGames;
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Threading.Tasks;
 
     public class GamesController : BaseController
     {

@@ -1,11 +1,12 @@
 ﻿namespace BESL.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
-    using BESL.Application.Games.Commands.CreateGame;
-    using BESL.Web.Controllers;
+
     using Microsoft.AspNetCore.Mvc;
 
-    public class GamesController : BaseController
+    using BESL.Application.Games.Commands.CreateGame;
+
+    public class GamesController : AdminController
     {
         public IActionResult Create()
         {
