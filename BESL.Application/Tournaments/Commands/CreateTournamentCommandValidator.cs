@@ -10,7 +10,6 @@
         private const string NAME_LENGTH_MSG = "Tournament name length must be between {0} and {1} characters long!";
         private const string DESC_LENGTH_MSG = "Tournament description length must be between {0} and {1} characters long!";
 
-
         public CreateTournamentCommandValidator()
         {
             RuleFor(x => x.Name)
