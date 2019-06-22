@@ -1,11 +1,12 @@
 ﻿namespace BESL.Application.Games.Commands.CreateGame
 {
-    using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
-    using MediatR;
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using MediatR;
+
+    using BESL.Application.Interfaces;
+    using BESL.Domain.Entities;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
