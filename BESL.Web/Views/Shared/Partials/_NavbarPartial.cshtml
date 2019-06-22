@@ -1,6 +1,6 @@
 ﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
     <div class="container">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BESL.Web</a>
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BESL</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,11 +11,19 @@
                 <li class="nav-item">
                     <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home text-white"></i> Home</a>
                 </li>
-                <li class="nav-item">
+                @*<li class="nav-item">
                     <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
+                </li>*@
                 <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Games" asp-action="All">Games</a>
+                    <a class="nav-link text-light" asp-area="" asp-controller="Games" asp-action="All"><i class="fas fa-gamepad text-white"></i> Games</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-trophy text-white"></i> Tournaments</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">All</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">All</a>
+                    </div>
                 </li>
             @if (User.IsInRole(Role.Administrator.ToString()))
             {

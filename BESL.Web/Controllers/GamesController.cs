@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using BESL.Application.Games.Queries.GetAllGames;
+    using BESL.Application.Games.Queries.GetGameDetails;
     using Microsoft.AspNetCore.Mvc;
 
     public class GamesController : BaseController
@@ -20,7 +21,8 @@
 
         public async Task<IActionResult> Details(int id)
         {
-            return this.View("Home/Index");
+            var model = await this.Mediator.Send(new GameDetailsQuery() { Id = id });
+            return this.View(model);
         }
     }
 }
