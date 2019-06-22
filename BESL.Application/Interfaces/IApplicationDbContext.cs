@@ -25,11 +25,11 @@
 
         DbSet<TeamTableResult> TeamTableResults { get; set; }
 
-        DbSet<Competition> Competitions { get; set; }
+        DbSet<Tournament> Tournaments { get; set; }
 
-        DbSet<CompetitionFormat> CompetitionFormats { get; set; }
+        DbSet<TournamentFormat> TournamentFormats { get; set; }
 
-        DbSet<CompetitionTable> CompetitionTables { get; set; }
+        DbSet<TournamentTable> TournamentTables { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
