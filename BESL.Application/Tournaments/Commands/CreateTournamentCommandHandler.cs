@@ -20,12 +20,14 @@
             this.mapper = mapper;
         }
 
-        public Task<Unit> Handle(CreateTournamentCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateTournamentCommand request, CancellationToken cancellationToken)
         {
             if (!this.context.Tournaments.Any(t=>t.Name == request.Name))
             {
-
+               
             }
+
+            return Unit.Value;
         }
     }
 }
