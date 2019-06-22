@@ -33,5 +33,10 @@
             var model = await this.Mediator.Send(new GetAllGamesQuery());
             return this.View(model);
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            return this.View("Home/Index");
+        }
     }
 }

@@ -26,4 +26,12 @@
     <ProjectReference Include="..\BESL.Common\BESL.Common.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Controllers\" />
+    <Folder Include="Areas\Administration\Data\" />
+    <Folder Include="Areas\Administration\Models\" />
+    <Folder Include="Areas\Administration\Views\" />
+  </ItemGroup>
+
 </Project>
