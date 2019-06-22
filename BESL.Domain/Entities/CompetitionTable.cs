@@ -4,16 +4,16 @@
 
     using BESL.Domain.Infrastructure;
 
-    public class CompetitionTable : BaseDeletableModel<int>
+    public class TournamentTable : BaseDeletableModel<int>
     {
         public string Name { get; set; }
 
         public int MaxNumberOfTeams { get; set; }
 
-        public int CompetitionId { get; set; }
-        public Competition Competition { get; set; }
+        public int TournamentId { get; set; }
+        public Tournament Tournament { get; set; }
 
         public virtual ICollection<Team> SignedUpTeams { get; set; } = new HashSet<Team>();
-        public virtual ICollection<TeamTableResult> CompetitionTableResults { get; set; } = new HashSet<TeamTableResult>();
+        public virtual ICollection<TeamTableResult> TeamTableResults { get; set; } = new HashSet<TeamTableResult>();
     }
 }

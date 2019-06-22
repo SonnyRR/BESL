@@ -19,11 +19,11 @@
                 .WithMany(g => g.Teams)
                 .HasForeignKey(t => t.GameId);
 
-            builder.HasOne(t => t.CurrentActiveCompetitionTable)
+            builder.HasOne(t => t.CurrentActiveTournamentTable)
                 .WithMany(cact => cact.SignedUpTeams)
-                .HasForeignKey(t => t.CurrentActiveCompetitionTableId);
+                .HasForeignKey(t => t.CurrentActiveTournamentTableId);
 
-            builder.HasMany(t => t.PreviousCompetitionTablesResults)
+            builder.HasMany(t => t.PreviousTeamTableResults)
                 .WithOne(tr => tr.Team)
                 .HasForeignKey(tr => tr.Id);
 

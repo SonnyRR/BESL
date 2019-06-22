@@ -4,9 +4,9 @@
 
     using BESL.Domain.Infrastructure;
 
-    public class Competition : BaseDeletableModel<int>
+    public class Tournament : BaseDeletableModel<int>
     {
-        public Competition()
+        public Tournament()
         {
             this.IsActive = true;
         }
@@ -18,11 +18,11 @@
         public bool IsActive { get; set; }
 
         public int FormatId { get; set; }
-        public CompetitionFormat Format { get; set; }
+        public TournamentFormat Format { get; set; }
 
         public int GameId { get; set; }
         public Game Game { get; set; }
 
-        public virtual ICollection<CompetitionTable> Tables { get; set; } = new HashSet<CompetitionTable>();
+        public virtual ICollection<TournamentTable> Tables { get; set; } = new HashSet<TournamentTable>();
     }
 }

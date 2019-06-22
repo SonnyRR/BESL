@@ -18,11 +18,11 @@
         public int GameId { get; set; }
         public Game Game { get; set; }
             
-        public int? CurrentActiveCompetitionTableId { get; set; }
-        public CompetitionTable CurrentActiveCompetitionTable { get; set; }
+        public int? CurrentActiveTournamentTableId { get; set; }
+        public TournamentTable CurrentActiveTournamentTable { get; set; }
 
         public virtual ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
-        public virtual ICollection<TeamTableResult> PreviousCompetitionTablesResults { get; set; } = new HashSet<TeamTableResult>();
+        public virtual ICollection<TeamTableResult> PreviousTeamTableResults { get; set; } = new HashSet<TeamTableResult>();
         
     }
 }

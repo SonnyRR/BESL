@@ -33,11 +33,11 @@
 
         public DbSet<TeamTableResult> TeamTableResults { get; set; }
 
-        public DbSet<Competition> Competitions { get; set; }
+        public DbSet<Tournament> Tournaments { get; set; }
 
-        public DbSet<CompetitionFormat> CompetitionFormats { get; set; }
+        public DbSet<TournamentFormat> TournamentFormats { get; set; }
 
-        public DbSet<CompetitionTable> CompetitionTables { get; set; }
+        public DbSet<TournamentTable> TournamentTables { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

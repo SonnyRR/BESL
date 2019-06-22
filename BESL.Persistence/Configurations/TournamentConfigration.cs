@@ -5,17 +5,17 @@
 
     using BESL.Domain.Entities;
 
-    public class CompetitionConfigration : IEntityTypeConfiguration<Competition>
+    public class TournamentConfigration : IEntityTypeConfiguration<Tournament>
     {
-        public void Configure(EntityTypeBuilder<Competition> builder)
+        public void Configure(EntityTypeBuilder<Tournament> builder)
         {
             builder.HasOne(c => c.Game)
-                .WithMany(g => g.Competitions)
+                .WithMany(g => g.Tournaments)
                 .HasForeignKey(c => c.GameId);
 
             builder.HasMany(c => c.Tables)
-                .WithOne(ct => ct.Competition)
-                .HasForeignKey(ct => ct.CompetitionId);
+                .WithOne(ct => ct.Tournament)
+                .HasForeignKey(ct => ct.TournamentId);
 
             builder.Property(c => c.Name)
                 .IsRequired()

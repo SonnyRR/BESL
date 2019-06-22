@@ -19,7 +19,7 @@
                 .IsUnicode()
                 .HasMaxLength(1000);
 
-            builder.HasMany(g => g.Competitions)
+            builder.HasMany(g => g.Tournaments)
                 .WithOne(c => c.Game)
                 .HasForeignKey(c => c.GameId);
         }

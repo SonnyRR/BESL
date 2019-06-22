@@ -10,8 +10,8 @@
         public int TeamId { get; set; }
         public Team Team { get; set; }
 
-        public int CompetitionTableId { get; set; }
-        public CompetitionTable CompetitionTable { get; set; }
+        public int TournamentTableId { get; set; }
+        public TournamentTable TournamentTable { get; set; }
 
         public int MatchesPlayed => this.PlayedMatches
             .Count(m => m.AwayTeamId == this.TeamId || m.HomeTeamId == this.TeamId);

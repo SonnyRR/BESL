@@ -9,9 +9,9 @@ namespace BESL.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Match> builder)
         {
-            builder.HasOne(m => m.CompetitionTableResult)
+            builder.HasOne(m => m.TeamTableResult)
                 .WithMany(ttr => ttr.PlayedMatches)
-                .HasForeignKey(m => m.CompetitionTableResultId);
+                .HasForeignKey(m => m.TeamTableResultId);
         }
     }
 }
