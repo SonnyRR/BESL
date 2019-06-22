@@ -1,5 +1,6 @@
 ﻿namespace BESL.Web.Areas.Administration.Controllers
 {
+    using BESL.Application.Tournaments.Commands;
     using Microsoft.AspNetCore.Mvc;
 
     public class CompetitionController : AdminController
@@ -10,7 +11,7 @@
         }
 
         [HttpPost]
-        public IActionResult Create()
+        public IActionResult Create(CreateTournamentCommand command)
         {
             return this.View();
         }
