@@ -18,7 +18,7 @@ namespace BESL.Application.Games.Queries.GetGameDetails
 
         public void CreateMappings(Profile configuration)
         {
-            configuration.CreateMap<Competition, CompetitionLookupModel>();
+            configuration.CreateMap<Tournament, CompetitionLookupModel>();
         }
     }
 }

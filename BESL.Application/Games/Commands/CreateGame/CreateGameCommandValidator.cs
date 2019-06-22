@@ -1,10 +1,7 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BESL.Application.Games.Commands.CreateGame
+﻿namespace BESL.Application.Games.Commands.CreateGame
 {
+    using FluentValidation;
+
     public class CreateGameCommandValidator : AbstractValidator<CreateGameCommand>
     {
         public CreateGameCommandValidator()

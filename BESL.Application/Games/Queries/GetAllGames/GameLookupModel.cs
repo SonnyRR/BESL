@@ -23,8 +23,8 @@
         {
             configuration.CreateMap<Game, GameLookupModel>()
                 .ForMember(glm=>glm.Description, o => o.MapFrom(g => string.Format("{0}", g.Description.Length > 140 ? $"{g.Description.Substring(0, 140)}..." : g.Description)))
-                .ForMember(glm => glm.CurrentActiveTournaments, o => o.MapFrom(g => g.Competitions.Count(c=>c.IsActive)))
-                .ForMember(glm => glm.RegisteredTeams, o => o.MapFrom(g => g.Competitions.Count));
+                .ForMember(glm => glm.CurrentActiveTournaments, o => o.MapFrom(g => g.Tournaments.Count(c=>c.IsActive)))
+                .ForMember(glm => glm.RegisteredTeams, o => o.MapFrom(g => g.Tournaments.Count));
         }
     }
 }

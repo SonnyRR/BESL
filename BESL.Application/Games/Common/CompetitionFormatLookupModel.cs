@@ -13,7 +13,7 @@
 
         public void CreateMappings(Profile configuration)
         {
-            configuration.CreateMap<CompetitionFormat, CompetitionFormatLookupModel>();
+            configuration.CreateMap<TournamentFormat, CompetitionFormatLookupModel>();
         }
     }
 }
