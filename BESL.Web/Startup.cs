@@ -58,8 +58,18 @@ namespace BESL.Web
                         this.Configuration
                             .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
 
-            services.AddDefaultIdentity<ApplicationUser>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(
+                opt =>
+                {
+                    opt.Password.RequiredLength = 8;
+                    opt.Password.RequireDigit = true;
+                    opt.Password.RequireLowercase = true;
+                    opt.Password.RequireUppercase = true;
+                    //opt.User.RequireUniqueEmail = true;
+                })
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddAuthentication().AddSteam();
 

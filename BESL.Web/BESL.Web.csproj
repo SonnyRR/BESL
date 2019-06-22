@@ -32,6 +32,8 @@
     <Folder Include="Areas\Administration\Data\" />
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\" />
+    <Folder Include="Areas\Administration\Views\Games\" />
+    <Folder Include="Middlewares\" />
   </ItemGroup>
 
 </Project>

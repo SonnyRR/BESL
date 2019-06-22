@@ -12,21 +12,7 @@
         public IActionResult Index()
         {
             return this.View();
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateGameCommand command)
-        {
-            await this.Mediator.Send(command);
-
-            return View();
-        }
-
+        }   
 
         public async Task<IActionResult> All()
         {
