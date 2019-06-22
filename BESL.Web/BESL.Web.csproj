@@ -28,12 +28,12 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Administration\Controllers\" />
     <Folder Include="Areas\Administration\Data\" />
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\" />
     <Folder Include="Areas\Administration\Views\Games\" />
     <Folder Include="Middlewares\" />
+    <Folder Include="Views\Competitions\" />
     <Folder Include="Views\Shared\Partials\" />
     <Folder Include="Areas\Administration\Views\Home\" />
   </ItemGroup>
