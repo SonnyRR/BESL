@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Entities\Enums\" />
   </ItemGroup>
 
 </Project>

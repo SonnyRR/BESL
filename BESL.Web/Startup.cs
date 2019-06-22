@@ -28,6 +28,7 @@ namespace BESL.Web
     using System.Reflection;
     using AutoMapper;
     using BESL.Application.Infrastructure.AutoMapper;
+    using BESL.Web.Middlewares;
 
     public class Startup
     {
@@ -102,6 +103,8 @@ namespace BESL.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseSeedMiddleware();
 
             app.UseMvc(routes =>
             {

@@ -1,10 +1,7 @@
-﻿using System;
-namespace BESL.Domain.Entities.Enums
+﻿namespace BESL.Domain.Entities.Enums
 {
-    public class Role
+    public enum Role
     {
-        public Role()
-        {
-        }
+        Administrator = 1
     }
 }
