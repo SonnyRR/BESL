@@ -15,4 +15,8 @@
     <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Games\Queries\GetGameDetails\" />
+    <Folder Include="Games\Common\" />
+  </ItemGroup>
 </Project>
