@@ -1,0 +1,25 @@
+﻿@model  BESL.Application.Games.Queries.GetAllGames.GamesListViewModel;
+@{ 
+    Layout = null;
+}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Active Tournaments</th>
+            <th scope="col">Registered teams</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var game in Model.Games)
+            {
+                <th scope="row">@game.Id</th>
+                <td>@game.Name</td>
+                <td>@game.CurrentActiveTournaments</td>
+                <td>@game.RegisteredTeams</td>
+            }
+        </tr>
+    </tbody>
+</table>
