@@ -1,14 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using BESL.Application.Interfaces;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
-namespace BESL.Application.Games.Queries.GetGameDetails
+﻿namespace BESL.Application.Games.Queries.GetGameDetails
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using AutoMapper;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+
+    using BESL.Application.Interfaces;
+
     public class GameDetailsQueryHandler : IRequestHandler<GameDetailsQuery, GameDetailsViewModel>
     {
         private readonly IApplicationDbContext context;

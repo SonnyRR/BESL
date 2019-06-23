@@ -4,11 +4,11 @@
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
 
     public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, GamesListViewModel>
     {
@@ -27,7 +27,7 @@
 
             viewModel.Games = await this.context
                 .Games
-                .ProjectTo<GameLookupModel>(this.mapper.ConfigurationProvider) // TODO
+                .ProjectTo<GameLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
             return viewModel;

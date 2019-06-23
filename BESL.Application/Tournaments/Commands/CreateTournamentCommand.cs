@@ -1,9 +1,9 @@
 ﻿namespace BESL.Application.Tournaments.Commands
 {
     using AutoMapper;
-    using BESL.Application.Interfaces.Mapping;
-    using BESL.Domain.Entities;
     using MediatR;
+
+    using BESL.Application.Interfaces.Mapping;
 
     public class CreateTournamentCommand : IRequest, IHaveCustomMapping
     {
