@@ -7,6 +7,9 @@
     using BESL.Application.Games.Commands.CreateGame;
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Web.Filters;
+    using BESL.Application.Games.Queries.GetGameDetails;
+
+    [AjaxOnlyFilter]
     public class GamesController : AdminController
     {
         public IActionResult Create()
@@ -22,10 +25,15 @@
             return View();
         }
 
-        [AjaxOnlyFilter]
         public async Task<IActionResult> All()
         {
             var model = await this.Mediator.Send(new GetAllGamesQuery());
+            return this.View(model);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await this.Mediator.Send(new GameDetailsQuery() { Id = id });
             return this.View(model);
         }
     }
