@@ -10,13 +10,13 @@
     {
         public IActionResult Create()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateGameCommand command)
         {
-            await this.Mediator.Send(command);
+            //await this.Mediator.Send(command);
 
             return View();
         }
