@@ -6,7 +6,7 @@
         <div class="list-group" id="list-tab" role="tablist">
             <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-game" role="tab" aria-controls="games">Games</a>
             <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="buttonDemo1" role="tab" aria-controls="messages">Messages</a>
             <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
         </div>
     </div>
@@ -14,7 +14,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="list-game" role="tabpanel" aria-labelledby="list-games-list">
                 <div class="container mt-1 border rounded">
-                    <div></div>
+                    <input type="button" value="Demo 1" id="buttonDemo1" />
                 </div>
             </div>
             <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
@@ -25,3 +25,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <partial name="~/Areas/Administration/Views/Home/_AdminAjaxScriptsPartial.cshtml" />
+}

@@ -1,0 +1,14 @@
+﻿<script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#buttonDemo1').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Home/Index',
+                    success: function (result) {
+                        window.location = "/Home/Index"
+                    }
+                });
+            });
+        });
+</script>
