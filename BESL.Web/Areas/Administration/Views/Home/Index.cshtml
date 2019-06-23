@@ -1,16 +1,27 @@
-﻿<div class="row">
-    <div class="list-group shadow rounded">
-        <a href="#" class="list-group-item list-group-item-action active">
-            Cras justo odio
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-        <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">Vestibulum at eros</a>
+﻿@{
+    ViewData["Title"] = "asd";
+}
+<div class="row">
+    <div class="col-md-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-game" role="tab" aria-controls="games">Games</a>
+            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+        </div>
     </div>
-    <div class="col-md-9">
-        <div class="container border shadow">
-            <div>Test</div>
+    <div class="col-md-8">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-game" role="tabpanel" aria-labelledby="list-games-list">
+                <div class="container mt-1 border rounded">
+                    <div></div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                <div class="container mt-1 border rounded">
+                    <h1>PLAYERS</h1>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using BESL.Domain.Infrastructure;
+
     using Microsoft.AspNetCore.Identity;
+
+    using BESL.Domain.Infrastructure;
 
     public class ApplicationUser : IdentityUser, IDeletableEntity
     {
