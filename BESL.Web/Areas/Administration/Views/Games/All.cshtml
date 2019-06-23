@@ -9,6 +9,8 @@
             <th scope="col">Name</th>
             <th scope="col">Active Tournaments</th>
             <th scope="col">Registered teams</th>
+            <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+            <th scope="col" class="text-center"><i class="fas fa-trash-alt"></i></th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +21,12 @@
                 <td>@game.Name</td>
                 <td>@game.CurrentActiveTournaments</td>
                 <td>@game.RegisteredTeams</td>
+                <td>
+                    <a class="btn btn-info" data-ajax="true" data-ajax-url="Administration/Games/Details/@game.Id" data-ajax-method="GET" data-ajax-update="#mainContainer">Modify</a>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
             }
         </tr>
     </tbody>

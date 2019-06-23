@@ -2,7 +2,7 @@
     ViewData["Title"] = "Administration";
 }
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="list-group" id="list-tab" role="tablist">
             <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-game" role="tab" aria-controls="games" data-ajax="true" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#gamesInfo">Games</a>
             <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile" data-ajax="true" data-ajax-url="/" data-ajax-method="get" data-ajax-update="#panel">Profile</a>
@@ -10,10 +10,15 @@
             <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="list-game" role="tabpanel" aria-labelledby="list-games-list" data-ajax="true" data-ajax-url="/Administration/Games/Create" data-ajax-update="#gameInfo">
-                <div id ="gamesInfo"class="container mt-1 border rounded">                    
+            <div class="tab-pane fade show active" id="list-game" role="tabpanel" aria-labelledby="list-games-list" data-ajax="true" data-ajax-url="/Administration/Games/Create" data-ajax-medhot="GET" data-ajax-update="#gamesInfo">
+                <div class="border rounded mt-1">
+                    <div id="mainContainer">
+                        <button type="button" class="btn btn-success mt-2 ml-3 mb-2">Add a game</button>
+                        <div id="gamesInfo" class="container mt-1">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
