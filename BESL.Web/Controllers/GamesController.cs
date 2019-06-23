@@ -1,9 +1,11 @@
 ﻿namespace BESL.Web.Controllers
 {
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Games.Queries.GetGameDetails;
-    using Microsoft.AspNetCore.Mvc;
 
     public class GamesController : BaseController
     {

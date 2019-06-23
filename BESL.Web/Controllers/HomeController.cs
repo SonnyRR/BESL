@@ -1,7 +1,9 @@
 ﻿namespace BESL.Web.Controllers
 {
     using System.Diagnostics;
+
     using Microsoft.AspNetCore.Mvc;
+
     using BESL.Web.Models;
 
     public class HomeController : BaseController

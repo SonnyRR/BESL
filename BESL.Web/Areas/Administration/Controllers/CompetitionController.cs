@@ -1,7 +1,8 @@
 ﻿namespace BESL.Web.Areas.Administration.Controllers
 {
-    using BESL.Application.Tournaments.Commands;
     using Microsoft.AspNetCore.Mvc;
+
+    using BESL.Application.Tournaments.Commands;
 
     public class CompetitionController : AdminController
     {
