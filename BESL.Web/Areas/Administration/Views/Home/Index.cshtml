@@ -4,10 +4,10 @@
 <div class="row">
     <div class="col-md-3">
         <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-game" role="tab" aria-controls="games" data-ajax="true" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#gamesInfo">Games</a>
-            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile" data-ajax="true" data-ajax-url="/" data-ajax-method="get" data-ajax-update="#panel">Profile</a>
-            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="buttonDemo1" role="tab" aria-controls="messages">Messages</a>
-            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+            <a class="list-group-item list-group-item-action active" id="games" data-toggle="list" href="#list-game" role="button" aria-controls="games" data-ajax="true" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#gamesInfo">Games</a>
+            <a class="list-group-item list-group-item-action" id="tournaments" data-toggle="list" href="#list-tournament" role="tab" aria-controls="tournaments" data-ajax="true" data-ajax-url="/" data-ajax-method="get" data-ajax-update="#panel">Tournaments</a>
+            <a class="list-group-item list-group-item-action" id="teams" data-toggle="list" href="buttonDemo1" role="tab" aria-controls="teams">Teams</a>
+            <a class="list-group-item list-group-item-action" id="players" data-toggle="list" href="#list-settings" role="tab" aria-controls="teams">Players</a>
         </div>
     </div>
     <div class="col-md-9">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+            <div class="tab-pane fade" id="list-tournament" role="tabpanel" aria-labelledby="list-profile-list">
                 <div class="container mt-1 border rounded">
                     <div id="panel"></div>
                 </div>
@@ -29,3 +29,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+<script>$("#games").click()</script>
+}
