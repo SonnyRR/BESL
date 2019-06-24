@@ -13,10 +13,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
+    <ProjectReference Include="..\BESL.Common\BESL.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Games\Queries\GetGameDetails\" />
     <Folder Include="Games\Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CloudinaryDotNet, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841" />
   </ItemGroup>
 </Project>
