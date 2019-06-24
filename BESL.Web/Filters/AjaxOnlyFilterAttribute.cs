@@ -12,7 +12,7 @@
         private const string RequestedWithHeader = "X-Requested-With";
         private const string XmlHttpRequest = "XMLHttpRequest";
 
-        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var request = context.HttpContext.Request;
 
@@ -30,7 +30,7 @@
         {
             if (request == null)
             {
-                throw new ArgumentNullException("request");
+                throw new ArgumentNullException(nameof(request));
             }
 
             if (request.Headers != null)
