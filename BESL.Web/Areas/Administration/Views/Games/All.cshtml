@@ -14,9 +14,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
             @foreach (var game in Model.Games)
             {
+            <tr>
                 <th scope="row">@game.Id</th>
                 <td>@game.Name</td>
                 <td>@game.CurrentActiveTournaments</td>
@@ -27,7 +27,7 @@
                 <td>
                     <button type="button" class="btn btn-danger">Delete</button>
                 </td>
+            </tr>
             }
-        </tr>
     </tbody>
 </table>
