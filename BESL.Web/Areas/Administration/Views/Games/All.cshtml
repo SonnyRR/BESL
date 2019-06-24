@@ -2,39 +2,43 @@
 @{ 
     Layout = null;
 }
-<form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Create" data-ajax-method="GET" data-ajax-update="#gamesMainContainer">
-    <button class="btn btn-success mt-2 ml-3 mb-2">Add a game</button>
-</form>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Active Tournaments</th>
-            <th scope="col">Registered teams</th>
-            <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
-            <th scope="col" class="text-center"><i class="fas fa-trash-alt"></i></th>
-        </tr>
-    </thead>
-    <tbody>
-            @foreach (var game in Model.Games)
-            {
-            <tr>
-                <th scope="row">@game.Id</th>
-                <td>@game.Name</td>
-                <td>@game.CurrentActiveTournaments</td>
-                <td>@game.RegisteredTeams</td>
-                <td>
-                    <form data-ajax="true" data-ajax-url="Administration/Games/Details/@game.Id" data-ajax-method="GET" data-ajax-update="#gamesMainContainer">
-                        <button class="btn btn-info">Modify</button>
-                    </form>
-                </td>
-                <td>
-                    <form data-ajax="true" data-ajax-url="Administration/Games/Delete/@game.Id" data-ajax-method="GET" data-ajax-confirm="Are you sure you want to delete @game.Name ?" data-ajax-update="#gamesMainContainer">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            }
-    </tbody>
-</table>
+<div class="border rounded mt-1">
+        <div class="container">
+        <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Create" data-ajax-method="GET" data-ajax-update="#gamesMainContainer">
+            <button class="btn btn-success mt-2 mb-3"><i class="fas fa-plus-circle"></i>&nbsp;Add a game</button>
+        </form>
+        <table class="table table-hover table-bordered rounded shadow">
+            <thead class="thead-dark rounded">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Active Tournaments</th>
+                    <th scope="col">Registered teams</th>
+                    <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                    <th scope="col" class="text-center"><i class="fas fa-trash-alt"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var game in Model.Games)
+                    {
+                    <tr>
+                        <th scope="row">@game.Id</th>
+                        <td>@game.Name</td>
+                        <td>@game.CurrentActiveTournaments</td>
+                        <td>@game.RegisteredTeams</td>
+                        <td>
+                            <form data-ajax="true" data-ajax-url="Administration/Games/Details/@game.Id" data-ajax-method="GET" data-ajax-update="#gamesMainContainer">
+                                <button class="btn btn-info"><i class="fas fa-wrench"></i>&nbsp;Modify</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form data-ajax="true" data-ajax-url="Administration/Games/Delete/@game.Id" data-ajax-method="GET" data-ajax-confirm="Are you sure you want to delete @game.Name ?" data-ajax-update="#gamesMainContainer">
+                                <button class="btn btn-danger"><i class="fas fa-times-circle"></i>&nbsp;Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>
