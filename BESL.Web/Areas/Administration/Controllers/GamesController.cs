@@ -8,11 +8,18 @@
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Web.Filters;
     using BESL.Application.Games.Queries.GetGameDetails;
-    using System.Threading;
+    using Microsoft.Extensions.Configuration;
 
     [AjaxOnlyFilter]
     public class GamesController : AdminController
     {
+        private readonly IConfiguration configuration;
+
+        public GamesController(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public IActionResult Create()
         {
             return this.View();
@@ -20,8 +27,8 @@
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateGameCommand command)
-        {
-            //await this.Mediator.Send(command);
+        {           
+            await this.Mediator.Send(command);
 
             return View();
         }
