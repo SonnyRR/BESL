@@ -11,6 +11,8 @@
     {
         public static Cloudinary GetInstance(IConfiguration configuration)
         {
+            
+            #warning Don't forget to enter your Cloudinary credentials.
             /*
              * dotnet user-secrets set "cloudinary-cloud" "your_cloud_id"
              * dotnet user-secrets set "cloudinary-apiKey" "your_api_key"

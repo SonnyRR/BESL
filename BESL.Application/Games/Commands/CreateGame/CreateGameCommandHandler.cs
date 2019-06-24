@@ -9,8 +9,6 @@
     using BESL.Application.Interfaces;
     using BESL.Common;
     using BESL.Domain.Entities;
-    using CloudinaryDotNet.Actions;
-    using CloudinaryDotNet;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
