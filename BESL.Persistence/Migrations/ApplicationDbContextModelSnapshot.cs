@@ -98,6 +98,10 @@ namespace BESL.Persistence.Migrations
                         .HasMaxLength(1000)
                         .IsUnicode(true);
 
+                    b.Property<string>("GameImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("ModifiedOn");

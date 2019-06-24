@@ -19,6 +19,10 @@
                 .IsUnicode()
                 .HasMaxLength(1000);
 
+            builder.Property(g => g.GameImageUrl)
+                .IsRequired()
+                .HasMaxLength(1000);                
+
             builder.HasMany(g => g.Tournaments)
                 .WithOne(c => c.Game)
                 .HasForeignKey(c => c.GameId);
