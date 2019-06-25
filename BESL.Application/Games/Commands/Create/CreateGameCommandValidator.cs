@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Games.Commands.CreateGame
+﻿namespace BESL.Application.Games.Commands.Create
 {
     using BESL.Application.Infrastructure.Validators;
     using BESL.Application.Interfaces;
@@ -25,6 +25,8 @@
                 .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MIN_LENGTH, DESC_MAX_LENGTH));
 
             RuleFor(x => x.GameImage)
+                .NotEmpty()
+                .NotNull()
                 .SetValidator(new CustomGameImageFileValidator(fileValidate));
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Games.Commands.CreateGame
+﻿namespace BESL.Application.Games.Commands.Create
 {
     using MediatR;
     using Microsoft.AspNetCore.Http;

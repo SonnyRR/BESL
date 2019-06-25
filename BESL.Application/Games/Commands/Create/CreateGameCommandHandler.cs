@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Games.Commands.CreateGame
+﻿namespace BESL.Application.Games.Commands.Create
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -31,6 +31,7 @@
             {
                 Name = request.Name,
                 Description = request.Description,
+                GameImageUrl = url
             };
 
             this.context.Games.Add(game);

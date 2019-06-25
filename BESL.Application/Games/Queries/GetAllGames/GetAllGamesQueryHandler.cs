@@ -9,6 +9,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
+    using System.Linq;
 
     public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, GamesListViewModel>
     {
@@ -27,6 +28,7 @@
 
             viewModel.Games = await this.context
                 .Games
+                .Where(g => !g.IsDeleted)
                 .ProjectTo<GameLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

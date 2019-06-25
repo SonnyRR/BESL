@@ -20,6 +20,7 @@
     <Folder Include="Games\Queries\GetGameDetails\" />
     <Folder Include="Games\Common\" />
     <Folder Include="Infrastructure\Validators\" />
+    <Folder Include="Games\Commands\Delete\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CloudinaryDotNet, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841" />
