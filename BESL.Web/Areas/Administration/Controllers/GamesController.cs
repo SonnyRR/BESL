@@ -27,7 +27,11 @@
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateGameCommand command)
-        {           
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
             await this.Mediator.Send(command);
 
             return View();

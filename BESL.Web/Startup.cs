@@ -5,6 +5,7 @@ namespace BESL.Web
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Reflection;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
@@ -16,18 +17,18 @@ namespace BESL.Web
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using MediatR;
+    using AutoMapper;
     using FluentValidation.AspNetCore;
+    using MediatR;
 
-    using BESL.Persistence;
-    using BESL.Domain.Entities;
-    using BESL.Common;
     using BESL.Application;
     using BESL.Application.Games.Commands.CreateGame;
     using BESL.Application.Interfaces;
-    using System.Reflection;
-    using AutoMapper;
     using BESL.Application.Infrastructure.AutoMapper;
+    using BESL.Application.Infrastructure.Validators;
+    using BESL.Common;
+    using BESL.Domain.Entities;
+    using BESL.Persistence;
     using BESL.Web.Middlewares;
 
     public class Startup
@@ -77,10 +78,11 @@ namespace BESL.Web
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).Assembly });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateGameCommand>());
-
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ApplicationDependencyInjectionHelper>());
 
             services.AddMediatR(typeof(ApplicationDependencyInjectionHelper).Assembly);
+
+            services.AddScoped<IFileValidate, GameImageFileValidate>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

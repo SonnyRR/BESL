@@ -27,11 +27,12 @@
                     <span class="input-group-text" id="gameImageHelp">Upload</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" asp-for="GameImage" name="gameImage" aria-describedby="gameImageHelp" data-val="true" data-val-required="Image file is required!">
+                    <input type="file" class="custom-file-input" asp-for="GameImage" name="gameImage" id="gameImage" aria-describedby="gameImageHelp" data-val="true" data-val-required="Image file is required!">
                     <label class="custom-file-label" for="gameImage">Choose file</label>
                 </div>
             </div>
-            <span data-valmsg-for="gameImage" data-valmsg-replace="true" class="text-danger mb-6"></span>
+            @*<span id="imageUploadWarning" data-valmsg-for="gameImage" data-valmsg-replace="true" class="text-danger"></span>*@
+            <span asp-validation-for="GameImage" class="text-danger"></span>
             <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
         </form>
    
@@ -47,26 +48,5 @@
     $('input[type="file"]').change(function(e){
         var fileName = e.target.files[0].name;
         $('.custom-file-label').html(fileName);
-
-        var file = document.getElementById('imageUpload');
-
-        var ext = this.value.match(/\.([^\.]+)$/)[1];
-        var validExtensions = ['jpg', 'png', 'jpeg'];
-        if (!validExtensions.includes(ext)) {
-            alert('File type is not allowed!');
-            this.value = '';
-            $('.custom-file-label').html('Choose file');
-        }
-        
-        $("#file_error").html("");
-
-        var file_size = $('#file')[0].files[0].size;
-        if(file_size>2097152) {
-            $("#file_error").html("File size is greater than 2MB");
-            return false;
-        }
-        return true;
-    }
-
     });
 </script>
