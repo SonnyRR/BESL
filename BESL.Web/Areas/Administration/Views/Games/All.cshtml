@@ -19,6 +19,8 @@
                 </tr>
             </thead>
             <tbody>
+                @if (Model.Games.Count > 0)
+                {
                     @foreach (var game in Model.Games)
                     {
                     <tr>
@@ -32,12 +34,19 @@
                             </form>
                         </td>
                         <td class="text-center">
-                            <form data-ajax="true" data-ajax-url="Administration/Games/Delete/@game.Id" data-ajax-method="GET" data-ajax-confirm="Are you sure you want to delete @game.Name ?" data-ajax-update="#gamesMainContainer">
+                            <form data-ajax="true" data-ajax-url="Administration/Games/Delete/@game.Id" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to delete @game.Name ?" data-ajax-update="#gamesMainContainer">
                                 <button class="btn btn-danger btn-"><i class="fas fa-times-circle"></i>&nbsp;Delete</button>
                             </form>
                         </td>
                     </tr>
                     }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center"><h5>No games registered.</h5></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

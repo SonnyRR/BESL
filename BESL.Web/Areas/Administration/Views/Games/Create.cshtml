@@ -1,4 +1,4 @@
-﻿@model BESL.Application.Games.Commands.CreateGame.CreateGameCommand
+﻿@model BESL.Application.Games.Commands.Create.CreateGameCommand
 @{
     Layout = null;
 }
@@ -21,13 +21,13 @@
                 <small id="gameDescHelp" class="form-text text-muted">Description of the game.</small>
             </div>
 
-            <label asp-for="GameImage">Image</label>
+            <label asp-for="GameImage">Image (< 4MB)</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="gameImageHelp">Upload</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" asp-for="GameImage" name="gameImage" id="gameImage" aria-describedby="gameImageHelp" data-val="true" data-val-required="Image file is required!">
+                    <input type="file" class="custom-file-input" asp-for="GameImage" name="gameImage" id="gameImage" aria-describedby="gameImageHelp">
                     <label class="custom-file-label" for="gameImage">Choose file</label>
                 </div>
             </div>

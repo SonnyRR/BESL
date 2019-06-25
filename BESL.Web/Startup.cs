@@ -22,7 +22,7 @@ namespace BESL.Web
     using MediatR;
 
     using BESL.Application;
-    using BESL.Application.Games.Commands.CreateGame;
+    using BESL.Application.Games.Commands.Create;
     using BESL.Application.Interfaces;
     using BESL.Application.Infrastructure.AutoMapper;
     using BESL.Application.Infrastructure.Validators;

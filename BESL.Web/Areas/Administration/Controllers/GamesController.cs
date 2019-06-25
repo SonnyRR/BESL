@@ -4,11 +4,12 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using BESL.Application.Games.Commands.CreateGame;
+    using BESL.Application.Games.Commands.Create;
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Web.Filters;
     using BESL.Application.Games.Queries.GetGameDetails;
     using Microsoft.Extensions.Configuration;
+    using BESL.Application.Games.Commands.Delete;
 
     [AjaxOnlyFilter]
     public class GamesController : AdminController
@@ -47,6 +48,13 @@
         {
             var model = await this.Mediator.Send(new GameDetailsQuery() { Id = id });
             return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(DeleteGameCommand command)
+        {
+            var isDeleteSuccessfull = await this.Mediator.Send(command);
+            return this.Redirect("/Administration/Games/All");
         }
     }
 }
