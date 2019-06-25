@@ -43,16 +43,16 @@
                 image = memoryStream.ToArray();
             }
 
-            var ms = new MemoryStream(image);
+            var stream = new MemoryStream(image);
 
             var uploadParams = new ImageUploadParams()
             {
-                File = new FileDescription(name, ms),             
+                File = new FileDescription(name, stream),             
             };
 
             var uploadResult = cloudinary.Upload(uploadParams);
 
-            ms.Dispose();
+            stream.Dispose();
             return uploadResult.SecureUri.AbsoluteUri;
         }
     }
