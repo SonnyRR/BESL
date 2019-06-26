@@ -12,21 +12,20 @@
     public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> 
         where TContext : DbContext
     {
-        private string ConnectionStringName = DbConnectionStringHandler.GetConnectionStringNameForCurrentOS();
         private const string AspNetCoreEnvironment = "ASPNETCORE_ENVIRONMENT";
+        private string connectionStringName = DbConnectionStringHandler.GetConnectionStringNameForCurrentOS();
 
         public TContext CreateDbContext(string[] args)
         {
             var basePath = Path.Combine(Directory.GetCurrentDirectory(), $"..{Path.DirectorySeparatorChar}BESL.Web");
 
-            return Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment));
+            return this.Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment));
         }
 
         protected abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
 
         private TContext Create(string basePath, string environmentName)
         {
-
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json")
@@ -35,16 +34,16 @@
                 .AddEnvironmentVariables()
                 .Build();
 
-            var connectionString = configuration.GetConnectionString(ConnectionStringName);
+            var connectionString = configuration.GetConnectionString(connectionStringName);
 
-            return Create(connectionString);
+            return this.Create(connectionString);
         }
 
         private TContext Create(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
             {
-                throw new ArgumentException($"Connection string '{ConnectionStringName}' is null or empty.", nameof(connectionString));
+                throw new ArgumentException($"Connection string '{connectionStringName}' is null or empty.", nameof(connectionString));
             }
 
             Console.WriteLine($"DesignTimeDbContextFactoryBase.Create(string): Connection string: '{connectionString}'.");
@@ -53,7 +52,7 @@
 
             optionsBuilder.UseSqlServer(connectionString);
 
-            return CreateNewInstance(optionsBuilder.Options);
+            return this.CreateNewInstance(optionsBuilder.Options);
         }
     }
 }

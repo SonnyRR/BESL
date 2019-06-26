@@ -1,6 +1,5 @@
 ﻿namespace BESL.Persistence.Configurations
 {
-
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
