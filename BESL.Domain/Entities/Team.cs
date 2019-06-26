@@ -22,7 +22,6 @@
         public TournamentTable CurrentActiveTournamentTable { get; set; }
 
         public virtual ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
-        public virtual ICollection<TeamTableResult> PreviousTeamTableResults { get; set; } = new HashSet<TeamTableResult>();
-        
+        public virtual ICollection<TeamTableResult> PreviousTeamTableResults { get; set; } = new HashSet<TeamTableResult>();        
     }
 }
