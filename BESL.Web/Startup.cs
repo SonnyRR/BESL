@@ -68,7 +68,7 @@
                     opt.Password.RequireDigit = true;
                     opt.Password.RequireLowercase = true;
                     opt.Password.RequireUppercase = true;
-                    //opt.User.RequireUniqueEmail = true;
+                    // opt.User.RequireUniqueEmail = true;
                 })
                 .AddDefaultTokenProviders()
                 .AddDefaultUI()

@@ -1,12 +1,13 @@
 ﻿namespace BESL.Web.Areas.Administration.Controllers
 {
+    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyInjection;
 
     using BESL.Web.Controllers;
     using BESL.Web.Services;
-    using System.Security.Claims;
 
     [Area("Administration")]
     [Authorize(Roles = "Administrator")]

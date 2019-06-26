@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BESL.Web.Hubs
+﻿namespace BESL.Web.Hubs
 {
+    using Microsoft.AspNetCore.SignalR;
+
     public class UserNotificationHub : Hub
     {
     }

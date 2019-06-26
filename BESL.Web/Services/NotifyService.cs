@@ -1,8 +1,8 @@
 ﻿namespace BESL.Web.Services
 {
-    using BESL.Web.Hubs;
-    using Microsoft.AspNetCore.SignalR;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.SignalR;
+    using BESL.Web.Hubs;
 
     public class NotifyService : INotifyService
     {

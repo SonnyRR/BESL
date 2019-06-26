@@ -19,8 +19,10 @@
             this.next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, ApplicationDbContext dbContext,
-            RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public async Task InvokeAsync(HttpContext context, 
+            ApplicationDbContext dbContext,
+            RoleManager<IdentityRole> roleManager, 
+            UserManager<ApplicationUser> userManager)
         {
             SeedRoles(roleManager).GetAwaiter().GetResult();
 
