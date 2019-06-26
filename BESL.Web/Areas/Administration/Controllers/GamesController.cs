@@ -18,7 +18,7 @@
         public GamesController(IConfiguration configuration)
         {
             this.configuration = configuration;
-        }      
+        }
 
         public IActionResult Create()
         {
@@ -40,7 +40,6 @@
         public async Task<IActionResult> All()
         {
             var model = await this.Mediator.Send(new GetAllGamesQuery());
-            await this.NotifyService.SendUserSuccessNotificationAsync("testmsg", this.UserNameIdentifier);
             return this.View(model);
         }
 
@@ -54,6 +53,16 @@
         public async Task<IActionResult> Delete(DeleteGameCommand command)
         {
             var isDeleteSuccessfull = await this.Mediator.Send(command);
+
+            if (isDeleteSuccessfull)
+            {
+                await this.NotifyService.SendUserSuccessNotificationAsync($"{command.GameName} has been deleted!", this.UserNameIdentifier);
+            }
+            else
+            {
+                await this.NotifyService.SendUserFailiureNotificationAsync($"{command.GameName} cound not be deleted!", this.UserNameIdentifier);
+            }
+
             return this.Redirect("/Administration/Games/All");
         }
     }
