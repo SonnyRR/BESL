@@ -36,6 +36,6 @@
     <Folder Include="Views\Shared\Partials\" />
     <Folder Include="Areas\Administration\Views\Home\" />
     <Folder Include="wwwroot\lib\font-awesome\" />
-    <Folder Include="Areas\Administration\Views\Partials\" />
+    <Folder Include="Areas\Administration\Views\Shared\Partials\" />
   </ItemGroup>
 </Project>
