@@ -13,19 +13,19 @@ function alertFadeFunc() {
     }, 4000);
 
 }
-connection.on("ReceiveMessageSuccess", function (message) {
+connection.on("ReceiveMessageSuccess", function (messageHeader, message) {
     let element = document.getElementById("alertPanel");
     element.style.display = "block";
-    let html = `<div id="alertDiv" class="alert alert-success alert-dismissible fade show" role="alert"><strong>Delete sucessfull!</strong> ${message}<button type = "button" class="close" data-dismiss="alert" aria-label="Close">        <span aria-hidden="true">&times;</span>  </button ></div>`;
+    let html = `<div id="alertDiv" class="alert alert-success alert-dismissible fade show" role="alert"><strong>${messageHeader}</strong> ${message}<button type = "button" class="close" data-dismiss="alert" aria-label="Close">        <span aria-hidden="true">&times;</span>  </button ></div>`;
     element.innerHTML = html;
     alertFadeFunc();
 
 });
 
-connection.on("ReceiveMessageFailiure", function (message) {
+connection.on("ReceiveMessageFailiure", function (messageHeader, message) {
     let element = document.getElementById("alertPanel");
     element.style.display = "block";
-    let html = `<div id="alertDiv" class="alert alert-danger alert-dismissible fade show" role="alert"><strong>An error occured!</strong> ${message}<button type = "button" class="close" data-dismiss="alert" aria-label="Close">        <span aria-hidden="true">&times;</span>  </button ></div>`;
+    let html = `<div id="alertDiv" class="alert alert-danger alert-dismissible fade show" role="alert"><strong>${messageHeader}</strong> ${message}<button type = "button" class="close" data-dismiss="alert" aria-label="Close">        <span aria-hidden="true">&times;</span>  </button ></div>`;
     element.innerHTML = html;
 
     alertFadeFunc();
