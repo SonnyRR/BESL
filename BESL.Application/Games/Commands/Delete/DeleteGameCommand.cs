@@ -5,5 +5,7 @@
     public class DeleteGameCommand : IRequest<bool>
     {
         public int Id { get; set; }
+
+        public string GameName { get; set; }
     }
 }
