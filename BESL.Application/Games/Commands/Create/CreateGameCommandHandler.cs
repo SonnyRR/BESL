@@ -10,7 +10,7 @@
     using BESL.Common;
     using BESL.Domain.Entities;
 
-    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
+    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int?>
     {
         private readonly IApplicationDbContext context;
         private readonly IConfiguration configuration;
@@ -21,7 +21,7 @@
             this.configuration = configuration;
         }
 
-        public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+        public async Task<int?> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
             var cloudinary = CloudinaryHelper.GetInstance(this.configuration);
 
