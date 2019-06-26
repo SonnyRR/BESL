@@ -4,18 +4,32 @@
 // Write your JavaScript code.
 var connection = new signalR.HubConnectionBuilder().withUrl("/userNotificationHub").build();
 
-connection.on("ReceiveMessageSuccess", function (message) {
-    let element = document.getElementById("alertPanel");
-    element.style.display = "block";
-    let html = '<div id="alertDiv" class="alert alert-success alert-dismissible fade show" role="alert"><strong> Holy guacamole!</strong> You should check in on some of those fields below.<button type = "button" class="close" data-dismiss="alert" aria-label="Close">        <span aria-hidden="true">&times;</span>  </button ></div>';
-    element.innerHTML = html;
-
+function alertFadeFunc() {
     window.setTimeout(function () {
         $(".alert").fadeTo(500, 0).slideUp(500, function () {
             $(this).remove();
             element.style.display = "hidden";
         });
     }, 4000);
+
+}
+connection.on("ReceiveMessageSuccess", function (message) {
+    let element = document.getElementById("alertPanel");
+    element.style.display = "block";
+    let html = `<div id="alertDiv" class="alert alert-success alert-dismissible fade show" role="alert"><strong>Delete sucessfull!</strong> ${message}<button type = "button" class="close" data-dismiss="alert" aria-label="Close">        <span aria-hidden="true">&times;</span>  </button ></div>`;
+    element.innerHTML = html;
+    alertFadeFunc();
+
 });
+
+connection.on("ReceiveMessageFailiure", function (message) {
+    let element = document.getElementById("alertPanel");
+    element.style.display = "block";
+    let html = `<div id="alertDiv" class="alert alert-danger alert-dismissible fade show" role="alert"><strong>An error occured!</strong> ${message}<button type = "button" class="close" data-dismiss="alert" aria-label="Close">        <span aria-hidden="true">&times;</span>  </button ></div>`;
+    element.innerHTML = html;
+
+    alertFadeFunc();
+});
+
 
 connection.start();
