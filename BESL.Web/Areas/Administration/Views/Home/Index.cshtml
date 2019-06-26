@@ -15,6 +15,7 @@
             <div class="tab-content" id="nav-tabContent">
                 <partial name="~/Areas/Administration/Views/Partials/_SpinnerPartial.cshtml" />
                 <div class="tab-pane fade show active" id="list-game" role="tabpanel" aria-labelledby="list-games-list" data-ajax="true" data-ajax-url="/Administration/Games/Create" data-ajax-method="GET" data-ajax-update="#gamesInfo">
+                    <div style="display:none" id="alertPanel" class="alert alert-success alert-dismissible fade show"></div>
                     <div id="gamesMainContainer">
                     </div>
                 </div>

@@ -41,6 +41,7 @@
         public async Task<IActionResult> All()
         {
             var model = await this.Mediator.Send(new GetAllGamesQuery());
+            await this.NotifyService.SendUserSuccessNotificationAsync("testmsg", "id");
             return this.View(model);
         }
 

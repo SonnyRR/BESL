@@ -1,5 +1,4 @@
-﻿
-namespace BESL.Web
+﻿namespace BESL.Web
 {
     using System;
     using System.Collections.Generic;
@@ -30,6 +29,8 @@ namespace BESL.Web
     using BESL.Domain.Entities;
     using BESL.Persistence;
     using BESL.Web.Middlewares;
+    using BESL.Web.Hubs;
+    using BESL.Web.Services;
 
     public class Startup
     {
@@ -83,6 +84,9 @@ namespace BESL.Web
             services.AddMediatR(typeof(ApplicationDependencyInjectionHelper).Assembly);
 
             services.AddScoped<IFileValidate, GameImageFileValidate>();
+            services.AddScoped<INotifyService, NotifyService>();
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,6 +111,11 @@ namespace BESL.Web
             app.UseAuthentication();
 
             app.UseSeedMiddleware();
+
+            app.UseSignalR(routeBuilder =>
+            {
+                routeBuilder.MapHub<UserNotificationHub>("/userNotificationHub");
+            });
 
             app.UseMvc(routes =>
             {
