@@ -13,14 +13,14 @@
             this.hubContext = hubContext;
         }
 
-        public async Task SendUserFailiureNotificationAsync(string message, string userId)
+        public async Task SendUserFailiureNotificationAsync(string messageHeader, string message, string userId)
         {
-            await this.hubContext.Clients.User(userId).SendAsync("ReceiveMessageFailiure", message);
+            await this.hubContext.Clients.User(userId).SendAsync("ReceiveMessageFailiure", messageHeader, message);
         }
 
-        public async Task SendUserSuccessNotificationAsync(string message, string userId)
+        public async Task SendUserSuccessNotificationAsync(string messageHeader, string message, string userId)
         {
-            await this.hubContext.Clients.User(userId).SendAsync("ReceiveMessageSuccess", message);
+            await this.hubContext.Clients.User(userId).SendAsync("ReceiveMessageSuccess", messageHeader, message);
         }
     }
 }
