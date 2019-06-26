@@ -5,8 +5,17 @@
 var connection = new signalR.HubConnectionBuilder().withUrl("/userNotificationHub").build();
 
 connection.on("ReceiveMessageSuccess", function (message) {
-    document.getElementById("alertPanel").innerHTML = message
-    document.getElementById("alertPanel").style.display = "block"
+    let element = document.getElementById("alertPanel");
+    element.style.display = "block";
+    let html = '<div id="alertDiv" class="alert alert-success alert-dismissible fade show" role="alert"><strong> Holy guacamole!</strong> You should check in on some of those fields below.<button type = "button" class="close" data-dismiss="alert" aria-label="Close">        <span aria-hidden="true">&times;</span>  </button ></div>';
+    element.innerHTML = html;
+
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+            element.style.display = "hidden";
+        });
+    }, 4000);
 });
 
 connection.start();

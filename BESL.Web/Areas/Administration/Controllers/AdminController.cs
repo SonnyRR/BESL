@@ -6,6 +6,7 @@
 
     using BESL.Web.Controllers;
     using BESL.Web.Services;
+    using System.Security.Claims;
 
     [Area("Administration")]
     [Authorize(Roles = "Administrator")]
@@ -16,5 +17,7 @@
         protected INotifyService NotifyService
             => this.notifyService 
             ?? (this.notifyService = HttpContext.RequestServices.GetService<INotifyService>());
+
+        protected string UserNameIdentifier => this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
     }
 }

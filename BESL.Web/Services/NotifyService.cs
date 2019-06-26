@@ -20,7 +20,7 @@
 
         public async Task SendUserSuccessNotificationAsync(string message, string userId)
         {
-            await this.hubContext.Clients.All.SendAsync("ReceiveMessageSuccess", message);
+            await this.hubContext.Clients.User(userId).SendAsync("ReceiveMessageSuccess", message);
         }
     }
 }

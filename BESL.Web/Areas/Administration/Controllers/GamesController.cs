@@ -3,7 +3,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
     using BESL.Application.Games.Commands.Create;
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Web.Filters;
@@ -19,7 +18,7 @@
         public GamesController(IConfiguration configuration)
         {
             this.configuration = configuration;
-        }
+        }      
 
         public IActionResult Create()
         {
@@ -41,7 +40,7 @@
         public async Task<IActionResult> All()
         {
             var model = await this.Mediator.Send(new GetAllGamesQuery());
-            await this.NotifyService.SendUserSuccessNotificationAsync("testmsg", "id");
+            await this.NotifyService.SendUserSuccessNotificationAsync("testmsg", this.UserNameIdentifier);
             return this.View(model);
         }
 
