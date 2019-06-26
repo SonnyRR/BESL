@@ -3,7 +3,7 @@
     Layout = null;
 }
 
-<div class="border rounded mt-1 col-sm-5">
+<div class="border rounded container-fluid mt-1 float-left col-md-5">
     <div class="container-fluid mt-2 mb-3">
         <h2>Create a game</h2>
         <form id="gameCreateForm" class="mb-3" enctype="multipart/form-data" method="post" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Create" data-ajax-method="POST" data-ajax-update="#gamesMainContainer">
@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description">Description</label>
-                <textarea class="form-control" asp-for="Description" rows="3" placeholder="Enter description..."></textarea>
+                <textarea class="form-control" maxlength="1000" asp-for="Description" rows="3" placeholder="Enter description..."></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
                 <small id="gameDescHelp" class="form-text text-muted">Description of the game.</small>
             </div>
