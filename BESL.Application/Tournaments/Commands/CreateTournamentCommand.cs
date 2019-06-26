@@ -15,7 +15,7 @@
 
         public void CreateMappings(Profile configuration)
         {
-            //configuration.CreateMap<CreateTournamentCommand, Tournament>
+            // configuration.CreateMap<CreateTournamentCommand, Tournament>
         }
     }
 }

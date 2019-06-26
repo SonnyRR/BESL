@@ -9,14 +9,13 @@
     {
         public AutoMapperProfile()
         {
-            LoadStandardMappings();
-            LoadCustomMappings();
-            LoadConverters();
+            this.LoadStandardMappings();
+            this.LoadCustomMappings();
+            this.LoadConverters();
         }
 
         private void LoadConverters()
         {
-
         }
 
         private void LoadStandardMappings()

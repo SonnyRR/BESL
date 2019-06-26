@@ -10,7 +10,7 @@
 
     public class CustomGameImageFileValidator : AsyncValidatorBase
     {
-        private IFileValidate fileValidate;
+        private readonly IFileValidate fileValidate;
 
         public CustomGameImageFileValidator(IFileValidate fileValidate) : base("{ErrorMessage}")
         {

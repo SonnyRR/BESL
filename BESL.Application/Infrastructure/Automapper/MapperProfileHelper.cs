@@ -7,12 +7,6 @@
 
     using BESL.Application.Interfaces.Mapping;
 
-    public sealed class Map
-    {
-        public Type Source { get; set; }
-        public Type Destination { get; set; }
-    }
-
     public static class MapperProfileHelper
     {
         public static IList<Map> LoadStandardMappings(Assembly rootAssembly)
@@ -23,14 +17,16 @@
                     from type in types
                     from instance in type.GetInterfaces()
                     where
-                        instance.IsGenericType && instance.GetGenericTypeDefinition() == typeof(IMapFrom<>) &&
-                        !type.IsAbstract &&
-                        !type.IsInterface
+                        instance.IsGenericType 
+                        && instance.GetGenericTypeDefinition() == typeof(IMapFrom<>) 
+                        && !type.IsAbstract 
+                        && !type.IsInterface
                     select new Map
                     {
                         Source = type.GetInterfaces().First().GetGenericArguments().First(),
                         Destination = type
-                    }).ToList();
+                    })
+                    .ToList();
 
             return mapsFrom;
         }
@@ -49,6 +45,12 @@
                     select (IHaveCustomMapping)Activator.CreateInstance(type)).ToList();
 
             return mapsFrom;
+        }
+
+        public sealed class Map
+        {
+            public Type Source { get; set; }
+            public Type Destination { get; set; }
         }
     }
 }

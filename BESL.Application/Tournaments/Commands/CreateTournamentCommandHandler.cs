@@ -2,12 +2,12 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Linq;
 
     using AutoMapper;
     using MediatR;
 
     using BESL.Application.Interfaces;
-    using System.Linq;
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand>
     {
@@ -22,9 +22,8 @@
 
         public async Task<Unit> Handle(CreateTournamentCommand request, CancellationToken cancellationToken)
         {
-            if (!this.context.Tournaments.Any(t=>t.Name == request.Name))
+            if (!this.context.Tournaments.Any(t => t.Name == request.Name))
             {
-               
             }
 
             return Unit.Value;

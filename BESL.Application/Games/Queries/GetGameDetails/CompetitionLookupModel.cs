@@ -6,7 +6,7 @@
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
 
-    public class  CompetitionLookupModel : IHaveCustomMapping
+    public class CompetitionLookupModel : IHaveCustomMapping
     {
         public string Name { get; set; }
 
