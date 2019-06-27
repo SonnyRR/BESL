@@ -30,7 +30,8 @@
                 Name = dto.Name,
                 Description = dto.Description,
                 Tournaments = dto.Tournaments,
-                RegisteredTeams = dto.RegisteredTeams
+                RegisteredTeams = dto.RegisteredTeams,
+                GameImageUrl = dto.GameImageUrl
             };
 
             return viewModel;

@@ -10,6 +10,8 @@
 
         public string Description { get; set; }
 
+        public string GameImageUrl { get; set; }
+
         public ICollection<CompetitionLookupModel> Tournaments { get; set; }
 
         public int RegisteredTeams { get; set; }
