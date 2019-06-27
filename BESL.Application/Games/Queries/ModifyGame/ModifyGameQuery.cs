@@ -4,6 +4,6 @@
 
     public class ModifyGameQuery : IRequest<ModifyGameViewModel>
     {
-        public int Id { get; set; }            
+        public int Id { get; set; }
     }
 }

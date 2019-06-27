@@ -29,7 +29,10 @@
             return instance;
         }
 
-        public static async Task<string> UploadImage(Cloudinary cloudinary, IFormFile fileForm, string name, Transformation transformation = null)
+        public static async Task<string> UploadImage(Cloudinary cloudinary, 
+            IFormFile fileForm, 
+            string name, 
+            Transformation transformation = null)
         {
             if (fileForm == null)
             {
