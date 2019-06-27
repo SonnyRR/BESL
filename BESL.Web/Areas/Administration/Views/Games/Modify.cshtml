@@ -1,4 +1,4 @@
-﻿@model BESL.Application.Games.Queries.GetGameDetails.GameDetailsViewModel
+﻿@model BESL.Application.Games.Queries.ModifyGame.ModifyGameViewModel
 
 @{
     Layout = null;
@@ -10,7 +10,7 @@
 
         <div class="row">
             <div class="col">
-                <form id="gameCreateForm" class="mb-3" enctype="multipart/form-data" method="post" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Modify/@Model.Id" data-ajax-method="PUT" data-ajax-update="#gamesMainContainer">
+                <form id="gameModifyForm" class="mb-3" enctype="multipart/form-data" method="post" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Modify/@Model.Id" data-ajax-method="PUT" data-ajax-update="#mainContentContainer">
                     <div class="form-group">
                         <label asp-for="@Model.Name">Name</label>
                         <input type="text" class="form-control" asp-for="@Model.Name">
@@ -35,7 +35,7 @@
                     <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
                 </form>
                 <div>
-                    <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#gamesMainContainer">
+                    <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#mainContentContainer">
                         <button class="btn btn-primary btn-block"><i class="fas fa-arrow-circle-left"></i>&nbsp;Back</button>
                     </form>
                 </div>
@@ -51,3 +51,9 @@
     </div>
 </div>
 
+<script type="application/javascript" async defer>
+    $('input[type="file"]').change(function(e){
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
+</script>

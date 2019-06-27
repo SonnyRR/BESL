@@ -11,6 +11,7 @@
     using BESL.Application.Games.Queries.GetGameDetails;
     using BESL.Web.Filters;
     using BESL.Application.Games.Commands.Modify;
+    using BESL.Application.Games.Queries.ModifyGame;
 
     [AjaxOnlyFilter]
     public class GamesController : AdminController
@@ -57,12 +58,12 @@
 
         public async Task<IActionResult> Modify(int id)
         {
-            var model = await this.Mediator.Send(new GameDetailsQuery() { Id = id });
+            var model = await this.Mediator.Send(new ModifyGameQuery() { Id = id });
             return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Modify(int id, string name)
+        public async Task<IActionResult> Modify(ModifyGameCommand command)
         {
             return NoContent();
         }
