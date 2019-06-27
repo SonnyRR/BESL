@@ -27,6 +27,7 @@
 
             var viewModel = new GameDetailsViewModel()
             {
+                Id = dto.Id,
                 Name = dto.Name,
                 Description = dto.Description,
                 Tournaments = dto.Tournaments,

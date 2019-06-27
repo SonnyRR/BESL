@@ -9,8 +9,6 @@
     using BESL.Application.Interfaces;
     using BESL.Common;
     using BESL.Domain.Entities;
-    using System.Collections.Generic;
-    using CloudinaryDotNet;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int?>
     {
@@ -30,8 +28,8 @@
             var url = await CloudinaryHelper.UploadImage(
                     cloudinary,
                     request.GameImage,
-                    name: $"{request.Name}-main-shot",
-                    transformation: new Transformation().Width(500).Height(500)
+                    name: $"{request.Name}-main-shot"
+                    //transformation: new Transformation().Width(500).Height(500)
                 ); 
 
             Game game = new Game()
