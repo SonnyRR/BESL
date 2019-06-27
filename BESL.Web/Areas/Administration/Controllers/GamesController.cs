@@ -12,6 +12,7 @@
     using BESL.Web.Filters;
     using BESL.Application.Games.Commands.Modify;
     using BESL.Application.Games.Queries.ModifyGame;
+    using Microsoft.AspNetCore.Http;
 
     [AjaxOnlyFilter]
     public class GamesController : AdminController
@@ -65,6 +66,13 @@
         [HttpPost]
         public async Task<IActionResult> Modify(ModifyGameCommand command)
         {
+            if (!this.ModelState.IsValid)
+            {
+                var model = await this.Mediator.Send(new ModifyGameQuery() { Id = command.Id });
+
+                return this.View(model);
+            }
+
             return NoContent();
         }
 
