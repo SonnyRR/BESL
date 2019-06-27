@@ -4,5 +4,43 @@
     Layout = null;
 }
 
-<h4>@Model.Name</h4>
+<div class="border rounded mt-1 col-md-9">
+    <div class="container-fluid mt-2 mb-3">
+        <h2>@Model.Name</h2>
+
+        <div class="row">
+            <div class="col">
+                <form>
+                    <div class="form-group">
+                        <label asp-for="@Model.Name">Name</label>
+                        <input type="text" class="form-control" asp-for="@Model.Name">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Description">Description</label>
+                        <textarea class="form-control" asp-for="@Model.Description" maxlength="1000" rows="7"></textarea>
+                    </div>
+                    <label asp-for="@Model.GameImageUrl">Image (< 4MB)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="gameImageHelp">Upload</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" asp-for="@Model.GameImageUrl" name="gameImage" id="gameImage" aria-describedby="gameImageHelp">
+                            <label class="custom-file-label" for="gameImage">Choose file</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="@Model.GameImageUrl" class="text-danger"></span>
+                    <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <label>Current game image:</label>
+                ​<picture>
+                    <source srcset="@Model.GameImageUrl" type="image/svg+xml">
+                    <img src="@Model.GameImageUrl" class="img-fluid img-thumbnail" alt="...">
+                </picture>
+            </div>
+        </div>
+    </div>
+</div>
 
