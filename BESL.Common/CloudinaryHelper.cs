@@ -1,5 +1,6 @@
 ﻿namespace BESL.Common
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
     using CloudinaryDotNet;
@@ -28,7 +29,7 @@
             return instance;
         }
 
-        public static async Task<string> UploadImage(Cloudinary cloudinary, IFormFile fileForm, string name)
+        public static async Task<string> UploadImage(Cloudinary cloudinary, IFormFile fileForm, string name, Transformation transformation = null)
         {
             if (fileForm == null)
             {
@@ -47,7 +48,8 @@
 
             var uploadParams = new ImageUploadParams()
             {
-                File = new FileDescription(name, stream),             
+                File = new FileDescription(name, stream),
+                Transformation = transformation
             };
 
             var uploadResult = cloudinary.Upload(uploadParams);
