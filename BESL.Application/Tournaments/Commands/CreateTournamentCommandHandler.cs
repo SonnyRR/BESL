@@ -4,29 +4,53 @@
     using System.Threading.Tasks;
     using System.Linq;
 
-    using AutoMapper;
     using MediatR;
+    using Microsoft.Extensions.Configuration;
 
     using BESL.Application.Interfaces;
+    using BESL.Common;
+    using BESL.Domain.Entities;
 
-    public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand>
+    public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {
         private readonly IApplicationDbContext context;
-        private readonly IMapper mapper;
+        private readonly IConfiguration configuration;
 
-        public CreateTournamentCommandHandler(IApplicationDbContext context, IMapper mapper)
+        public CreateTournamentCommandHandler(IApplicationDbContext context, IConfiguration configuration)
         {
             this.context = context;
-            this.mapper = mapper;
+            this.configuration = configuration;
         }
 
-        public async Task<Unit> Handle(CreateTournamentCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateTournamentCommand request, CancellationToken cancellationToken)
         {
-            if (!this.context.Tournaments.Any(t => t.Name == request.Name))
+            if (this.context.Tournaments.Any(t => t.Name == request.Name))
             {
+                // Throw
             }
 
-            return Unit.Value;
+            var cloudinary = CloudinaryHelper.GetInstance(this.configuration);
+
+            var url = await CloudinaryHelper.UploadImage(
+                    cloudinary,
+                    request.GameImage,
+                    name: $"{request.Name}-tournament-main-shot"
+                //transformation: new Transformation().Width(500).Height(500)
+                );
+
+            Tournament tournament = new Tournament()
+            {
+                Name = request.Name,
+                Description = request.Description,
+                //GameImageUrl = url
+            };
+
+            this.context.Tournaments.Add(tournament);
+            await this.context.SaveChangesAsync(cancellationToken);
+
+            return tournament.Id;
+
+
         }
     }
 }

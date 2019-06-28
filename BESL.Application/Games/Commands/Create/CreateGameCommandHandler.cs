@@ -23,6 +23,7 @@
 
         public async Task<int?> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
+
             var cloudinary = CloudinaryHelper.GetInstance(this.configuration);
 
             var url = await CloudinaryHelper.UploadImage(
