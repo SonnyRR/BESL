@@ -17,6 +17,8 @@
 
         public bool IsActive { get; set; }
 
+        public string TournamentImageUrl { get; set; }
+
         public int FormatId { get; set; }
         public TournamentFormat Format { get; set; }
 
