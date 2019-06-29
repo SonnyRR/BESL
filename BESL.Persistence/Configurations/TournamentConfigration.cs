@@ -20,12 +20,12 @@
             builder.Property(c => c.Name)
                 .IsRequired()
                 .IsUnicode()
-                .HasMaxLength(35);
+                .HasMaxLength(50);
 
             builder.Property(c => c.Description)
                 .IsRequired()
                 .IsUnicode()
-                .HasMaxLength(200);
+                .HasMaxLength(500);
         }
     }
 }
