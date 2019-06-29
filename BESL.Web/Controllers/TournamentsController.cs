@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class CompetitionsController : BaseController
+    public class TournamentsController : BaseController
     {
         public IActionResult Details(int id)
         {
