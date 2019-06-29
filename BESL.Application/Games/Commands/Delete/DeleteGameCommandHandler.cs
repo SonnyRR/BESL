@@ -8,6 +8,8 @@
 
     using BESL.Application.Interfaces;
     using Microsoft.EntityFrameworkCore;
+    using BESL.Application.Exceptions;
+    using BESL.Domain.Entities;
 
     public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, bool>
     {
@@ -26,7 +28,16 @@
                 .Games
                 .SingleOrDefaultAsync(g => g.Id == request.Id);
 
-            if (desiredGame != null && !desiredGame.IsDeleted)
+            if (desiredGame == null)
+            {
+                throw new NotFoundException(nameof(Game), request.Id);
+            }
+
+            if (desiredGame.IsDeleted)
+            {
+                throw new DeleteFailureException(nameof(Game), desiredGame.Id, "Entity is already deleted.");
+            }
+            else
             {
                 desiredGame.IsDeleted = true;
                 desiredGame.DeletedOn = DateTime.UtcNow;
