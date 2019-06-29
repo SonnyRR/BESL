@@ -7,12 +7,10 @@
 
     using BESL.Application.Games.Commands.Create;
     using BESL.Application.Games.Commands.Delete;
-    using BESL.Application.Games.Queries.GetAllGames;
-    using BESL.Application.Games.Queries.GetGameDetails;
-    using BESL.Web.Filters;
     using BESL.Application.Games.Commands.Modify;
+    using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Games.Queries.ModifyGame;
-    using Microsoft.AspNetCore.Http;
+    using BESL.Web.Filters;
 
     [AjaxOnlyFilter]
     public class GamesController : AdminController
