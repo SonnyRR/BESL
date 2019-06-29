@@ -7,8 +7,8 @@
 
     public class CreateTournamentCommandValidator : AbstractValidator<CreateTournamentCommand>
     {
-        private const int NAME_MIN_LENGTH = 3, NAME_MAX_LENGTH = 35;
-        private const int DESC_MIN_LENGTH = 0, DESC_MAX_LENGTH = 200;
+        private const int NAME_MIN_LENGTH = 10, NAME_MAX_LENGTH = 50;
+        private const int DESC_MIN_LENGTH = 50, DESC_MAX_LENGTH = 500;
 
         private const string NAME_LENGTH_MSG = "Tournament name length must be between {0} and {1} characters long!";
         private const string DESC_LENGTH_MSG = "Tournament description length must be between {0} and {1} characters long!";
@@ -23,7 +23,7 @@
                 .Length(DESC_MIN_LENGTH, DESC_MAX_LENGTH)
                 .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MIN_LENGTH, DESC_MAX_LENGTH));
 
-            RuleFor(x => x.GameImage)
+            RuleFor(x => x.TournamentImage)
                 .NotEmpty()
                 .NotNull()
                 .SetValidator(new CustomGameImageFileValidator(fileValidate));

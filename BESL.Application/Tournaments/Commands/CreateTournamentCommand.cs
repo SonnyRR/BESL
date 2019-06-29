@@ -9,7 +9,7 @@
 
         public string Description { get; set; }
 
-        public IFormFile GameImage { get; set; }
+        public IFormFile TournamentImage { get; set; }
 
         public int FormatId { get; set; }
     }

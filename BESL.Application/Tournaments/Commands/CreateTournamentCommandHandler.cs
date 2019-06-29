@@ -33,7 +33,7 @@
 
             var url = await CloudinaryHelper.UploadImage(
                     cloudinary,
-                    request.GameImage,
+                    request.TournamentImage,
                     name: $"{request.Name}-tournament-main-shot"
                 //transformation: new Transformation().Width(500).Height(500)
                 );
@@ -42,15 +42,13 @@
             {
                 Name = request.Name,
                 Description = request.Description,
-                //GameImageUrl = url
+                TournamentImageUrl = url
             };
 
             this.context.Tournaments.Add(tournament);
             await this.context.SaveChangesAsync(cancellationToken);
 
             return tournament.Id;
-
-
         }
     }
 }
