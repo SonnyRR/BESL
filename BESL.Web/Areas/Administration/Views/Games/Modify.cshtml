@@ -4,12 +4,11 @@
     Layout = null;
 }
 
-<div class="border rounded mt-1 col-md-9">
+<div class="border rounded">
     <div class="container-fluid mt-2 mb-3">
-        <h2>@Model.Name</h2>
-
         <div class="row">
-            <div class="col">
+            <div class="col-lg-6">
+                <h2>@Model.Name</h2>
                 <form id="gameModifyForm" class="mb-3" enctype="multipart/form-data" method="post" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Modify/@Model.Id" data-ajax-method="PUT" data-ajax-update="#mainContentContainer">
                     <div class="form-group">
                         <label asp-for="Name">Name</label>
@@ -40,11 +39,11 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-5">
                 <label>Current game image:</label>
                 ​<picture>
                     <source srcset="@Model.GameImageUrl" type="image/svg+xml">
-                    <img src="@Model.GameImageUrl" class="img-fluid img-thumbnail" alt="...">
+                    <img src="@Model.GameImageUrl" class="img img-thumbnail" alt="...">
                 </picture>
             </div>
         </div>

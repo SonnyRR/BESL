@@ -2,7 +2,7 @@
     ViewData["Title"] = "Administration";
 }
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 mb-3">
         <div class="list-group" id="list-tab" role="tablist">
             <a class="list-group-item list-group-item-action active" id="games" data-toggle="list" href="#mainPane" role="button" aria-controls="games" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#mainContentContainer"><i class="fas fa-gamepad"></i>&nbsp;Games</a>
             <a class="list-group-item list-group-item-action" id="tournaments" data-toggle="list" href="#mainPane" role="tab" aria-controls="tournaments" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Tournaments/All" data-ajax-method="get" data-ajax-update="#mainContentContainer"><i class="fas fa-trophy"></i>&nbsp;Tournaments</a>
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="col-md-9">
-        <div class="rounded mt-1">
+        <div class="rounded">
             <div class="tab-content" id="nav-tabContent">
                 <partial name="~/Areas/Administration/Views/Shared/Partials/_SpinnerPartial.cshtml" />
                 <div class="tab-pane fade show active" id="mainPane" role="tabpanel" aria-labelledby="list-games-list" data-ajax="true" data-ajax-url="/Administration/Games/Create" data-ajax-method="GET" data-ajax-update="#gamesInfo">
