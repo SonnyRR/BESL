@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using BESL.Application.Formats.Queries.Create;
+    using MediatR;
 
-    public class CreateTournamentFormatCommand
+    public class CreateTournamentFormatCommand : IRequest<int>
     {
         public string Name { get; set; }
 
