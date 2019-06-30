@@ -1,5 +1,4 @@
-﻿@using BESL.Application.Formats.Queries.Create
-@model BESL.Application.Formats.Commands.Create.CreateTournamentFormatCommand
+﻿@model BESL.Application.Formats.Commands.Create.CreateTournamentFormatCommand
 @{
     Layout = null;
 }
@@ -7,21 +6,31 @@
     <div class="border rounded container-fluid float-left col-lg-6">
         <div class="container-fluid mt-2 mb-3">
             <h2>Create a tournament format</h2>
-            <form id="gameCreateForm" class="mb-3" enctype="multipart/form-data" method="post" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Create" data-ajax-method="POST" data-ajax-update="#mainContentContainer">
+            <form id="formatCreateForm" class="mb-3" enctype="multipart/form-data" method="post" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Create" data-ajax-method="POST" data-ajax-update="#mainContentContainer">
                 <div class="form-group">
                     <label asp-for="Name">Name</label>
-                    <input type="text" class="form-control" asp-for="Name" placeholder="Enter name...">
+                    <input type="text" class="form-control" asp-for="Name" placeholder="Enter name..." />
                     <span asp-validation-for="Name" class="text-danger"></span>
-                    <small id="gameNameHelp" class="form-text text-muted">The game's title.</small>
+                    <small id="formatNameHelp" class="form-text text-muted">The format's title.</small>
                 </div>
-                @*<div class="form-group">
-                    <label asp-for="TotalPlayersCount">Description</label>
-                    <input type="number" class="form-control" asp-for="TotalPlayersCount" placeholder="Enter description..."></input>
-                    <span asp-validation-for="TotalPlayersCount" class="text-danger"></span>
-                    <small id="gameDescHelp" class="form-text text-muted">Description of the game.</small>
-                </div>*@              
                 <div class="form-group">
-                    <select asp-for="GameId" asp-items="Model.Games.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()"></select>
+                    <label asp-for="Description">Description</label>
+                    <textarea class="form-control" asp-for="Description" placeholder="Enter description..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                    <small id="formatDescHelp" class="form-text text-muted">Description of the competitive format.</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TeamPlayersCount">Players count per team</label>
+                    <input class="form-control" type="number" asp-for="TeamPlayersCount" placeholder="Enter team players count..." />
+                    <span asp-validation-for="TeamPlayersCount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalPlayersCount">Total players count on both teams</label>
+                    <input class="form-control" type="number" asp-for="TotalPlayersCount" placeholder="Enter total players count..." />
+                    <span asp-validation-for="TotalPlayersCount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" asp-for="GameId" asp-items="Model.Games.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()"></select>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
             </form>
