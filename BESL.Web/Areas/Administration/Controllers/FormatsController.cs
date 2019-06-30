@@ -2,14 +2,22 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using BESL.Application.Games.Queries.GetAllGames;
+    using BESL.Application.Formats.Queries.Create;
+    using BESL.Application.Formats.Commands.Create;
 
     public class FormatsController : AdminController
     {
         public async Task<IActionResult> Create()
         {
-            var model = await this.Mediator.Send(new GetAllGamesQuery());
-            return this.View(model);
+            var viewModel = await this.Mediator.Send(new CreateTournamentFormatQuery());
+            return this.View(viewModel);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateTournamentFormatCommand command)
+        {
+            return NoContent();
+        }
+
     }
 }
