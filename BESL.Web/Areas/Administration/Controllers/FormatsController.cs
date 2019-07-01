@@ -1,7 +1,9 @@
 ﻿namespace BESL.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
+
     using BESL.Application.Formats.Queries.Create;
     using BESL.Application.Formats.Commands.Create;
 
@@ -16,7 +18,8 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateTournamentFormatCommand command)
         {
-            return NoContent();
+            var tournamentFormatId = await this.Mediator.Send(command);
+            return this.RedirectToAction("All", "GamesController");
         }
 
     }
