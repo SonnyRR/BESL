@@ -39,6 +39,9 @@
                 .NotEmpty()
                 .InclusiveBetween(TOTAL_PLAYERS_MIN_COUNT, TOTAL_PLAYERS_MAX_COUNT)
                 .WithMessage(string.Format(TOTAL_PLAYERS_COUNT_MSG, TOTAL_PLAYERS_MIN_COUNT, TOTAL_PLAYERS_MAX_COUNT));
+
+            RuleFor(f => f.GameId)
+                .NotEmpty();
         }
     }
 }
