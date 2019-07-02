@@ -3,7 +3,7 @@
     using MediatR;
     using Microsoft.AspNetCore.Http;
 
-    public class ModifyGameCommand : IRequest<bool>
+    public class ModifyGameCommand : IRequest
     {
         public int Id { get; set; }
 
