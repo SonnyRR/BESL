@@ -9,8 +9,9 @@
     using BESL.Application.Interfaces;
     using BESL.Common;
     using BESL.Domain.Entities;
+    using BESL.Application.Exceptions;
 
-    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int?>
+    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
         private readonly IApplicationDbContext context;
         private readonly IConfiguration configuration;
@@ -21,9 +22,9 @@
             this.configuration = configuration;
         }
 
-        public async Task<int?> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
-
+            throw new NotFoundException("Game", 3);
             var cloudinary = CloudinaryHelper.GetInstance(this.configuration);
 
             var url = await CloudinaryHelper.UploadImage(
