@@ -34,7 +34,6 @@
   <ItemGroup>
     <Folder Include="Areas\Administration\Data\" />
     <Folder Include="Areas\Administration\Models\" />
-    <Folder Include="Middlewares\" />
     <Folder Include="Views\Competitions\" />
     <Folder Include="Views\Shared\Partials\" />
     <Folder Include="Areas\Administration\Views\Home\" />

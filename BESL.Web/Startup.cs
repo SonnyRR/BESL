@@ -117,6 +117,8 @@
                 routeBuilder.MapHub<UserNotificationHub>("/userNotificationHub");
             });
 
+            app.UseCustomExceptionHandlerMiddleware();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
