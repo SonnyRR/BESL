@@ -9,6 +9,10 @@
     {
         public void Configure(EntityTypeBuilder<TournamentFormat> builder)
         {
+
+            builder.HasIndex(tf => new { tf.Name, tf.GameId })
+                .IsUnique();
+
             builder.Property(tf => tf.Name)
                 .IsRequired()
                 .IsUnicode()
