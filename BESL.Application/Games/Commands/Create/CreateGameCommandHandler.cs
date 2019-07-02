@@ -24,7 +24,6 @@
 
         public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
-            throw new NotFoundException("Game", 3);
             var cloudinary = CloudinaryHelper.GetInstance(this.configuration);
 
             var url = await CloudinaryHelper.UploadImage(
