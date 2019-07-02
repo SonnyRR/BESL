@@ -11,7 +11,7 @@
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
 
-    public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, bool>
+    public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand>
     {
         private readonly IApplicationDbContext context;
 
@@ -20,9 +20,8 @@
             this.context = context;
         }
 
-        public async Task<bool> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
         {
-            bool isDeleteSuccessfull = false;
 
             var desiredGame = await this.context
                 .Games
@@ -41,11 +40,10 @@
             {
                 desiredGame.IsDeleted = true;
                 desiredGame.DeletedOn = DateTime.UtcNow;
-                isDeleteSuccessfull = true;
                 await this.context.SaveChangesAsync(cancellationToken);
             }
 
-            return isDeleteSuccessfull;
+            return Unit.Value;
         }
     }
 }
