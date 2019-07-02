@@ -1,8 +1,6 @@
 ﻿namespace BESL.Application.Exceptions
 {
-    using System;
-
-    public class NotFoundException : Exception
+    public class NotFoundException : BaseCustomException
     {
         public NotFoundException(string name, object key)
             : base($"Entity \"{name}\" ({key}) was not found.")

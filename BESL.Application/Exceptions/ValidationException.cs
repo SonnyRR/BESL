@@ -1,12 +1,10 @@
 ﻿namespace BESL.Application.Exceptions
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-
     using FluentValidation.Results;
 
-    public class ValidationException : Exception
+    public class ValidationException : BaseCustomException
     {
         public ValidationException()
             : base("One or more validation failures have occurred.")
