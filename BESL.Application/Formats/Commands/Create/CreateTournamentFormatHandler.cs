@@ -9,6 +9,7 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using System;
 
     public class CreateTournamentFormatHandler : IRequestHandler<CreateTournamentFormatCommand, int>
     {
@@ -44,7 +45,8 @@
                 Description = request.Description,
                 TeamPlayersCount = request.TeamPlayersCount,
                 TotalPlayersCount = request.TotalPlayersCount,
-                GameId = request.GameId
+                GameId = request.GameId,
+                CreatedOn = DateTime.UtcNow
             };
 
             this.dbContext.TournamentFormats.Add(format);
