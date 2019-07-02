@@ -35,16 +35,7 @@
                 return this.View();
             }
 
-            int? gameId = await this.Mediator.Send(command);
-
-            if (gameId != null)
-            {
-                await this.NotifyService.SendUserSuccessNotificationAsync($"{command.Name}", "has been created successfuly!", this.UserNameIdentifier);
-            }
-            else
-            {
-                await this.NotifyService.SendUserFailiureNotificationAsync("An error has occured!", $"{command.Name} could not be created!", this.UserNameIdentifier);
-            }
+            int gameId = await this.Mediator.Send(command);
 
             return this.RedirectToAction("All");
         }

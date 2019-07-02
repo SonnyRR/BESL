@@ -22,5 +22,9 @@
             return this.RedirectToAction("All", "GamesController");
         }
 
+        public async Task<IActionResult> All()
+        {
+            return this.View();
+        }
     }
 }
