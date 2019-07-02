@@ -36,6 +36,7 @@
             }
 
             int gameId = await this.Mediator.Send(command);
+            this.NotifyService.SendUserSuccessNotificationAsync(command.Name, "has beed created successfully!", this.UserNameIdentifier);
 
             return this.RedirectToAction("All");
         }
@@ -62,7 +63,9 @@
                 return this.View(model);
             }
 
-            return NoContent();
+            await this.Mediator.Send(command);
+
+            return RedirectToAction("All");
         }
 
         [HttpPost]
@@ -70,15 +73,7 @@
         {
             var isDeleteSuccessfull = await this.Mediator.Send(command);
 
-            if (isDeleteSuccessfull)
-            {
-                await this.NotifyService.SendUserSuccessNotificationAsync(command.GameName, $"has been deleted!", this.UserNameIdentifier);
-            }
-            else
-            {
-                await this.NotifyService.SendUserFailiureNotificationAsync("An error has occured!", $"{command.GameName} cound not be deleted!", this.UserNameIdentifier);
-            }
-
+            this.NotifyService.SendUserSuccessNotificationAsync(command.GameName, $"has been deleted!", this.UserNameIdentifier);
             return this.Redirect("/Administration/Games/All");
         }
     }
