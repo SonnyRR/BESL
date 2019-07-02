@@ -11,14 +11,12 @@
         </div>
     </div>
     <div class="col-md-9">
-        <div class="rounded">
-            <div class="tab-content" id="nav-tabContent">
-                <partial name="~/Areas/Administration/Views/Shared/Partials/_SpinnerPartial.cshtml" />
-                <div class="tab-pane fade show active" id="mainPane" role="tabpanel" aria-labelledby="list-games-list" data-ajax="true" data-ajax-url="/Administration/Games/Create" data-ajax-method="GET" data-ajax-update="#gamesInfo">
-                    @*Alerts render below*@
-                    <div style="display:none" id="alertPanel"></div>
-                    <div id="mainContentContainer"></div>
-                </div>
+        <div class="tab-content" id="nav-tabContent">
+            <partial name="~/Areas/Administration/Views/Shared/Partials/_SpinnerPartial.cshtml" />
+            <div class="tab-pane fade show active" id="mainPane" role="tabpanel" aria-labelledby="list-games-list" data-ajax="true" data-ajax-url="/Administration/Games/Create" data-ajax-method="GET" data-ajax-update="#gamesInfo">
+                @*Alerts render below*@
+                <div style="display:none" id="alertPanel"></div>
+                <div id="mainContentContainer"></div>
             </div>
         </div>
     </div>
