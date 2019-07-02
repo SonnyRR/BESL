@@ -20,7 +20,6 @@
     <Folder Include="Games\Common\" />
     <Folder Include="Infrastructure\Validators\" />
     <Folder Include="Games\Commands\Delete\" />
-    <Folder Include="Exceptions\" />
     <Folder Include="Tournaments\Queries\" />
   </ItemGroup>
   <ItemGroup>
