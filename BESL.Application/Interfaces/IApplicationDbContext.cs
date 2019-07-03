@@ -6,6 +6,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Domain.Entities;
+    using Microsoft.EntityFrameworkCore.ChangeTracking;
 
     public interface IApplicationDbContext
     {

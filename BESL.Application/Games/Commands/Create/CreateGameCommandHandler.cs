@@ -30,6 +30,7 @@
                     cloudinary,
                     request.GameImage,
                     name: $"{request.Name}-main-shot"
+                    // TODO: set picture transformation size
                     //transformation: new Transformation().Width(500).Height(500)
                 ); 
 

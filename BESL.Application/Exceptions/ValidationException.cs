@@ -2,12 +2,15 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+
     using FluentValidation.Results;
+
+    using static BESL.Common.GlobalConstants;
 
     public class ValidationException : BaseCustomException
     {
         public ValidationException()
-            : base("One or more validation failures have occurred.")
+            : base(VALIDATION_EXCEPTION_BASE_MSG)
         {
             this.Failures = new Dictionary<string, string[]>();
         }

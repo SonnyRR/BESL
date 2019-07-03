@@ -1,12 +1,12 @@
 ﻿namespace BESL.Common
 {
-    using System.Collections.Generic;
-    using System.IO;
     using System.Threading.Tasks;
-    using CloudinaryDotNet;
-    using CloudinaryDotNet.Actions;
+    using System.IO;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Configuration;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
 
     public static class CloudinaryHelper
     {

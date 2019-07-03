@@ -8,6 +8,7 @@
 
     using BESL.Application.Exceptions;
     using BESL.Web.Services;
+    using static BESL.Common.GlobalConstants;
 
     public class CustomExceptionHandlerMiddleware
     {
@@ -49,7 +50,7 @@
                 }
                 catch (BaseCustomException exception)
                 {
-                    await notifyService.SendUserFailiureNotificationAsync("An error has occured!", exception.Message, userNameIdentifier);
+                    await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, exception.Message, userNameIdentifier);
                     await this.next(context);
                 }
             }

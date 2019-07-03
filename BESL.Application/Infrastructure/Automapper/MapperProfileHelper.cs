@@ -39,9 +39,9 @@
                     from type in types
                     from instance in type.GetInterfaces()
                     where
-                        typeof(IHaveCustomMapping).IsAssignableFrom(type) &&
-                        !type.IsAbstract &&
-                        !type.IsInterface
+                        typeof(IHaveCustomMapping).IsAssignableFrom(type) 
+                        && !type.IsAbstract
+                        && !type.IsInterface
                     select (IHaveCustomMapping)Activator.CreateInstance(type)).ToList();
 
             return mapsFrom;

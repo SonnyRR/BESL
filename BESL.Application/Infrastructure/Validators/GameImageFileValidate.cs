@@ -1,6 +1,5 @@
 ﻿namespace BESL.Application.Infrastructure.Validators
 {
-    using System.Linq;
     using Microsoft.AspNetCore.Http;
     using BESL.Application.Interfaces;
 
