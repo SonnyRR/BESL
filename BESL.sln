@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A00B21D4-5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BESL.Application", "BESL.Application\BESL.Application.csproj", "{A5C6CA10-3C4E-48D5-A0CE-C99DDF333633}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3D653B2D-88DC-43B3-98E9-C724D2F11B99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BESL.Application.Tests", "BESL.Application.Tests\BESL.Application.Tests.csproj", "{D64CD4D7-D5DD-45DE-B76F-F668467D7945}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,10 @@ Global
 		{A5C6CA10-3C4E-48D5-A0CE-C99DDF333633}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5C6CA10-3C4E-48D5-A0CE-C99DDF333633}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5C6CA10-3C4E-48D5-A0CE-C99DDF333633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D64CD4D7-D5DD-45DE-B76F-F668467D7945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D64CD4D7-D5DD-45DE-B76F-F668467D7945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D64CD4D7-D5DD-45DE-B76F-F668467D7945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D64CD4D7-D5DD-45DE-B76F-F668467D7945}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +74,7 @@ Global
 		{B6E646E3-73AF-4933-A283-0CDF4C30E688} = {1416725C-3E0C-4546-9189-3BAC13D5FB2F}
 		{9D3C8C57-0496-472A-9D01-512392460F4E} = {F68FBE45-94DC-493B-A43A-A5396F73C9E7}
 		{A5C6CA10-3C4E-48D5-A0CE-C99DDF333633} = {A00B21D4-530D-45DA-BD18-BA3EC142E088}
+		{D64CD4D7-D5DD-45DE-B76F-F668467D7945} = {3D653B2D-88DC-43B3-98E9-C724D2F11B99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28492DB0-7FA2-495F-A06F-66257A3E9FC6}

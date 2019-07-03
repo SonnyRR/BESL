@@ -8,7 +8,7 @@
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
 
-    public static class CloudinaryHelper
+    public class CloudinaryHelper
     {
         public static Cloudinary GetInstance(IConfiguration configuration)
         {
