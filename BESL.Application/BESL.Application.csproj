@@ -22,7 +22,4 @@
     <Folder Include="Games\Commands\Delete\" />
     <Folder Include="Tournaments\Queries\" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="CloudinaryDotNet, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841" />
-  </ItemGroup>
 </Project>
