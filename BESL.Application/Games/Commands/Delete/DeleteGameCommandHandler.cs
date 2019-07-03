@@ -10,20 +10,21 @@
     using Microsoft.EntityFrameworkCore;
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IApplicationDbContext dbContext;
 
         public DeleteGameCommandHandler(IApplicationDbContext context)
         {
-            this.context = context;
+            this.dbContext = context;
         }
 
         public async Task<Unit> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
         {
 
-            var desiredGame = await this.context
+            var desiredGame = await this.dbContext
                 .Games
                 .SingleOrDefaultAsync(g => g.Id == request.Id);
 
@@ -34,13 +35,13 @@
 
             if (desiredGame.IsDeleted)
             {
-                throw new DeleteFailureException(nameof(Game), desiredGame.Id, "Entity is already deleted.");
+                throw new DeleteFailureException(nameof(Game), desiredGame.Id, ENTITY_ALREADY_DELETED_MSG);
             }
             else
             {
                 desiredGame.IsDeleted = true;
                 desiredGame.DeletedOn = DateTime.UtcNow;
-                await this.context.SaveChangesAsync(cancellationToken);
+                await this.dbContext.SaveChangesAsync(cancellationToken);
             }
 
             return Unit.Value;
