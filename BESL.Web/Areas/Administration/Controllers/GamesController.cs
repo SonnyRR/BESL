@@ -10,6 +10,7 @@
     using BESL.Application.Games.Commands.Modify;
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Games.Queries.ModifyGame;
+    using static BESL.Common.GlobalConstants;
     using BESL.Web.Filters;
 
     [AjaxOnlyFilter]
@@ -36,7 +37,7 @@
             }
 
             int gameId = await this.Mediator.Send(command);
-            this.NotifyService.SendUserSuccessNotificationAsync(command.Name, "has beed created successfully!", this.UserNameIdentifier);
+            this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
 
             return this.RedirectToAction("All");
         }
@@ -73,7 +74,7 @@
         {
             var isDeleteSuccessfull = await this.Mediator.Send(command);
 
-            this.NotifyService.SendUserSuccessNotificationAsync(command.GameName, $"has been deleted!", this.UserNameIdentifier);
+            this.NotifyService.SendUserSuccessNotificationAsync(command.GameName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.Redirect("/Administration/Games/All");
         }
     }

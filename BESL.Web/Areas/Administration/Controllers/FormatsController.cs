@@ -8,6 +8,7 @@
     using BESL.Application.Formats.Commands.Create;
     using BESL.Application.Formats.Queries.GetAll;
     using BESL.Application.Formats.Commands.Delete;
+    using static BESL.Common.GlobalConstants;
 
     public class FormatsController : AdminController
     {
@@ -22,7 +23,7 @@
         {
             var tournamentFormatId = await this.Mediator.Send(command);
 
-            this.NotifyService.SendUserSuccessNotificationAsync(command.Name, "has beed created successfully!", this.UserNameIdentifier);
+            this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction("All");
         }
 
@@ -35,6 +36,8 @@
         public async Task<IActionResult> Delete(DeleteTournamentFormatCommand command)
         {
             await this.Mediator.Send(command);
+
+            this.NotifyService.SendUserSuccessNotificationAsync(command.FormatName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.Redirect("All");
         }
     }
