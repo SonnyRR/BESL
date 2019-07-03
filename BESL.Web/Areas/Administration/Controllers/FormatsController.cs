@@ -7,6 +7,7 @@
     using BESL.Application.Formats.Queries.Create;
     using BESL.Application.Formats.Commands.Create;
     using BESL.Application.Formats.Queries.GetAll;
+    using BESL.Application.Formats.Commands.Delete;
 
     public class FormatsController : AdminController
     {
@@ -20,6 +21,8 @@
         public async Task<IActionResult> Create(CreateTournamentFormatCommand command)
         {
             var tournamentFormatId = await this.Mediator.Send(command);
+
+            this.NotifyService.SendUserSuccessNotificationAsync(command.Name, "has beed created successfully!", this.UserNameIdentifier);
             return this.RedirectToAction("All");
         }
 
@@ -27,6 +30,12 @@
         {
             var tournamentFormats = await this.Mediator.Send(new GetAllTournamentFormatsQuery()); 
             return this.View(tournamentFormats);
+        }
+
+        public async Task<IActionResult> Delete(DeleteTournamentFormatCommand command)
+        {
+            await this.Mediator.Send(command);
+            return this.Redirect("All");
         }
     }
 }
