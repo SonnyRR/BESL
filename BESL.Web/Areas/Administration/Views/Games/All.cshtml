@@ -6,10 +6,8 @@
     <div class="container-fluid mt-2 mb-3">
         <form id="createGameForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Create" data-ajax-method="GET" data-ajax-success="$.validator.unobtrusive.parse(gameCreateForm)" data-ajax-update="#mainContentContainer"></form>
         <form id="refreshGamesForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#mainContentContainer"></form>
-        <form id="tournamentFormats" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Formats/Create" data-ajax-method="GET" data-ajax-success="$.validator.unobtrusive.parse(formatCreateForm)" data-ajax-update="#mainContentContainer"></form>
         <button class="btn btn-success mb-3" form="createGameForm"><i class="fas fa-plus-circle"></i>&nbsp;Add a game</button>
         <button class="btn btn-primary mb-3" form="refreshGamesForm"><i class="fas fa-redo-alt"></i>&nbsp;Refresh games list</button>
-        <button class="btn btn-primary mb-3" form="tournamentFormats"><i class="fas fa-chess"></i>&nbsp;Tournament formats</button>
         <table class="table table-hover rounded shadow">
             <thead class="thead-dark rounded">
                 <tr>

@@ -1,5 +1,5 @@
-﻿@model  BESL.Application.Formats.Queries.GetAll.GetAllTournamentFormatsQueryViewModel
-@{ 
+﻿@model BESL.Application.Formats.Queries.GetAll.GetAllTournamentFormatsQueryViewModel
+@{
     Layout = null;
 }
 <div class="border rounded">
@@ -14,7 +14,8 @@
                     <th scope="col">Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Game</th>
-                    <th scope="col">Registered teams</th>
+                    <th scope="col">Team players count</th>
+                    <th scope="col">Total players</th>
                     <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
                     <th scope="col" class="text-center"><i class="fas fa-trash-alt"></i></th>
                 </tr>
@@ -28,7 +29,8 @@
                             <th scope="row">@tournamentFormat.Id</th>
                             <td>@tournamentFormat.Name</td>
                             <td>@tournamentFormat.Game</td>
-                            <td>0</td>
+                            <td>@tournamentFormat.TeamPlayersCount</td>
+                            <td>@tournamentFormat.TotalPlayersCount</td>
                             <td class="text-center">
                                 <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/Games/Modify/@tournamentFormat.Id" data-ajax-method="GET" data-ajax-success="$.validator.unobtrusive.parse(gameModifyForm)" data-ajax-update="#mainContentContainer">
                                     <button class="btn btn-info align-center"><i class="fas fa-wrench"></i>&nbsp;Modify</button>
