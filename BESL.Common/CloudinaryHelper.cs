@@ -8,9 +8,9 @@
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
 
-    public class CloudinaryHelper
+    public class CloudinaryHelper : ICloudinaryHelper
     {
-        public static Cloudinary GetInstance(IConfiguration configuration)
+        public Cloudinary GetInstance(IConfiguration configuration)
         {
             
             #warning Don't forget to enter your Cloudinary credentials.
@@ -29,7 +29,7 @@
             return instance;
         }
 
-        public static async Task<string> UploadImage(Cloudinary cloudinary, 
+        public async Task<string> UploadImage(Cloudinary cloudinary, 
             IFormFile fileForm, 
             string name, 
             Transformation transformation = null)

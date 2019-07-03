@@ -15,11 +15,13 @@
     {
         private readonly IApplicationDbContext context;
         private readonly IConfiguration configuration;
+        private readonly CloudinaryHelper cloudinaryHelper;
 
         public CreateTournamentCommandHandler(IApplicationDbContext context, IConfiguration configuration)
         {
             this.context = context;
             this.configuration = configuration;
+            this.cloudinaryHelper = new CloudinaryHelper();
         }
 
         public async Task<int> Handle(CreateTournamentCommand request, CancellationToken cancellationToken)
@@ -29,9 +31,9 @@
                 // Throw
             }
 
-            var cloudinary = CloudinaryHelper.GetInstance(this.configuration);
+            var cloudinary = cloudinaryHelper.GetInstance(this.configuration);
 
-            var url = await CloudinaryHelper.UploadImage(
+            var url = await cloudinaryHelper.UploadImage(
                     cloudinary,
                     request.TournamentImage,
                     name: $"{request.Name}-tournament-main-shot"

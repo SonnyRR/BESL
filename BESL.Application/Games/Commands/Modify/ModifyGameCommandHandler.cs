@@ -17,11 +17,13 @@
     {
         private readonly IApplicationDbContext dbContext;
         private readonly IConfiguration configuration;
+        private readonly CloudinaryHelper cloudinaryHelper;
 
         public ModifyGameCommandHandler(IApplicationDbContext dbContext, IConfiguration configuration)
         {
             this.dbContext = dbContext;
             this.configuration = configuration;
+            this.cloudinaryHelper = new CloudinaryHelper();
         }
 
         public async Task<Unit> Handle(ModifyGameCommand request, CancellationToken cancellationToken)
@@ -40,8 +42,8 @@
 
             if (request.GameImage != null)
             {
-                var cloudinary = CloudinaryHelper.GetInstance(this.configuration);
-                var imageUrl = await CloudinaryHelper.UploadImage(
+                var cloudinary = this.cloudinaryHelper.GetInstance(this.configuration);
+                var imageUrl = await this.cloudinaryHelper.UploadImage(
                     cloudinary,
                     request.GameImage,
                     name: $"{request.Name}-main-shot"
