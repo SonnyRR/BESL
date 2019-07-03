@@ -6,6 +6,7 @@
 
     using BESL.Application.Formats.Queries.Create;
     using BESL.Application.Formats.Commands.Create;
+    using BESL.Application.Formats.Queries.GetAll;
 
     public class FormatsController : AdminController
     {
@@ -19,12 +20,13 @@
         public async Task<IActionResult> Create(CreateTournamentFormatCommand command)
         {
             var tournamentFormatId = await this.Mediator.Send(command);
-            return this.RedirectToAction("All", "GamesController");
+            return this.RedirectToAction("All");
         }
 
         public async Task<IActionResult> All()
         {
-            return this.View();
+            var tournamentFormats = await this.Mediator.Send(new GetAllTournamentFormatsQuery()); 
+            return this.View(tournamentFormats);
         }
     }
 }
