@@ -23,6 +23,10 @@
 
         public async Task<Unit> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
 
             var desiredGame = await this.dbContext
                 .Games
