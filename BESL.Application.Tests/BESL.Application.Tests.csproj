@@ -24,4 +24,14 @@
     <ProjectReference Include="..\BESL.Persistence\BESL.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\TestPictures\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Common\TestPictures\gamePicureValid.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

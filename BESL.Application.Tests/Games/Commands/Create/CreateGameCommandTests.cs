@@ -18,6 +18,7 @@
     using System;
     using BESL.Application.Interfaces;
     using System.IO;
+    using BESL.Application.Infrastructure.Validators;
 
     public class CreateGameCommandTests : BaseCommandTest
     {
@@ -71,6 +72,31 @@
 
             // Assert
             Should.Throw<ArgumentNullException>(() => handler.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
+        }
+
+        [Fact]
+        public void Validator_GivenValidRequest_ShouldValidateCorrectly()
+        {
+            // Arrange
+            var fileStream = File.OpenRead(Path.Combine("Common", "TestPictures", "gamePicureValid.jpg"));
+            var formFile = new FormFile(fileStream, 0, fileStream.Length, "gamePicture", "gamePictureValid.jpg")
+            {
+                Headers = new HeaderDictionary()
+            };
+            formFile.ContentType = "image/jpeg";
+            var request = new CreateGameCommand()
+            {
+                Name = "Dota 2",
+                Description = "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.",
+                GameImage = formFile
+            };
+
+            // Act
+            var validator = new CreateGameCommandValidator(new GameImageFileValidate());
+            var validationResult = validator.Validate(request);
+
+            // Assert
+            validationResult.IsValid.ShouldBe(true);
         }
     }
 }
