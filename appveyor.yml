@@ -6,7 +6,7 @@ build:
   project: BESL.sln
   verbosity: minimal
 test_script:
-- .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\BESL.Application.Tests\bin\Debug\netcoreapp2.2\BESL.Application.Tests.dll -noshadow" -output:"coverage.xml" -filter:"+[BESL.Application*]* -[BESL.Application.Tests*]*"
+- .\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\BESL.Application.Tests\bin\Debug\netcoreapp2.2\BESL.Application.Tests.dll -noshadow" -output:"coverage.xml" -filter:"+[BESL.Application*]* -[BESL.Application.Tests*]*"
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
