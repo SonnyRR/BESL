@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.Games.Commands.Create
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -26,6 +27,11 @@
 
         public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             var cloudinary = this.cloudinaryHelper.GetInstance(this.configuration);
 
             var url = await this.cloudinaryHelper.UploadImage(
