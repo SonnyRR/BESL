@@ -27,7 +27,7 @@
         private int CreateSampleGame()
         {
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
-            var handler = new CreateGameCommandHandler(this.dbContext, It.IsAny<IConfiguration>());
+            var sut = new CreateGameCommandHandler(this.dbContext, It.IsAny<IConfiguration>());
 
             cloudinaryHelperMock
                 .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
@@ -41,7 +41,7 @@
                 .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                 .SingleOrDefault(f => f.IsInitOnly && f.FieldType == typeof(ICloudinaryHelper));
 
-            field.SetValue(handler, cloudinaryHelperMock.Object);
+            field.SetValue(sut, cloudinaryHelperMock.Object);
             var gameCommandRequest = new CreateGameCommand()
             {
                 Name = "Team Fortress 2",
@@ -49,7 +49,7 @@
                 GameImage = new FormFile(It.IsAny<Stream>(), It.IsAny<long>(), It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>())
             };
 
-            var id = handler.Handle(gameCommandRequest, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
+            var id = sut.Handle(gameCommandRequest, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
             return id;
         }
 
@@ -66,8 +66,8 @@
                 GameName = It.IsAny<string>()
             };
 
-            var deleteGameCommandHandler = new DeleteGameCommandHandler(this.dbContext);
-            deleteGameCommandHandler.Handle(deleteGameCommand, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
+            var sut = new DeleteGameCommandHandler(this.dbContext);
+            sut.Handle(deleteGameCommand, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
 
             var deletedGameEntity = this.dbContext.Games.SingleOrDefault(g => g.Id == id);
 
@@ -91,7 +91,7 @@
                 this.dbContext.SaveChanges();
             }
 
-            var handler = new DeleteGameCommandHandler(this.dbContext);
+            var sut = new DeleteGameCommandHandler(this.dbContext);
             var command = new DeleteGameCommand()
             {
                 Id = id,
@@ -99,17 +99,17 @@
             };
 
             // Assert
-            Should.Throw(() => handler.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult(), exceptionType);
+            Should.Throw(() => sut.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult(), exceptionType);
         }
 
         [Fact]
         public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var handler = new DeleteGameCommandHandler(this.dbContext);
+            var sut = new DeleteGameCommandHandler(this.dbContext);
 
             // Assert
-            Should.Throw<ArgumentNullException>(() => handler.Handle(null, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
+            Should.Throw<ArgumentNullException>(() => sut.Handle(null, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
         }
     }
 }
