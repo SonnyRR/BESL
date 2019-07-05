@@ -27,7 +27,7 @@
         {
             // Arrange
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
-            var handler = new CreateGameCommandHandler(this.dbContext, It.IsAny<IConfiguration>());
+            var sut = new CreateGameCommandHandler(this.dbContext, It.IsAny<IConfiguration>());
 
             cloudinaryHelperMock
                 .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
@@ -41,7 +41,7 @@
                 .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                 .SingleOrDefault(f => f.IsInitOnly && f.FieldType == typeof(ICloudinaryHelper));
 
-            field.SetValue(handler, cloudinaryHelperMock.Object);
+            field.SetValue(sut, cloudinaryHelperMock.Object);
 
             var command = new CreateGameCommand()
             {
@@ -51,7 +51,7 @@
             };
 
             // Act
-            var id = handler.Handle(command, CancellationToken.None).GetAwaiter().GetResult();
+            var id = sut.Handle(command, CancellationToken.None).GetAwaiter().GetResult();
             var game = this.dbContext.Games.SingleOrDefault(g => g.Id == id);
 
             // Assert
@@ -67,11 +67,11 @@
         public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var handler = new CreateGameCommandHandler(It.IsAny<IApplicationDbContext>(), It.IsAny<IConfiguration>());
+            var sut = new CreateGameCommandHandler(It.IsAny<IApplicationDbContext>(), It.IsAny<IConfiguration>());
             CreateGameCommand command = null;
 
             // Assert
-            Should.Throw<ArgumentNullException>(() => handler.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
+            Should.Throw<ArgumentNullException>(() => sut.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
         }
 
         [Fact]
@@ -92,8 +92,8 @@
             };
 
             // Act
-            var validator = new CreateGameCommandValidator(new GameImageFileValidate());
-            var validationResult = validator.Validate(request);
+            var sut = new CreateGameCommandValidator(new GameImageFileValidate());
+            var validationResult = sut.Validate(request);
 
             // Assert
             validationResult.IsValid.ShouldBe(true);
