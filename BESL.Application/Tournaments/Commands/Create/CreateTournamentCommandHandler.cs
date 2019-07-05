@@ -12,6 +12,7 @@
     using BESL.Common;
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
+    using Microsoft.EntityFrameworkCore;
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {
@@ -46,13 +47,15 @@
                     name: $"{request.Name}-tournament-main-shot"
                 );
 
+            var gameId = (await this.context.TournamentFormats.SingleOrDefaultAsync(tf => tf.Id == request.FormatId)).GameId;
             Tournament tournament = new Tournament()
             {
                 Name = request.Name,
                 Description = request.Description,
                 TournamentImageUrl = url,
                 CreatedOn = DateTime.UtcNow,
-                FormatId = request.FormatId,                
+                FormatId = request.FormatId,
+                GameId = gameId
             };
 
             this.context.Tournaments.Add(tournament);

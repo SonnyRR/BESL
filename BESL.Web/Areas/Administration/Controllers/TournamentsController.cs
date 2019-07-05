@@ -6,6 +6,7 @@
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Tournaments.Commands.Create;
     using BESL.Application.Tournaments.Queries.Create;
+    using BESL.Application.Tournaments.Queries.GetAllTournaments;
     using Microsoft.AspNetCore.Mvc;
     using static BESL.Common.GlobalConstants;
 
@@ -33,7 +34,8 @@
 
         public async Task<IActionResult> All()
         {
-            return NoContent();
+            var model = await this.Mediator.Send(new GetAllTournamentsQuery());
+            return this.View(model);
         }
     }
 }

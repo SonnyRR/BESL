@@ -19,5 +19,6 @@
   <ItemGroup>
     <Folder Include="Infrastructure\Validators\" />
     <Folder Include="Games\Commands\Delete\" />
+    <Folder Include="Tournaments\Queries\GetAllTournaments\" />
   </ItemGroup>
 </Project>
