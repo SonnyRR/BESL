@@ -9,6 +9,7 @@
     using BESL.Application.Interfaces;
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
+    using System.Linq;
 
     public class GetAllTournamentFormatsQueryHandler : IRequestHandler<GetAllTournamentFormatsQuery, GetAllTournamentFormatsQueryViewModel>
     {
@@ -25,6 +26,7 @@
         {
             var tournamentFormatsLookups = await this.dbContext
                 .TournamentFormats
+                .Where(tf => !tf.IsDeleted)
                 .ProjectTo<TournamentFormatLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

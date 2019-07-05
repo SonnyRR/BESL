@@ -37,12 +37,10 @@
             {
                 throw new DeleteFailureException(nameof(TournamentFormat), desiredFormat.Id, ENTITY_ALREADY_DELETED_MSG);
             }
-            else
-            {
-                desiredFormat.IsDeleted = true;
-                desiredFormat.DeletedOn = DateTime.UtcNow;
-                await this.dbContext.SaveChangesAsync(cancellationToken);
-            }
+
+            desiredFormat.IsDeleted = true;
+            desiredFormat.DeletedOn = DateTime.UtcNow;
+            await this.dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

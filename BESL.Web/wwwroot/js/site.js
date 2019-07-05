@@ -10,7 +10,7 @@ function alertFadeFunc() {
             $(this).remove();
             element.style.display = "hidden";
         });
-    }, 4000);
+    }, 7000);
 
 }
 connection.on("ReceiveMessageSuccess", function (messageHeader, message) {

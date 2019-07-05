@@ -44,7 +44,7 @@
                 Name = request.Name,
                 Description = request.Description,
                 TeamPlayersCount = request.TeamPlayersCount,
-                TotalPlayersCount = request.TotalPlayersCount,
+                TotalPlayersCount = request.TeamPlayersCount * 2,
                 GameId = request.GameId,
                 CreatedOn = DateTime.UtcNow
             };

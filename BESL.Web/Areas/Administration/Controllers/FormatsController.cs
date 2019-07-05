@@ -38,7 +38,7 @@
             await this.Mediator.Send(command);
 
             this.NotifyService.SendUserSuccessNotificationAsync(command.FormatName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
-            return this.Redirect("All");
+            return this.RedirectToAction("All");
         }
     }
 }
