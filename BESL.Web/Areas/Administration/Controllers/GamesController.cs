@@ -30,8 +30,8 @@
                 return this.View();
             }
 
-            int gameId = await this.Mediator.Send(command);
-            this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            await this.Mediator.Send(command);
+            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
 
             return this.RedirectToAction(nameof(All));
         }
@@ -66,9 +66,9 @@
         [HttpPost]
         public async Task<IActionResult> Delete(DeleteGameCommand command)
         {
-            var isDeleteSuccessfull = await this.Mediator.Send(command);
+            await this.Mediator.Send(command);
 
-            this.NotifyService.SendUserSuccessNotificationAsync(command.GameName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.GameName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction(nameof(All));
         }
     }

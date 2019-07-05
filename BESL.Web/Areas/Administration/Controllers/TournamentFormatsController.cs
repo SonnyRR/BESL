@@ -21,7 +21,7 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateTournamentFormatCommand command)
         {
-            var tournamentFormatId = await this.Mediator.Send(command);
+            await this.Mediator.Send(command);
 
             _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction(nameof(All));
