@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Tournaments.Commands.Create;
+    using BESL.Application.Tournaments.Queries.Create;
     using Microsoft.AspNetCore.Mvc;
     using static BESL.Common.GlobalConstants;
 
@@ -12,7 +13,8 @@
     {
         public async Task<IActionResult> Create()
         {
-           return this.View();
+            var model = await this.Mediator.Send(new CreateTournamentQuery());
+            return this.View(model);
         }
 
         [HttpPost]
@@ -30,7 +32,7 @@
 
         public async Task<IActionResult> All()
         {
-            return this.View(new GamesListViewModel() { Games = new List<GameLookupModel>()});
+            return this.View(new GamesListViewModel() { Games = new List<GameLookupModel>() });
         }
     }
 }

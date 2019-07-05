@@ -19,7 +19,10 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
                 <small id="gameDescHelp" class="form-text text-muted">Description of the tournament.</small>
             </div>
-
+            <div class="form-group">
+                <label asp-for="FormatId">Format</label>
+                <select class="form-control" asp-for="FormatId" asp-items="Model.Formats.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()"></select>
+            </div>
             <label asp-for="TournamentImage">Image (< 4MB)</label>
             <div class="input-group">
                 <div class="input-group-prepend">
