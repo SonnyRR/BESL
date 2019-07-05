@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Formats.Commands.Create
+﻿namespace BESL.Application.TournamentFormats.Commands.Create
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -10,6 +10,7 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using System;
+    using System.Linq;
 
     public class CreateTournamentFormatHandler : IRequestHandler<CreateTournamentFormatCommand, int>
     {
@@ -25,9 +26,13 @@
             var validator = new CreateTournamentFormatValidator();
             var validationResult = validator.Validate(request);
 
-            if (!validationResult.IsValid)
+            if (request == null)
             {
-                throw new ValidationException(validationResult.Errors);
+                throw new ArgumentNullException(nameof(request));
+            }
+            if (this.dbContext.TournamentFormats.Any(tf => tf.GameId == request.GameId && tf.Name == request.Name))
+            {
+                throw new EntityAlreadyExists(nameof(TournamentFormat), $"{request.Name} - GameId:{request.GameId}");
             }
 
             var game = await this.dbContext

@@ -1,8 +1,8 @@
-﻿namespace BESL.Application.Formats.Queries.Create
+﻿namespace BESL.Application.TournamentFormats.Queries.Create
 {
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using BESL.Application.Formats.Commands.Create;
+    using BESL.Application.TournamentFormats.Commands.Create;
     using BESL.Application.Interfaces;
     using MediatR;
     using Microsoft.EntityFrameworkCore;

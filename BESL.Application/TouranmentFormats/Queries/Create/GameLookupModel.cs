@@ -2,7 +2,7 @@
 using BESL.Application.Interfaces.Mapping;
 using BESL.Domain.Entities;
 
-namespace BESL.Application.Formats.Queries.Create
+namespace BESL.Application.TournamentFormats.Queries.Create
 {
     public class GameLookupModel : IHaveCustomMapping
     {

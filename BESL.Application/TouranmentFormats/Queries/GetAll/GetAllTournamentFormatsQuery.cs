@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Formats.Queries.GetAll
+﻿namespace BESL.Application.TournamentFormats.Queries.GetAll
 {
     using MediatR;
 

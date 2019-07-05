@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Formats.Commands.Create
+﻿namespace BESL.Application.TournamentFormats.Commands.Create
 {
     using FluentValidation;
 

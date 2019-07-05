@@ -4,13 +4,13 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using BESL.Application.Formats.Queries.Create;
-    using BESL.Application.Formats.Commands.Create;
-    using BESL.Application.Formats.Queries.GetAll;
-    using BESL.Application.Formats.Commands.Delete;
+    using BESL.Application.TournamentFormats.Queries.Create;
+    using BESL.Application.TournamentFormats.Commands.Create;
+    using BESL.Application.TournamentFormats.Queries.GetAll;
+    using BESL.Application.TournamentFormats.Commands.Delete;
     using static BESL.Common.GlobalConstants;
 
-    public class FormatsController : AdminController
+    public class TournamentFormatsController : AdminController
     {
         public async Task<IActionResult> Create()
         {

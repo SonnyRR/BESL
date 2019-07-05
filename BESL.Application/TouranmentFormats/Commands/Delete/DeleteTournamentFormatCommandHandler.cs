@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Formats.Commands.Delete
+﻿namespace BESL.Application.TournamentFormats.Commands.Delete
 {
     using System;
     using System.Threading;
