@@ -16,12 +16,6 @@
     [AjaxOnlyFilter]
     public class GamesController : AdminController
     {
-        private readonly IConfiguration configuration;
-
-        public GamesController(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
 
         public IActionResult Create()
         {

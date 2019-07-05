@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.Tournaments.Commands.Create
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Linq;
@@ -10,6 +11,7 @@
     using BESL.Application.Interfaces;
     using BESL.Common;
     using BESL.Domain.Entities;
+    using BESL.Application.Exceptions;
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {
@@ -26,9 +28,14 @@
 
         public async Task<int> Handle(CreateTournamentCommand request, CancellationToken cancellationToken)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             if (this.context.Tournaments.Any(t => t.Name == request.Name))
             {
-                // Throw
+                throw new EntityAlreadyExists(nameof(Tournament), request.Name);
             }
 
             var cloudinary = cloudinaryHelper.GetInstance(this.configuration);
@@ -37,7 +44,6 @@
                     cloudinary,
                     request.TournamentImage,
                     name: $"{request.Name}-tournament-main-shot"
-                //transformation: new Transformation().Width(500).Height(500)
                 );
 
             Tournament tournament = new Tournament()

@@ -4,7 +4,7 @@
 }
 <div class="border rounded">
     <div class="container-fluid mt-2 mb-3">
-        <form id="createTournamentForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Tournaments/Create" data-ajax-method="GET" data-ajax-success="$.validator.unobtrusive.parse(gameCreateForm)" data-ajax-update="#mainContentContainer"></form>
+        <form id="createTournamentForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Tournaments/Create" data-ajax-method="GET" data-ajax-success="$.validator.unobtrusive.parse(tournamentCreateForm)" data-ajax-update="#mainContentContainer"></form>
         <form id="refreshTournamentForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Tournaments/All" data-ajax-method="GET" data-ajax-update="#mainContentContainer"></form>
         <button class="btn btn-success mb-3" form="createTournamentForm"><i class="fas fa-plus-circle"></i>&nbsp;Add a torunament</button>
         <button class="btn btn-primary mb-3" form="refreshTournamentForm"><i class="fas fa-redo-alt"></i>&nbsp;Refresh tournaments list</button>
