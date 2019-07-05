@@ -33,7 +33,7 @@
             int gameId = await this.Mediator.Send(command);
             this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> All()
@@ -60,7 +60,7 @@
 
             await this.Mediator.Send(command);
 
-            return RedirectToAction("All");
+            return this.RedirectToAction(nameof(All));
         }
 
         [HttpPost]
@@ -69,7 +69,7 @@
             var isDeleteSuccessfull = await this.Mediator.Send(command);
 
             this.NotifyService.SendUserSuccessNotificationAsync(command.GameName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
-            return this.Redirect("/Administration/Games/All");
+            return this.RedirectToAction(nameof(All));
         }
     }
 }

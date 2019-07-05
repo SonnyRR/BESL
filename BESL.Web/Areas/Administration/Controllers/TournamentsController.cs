@@ -22,17 +22,18 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.RedirectToAction("Create");
+                return this.RedirectToAction(nameof(Create));
             }
 
             await this.Mediator.Send(command);
-            this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+
+            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction("All");
         }
 
         public async Task<IActionResult> All()
         {
-            return this.View(new GamesListViewModel() { Games = new List<GameLookupModel>() });
+            return NoContent();
         }
     }
 }

@@ -23,8 +23,8 @@
         {
             var tournamentFormatId = await this.Mediator.Send(command);
 
-            this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
-            return this.RedirectToAction("All");
+            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            return this.RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> All()
@@ -37,8 +37,8 @@
         {
             await this.Mediator.Send(command);
 
-            this.NotifyService.SendUserSuccessNotificationAsync(command.FormatName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
-            return this.RedirectToAction("All");
+            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.FormatName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            return this.RedirectToAction(nameof(All));
         }
     }
 }
