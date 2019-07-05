@@ -50,7 +50,9 @@
             {
                 Name = request.Name,
                 Description = request.Description,
-                TournamentImageUrl = url
+                TournamentImageUrl = url,
+                CreatedOn = DateTime.UtcNow,
+                FormatId = request.FormatId,                
             };
 
             this.context.Tournaments.Add(tournament);

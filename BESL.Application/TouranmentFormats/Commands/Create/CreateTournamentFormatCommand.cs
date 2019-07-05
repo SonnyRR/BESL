@@ -1,7 +1,7 @@
 ﻿namespace BESL.Application.TournamentFormats.Commands.Create
 {
     using System.Collections.Generic;
-    using BESL.Application.TournamentFormats.Queries.Create;
+    using BESL.Application.Common.Models;
     using MediatR;
 
     public class CreateTournamentFormatCommand : IRequest<int>
@@ -14,6 +14,6 @@
 
         public int GameId { get; set; }
 
-        public IEnumerable<GameLookupModel> Games { get; set; }
+        public IEnumerable<GameSelectItemLookupModel> Games { get; set; }
     }
 }

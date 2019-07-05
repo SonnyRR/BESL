@@ -2,7 +2,6 @@
 {
     using AutoMapper;
 
-    using BESL.Application.Games.Common;
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
 

@@ -8,6 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using System.Threading;
     using System.Threading.Tasks;
+    using BESL.Application.Common.Models;
 
     public class CreateTournamentFormatQueryHandler : IRequestHandler<CreateTournamentFormatQuery, CreateTournamentFormatCommand>
     {
@@ -24,7 +25,7 @@
         {
             var gamesMapped = await this.dbContext
                 .Games
-                .ProjectTo<GameLookupModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<GameSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return new CreateTournamentFormatCommand() { Games = gamesMapped };
