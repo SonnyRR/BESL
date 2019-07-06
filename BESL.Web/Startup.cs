@@ -110,7 +110,7 @@
 
             app.UseAuthentication();
 
-            app.UseSeedMiddleware();
+            //app.UseSeedMiddleware();
 
             app.UseSignalR(routeBuilder =>
             {

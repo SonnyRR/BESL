@@ -1,14 +1,13 @@
 ﻿namespace BESL.Web.Areas.Administration.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
-    using BESL.Application.Games.Queries.GetAllGames;
+
+    using Microsoft.AspNetCore.Mvc;
+
     using BESL.Application.Tournaments.Commands.Create;
     using BESL.Application.Tournaments.Queries.Create;
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
     using BESL.Application.TournamentTables.Queries.GetTournamentTables;
-    using Microsoft.AspNetCore.Mvc;
     using static BESL.Common.GlobalConstants;
 
     public class TournamentsController : AdminController

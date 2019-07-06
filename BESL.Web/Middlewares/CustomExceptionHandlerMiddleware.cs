@@ -9,6 +9,7 @@
     using BESL.Application.Exceptions;
     using BESL.Web.Services;
     using static BESL.Common.GlobalConstants;
+    using BESL.Domain.Entities.Enums;
 
     public class CustomExceptionHandlerMiddleware
     {
@@ -21,8 +22,8 @@
 
         public async Task InvokeAsync(HttpContext context, INotifyService notifyService)
         {
-            string userNameIdentifier = context.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            bool isCurrentUserAdmin = context.User.IsInRole("Administrator");
+            string userNameIdentifier = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            bool isCurrentUserAdmin = context.User.IsInRole(Role.Administrator.ToString());
 
             if (isCurrentUserAdmin)
             {

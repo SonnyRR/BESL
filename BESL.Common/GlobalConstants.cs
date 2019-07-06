@@ -2,6 +2,12 @@
 {
     public class GlobalConstants
     {
+        #region Root admin credentials
+        public const string ADMIN_USERNAME = "LeagueAdministrator";
+        public const string ADMIN_PASSWORD = "BanHammer1000%";
+        public const string ADMIN_EMAIL = "admin@besl.com";
+        #endregion
+
         #region Exception messages
         public const string VALIDATION_EXCEPTION_BASE_MSG = "One or more validation failures have occurred.";
         public const string ENTITY_ALREADY_DELETED_MSG = "Entity is already deleted.";
