@@ -11,6 +11,8 @@
 
         public string Team { get; set; }
 
+        public bool IsDropped { get; set; }
+
         public int TournamentTableId { get; set; }
 
         public int MatchesPlayed { get; set; }
@@ -26,7 +28,8 @@
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<TeamTableResult, TeamTableResultLookupModel>()
-                .ForMember(lm => lm.Team, o => o.MapFrom(ttr => ttr.Team.Name));
+                .ForMember(lm => lm.Team, o => o.MapFrom(ttr => ttr.Team.Name))
+                .ForMember(lm => lm.IsDropped, o => o.MapFrom(ttr => ttr.IsDeleted));
         }
     }
 }

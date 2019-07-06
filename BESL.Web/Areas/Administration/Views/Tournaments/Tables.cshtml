@@ -2,20 +2,17 @@
 @{
     Layout = null;
 }
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        @foreach (var table in Model.Tables)
-        {
-            <li class="nav-item">
-                <a class="nav-link active" id="@(table.Name)-tab" data-toggle="tab" href="#@(table.Name)pane" role="tab">@table.Name</a>
-            </li>
-        }
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    @foreach (var table in Model.Tables)
+    {
         <li class="nav-item">
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+            <a class="nav-link active" id="@(table.Name)-tab" data-toggle="tab" href="#@(table.Name)pane" role="tab">@table.Name</a>
         </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        @foreach (var table in Model.Tables)
-        {
+    }    
+</ul> 
+<div class="tab-content" id="myTabContent">
+    @foreach (var table in Model.Tables)
+    {
         <div class="tab-pane fade show active mt-2" id="@(table.Name)pane" role="tabpanel">
             <table class="table table-sm table-bordered table-hover border rounded table-striped">
                 <thead>
@@ -33,21 +30,28 @@
                 <tbody>
                     @{ int rowCounter = 1; }
                     @foreach (var tableResult in table.TableResults)
-                    { 
-                    <tr>
-                        <th scope="row">@(rowCounter++)</th>
-                        <td>@tableResult.Team</td>
-                        <td>@tableResult.TotalPoints</td>
-                        <td>@tableResult.PenaltyPoints</td>
-                        <td>@tableResult.MatchesPlayed</td>
-                        <td>@tableResult.MatchesWon</td>
-                        <td class="text-center">
-                            <a class="btn btn-sm btn-danger text-white">Drop</a>
-                        </td>
-                    </tr>
+                    {
+                        <tr>
+                            <th scope="row">@(rowCounter++)</th>
+                            <td>@tableResult.Team</td>
+                            <td>@tableResult.TotalPoints</td>
+                            <td>@tableResult.PenaltyPoints</td>
+                            <td>@tableResult.MatchesPlayed</td>
+                            <td>@tableResult.MatchesWon</td>
+                            <td class="text-center">
+                                @if (!tableResult.IsDropped)
+                                {
+                                    <a class="btn btn-sm btn-danger text-white" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Tournaments/Create" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to drop @tableResult.Team ?" data-ajax-update="#mainContentContainer">Drop</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-sm btn-info text-white" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Tournaments/Create" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to undrop @tableResult.Team ?" data-ajax-update="#mainContentContainer">Undrop</a>
+                                }
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
         </div>
-        }
-    </div>
+    }
+</div>
