@@ -1,4 +1,4 @@
-﻿@model BESL.Application.Tournaments.Queries.GetAllTournaments.AllTournamentsViewModel
+﻿ @model BESL.Application.Tournaments.Queries.GetAllTournaments.AllTournamentsViewModel
 @{
     Layout = null;
 }
@@ -15,7 +15,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Game</th>
                     <th scope="col">Format</th>
-                    <th scope="col" class="text-center">Teams participated</th>
+                    <th scope="col" class="text-center">Tables</th>
                     <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
                     <th scope="col" class="text-center"><i class="fas fa-trash-alt"></i></th>
                 </tr>
@@ -31,8 +31,8 @@
                     <td>@tournament.Game</td>
                     <td>@tournament.Format</td>
                     <td class="text-center">
-                        <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/Teams/Tournament/@tournament.Id" data-ajax-method="GET" data-ajax-update="#mainContentContainer">
-                            <button class="btn btn-primary" align-center"><i class="fas fa-list"></i>&nbsp;List</button>
+                        <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/Tournaments/Tables/@tournament.Id" data-ajax-method="GET" data-ajax-update="#mainContentContainer">
+                            <button class="btn btn-primary" align-center"><i class="fas fa-list"></i>&nbsp;Table list</button>
                         </form>
                     </td>
                     <td class="text-center">

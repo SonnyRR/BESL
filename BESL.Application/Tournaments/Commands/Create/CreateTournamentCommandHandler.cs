@@ -55,7 +55,7 @@
                 TournamentImageUrl = url,
                 CreatedOn = DateTime.UtcNow,
                 FormatId = request.FormatId,
-                GameId = gameId
+                GameId = gameId,
             };
 
             this.context.Tournaments.Add(tournament);

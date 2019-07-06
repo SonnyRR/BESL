@@ -14,7 +14,7 @@
         public TournamentTable TournamentTable { get; set; }
 
         public int MatchesPlayed => this.PlayedMatches
-            .Count(m => m.AwayTeamId == this.TeamId || m.HomeTeamId == this.TeamId);
+            .Count();
 
         public int MatchesWon => this.PlayedMatches
             .Count(m => m.WinnerTeamId == this.TeamId);

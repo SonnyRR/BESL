@@ -7,6 +7,7 @@
     using BESL.Application.Tournaments.Commands.Create;
     using BESL.Application.Tournaments.Queries.Create;
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
+    using BESL.Application.TournamentTables.Queries.GetTournamentTables;
     using Microsoft.AspNetCore.Mvc;
     using static BESL.Common.GlobalConstants;
 
@@ -36,6 +37,12 @@
         {
             var model = await this.Mediator.Send(new GetAllTournamentsQuery());
             return this.View(model);
+        }
+
+        public async Task<IActionResult> Tables(int id)
+        {
+            var viewModel = await this.Mediator.Send(new GetTournamentTablesQuery() { TournamentId = id });
+            return this.View(viewModel);
         }
     }
 }
