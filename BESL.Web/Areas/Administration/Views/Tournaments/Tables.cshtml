@@ -1,0 +1,53 @@
+﻿@model BESL.Application.TournamentTables.Queries.GetTournamentTables.TournamentTablesViewModel
+@{
+    Layout = null;
+}
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        @foreach (var table in Model.Tables)
+        {
+            <li class="nav-item">
+                <a class="nav-link active" id="@(table.Name)-tab" data-toggle="tab" href="#@(table.Name)pane" role="tab">@table.Name</a>
+            </li>
+        }
+        <li class="nav-item">
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        @foreach (var table in Model.Tables)
+        {
+        <div class="tab-pane fade show active mt-2" id="@(table.Name)pane" role="tabpanel">
+            <table class="table table-sm table-bordered table-hover border rounded table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Total points</th>
+                        <th scope="col">Penalty points</th>
+                        <th scope="col">Matches played</th>
+                        <th scope="col">Matches won</th>
+                        <th scope="col" class="text-center">Drop/Undrop</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int rowCounter = 1; }
+                    @foreach (var tableResult in table.TableResults)
+                    { 
+                    <tr>
+                        <th scope="row">@(rowCounter++)</th>
+                        <td>@tableResult.Team</td>
+                        <td>@tableResult.TotalPoints</td>
+                        <td>@tableResult.PenaltyPoints</td>
+                        <td>@tableResult.MatchesPlayed</td>
+                        <td>@tableResult.MatchesWon</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-danger text-white">Drop</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        }
+    </div>
