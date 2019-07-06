@@ -9,7 +9,6 @@
 
     using BESL.Domain.Entities;
     using BESL.Application.Interfaces;
-    using JetBrains.Annotations;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext

@@ -17,7 +17,7 @@
     {
         private readonly IApplicationDbContext dbContext;
         private readonly IConfiguration configuration;
-        private readonly CloudinaryHelper cloudinaryHelper;
+        private readonly ICloudinaryHelper cloudinaryHelper;
 
         public ModifyGameCommandHandler(IApplicationDbContext dbContext, IConfiguration configuration)
         {

@@ -3,12 +3,12 @@
     using System;
     using BESL.Persistence;
 
-    public class BaseCommandTest : IDisposable
+    public class BaseTest : IDisposable
     {
 
         protected readonly ApplicationDbContext dbContext;
 
-        public BaseCommandTest()
+        public BaseTest()
         {
             this.dbContext = ApplicationDbContextFactory.Create();
         }

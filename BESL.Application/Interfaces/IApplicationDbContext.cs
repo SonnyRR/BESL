@@ -33,5 +33,13 @@
         DbSet<TournamentTable> TournamentTables { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
+        Task<int> SaveChangesAsync( bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+
+        int SaveChanges();
+
+        int SaveChanges(bool acceptAllChangesOnSuccess);
+
+    
     }
 }

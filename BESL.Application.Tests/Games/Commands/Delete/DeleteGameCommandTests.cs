@@ -21,7 +21,7 @@
     using BESL.Application.Exceptions;
     using System;
 
-    public class DeleteGameCommandTests : BaseCommandTest
+    public class DeleteGameCommandTests : BaseTest
     {
 
         private int CreateSampleGame()

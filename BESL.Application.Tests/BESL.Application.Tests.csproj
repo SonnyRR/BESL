@@ -30,10 +30,19 @@
 
   <ItemGroup>
     <Folder Include="Common\TestPictures\" />
+    <Folder Include="Games\Commands\Modify\" />
+    <Folder Include="Games\Queries\" />
+    <Folder Include="Games\Queries\GetAllGames\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Common\TestPictures\gamePicureValid.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Common\TestPictures\invalid-file.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Common\TestPictures\gamePictureValid.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
