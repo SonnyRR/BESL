@@ -31,7 +31,6 @@
   <ItemGroup>
     <Folder Include="Common\TestPictures\" />
     <Folder Include="Games\Commands\Modify\" />
-    <Folder Include="Games\Queries\" />
     <Folder Include="Games\Queries\GetAllGames\" />
     <Folder Include="Games\Queries\GetAllGamesSelectList\" />
   </ItemGroup>

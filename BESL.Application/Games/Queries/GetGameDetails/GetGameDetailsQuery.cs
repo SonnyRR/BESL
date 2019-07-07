@@ -2,7 +2,7 @@
 {
     using MediatR;
 
-    public class GameDetailsQuery : IRequest<GameDetailsViewModel>
+    public class GetGameDetailsQuery : IRequest<GameDetailsViewModel>
     {
         public int Id { get; set; }
     }
