@@ -6,6 +6,9 @@
     using System.Threading.Tasks;
     using System.Reflection;
 
+    using AutoMapper;
+    using FluentValidation.AspNetCore;
+    using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI;
@@ -16,12 +19,8 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using AutoMapper;
-    using FluentValidation.AspNetCore;
-    using MediatR;
 
     using BESL.Application;
-    using BESL.Application.Games.Commands.Create;
     using BESL.Application.Interfaces;
     using BESL.Application.Infrastructure.AutoMapper;
     using BESL.Application.Infrastructure.Validators;
@@ -52,9 +51,9 @@
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    this.Configuration
-                        .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
+                    options.UseSqlServer(
+                        this.Configuration
+                            .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
 
             services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
                     options.UseSqlServer(
@@ -68,7 +67,6 @@
                     opt.Password.RequireDigit = true;
                     opt.Password.RequireLowercase = true;
                     opt.Password.RequireUppercase = true;
-                    // opt.User.RequireUniqueEmail = true;
                 })
                 .AddDefaultTokenProviders()
                 .AddDefaultUI()
@@ -109,8 +107,6 @@
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
-            //app.UseSeedMiddleware();
 
             app.UseSignalR(routeBuilder =>
             {

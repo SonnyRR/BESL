@@ -31,7 +31,6 @@
                     var userManager = scope.ServiceProvider.GetService<UserManager<Player>>();
 
                     var concreteContext = (ApplicationDbContext)context;
-                    //concreteContext.Database.Migrate();
 
                     if (!await roleManager.RoleExistsAsync(Role.Administrator.ToString()))
                     {
@@ -66,7 +65,6 @@
             }
 
             host.Run();
-
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
