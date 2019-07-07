@@ -10,8 +10,9 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
+    using BESL.Application.Common.Models;
 
-    public class GetAllGamesSelectListQueryHandler : IRequestHandler<GetAllGamesSelectListQuery, IEnumerable<GameLookupModel>>
+    public class GetAllGamesSelectListQueryHandler : IRequestHandler<GetAllGamesSelectListQuery, IEnumerable<GameSelectItemLookupModel>>
     {
         private readonly IApplicationDbContext dbContext;
         private readonly IMapper mapper;
@@ -22,11 +23,11 @@
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<GameLookupModel>> Handle(GetAllGamesSelectListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<GameSelectItemLookupModel>> Handle(GetAllGamesSelectListQuery request, CancellationToken cancellationToken)
         {
             var games = await this.dbContext
                 .Games
-                .ProjectTo<GameLookupModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<GameSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
             return games;
