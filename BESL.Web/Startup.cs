@@ -61,7 +61,7 @@
                         this.Configuration
                             .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(
+            services.AddIdentity<Player, IdentityRole>(
                 opt =>
                 {
                     opt.Password.RequiredLength = 6;

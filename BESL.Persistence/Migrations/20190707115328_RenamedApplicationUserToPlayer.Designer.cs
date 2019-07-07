@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BESL.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190610082522_IntroducePlayerMatchMappingTable")]
-    partial class IntroducePlayerMatchMappingTable
+    [Migration("20190707115328_RenamedApplicationUserToPlayer")]
+    partial class RenamedApplicationUserToPlayer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,82 @@ namespace BESL.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("BESL.Domain.Entities.Game", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .IsUnicode(true);
+
+                    b.Property<string>("GameImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .IsUnicode(true);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.Match", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AwayTeamId");
+
+                    b.Property<int>("AwayTeamScore");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<int>("HomeTeamId");
+
+                    b.Property<int>("HomeTeamScore");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsDraw");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<DateTime?>("ScheduledDate");
+
+                    b.Property<int>("TeamTableResultId");
+
+                    b.Property<int>("WinnerTeamId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AwayTeamId");
+
+                    b.HasIndex("HomeTeamId");
+
+                    b.HasIndex("TeamTableResultId");
+
+                    b.HasIndex("WinnerTeamId");
+
+                    b.ToTable("Matches");
+                });
 
             modelBuilder.Entity("BESL.Domain.Entities.Player", b =>
                 {
@@ -34,8 +110,6 @@ namespace BESL.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<DateTime?>("DeletedOn");
-
-                    
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -80,60 +154,6 @@ namespace BESL.Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    
-                });
-
-            modelBuilder.Entity("BESL.Domain.Entities.Game", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("ModifiedOn");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("BESL.Domain.Entities.Match", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AwayTeamId");
-
-                    b.Property<int>("AwayTeamScore");
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("Date");
-
-                    b.Property<int>("HomeTeamId");
-
-                    b.Property<int>("HomeTeamScore");
-
-                    b.Property<bool>("IsDraw");
-
-                    b.Property<DateTime?>("ModifiedOn");
-
-                    b.Property<int>("WinnerTeamId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AwayTeamId");
-
-                    b.HasIndex("HomeTeamId");
-
-                    b.HasIndex("WinnerTeamId");
-
-                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("BESL.Domain.Entities.PlayerMatch", b =>
@@ -142,11 +162,15 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<int>("MatchId");
 
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
                     b.HasKey("PlayerId", "MatchId");
 
                     b.HasIndex("MatchId");
 
-                    b.ToTable("PlayerMatch");
+                    b.ToTable("PlayerMatches");
                 });
 
             modelBuilder.Entity("BESL.Domain.Entities.PlayerTeam", b =>
@@ -154,6 +178,10 @@ namespace BESL.Persistence.Migrations
                     b.Property<string>("PlayerId");
 
                     b.Property<int>("TeamId");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.HasKey("PlayerId", "TeamId");
 
@@ -192,7 +220,20 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<int?>("CurrentActiveTournamentTableId");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .IsUnicode(true);
+
                     b.Property<int>("GameId");
+
+                    b.Property<string>("HomepageUrl")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("ModifiedOn");
 
@@ -205,11 +246,151 @@ namespace BESL.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurrentActiveTournamentTableId");
+
                     b.HasIndex("GameId");
 
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.TeamTableResult", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<int>("PenaltyPoints");
+
+                    b.Property<int>("TeamId");
+
+                    b.Property<int>("TotalPoints");
+
+                    b.Property<int>("TournamentTableId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TournamentTableId");
+
+                    b.ToTable("TeamTableResults");
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.Tournament", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .IsUnicode(true);
+
+                    b.Property<int>("FormatId");
+
+                    b.Property<int>("GameId");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true);
+
+                    b.Property<string>("TournamentImageUrl");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormatId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("Tournaments");
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.TournamentFormat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .IsUnicode(true);
+
+                    b.Property<int>("GameId");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .IsUnicode(true);
+
+                    b.Property<int>("TeamPlayersCount");
+
+                    b.Property<int>("TotalPlayersCount");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("Name", "GameId")
+                        .IsUnique();
+
+                    b.ToTable("TournamentFormats");
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.TournamentTable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<int>("MaxNumberOfTeams");
+
+                    b.Property<DateTime?>("ModifiedOn");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .IsUnicode(true);
+
+                    b.Property<int>("TournamentId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TournamentId");
+
+                    b.ToTable("TournamentTables");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -325,17 +506,22 @@ namespace BESL.Persistence.Migrations
             modelBuilder.Entity("BESL.Domain.Entities.Match", b =>
                 {
                     b.HasOne("BESL.Domain.Entities.Team", "AwayTeam")
-                        .WithMany("AwayMatches")
+                        .WithMany()
                         .HasForeignKey("AwayTeamId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BESL.Domain.Entities.Team", "HomeTeam")
-                        .WithMany("HomeMatches")
+                        .WithMany()
                         .HasForeignKey("HomeTeamId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Team", "Winner")
-                        .WithMany("WonMatches")
+                    b.HasOne("BESL.Domain.Entities.TeamTableResult", "TeamTableResult")
+                        .WithMany("PlayedMatches")
+                        .HasForeignKey("TeamTableResultId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BESL.Domain.Entities.Team", "WinnerTeam")
+                        .WithMany()
                         .HasForeignKey("WinnerTeamId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
@@ -368,6 +554,10 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("BESL.Domain.Entities.Team", b =>
                 {
+                    b.HasOne("BESL.Domain.Entities.TournamentTable", "CurrentActiveTournamentTable")
+                        .WithMany("SignedUpTeams")
+                        .HasForeignKey("CurrentActiveTournamentTableId");
+
                     b.HasOne("BESL.Domain.Entities.Game", "Game")
                         .WithMany("Teams")
                         .HasForeignKey("GameId")
@@ -376,6 +566,48 @@ namespace BESL.Persistence.Migrations
                     b.HasOne("BESL.Domain.Entities.Player", "Owner")
                         .WithMany("OwnedTeams")
                         .HasForeignKey("OwnerId");
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.TeamTableResult", b =>
+                {
+                    b.HasOne("BESL.Domain.Entities.Team", "Team")
+                        .WithMany("PreviousTeamTableResults")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BESL.Domain.Entities.TournamentTable", "TournamentTable")
+                        .WithMany("TeamTableResults")
+                        .HasForeignKey("TournamentTableId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.Tournament", b =>
+                {
+                    b.HasOne("BESL.Domain.Entities.TournamentFormat", "Format")
+                        .WithMany()
+                        .HasForeignKey("FormatId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BESL.Domain.Entities.Game", "Game")
+                        .WithMany("Tournaments")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.TournamentFormat", b =>
+                {
+                    b.HasOne("BESL.Domain.Entities.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BESL.Domain.Entities.TournamentTable", b =>
+                {
+                    b.HasOne("BESL.Domain.Entities.Tournament", "Tournament")
+                        .WithMany("Tables")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

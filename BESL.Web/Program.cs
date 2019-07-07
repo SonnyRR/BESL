@@ -28,7 +28,7 @@
                 {
                     var context = scope.ServiceProvider.GetService<IApplicationDbContext>();
                     var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
-                    var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+                    var userManager = scope.ServiceProvider.GetService<UserManager<Player>>();
 
                     var concreteContext = (ApplicationDbContext)context;
                     //concreteContext.Database.Migrate();
@@ -40,7 +40,7 @@
 
                     if (!userManager.Users.Any())
                     {
-                        var user = new ApplicationUser
+                        var user = new Player
                         {
                             UserName = ADMIN_USERNAME,
                             Email = ADMIN_EMAIL,
