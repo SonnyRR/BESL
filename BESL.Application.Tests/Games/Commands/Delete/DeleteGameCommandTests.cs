@@ -23,6 +23,66 @@
     public class DeleteGameCommandTests : BaseTest
     {
 
+        [Fact(DisplayName ="Handler should mark entity as deleted.")]
+        public void Handle_GivenValidRequest_ShouldMarkEntityAsDeleted()
+        {
+            // Arrange
+            var id = this.CreateSampleGame();
+
+            // Act
+            var deleteGameCommand = new DeleteGameCommand()
+            {
+                Id = id,
+                GameName = It.IsAny<string>()
+            };
+
+            var sut = new DeleteGameCommandHandler(this.dbContext);
+            sut.Handle(deleteGameCommand, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
+
+            var deletedGameEntity = this.dbContext.Games.SingleOrDefault(g => g.Id == id);
+
+            // Assert
+            deletedGameEntity.IsDeleted.ShouldBe(true);
+        }
+
+        [Theory(DisplayName = "Handler should throw correct exceptions.")]
+        [InlineData(90125, typeof(NotFoundException))]
+        [InlineData(1, typeof(DeleteFailureException))]
+        public void Handle_GivenInvalidRequest_ShouldThrowCorrectExceptions(int id, Type exceptionType)
+        {            
+            // Arrange
+            if (exceptionType == typeof(DeleteFailureException))
+            {
+                id = this.CreateSampleGame();
+                this.dbContext
+                    .Games
+                    .SingleOrDefault(g => g.Id == id)
+                    .IsDeleted = true;
+                this.dbContext.SaveChanges();
+            }
+
+            var sut = new DeleteGameCommandHandler(this.dbContext);
+            var command = new DeleteGameCommand()
+            {
+                Id = id,
+                GameName = It.IsAny<string>()
+            };
+
+            // Assert
+            Should.Throw(() => sut.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult(), exceptionType);
+        }
+
+        [Fact(DisplayName = "Handler should throw ArgumentNullException when request is null")]
+        public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
+        {
+            // Arrange
+            var sut = new DeleteGameCommandHandler(this.dbContext);
+
+            // Assert
+            Should.Throw<ArgumentNullException>(() => sut.Handle(null, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
+        }
+
+
         private int CreateSampleGame()
         {
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
@@ -50,65 +110,6 @@
 
             var id = sut.Handle(gameCommandRequest, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
             return id;
-        }
-
-        [Fact]
-        public void Handle_GivenValidRequest_ShouldMarkEntityAsDeleted()
-        {
-            // Arrange
-            var id = this.CreateSampleGame();
-
-            // Act
-            var deleteGameCommand = new DeleteGameCommand()
-            {
-                Id = id,
-                GameName = It.IsAny<string>()
-            };
-
-            var sut = new DeleteGameCommandHandler(this.dbContext);
-            sut.Handle(deleteGameCommand, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
-
-            var deletedGameEntity = this.dbContext.Games.SingleOrDefault(g => g.Id == id);
-
-            // Assert
-            deletedGameEntity.IsDeleted.ShouldBe(true);
-        }
-
-        [Theory]
-        [InlineData(90125, typeof(NotFoundException))]
-        [InlineData(1, typeof(DeleteFailureException))]
-        public void Handle_GivenInvalidRequest_ShouldThrowCorrectExceptions(int id, Type exceptionType)
-        {            
-            // Arrange
-            if (exceptionType == typeof(DeleteFailureException))
-            {
-                id = this.CreateSampleGame();
-                this.dbContext
-                    .Games
-                    .SingleOrDefault(g => g.Id == id)
-                    .IsDeleted = true;
-                this.dbContext.SaveChanges();
-            }
-
-            var sut = new DeleteGameCommandHandler(this.dbContext);
-            var command = new DeleteGameCommand()
-            {
-                Id = id,
-                GameName = It.IsAny<string>()
-            };
-
-            // Assert
-            Should.Throw(() => sut.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult(), exceptionType);
-        }
-
-        [Fact]
-        public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
-        {
-            // Arrange
-            var sut = new DeleteGameCommandHandler(this.dbContext);
-
-            // Assert
-            Should.Throw<ArgumentNullException>(() => sut.Handle(null, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
         }
     }
 }
