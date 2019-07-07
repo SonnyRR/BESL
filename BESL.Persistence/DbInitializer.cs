@@ -14,7 +14,7 @@
 
             if (dbContext.Games.Any() && dbContext.Users.Any())
             {
-                return;   // DB has been seeded
+                return; // Database is seeded.
             }
 
             var administratorUser = dbContext.Users.SingleOrDefault(u => u.UserName == ADMIN_USERNAME);

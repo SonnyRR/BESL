@@ -1,7 +1,6 @@
 ﻿namespace BESL.Persistence
 {
     using Microsoft.EntityFrameworkCore;
-
     using BESL.Persistence.Infrastructure;
 
     public class ApplicationContextFactory : DesignTimeDbContextFactoryBase<ApplicationDbContext>

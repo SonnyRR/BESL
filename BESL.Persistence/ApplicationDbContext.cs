@@ -6,10 +6,10 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.ChangeTracking;
 
     using BESL.Domain.Entities;
     using BESL.Application.Interfaces;
-    using Microsoft.EntityFrameworkCore.ChangeTracking;
 
     public class ApplicationDbContext : IdentityDbContext<Player>, IApplicationDbContext
     {       
@@ -50,9 +50,7 @@
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) 
             => this.SaveChangesAsync(true, cancellationToken);
 
-        public override Task<int> SaveChangesAsync(
-            bool acceptAllChangesOnSuccess,
-            CancellationToken cancellationToken = default)
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
@@ -71,6 +69,7 @@
             // Disable cascade delete
             var foreignKeys = entityTypes
                 .SelectMany(e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));
+
             foreach (var foreignKey in foreignKeys)
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
