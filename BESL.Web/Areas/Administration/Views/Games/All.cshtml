@@ -4,8 +4,8 @@
 }
 <div class="border rounded">
     <div class="container-fluid mt-2 mb-3">
-        <form id="createGameForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Create" data-ajax-method="GET" data-ajax-success="$.validator.unobtrusive.parse(gameCreateForm)" data-ajax-update="#mainContentContainer"></form>
-        <form id="refreshGamesForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#mainContentContainer"></form>
+        <form id="createGameForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Create" data-ajax-method="GET" data-ajax-success="$.validator.unobtrusive.parse(gameCreateForm)" data-ajax-update="#gamesContentContainer"></form>
+        <form id="refreshGamesForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#gamesContentContainer"></form>
         <button class="btn btn-success mb-3" form="createGameForm"><i class="fas fa-plus-circle"></i>&nbsp;Add a game</button>
         <button class="btn btn-primary mb-3" form="refreshGamesForm"><i class="fas fa-redo-alt"></i>&nbsp;Refresh games list</button>
         <table class="table table-hover rounded shadow">
@@ -30,12 +30,12 @@
                             <td>@game.CurrentActiveTournaments</td>
                             <td>@game.RegisteredTeams</td>
                             <td class="text-center">
-                                <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/Games/Modify/@game.Id" data-ajax-method="GET" data-ajax-success="$.validator.unobtrusive.parse(gameModifyForm)" data-ajax-update="#mainContentContainer">
+                                <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/Games/Modify/@game.Id" data-ajax-method="GET" data-ajax-success="$.validator.unobtrusive.parse(gameModifyForm)" data-ajax-update="#gamesContentContainer">
                                     <button class="btn btn-info align-center"><i class="fas fa-wrench"></i>&nbsp;Modify</button>
                                 </form>
                             </td>
                             <td class="text-center">
-                                <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/Games/Delete/@game.Id?gameName=@game.Name" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to delete @game.Name ?" data-ajax-update="#mainContentContainer">
+                                <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/Games/Delete/@game.Id?gameName=@game.Name" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to delete @game.Name ?" data-ajax-update="#gamesContentContainer">
                                     <button class="btn btn-danger btn-"><i class="fas fa-times-circle"></i>&nbsp;Delete</button>
                                 </form>
                             </td>

@@ -17,7 +17,6 @@
     using BESL.Application.Games.Commands.Delete;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Common;
-    using BESL.Application.Interfaces;
     using BESL.Application.Exceptions;
     using System;
 
