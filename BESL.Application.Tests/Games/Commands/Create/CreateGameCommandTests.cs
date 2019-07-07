@@ -22,7 +22,7 @@
 
     public class CreateGameCommandTests : BaseTest
     {
-        [Fact(DisplayName ="Handle should create valid entity.")]
+        [Fact]
         public void Handle_GivenValidRequest_ShouldCreateValidEntity()
         {
             // Arrange
@@ -56,13 +56,14 @@
 
             // Assert
             game.ShouldNotBeNull();
+            //id.ShouldBe(1);
             this.dbContext.Games.Count().ShouldBe(4);
             game.Name.ShouldBe("Team Fortress 2");
             game.GameImageUrl.ShouldBe("https://steamcdn-a.akamaihd.net/steam/apps/440/header.jpg");
             game.Description.ShouldBe(@"One of the most popular online action games of all time, Team Fortress 2 delivers constant free updates—new game modes, maps, equipment and, most importantly, hats. Nine distinct classes provide a broad range of tactical abilities and personalities, and lend themselves to a variety of player skills. New to TF ? Don’t sweat it! No matter what your style and experience, we’ve got a character for you.Detailed training and offline practice modes will help you hone your skills before jumping into one of TF2’s many game modes, including Capture the Flag, Control Point, Payload, Arena, King of the Hill and more. Make a character your own! There are hundreds of weapons, hats and more to collect, craft, buy and trade.Tweak your favorite class to suit your gameplay style and personal taste.You don’t need to pay to win—virtually all of the items in the Mann Co.Store can also be found in-game.");
         }
 
-        [Fact(DisplayName ="Handle should throw ArgumentNullException when request is null")]
+        [Fact]
         public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
@@ -73,7 +74,7 @@
             Should.Throw<ArgumentNullException>(() => sut.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
         }
 
-        [Fact(DisplayName ="Validator should validate valid request successfully.")]
+        [Fact]
         public void Validator_GivenValidRequest_ShouldValidateCorrectly()
         {
             // Arrange

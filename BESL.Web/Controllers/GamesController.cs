@@ -23,7 +23,7 @@
 
         public async Task<IActionResult> Details(int id)
         {
-            var model = await this.Mediator.Send(new GetGameDetailsQuery() { Id = id });
+            var model = await this.Mediator.Send(new GameDetailsQuery() { Id = id });
             return this.View(model);
         }
     }

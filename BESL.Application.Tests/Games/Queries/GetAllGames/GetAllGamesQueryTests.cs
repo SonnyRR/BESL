@@ -24,15 +24,15 @@
             this.mapper = fixture.Mapper;
         }
 
-        [Fact(DisplayName = "Handler should return valid viewmodel.")]
-        public void Handle_ShouldReturnValidViewModel()
+        [Fact]
+        public async Task Handle_ShouldReturnValidViewModel()
         {
             // Arrange
             var query = new GetAllGamesQuery();
             var sut = new GetAllGamesQueryHandler(this.dbContext, this.mapper);
 
             // Act
-            var result = sut.Handle(query, CancellationToken.None).GetAwaiter().GetResult();
+            var result = await sut.Handle(query, CancellationToken.None);
 
             // Assert
             result.Games.Count.ShouldBe(3);

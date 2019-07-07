@@ -13,7 +13,6 @@
     using BESL.Persistence;
     using Shouldly;
 
-    [Collection("QueryCollection")]
     public class GetAllGamesSelectListQueryTests
     {
         private readonly ApplicationDbContext dbContext;
@@ -21,26 +20,21 @@
 
         public GetAllGamesSelectListQueryTests(QueryTestFixture fixture)
         {
-            this.mapper = fixture.Mapper;
             this.dbContext = fixture.Context;
+            this.mapper = fixture.Mapper;
         }
 
-        [Fact(DisplayName = "Handler should return valid viewmodel.")]
-        public void Handle_ShouldReturnValidViewModel()
+        [Fact]
+        public async Task Handle_ShouldReturnValidViewModel()
         {
             // Arrange
             var query = new GetAllGamesSelectListQuery();
             var sut = new GetAllGamesSelectListQueryHandler(this.dbContext, this.mapper);
 
             // Act
-            var result = sut.Handle(query, CancellationToken.None)
-                .GetAwaiter()
-                .GetResult()
-                .ToList();
+            var result = (await sut.Handle(query, CancellationToken.None)).ToList();
 
             // Assert
-            result.ShouldNotBeNull();
-            result.ShouldNotBeEmpty();
             result.Count.ShouldBe(3);
         }
     }
