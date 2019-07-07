@@ -16,11 +16,11 @@ namespace BESL.Web.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<Player> _userManager;
+        private readonly SignInManager<Player> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(UserManager<Player> userManager, SignInManager<Player> signInManager, ILogger<LoginModel> logger)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
@@ -72,7 +72,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
-            ApplicationUser user = Input.Username
+            Player user = Input.Username
                 .Contains('@')
                 ? await this._userManager.FindByEmailAsync(Input.Username)
                 : await this._userManager.FindByNameAsync(Input.Username);

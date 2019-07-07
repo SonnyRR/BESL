@@ -22,7 +22,7 @@
         public async Task InvokeAsync(HttpContext context, 
             ApplicationDbContext dbContext,
             RoleManager<IdentityRole> roleManager, 
-            UserManager<ApplicationUser> userManager)
+            UserManager<Player> userManager)
         {
             SeedRoles(roleManager).GetAwaiter().GetResult();
 
@@ -40,11 +40,11 @@
             }
         }
 
-        private static async Task SeedUserInRoles(UserManager<ApplicationUser> userManager)
+        private static async Task SeedUserInRoles(UserManager<Player> userManager)
         {
             if (!userManager.Users.Any())
             {
-                var user = new ApplicationUser
+                var user = new Player
                 {
                     UserName = "LeagueAdministrator",
                     Email = "admin@besl.com",
