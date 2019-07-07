@@ -20,8 +20,10 @@
         {
             ApplicationDbContextFactory.Destroy(Context);
         }
+    }
 
-        [CollectionDefinition("QueryCollection")]
-        public class QueryCollection : ICollectionFixture<QueryTestFixture> { }
+    [CollectionDefinition("QueryCollection")]
+    public class QueryCollection : ICollectionFixture<QueryTestFixture>
+    {
     }
 }
