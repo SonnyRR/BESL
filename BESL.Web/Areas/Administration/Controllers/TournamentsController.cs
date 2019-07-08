@@ -4,12 +4,11 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using BESL.Web.Components;
     using BESL.Application.Tournaments.Commands.Create;
     using BESL.Application.Tournaments.Queries.Create;
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
-    using BESL.Application.TournamentTables.Queries.GetTournamentTables;
     using static BESL.Common.GlobalConstants;
+    using BESL.Application.TournamentTables.Queries.GetTournamentTables;
 
     public class TournamentsController : AdminController
     {
@@ -41,7 +40,8 @@
 
         public async Task<IActionResult> Tables(int id)
         {
-            return ViewComponent(nameof(TournamentTablesViewComponent), id);
+            var viewModel = await this.Mediator.Send(new GetTournamentTablesQuery() { TournamentId = id });
+            return this.View(viewModel);
         }
     }
 }
