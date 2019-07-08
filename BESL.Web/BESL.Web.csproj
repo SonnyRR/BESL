@@ -39,5 +39,6 @@
     <Folder Include="Areas\Administration\Views\Home\" />
     <Folder Include="wwwroot\lib\font-awesome\" />
     <Folder Include="Areas\Administration\Views\Shared\Partials\" />
+    <Folder Include="Views\Shared\Components\TournamentTablesViewComponent\" />
   </ItemGroup>
 </Project>

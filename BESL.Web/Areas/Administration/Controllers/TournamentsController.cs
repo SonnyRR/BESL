@@ -4,6 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using BESL.Web.Components;
     using BESL.Application.Tournaments.Commands.Create;
     using BESL.Application.Tournaments.Queries.Create;
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
@@ -40,8 +41,7 @@
 
         public async Task<IActionResult> Tables(int id)
         {
-            var viewModel = await this.Mediator.Send(new GetTournamentTablesQuery() { TournamentId = id });
-            return this.View(viewModel);
+            return ViewComponent(nameof(TournamentTablesViewComponent), id);
         }
     }
 }
