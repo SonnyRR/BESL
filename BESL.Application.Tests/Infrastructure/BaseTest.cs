@@ -11,7 +11,7 @@
 
         public BaseTest()
         {
-            this.dbContext = ApplicationDbContextFactory.Create();
+            this.dbContext = ApplicationDbContextFactory.Create().GetAwaiter().GetResult();
             this.mapper = AutoMapperFactory.Create();
         }
 
