@@ -1,66 +1,135 @@
 ﻿@model BESL.Application.TournamentTables.Queries.GetTournamentTables.TournamentTablesViewModel
 @{
     Layout = null;
+    int navItemCounter = 0;
+    int tabItemCounter = 0;
 }
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     @foreach (var table in Model.Tables)
     {
-        <li class="nav-item">
-            <a class="nav-link active" id="@(table.Name)-tab" data-toggle="tab" href="#@(table.Name)pane" role="tab">@table.Name</a>
-        </li>
+        if (navItemCounter == 0)
+        {
+            <li class="nav-item">
+                <a class="nav-link active" id="@(table.Name)-tab" data-toggle="tab" href="#@(table.Name)Pane" role="tab">@table.Name</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link" id="@(table.Name)-tab" data-toggle="tab" href="#@(table.Name)Pane" role="tab">@table.Name</a>
+            </li>
+        }
+
+        navItemCounter++;
     }
 </ul>
 <div class="tab-content" id="myTabContent">
     @foreach (var table in Model.Tables)
     {
-        <div class="tab-pane fade show active mt-2" id="@(table.Name)pane" role="tabpanel">
-            <table class="table table-sm table-bordered table-hover border rounded table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Total points</th>
-                        <th scope="col">Penalty points</th>
-                        <th scope="col">Matches played</th>
-                        <th scope="col">Matches won</th>
-                        <th scope="col" class="text-center">Drop/Undrop</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (table.TableResults.Count() == 0)
-                    {
+        if (tabItemCounter == 0)
+        {
+            <div class="tab-pane fade show active mt-2" id="@(table.Name)Pane" role="tabpanel">
+                <a class="btn btn-primary btn-sm mt-2 mb-2" href="#">Match fixtures</a>
+                <table class="table table-sm table-bordered table-hover border rounded table-striped">
+                    <thead>
                         <tr>
-                            <td colspan="7" class="text-center"><h5 class="text-danger">No tournaments registered.</h5></td>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Total points</th>
+                            <th scope="col">Penalty points</th>
+                            <th scope="col">Matches played</th>
+                            <th scope="col">Matches won</th>
+                            <th scope="col" class="text-center">Drop/Undrop</th>
                         </tr>
-                    }
-                    else
-                    {
-                        int rowCounter = 1;
-                        @foreach (var tableResult in table.TableResults)
+                    </thead>
+                    <tbody>
+                        @if (table.TableResults.Count() == 0)
                         {
                             <tr>
-                                <th scope="row">@(rowCounter++)</th>
-                                <td>@tableResult.Team</td>
-                                <td>@tableResult.TotalPoints</td>
-                                <td>@tableResult.PenaltyPoints</td>
-                                <td>@tableResult.MatchesPlayed</td>
-                                <td>@tableResult.MatchesWon</td>
-                                <td class="text-center">
-                                    @if (!tableResult.IsDropped)
-                                    {
-                                        <a class="btn btn-sm btn-danger text-white" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/TableResults/Drop/@table.Id" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to drop @tableResult.Team ?" data-ajax-update="#tournamentsContentContainer">Drop</a>
-                                    }
-                                    else
-                                    {
-                                        <a class="btn btn-sm btn-info text-white" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/TableResults/Activate/@table.Id" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to undrop @tableResult.Team ?" data-ajax-update="#tournamentsContentContainer">Undrop</a>
-                                    }
-                                </td>
+                                <td colspan="7" class="text-center"><h5 class="text-danger">No teams registered.</h5></td>
                             </tr>
                         }
-                    }
-                </tbody>
-            </table>
-        </div>
+                        else
+                        {
+                            int rowCounter = 1;
+                            @foreach (var tableResult in table.TableResults)
+                            {
+                                <tr>
+                                    <th scope="row">@(rowCounter++)</th>
+                                    <td>@tableResult.Team</td>
+                                    <td>@tableResult.TotalPoints</td>
+                                    <td>@tableResult.PenaltyPoints</td>
+                                    <td>@tableResult.MatchesPlayed</td>
+                                    <td>@tableResult.MatchesWon</td>
+                                    <td class="text-center">
+                                        @if (!tableResult.IsDropped)
+                                        {
+                                            <a class="btn btn-sm btn-danger text-white" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/TableResults/Drop/@table.Id" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to drop @tableResult.Team ?" data-ajax-update="#tournamentsContentContainer">Drop</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-sm btn-info text-white" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/TableResults/Activate/@table.Id" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to undrop @tableResult.Team ?" data-ajax-update="#tournamentsContentContainer">Undrop</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="tab-pane fade show mt-2" id="@(table.Name)Pane" role="tabpanel">
+                <a class="btn btn-primary btn-sm mt-2 mb-2" href="#">Match fixtures</a>
+                <table class="table table-sm table-bordered table-hover border rounded table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Total points</th>
+                            <th scope="col">Penalty points</th>
+                            <th scope="col">Matches played</th>
+                            <th scope="col">Matches won</th>
+                            <th scope="col" class="text-center">Drop/Undrop</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (table.TableResults.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center"><h5 class="text-danger">No teams registered.</h5></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            int rowCounter = 1;
+                            @foreach (var tableResult in table.TableResults)
+                            {
+                                <tr>
+                                    <th scope="row">@(rowCounter++)</th>
+                                    <td>@tableResult.Team</td>
+                                    <td>@tableResult.TotalPoints</td>
+                                    <td>@tableResult.PenaltyPoints</td>
+                                    <td>@tableResult.MatchesPlayed</td>
+                                    <td>@tableResult.MatchesWon</td>
+                                    <td class="text-center">
+                                        @if (!tableResult.IsDropped)
+                                        {
+                                            <a class="btn btn-sm btn-danger text-white" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/TableResults/Drop/@table.Id" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to drop @tableResult.Team ?" data-ajax-update="#tournamentsContentContainer">Drop</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-sm btn-info text-white" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/TableResults/Activate/@table.Id" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to undrop @tableResult.Team ?" data-ajax-update="#tournamentsContentContainer">Undrop</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        tabItemCounter++;
     }
 </div>
