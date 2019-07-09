@@ -11,19 +11,13 @@
                 <li class="nav-item">
                     <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home text-white"></i>&nbsp;Home</a>
                 </li>
-                @*<li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>*@
                 <li class="nav-item">
                     <a class="nav-link text-light" asp-area="" asp-controller="Games" asp-action="All"><i class="fas fa-gamepad text-white"></i>&nbsp;Games</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-trophy text-white"></i>&nbsp;Tournaments</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">All</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">All</a>
-                    </div>
+                    @await Component.InvokeAsync("ActiveTournamentsDropDownVC");
+                    @*<vc:active-tournaments-drop-down-VC></vc:active-tournaments-drop-down-VC>*@       
                 </li>
             @if (User.IsInRole(Role.Administrator.ToString()))
             {
