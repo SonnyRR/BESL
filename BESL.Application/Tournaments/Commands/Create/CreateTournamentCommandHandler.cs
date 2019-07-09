@@ -7,12 +7,12 @@
 
     using MediatR;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
     using BESL.Common;
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
-    using Microsoft.EntityFrameworkCore;
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {
@@ -57,6 +57,10 @@
                 FormatId = request.FormatId,
                 GameId = gameId,
             };
+
+            tournament.Tables.Add(new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 });
+            tournament.Tables.Add(new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 });
+            tournament.Tables.Add(new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 });
 
             this.context.Tournaments.Add(tournament);
             await this.context.SaveChangesAsync(cancellationToken);
