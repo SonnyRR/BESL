@@ -11,6 +11,7 @@
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Persistence;
+    using BESL.Domain.Entities;
 
     [Collection("QueryCollection")]
     public class GetAllGamesQueryTests
@@ -24,7 +25,8 @@
             this.mapper = fixture.Mapper;
         }
 
-        [Fact(DisplayName = "Handler should return valid viewmodel.")]
+        [Trait(nameof(Game), "Game query tests.")]
+        [Fact(DisplayName = "Handler should return valid GetAllGames viewmodel.")]
         public void Handle_ShouldReturnValidViewModel()
         {
             // Arrange

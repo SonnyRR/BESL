@@ -22,6 +22,7 @@
 
     public class ModifyGameCommandTests : BaseTest
     {
+        [Trait(nameof(Game), "Game modify tests.")]
         [Fact(DisplayName = "Handler should modify entity if request is valid.")]
         public void Handle_GivenValidRequest_ShouldModifyEntity()
         {
@@ -61,6 +62,7 @@
             game.GameImageUrl.ShouldBe("https://steamcdn-a.akamaihd.net/steam/apps/440/changed-picture.jpg");
         }
 
+        [Trait(nameof(Game), "Game modify tests.")]
         [Theory(DisplayName = "Validator should validate correctly request")]
         [InlineData("invalid-file.txt", false, "text/plain", "Dota 2", "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.")]
         [InlineData("gamePictureValid.jpg", false, "image/jpeg", "D", "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.")] 

@@ -19,10 +19,12 @@
     using BESL.Common;
     using BESL.Application.Exceptions;
     using System;
+    using BESL.Domain.Entities;
 
     public class DeleteGameCommandTests : BaseTest
     {
 
+        [Trait(nameof(Game), "Game deletion tests.")]
         [Fact(DisplayName ="Handler should mark entity as deleted.")]
         public void Handle_GivenValidRequest_ShouldMarkEntityAsDeleted()
         {
@@ -44,7 +46,7 @@
             // Assert
             deletedGameEntity.IsDeleted.ShouldBe(true);
         }
-
+        [Trait(nameof(Game), "Game deletion tests.")]
         [Theory(DisplayName = "Handler should throw correct exceptions.")]
         [InlineData(90125, typeof(NotFoundException))]
         [InlineData(1, typeof(DeleteFailureException))]
@@ -72,6 +74,7 @@
             Should.Throw(() => sut.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult(), exceptionType);
         }
 
+        [Trait(nameof(Game), "Game deletion tests.")]
         [Fact(DisplayName = "Handler should throw ArgumentNullException when request is null")]
         public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
@@ -81,7 +84,6 @@
             // Assert
             Should.Throw<ArgumentNullException>(() => sut.Handle(null, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
         }
-
 
         private int CreateSampleGame()
         {

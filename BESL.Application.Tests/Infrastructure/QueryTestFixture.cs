@@ -12,7 +12,7 @@
 
         public QueryTestFixture()
         {
-            Context = ApplicationDbContextFactory.Create();
+            Context = ApplicationDbContextFactory.Create().GetAwaiter().GetResult();
             Mapper = AutoMapperFactory.Create();
         }
 

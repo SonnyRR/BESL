@@ -3,6 +3,7 @@
     using AutoMapper;
     using BESL.Application.Games.Queries.GetGameDetails;
     using BESL.Application.Tests.Infrastructure;
+    using BESL.Domain.Entities;
     using BESL.Persistence;
     using Shouldly;
     using System;
@@ -21,8 +22,8 @@
             this.mapper = fixture.Mapper;
             this.dbContext = fixture.Context;
         }
-
-        [Fact(DisplayName = "Handler should return valid viewmodel.")]
+        [Trait(nameof(Game), "Game query tests.")]
+        [Fact(DisplayName = "Handler should return valid GameDetails viewmodel.")]
         public void Handle_ShouldReturnViewModel()
         {
             // Arrange
