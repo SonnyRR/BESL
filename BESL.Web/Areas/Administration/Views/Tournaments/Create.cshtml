@@ -20,6 +20,16 @@
                 <small id="gameDescHelp" class="form-text text-muted">Description of the tournament.</small>
             </div>
             <div class="form-group">
+                <label asp-for="StartDate">Start date</label>
+                <input type="date" class="form-control" asp-for="StartDate">
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate">End date</label>
+                <input type="date" class="form-control" asp-for="EndDate">
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="FormatId">Format</label>
                 <select class="form-control" asp-for="FormatId" asp-items="Model.Formats.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()"></select>
             </div>

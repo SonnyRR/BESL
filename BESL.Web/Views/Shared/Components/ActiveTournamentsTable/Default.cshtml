@@ -1,5 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model BESL.Application.Tournaments.Queries.GetAllTournaments.AllTournamentsViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="row">
+    <div class="col-sm-12 border shadow rounded">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Game</th>
+                    <th scope="col">Format</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tournament in Model.Tournaments)
+                {
+                <tr>
+                    <td>@tournament.Name</td>
+                    <td>@tournament.Game</td>
+                    <td>@tournament.Format</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -3,7 +3,6 @@
     ViewData["Title"] = Model.Name;
 }
 
-
 <div class="row">
     <div class="col-sm-12">
         <h3 class="display-4">@Model.Name</h3>
@@ -13,30 +12,11 @@
         <p>@Model.Description</p>
     </div>
     <div class="col-sm-6">
-        <img src="https://steamcdn-a.akamaihd.net/steam/apps/730/header.jpg?t=1554409309" class="img-fluid rounded-lg shadow border" alt="Responsive image">
+        <div class="d-flex justify-content-center">
+            <img src="@Model.GameImageUrl" class="img-fluid rounded-lg shadow border" alt="Responsive image">
+        </div>
     </div>
 </div>
+<h4>Current active tournamets:</h4>
+<vc:active-tournaments-table></vc:active-tournaments-table>
 
-<div class="row mt-3">
-    <div class="col-sm-12 border shadow rounded">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Status</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Format</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">End Date</th>
-                    <th scope="col">Teams participated</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
