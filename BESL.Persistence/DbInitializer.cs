@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using BESL.Domain.Entities;
-    using BESL.Domain.Entities.Enums;
     using static BESL.Common.GlobalConstants;
 
     public class DbInitializer
@@ -54,11 +53,30 @@
             #region Tournaments
             var tournaments = new Tournament[]
             {
-                new Tournament(){ Name = "ThermalTake eSports 2019 6v6", Description = "Play to win prizes by our sponsor Thermaltake including: keyboards, mices, gaming gear and PC components", GameId =1, CreatedOn = DateTime.UtcNow, FormatId = 1 },
-                new Tournament(){ Name = "Corsair 9v9 Summer Highlander", Description = "Corsair sponsors this round of summer 9v9 madness!. Prize pool includes a one-off custom gaming PC and many peripherals!", GameId = 1, CreatedOn = DateTime.UtcNow, FormatId = 2}
+                new Tournament()
+                {
+                    Name = "ThermalTake eSports 2019 6v6",
+                    Description = "Play to win prizes by our sponsor Thermaltake including: keyboards, mices, gaming gear and PC components",
+                    GameId =1,
+                    CreatedOn = DateTime.UtcNow,
+                    FormatId = 1
+                },
+
+                new Tournament()
+                {
+                    Name = "Corsair 9v9 Summer Highlander",
+                    Description = "Corsair sponsors this round of summer 9v9 madness!. Prize pool includes a one-off custom gaming PC and many peripherals!",
+                    GameId = 1,
+                    CreatedOn = DateTime.UtcNow,
+                    FormatId = 2
+                }
             };
             foreach (var t in tournaments)
             {
+                t.Tables.Add(new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 });
+                t.Tables.Add(new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 });
+                t.Tables.Add(new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 });
+
                 dbContext.Tournaments.Add(t);
             }
             dbContext.SaveChanges();
