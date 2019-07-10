@@ -21,12 +21,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDate">Start date</label>
-                <input type="date" class="form-control" asp-for="StartDate" min="2019-01-01" placeholder="2019-01-01">
+                <input type="date" class="form-control" asp-for="StartDate" min="2019-01-01" value="@DateTime.UtcNow.ToString("yyyy-MM-dd")">
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate">End date</label>
-                <input type="date" class="form-control" asp-for="EndDate" min="2019-01-01" placeholder="2035-01-01">
+                <input type="date" class="form-control" asp-for="EndDate" min="2019-01-01" value="@DateTime.UtcNow.AddDays(30).ToString("yyyy-MM-dd")">
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,7 +39,7 @@
                     <span class="input-group-text" id="tournamentImageHelp">Upload</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" asp-for="TournamentImage" name="tournamentImage" aria-describedby="tournamentImageHelp">
+                    <input type="file" class="custom-file-input" asp-for="TournamentImage" name="tournamentImage" id="tournamentImage" aria-describedby="tournamentImageHelp">
                     <label class="custom-file-label" for="tournamentImage">Choose file</label>
                 </div>
             </div>

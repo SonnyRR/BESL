@@ -23,7 +23,8 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.RedirectToAction(nameof(Create));
+                var model = await this.Mediator.Send(new CreateTournamentQuery());
+                return this.View(model);
             }
 
             await this.Mediator.Send(command);
