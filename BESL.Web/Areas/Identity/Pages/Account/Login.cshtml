@@ -14,12 +14,12 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Input.Username"></label>
-                    <input asp-for="Input.Username" class="form-control" />
+                    <input asp-for="Input.Username" class="shadow-sm form-control" />
                     <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
+                    <input asp-for="Input.Password" class="shadow-sm form-control" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -48,7 +48,7 @@
                             var loginProvider = Model.ExternalLogins.FirstOrDefault(e => e.DisplayName == "Steam");
                             <div>
                                 <p>
-                                    <button type="submit" form="external-account" class="btn btn-dark btn-block" name="provider" value="@loginProvider.Name" title="Log in using your @loginProvider.DisplayName account"><i class="fab fa-steam"></i>&nbsp;@loginProvider.DisplayName</button>
+                                    <button type="submit" form="external-account" class="btn shadow btn-dark btn-block" name="provider" value="@loginProvider.Name" title="Log in using your @loginProvider.DisplayName account"><i class="fab fa-steam"></i>&nbsp;@loginProvider.DisplayName</button>
                                 </p>
                             </div>
                         }
