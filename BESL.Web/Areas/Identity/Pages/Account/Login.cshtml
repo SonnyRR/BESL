@@ -55,10 +55,8 @@
                     }
                 </section>
                 <div class="form-group text-center">
-                    <p>
-                        <a class="btn btn-sm btn-danger" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                        <a class="btn btn-sm btn-success" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
+                    <a class="btn btn-sm btn-danger mt-1 mb-1" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    <a class="btn btn-sm btn-secondary" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                 </div>
             </form>
             <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal"></form>
