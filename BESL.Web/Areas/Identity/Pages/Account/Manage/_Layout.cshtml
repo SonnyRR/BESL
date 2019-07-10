@@ -2,17 +2,18 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Manage your account</h1>
-
+<h4 class="display-4 mb-2">Account settings</h4>
 <div>
-    <h4>Change your account settings</h4>
-    <hr />
     <div class="row">
         <div class="col-md-3">
-            <partial name="_ManageNav" />
+            <div class="rounded border px-md-2 shadow">
+                <partial name="_ManageNav" />
+            </div>
         </div>
-        <div class="col-md-9">
-            @RenderBody()
+        <div class="col-md-9 border rounded">
+            <div class="mt-2 mb-2">
+                @RenderBody()
+            </div>
         </div>
     </div>
 </div>

@@ -10,7 +10,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using BESL.Common;
+    using BESL.Common.Cloudinary;
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
 

@@ -1,10 +1,10 @@
-﻿using CloudinaryDotNet;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-
-namespace BESL.Common
+﻿namespace BESL.Common.Cloudinary
 {
+    using CloudinaryDotNet;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
+    using System.Threading.Tasks;
+
     public interface ICloudinaryHelper
     {
         Cloudinary GetInstance(IConfiguration configuration);
