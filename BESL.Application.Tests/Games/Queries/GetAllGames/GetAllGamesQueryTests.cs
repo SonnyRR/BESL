@@ -26,8 +26,8 @@
         }
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "Handler given valid request should return valid GetAllGames viewmodel.")]
-        public void Handle_GivenValidReques_ShouldReturnValidViewModel()
+        [Fact(DisplayName = "GetAllGames handler given valid request should return valid GetAllGames viewmodel.")]
+        public void Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange
             var query = new GetAllGamesQuery();

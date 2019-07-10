@@ -74,7 +74,7 @@
             CreateGameCommand command = null;
 
             // Assert
-            Should.Throw<ArgumentNullException>(() => sut.Handle(command, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
+            Should.Throw<ArgumentNullException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
 
         [Trait(nameof(Game), "Game creation tests.")]
@@ -101,6 +101,34 @@
 
             // Assert
             validationResult.IsValid.ShouldBe(true);
+        }
+
+        [Trait(nameof(Game), "Game creation tests.")]
+        [Fact(DisplayName = "Validator given invalid request should validate successfully.")]
+        public void Validator_InvalidRequest_ShouldNotValidate()
+        {
+            // Arrange
+            var fileStream = File.OpenRead(Path.Combine("Common", "TestPictures", "invalid-file.txt"));
+            var formFile = new FormFile(fileStream, 0, fileStream.Length, "gamePicture", "gamePictureValid.jpg")
+            {
+                Headers = new HeaderDictionary()
+            };
+
+            formFile.ContentType = "text/plain";
+            var request = new CreateGameCommand()
+            {
+                Name = "D",
+                Description = "NotLongEnoughDescription",
+                GameImage = formFile
+            };
+
+            // Act
+            var sut = new CreateGameCommandValidator(new GameImageFileValidate());
+            var validationResult = sut.Validate(request);
+
+            // Assert
+            validationResult.IsValid.ShouldBe(false);
+            validationResult.Errors.Count.ShouldBe(3);
         }
     }
 }

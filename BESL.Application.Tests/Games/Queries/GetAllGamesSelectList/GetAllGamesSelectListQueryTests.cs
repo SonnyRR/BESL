@@ -25,7 +25,7 @@
         }
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "Handler given valid request should return valid GamesSelectList viewmodel.")]
+        [Fact(DisplayName = "GetAllGames handler given valid request should return valid GamesSelectList viewmodel.")]
         public void Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange

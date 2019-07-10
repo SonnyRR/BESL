@@ -26,7 +26,7 @@
         }
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "Handler givend valid request should return valid GameDetails viewmodel.")]
+        [Fact(DisplayName = "GetGameDetails query handler given valid request should return valid GameDetails viewmodel.")]
         public void Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange
@@ -46,7 +46,7 @@
 
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "Handler given invalid request should throw NotFoundException.")]
+        [Fact(DisplayName = "GetGameDetails query handler given invalid request should throw NotFoundException.")]
         public void Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
             // Arrange
@@ -59,7 +59,7 @@
         }
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "Handler given invalid request should throw ArgumentNullException.")]
+        [Fact(DisplayName = "GetGameDetails query handler given invalid request should throw ArgumentNullException.")]
         public void Handle_GivenInvalidRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
