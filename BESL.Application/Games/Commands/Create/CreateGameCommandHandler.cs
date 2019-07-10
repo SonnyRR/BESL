@@ -11,6 +11,7 @@
     using BESL.Common;
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
+    using CloudinaryDotNet;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
@@ -37,9 +38,8 @@
             var url = await this.cloudinaryHelper.UploadImage(
                     cloudinary,
                     request.GameImage,
-                    name: $"{request.Name}-main-shot"
-                    // TODO: set picture transformation size
-                    //transformation: new Transformation().Width(500).Height(500)
+                    name: $"{request.Name}-main-shot",
+                    transformation: new Transformation().Width(460).Height(215)
                 ); 
 
             Game game = new Game()
