@@ -15,15 +15,21 @@
 
         public CreateTournamentCommandValidator(IFileValidate fileValidate)
         {
-            RuleFor(x => x.Name)
+            RuleFor(t => t.Name)
+                .NotEmpty()
                 .Length(NAME_MIN_LENGTH, NAME_MAX_LENGTH)
                 .WithMessage(string.Format(NAME_LENGTH_MSG, NAME_MIN_LENGTH, NAME_MAX_LENGTH));
 
-            RuleFor(x => x.Description)
+            RuleFor(t => t.Description)
+                .NotEmpty()
                 .Length(DESC_MIN_LENGTH, DESC_MAX_LENGTH)
                 .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MIN_LENGTH, DESC_MAX_LENGTH));
 
-            RuleFor(x => x.TournamentImage)
+            RuleFor(t => t.StartDate)
+                .GreaterThan(t => new System.DateTime(2015,1,1))
+                .WithMessage("edede");
+
+            RuleFor(t => t.TournamentImage)
                 .NotEmpty()
                 .NotNull()
                 .SetValidator(new CustomGameImageFileValidator(fileValidate));

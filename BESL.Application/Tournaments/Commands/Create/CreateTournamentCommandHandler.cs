@@ -56,6 +56,8 @@
                 CreatedOn = DateTime.UtcNow,
                 FormatId = request.FormatId,
                 GameId = gameId,
+                StartDate = request.StartDate,
+                EndDate = request.EndDate
             };
 
             tournament.Tables.Add(new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 });
