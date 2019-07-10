@@ -17,7 +17,7 @@
     using BESL.Application.Games.Commands.Create;
     using BESL.Application.Games.Commands.Delete;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Common;
+    using BESL.Common.Cloudinary;
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
 

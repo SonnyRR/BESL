@@ -15,7 +15,7 @@
     using Xunit;
 
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Common;
+    using BESL.Common.Cloudinary;
     using BESL.Application.Games.Commands.Modify;
     using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Validators;

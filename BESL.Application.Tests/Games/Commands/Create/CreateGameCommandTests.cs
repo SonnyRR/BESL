@@ -17,7 +17,7 @@
 
     using BESL.Application.Games.Commands.Create;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Common;
+    using BESL.Common.Cloudinary;
     using BESL.Application.Interfaces;
     using BESL.Application.Infrastructure.Validators;
     using BESL.Domain.Entities;
