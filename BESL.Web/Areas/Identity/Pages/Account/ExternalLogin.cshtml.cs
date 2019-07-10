@@ -10,17 +10,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using BESL.Common.SteamWebApi;
+using Microsoft.Extensions.Configuration;
 
 namespace BESL.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
-    {
+    {        
         private readonly SignInManager<Player> _signInManager;
         private readonly UserManager<Player> _userManager;
         private readonly ILogger<ExternalLoginModel> _logger;
 
-        public ExternalLoginModel(
+        public ExternalLoginModel(     
             SignInManager<Player> signInManager,
             UserManager<Player> userManager,
             ILogger<ExternalLoginModel> logger)
@@ -126,6 +128,11 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
+                        if (info.ProviderDisplayName == "Steam")
+                        {
+                            await this._userManager.AddClaimAsync(user, new Claim("STEAM_ID64", info.ProviderKey.Split('/').Last()));
+                        }
+
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         return LocalRedirect(returnUrl);
