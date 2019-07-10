@@ -1,8 +1,11 @@
 ﻿namespace BESL.Application.Tests.Games.Commands.Create
 {
+    using System;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
 
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Http;
@@ -15,12 +18,9 @@
     using BESL.Application.Games.Commands.Create;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Common;
-    using System;
     using BESL.Application.Interfaces;
-    using System.IO;
     using BESL.Application.Infrastructure.Validators;
     using BESL.Domain.Entities;
-    using System.Threading.Tasks;
 
     public class CreateGameCommandTests : BaseTest
     {

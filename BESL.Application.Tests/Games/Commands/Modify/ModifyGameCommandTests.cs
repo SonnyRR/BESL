@@ -1,5 +1,7 @@
 ﻿namespace BESL.Application.Tests.Games.Commands.Modify
 {
+    using System;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -14,8 +16,6 @@
 
     using BESL.Application.Tests.Infrastructure;
     using BESL.Common;
-    using System;
-    using System.IO;
     using BESL.Application.Games.Commands.Modify;
     using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Validators;

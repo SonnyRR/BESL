@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.Tests.Games.Commands.Delete
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -18,7 +19,6 @@
     using BESL.Application.Tests.Infrastructure;
     using BESL.Common;
     using BESL.Application.Exceptions;
-    using System;
     using BESL.Domain.Entities;
 
     public class DeleteGameCommandTests : BaseTest
@@ -46,6 +46,7 @@
             // Assert
             deletedGameEntity.IsDeleted.ShouldBe(true);
         }
+
         [Trait(nameof(Game), "Game deletion tests.")]
         [Theory(DisplayName = "Handler should throw correct exceptions.")]
         [InlineData(90125, typeof(NotFoundException))]

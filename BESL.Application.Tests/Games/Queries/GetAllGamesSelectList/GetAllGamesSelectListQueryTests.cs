@@ -1,9 +1,7 @@
 ﻿namespace BESL.Application.Tests.Games.Queries.GetAllGamesSelectList
 {
-    using System;
     using System.Linq;
     using System.Threading;
-    using System.Threading.Tasks;
 
     using AutoMapper;
     using Xunit;
@@ -27,8 +25,8 @@
         }
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "Handler should return valid GamesSelectList viewmodel.")]
-        public void Handle_ShouldReturnValidViewModel()
+        [Fact(DisplayName = "Handler given valid request should return valid GamesSelectList viewmodel.")]
+        public void Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange
             var query = new GetAllGamesSelectListQuery();
