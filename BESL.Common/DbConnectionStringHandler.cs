@@ -24,5 +24,17 @@
 
             return connectionStringName;
         }
+
+        public static string GetHangfireConnectionStringNameForCurrentOS()
+        {
+            string connectionStringName = "DefaultHangfireConnection";
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                connectionStringName = "MacOSHangfireConnection";
+            }
+
+            return connectionStringName;
+        }
     }
 }
