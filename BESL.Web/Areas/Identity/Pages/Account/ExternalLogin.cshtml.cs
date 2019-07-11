@@ -12,21 +12,28 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using BESL.Common.SteamWebApi;
 using Microsoft.Extensions.Configuration;
+using MediatR;
 
 namespace BESL.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
-    {        
+    {
+        private readonly IMediator _mediator;
+        private readonly IConfiguration _configuration;
         private readonly SignInManager<Player> _signInManager;
         private readonly UserManager<Player> _userManager;
         private readonly ILogger<ExternalLoginModel> _logger;
 
         public ExternalLoginModel(     
+            IMediator mediator,
+            IConfiguration configuration,
             SignInManager<Player> signInManager,
             UserManager<Player> userManager,
             ILogger<ExternalLoginModel> logger)
         {
+            _mediator = mediator;
+            _configuration = configuration;
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
@@ -130,7 +137,12 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                     {
                         if (info.ProviderDisplayName == "Steam")
                         {
-                            await this._userManager.AddClaimAsync(user, new Claim("STEAM_ID64", info.ProviderKey.Split('/').Last()));
+                            var steamId64 = info.ProviderKey.Split('/').Last();
+                            await this._userManager.AddClaimAsync(user, new Claim("STEAM_ID64", steamId64));
+
+                            var steamUser = SteamApiHelper.GetSteamUserInstance(this._configuration);
+                            var playerResult = await steamUser.GetPlayerSummaryAsync(ulong.Parse(steamId64));
+                            await this._userManager.AddClaimAsync(user, new Claim("PROFILE_URL", playerResult.Data.ProfileUrl));
                         }
 
                         await _signInManager.SignInAsync(user, isPersistent: false);

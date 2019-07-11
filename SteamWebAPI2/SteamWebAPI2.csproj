@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>This is a .NET library that makes it easy to use the Steam Web API. It conveniently wraps around all of the JSON data and ugly API details with clean methods, structures and classes.</Description>
+    <VersionPrefix>4.0.8</VersionPrefix>
+    <Authors>Justin Skiles</Authors>
+    <AssemblyName>SteamWebAPI2</AssemblyName>
+    <PackageId>SteamWebAPI2</PackageId>
+    <PackageProjectUrl>https://github.com/babelshift/SteamWebAPI2</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/babelshift/SteamWebAPI2/master/LICENSE</PackageLicenseUrl>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="automapper" Version="8.1.1" />
+    <PackageReference Include="newtonsoft.json" Version="12.0.2" />
+    <PackageReference Include="Steam.Models" Version="3.0.8" />
+  </ItemGroup>
+
+</Project>

@@ -3,11 +3,13 @@
     using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
     using BESL.Web.Models;
+    using BESL.Common.SteamWebApi;
+    using Microsoft.Extensions.Configuration;
 
     public class HomeController : BaseController
     {
         public IActionResult Index()
-        {
+        {    
             return this.View();
         }
 
