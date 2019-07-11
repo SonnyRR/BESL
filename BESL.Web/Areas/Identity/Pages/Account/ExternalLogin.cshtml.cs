@@ -25,7 +25,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
         private readonly UserManager<Player> _userManager;
         private readonly ILogger<ExternalLoginModel> _logger;
 
-        public ExternalLoginModel(     
+        public ExternalLoginModel(
             IMediator mediator,
             IConfiguration configuration,
             SignInManager<Player> signInManager,
@@ -79,7 +79,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             if (remoteError != null)
             {
                 ErrorMessage = $"Error from external provider: {remoteError}";
-                return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
+                return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
@@ -89,10 +89,11 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+
                 return LocalRedirect(returnUrl);
             }
             if (result.IsLockedOut)
@@ -126,6 +127,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
+            var steamId64 = ulong.Parse(info.ProviderKey.Split('/').Last());
             if (ModelState.IsValid)
             {
                 var user = new Player { UserName = Input.Username, Email = Input.Email };
@@ -137,12 +139,12 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                     {
                         if (info.ProviderDisplayName == "Steam")
                         {
-                            var steamId64 = info.ProviderKey.Split('/').Last();
-                            await this._userManager.AddClaimAsync(user, new Claim("STEAM_ID64", steamId64));
+                            await this._userManager.AddClaimAsync(user, new Claim("STEAM_ID64", steamId64.ToString()));
 
                             var steamUser = SteamApiHelper.GetSteamUserInstance(this._configuration);
-                            var playerResult = await steamUser.GetPlayerSummaryAsync(ulong.Parse(steamId64));
-                            await this._userManager.AddClaimAsync(user, new Claim("PROFILE_URL", playerResult.Data.ProfileUrl));
+
+                            var playerResult = await steamUser.GetCommunityProfileAsync(steamId64);
+                            await this._userManager.AddClaimAsync(user, new Claim("PROFILE_AVATAR_URL", playerResult.AvatarFull.ToString()));
                         }
 
                         await _signInManager.SignInAsync(user, isPersistent: false);

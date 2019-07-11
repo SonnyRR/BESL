@@ -17,6 +17,7 @@
             this.fileValidate = fileValidate;
         }
 
+#pragma warning disable CS1998
         protected override async Task<bool> IsValidAsync(PropertyValidatorContext context, CancellationToken cancellation)
         {
             var fileToValidate = context.PropertyValue as IFormFile;
@@ -31,5 +32,6 @@
 
             return true;
         }
+# pragma warning restore
     }
 }

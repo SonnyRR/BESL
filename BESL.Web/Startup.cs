@@ -30,6 +30,8 @@
     using BESL.Web.Middlewares;
     using BESL.Web.Hubs;
     using BESL.Web.Services;
+    using Hangfire;
+    using BESL.Web.Filters;
 
     public class Startup
     {
@@ -85,6 +87,10 @@
             services.AddScoped<INotifyService, NotifyService>();
 
             services.AddSignalR();
+
+            services.AddHangfire(cfg => cfg.UseSqlServerStorage(
+                this.Configuration.GetConnectionString(DbConnectionStringHandler.GetHangfireConnectionStringNameForCurrentOS()))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,6 +113,12 @@
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseHangfireServer();
+            app.UseHangfireDashboard("/Administration/hangfire", new DashboardOptions()
+            {
+                Authorization = new[] { new DashboardAuthorizationFilter() }
+            });
 
             app.UseSignalR(routeBuilder =>
             {

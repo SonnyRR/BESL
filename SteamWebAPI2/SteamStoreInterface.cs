@@ -11,6 +11,7 @@ namespace SteamWebAPI2
     /// <summary>
     /// Represents an interface into the Steam Store Web API
     /// </summary>
+#pragma warning disable CS0169
     public abstract class SteamStoreInterface
     {
         private const string steamStoreApiBaseUrl = "http://store.steampowered.com/api/";
