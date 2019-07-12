@@ -31,7 +31,7 @@
             var dbContext = provider.GetService<ApplicationDbContext>();
             dbContext.Database.EnsureCreated();
 
-            var adminRole = new IdentityRole("Administrator");
+            var adminRole = new PlayerRole("Administrator");
             dbContext.Roles.Add(adminRole);
             dbContext.SaveChanges();
 
