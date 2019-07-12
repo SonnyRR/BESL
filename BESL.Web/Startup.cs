@@ -32,6 +32,7 @@
     using BESL.Web.Services;
     using Hangfire;
     using BESL.Web.Filters;
+    using BESL.Web.CronJobs;
 
     public class Startup
     {
@@ -91,6 +92,8 @@
             services.AddHangfire(cfg => cfg.UseSqlServerStorage(
                 this.Configuration.GetConnectionString(DbConnectionStringHandler.GetHangfireConnectionStringNameForCurrentOS()))
             );
+
+            services.AddTransient<CheckForVACBans>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,8 +120,11 @@
             app.UseHangfireServer();
             app.UseHangfireDashboard("/Administration/hangfire", new DashboardOptions()
             {
+                DisplayStorageConnectionString = true,
                 Authorization = new[] { new DashboardAuthorizationFilter() }
             });
+
+            HangfireJobScheduler.ScheduleRecurringJobs();
 
             app.UseSignalR(routeBuilder =>
             {

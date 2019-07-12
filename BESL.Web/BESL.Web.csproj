@@ -42,6 +42,5 @@
     <Folder Include="wwwroot\lib\font-awesome\" />
     <Folder Include="Areas\Administration\Views\Shared\Partials\" />
     <Folder Include="Views\Shared\Components\ActiveTournamentsTable\" />
-    <Folder Include="CronJobs\" />
   </ItemGroup>
 </Project>

@@ -18,5 +18,10 @@
         public const string CREATED_SUCCESSFULLY_MSG = "has been created successfully!";
         public const string DELETED_SUCCESSFULLY_MSG = "has been deleted!";
         #endregion
+
+        #region Steam
+        public const string STEAM_ID_64_CLAIM_TYPE = "STEAM_ID64";
+        public const string IS_VAC_BANNED_CLAIM_TYPE = "IS_VAC_BANNED";
+        #endregion
     }
 }
