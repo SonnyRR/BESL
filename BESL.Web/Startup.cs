@@ -63,7 +63,10 @@
                         this.Configuration
                             .GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
 
-            services.AddIdentity<Player, IdentityRole>(
+            services.AddTransient<IUserStore<Player>, ApplicationUserStore>();
+            services.AddTransient<IRoleStore<PlayerRole>, ApplicationRoleStore>();
+
+            services.AddIdentity<Player, PlayerRole>(
                 opt =>
                 {
                     opt.Password.RequiredLength = 6;
@@ -71,9 +74,11 @@
                     opt.Password.RequireLowercase = true;
                     opt.Password.RequireUppercase = true;
                 })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddUserStore<ApplicationUserStore>()
+                .AddRoleStore<ApplicationRoleStore>()
                 .AddDefaultTokenProviders()
-                .AddDefaultUI()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddDefaultUI();
 
             services.AddAuthentication().AddSteam();
 

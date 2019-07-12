@@ -27,14 +27,14 @@
                 try
                 {
                     var context = scope.ServiceProvider.GetService<IApplicationDbContext>();
-                    var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                    var roleManager = scope.ServiceProvider.GetService<RoleManager<PlayerRole>>();
                     var userManager = scope.ServiceProvider.GetService<UserManager<Player>>();
 
                     var concreteContext = (ApplicationDbContext)context;
 
                     if (!await roleManager.RoleExistsAsync(Role.Administrator.ToString()))
                     {
-                        await roleManager.CreateAsync(new IdentityRole(Role.Administrator.ToString()));
+                        await roleManager.CreateAsync(new PlayerRole(Role.Administrator.ToString()));
                     }
 
                     if (!userManager.Users.Any())
