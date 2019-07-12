@@ -6,6 +6,7 @@
 
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.DependencyInjection;
+    using System.Linq;
 
     public class ApplicationDbContextSeeder : ISeeder
     {
@@ -21,6 +22,12 @@
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
+            if (dbContext.Users.Any() || dbContext.Games.Any())
+            {
+                // DB is seeded.
+                return;
+            }
+
             var logger = serviceProvider
                 .GetService<ILoggerFactory>()
                 .CreateLogger(typeof(ApplicationDbContextSeeder));
@@ -28,7 +35,8 @@
             var seeders = new List<ISeeder>
                           {
                               new RoleSeeder(),
-                              new RootAdminSeeder()
+                              new RootAdminSeeder(),
+                              new MainSeeder()
                           };
 
             foreach (var seeder in seeders)
