@@ -9,6 +9,7 @@
     using AutoMapper;
     using FluentValidation.AspNetCore;
     using MediatR;
+    using Hangfire;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI;
@@ -30,9 +31,10 @@
     using BESL.Web.Middlewares;
     using BESL.Web.Hubs;
     using BESL.Web.Services;
-    using Hangfire;
     using BESL.Web.Filters;
     using BESL.Web.CronJobs;
+    using BESL.Persistence.Repositories;
+    using BESL.Persistence.Infrastructure;
 
     public class Startup
     {
@@ -91,6 +93,9 @@
 
             services.AddScoped<IFileValidate, GameImageFileValidate>();
             services.AddScoped<INotifyService, NotifyService>();
+
+            services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             services.AddSignalR();
 
