@@ -1,4 +1,4 @@
-﻿namespace BESL.Persistence.Infrastructure
+﻿namespace BESL.Application.Interfaces
 {
     using System.Linq;
     using System.Threading.Tasks;

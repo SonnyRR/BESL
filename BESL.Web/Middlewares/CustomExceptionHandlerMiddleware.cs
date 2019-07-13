@@ -7,9 +7,9 @@
     using Microsoft.AspNetCore.Http;
 
     using BESL.Application.Exceptions;
-    using BESL.Web.Services;
     using static BESL.Common.GlobalConstants;
     using BESL.Domain.Entities.Enums;
+    using BESL.Web.Services;
 
     public class CustomExceptionHandlerMiddleware
     {

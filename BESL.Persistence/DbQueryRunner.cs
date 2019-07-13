@@ -3,8 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    using BESL.Persistence.Infrastructure;
     using Microsoft.EntityFrameworkCore;
+
+    using BESL.Application.Interfaces;
 
     public class DbQueryRunner : IDbQueryRunner
     {

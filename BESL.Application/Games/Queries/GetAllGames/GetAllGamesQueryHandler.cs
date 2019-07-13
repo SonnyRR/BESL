@@ -10,15 +10,16 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
+    using BESL.Domain.Entities;
 
     public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, GamesListViewModel>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IDeletableEntityRepository<Game> repository;
         private readonly IMapper mapper;
 
-        public GetAllGamesQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetAllGamesQueryHandler(IDeletableEntityRepository<Game> repository, IMapper mapper)
         {
-            this.context = context;
+            this.repository = repository;
             this.mapper = mapper;
         }
 
@@ -26,9 +27,8 @@
         {
             GamesListViewModel viewModel = new GamesListViewModel();
 
-            viewModel.Games = await this.context
-                .Games
-                .Where(g => !g.IsDeleted)
+            viewModel.Games = await this.repository
+                .All()
                 .ProjectTo<GameLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

@@ -3,8 +3,10 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using BESL.Persistence.Infrastructure;
+
     using Microsoft.EntityFrameworkCore;
+
+    using BESL.Application.Interfaces;    
 
     public class EfRepository<TEntity> : IRepository<TEntity>
         where TEntity : class

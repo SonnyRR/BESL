@@ -8,6 +8,7 @@
 
     using BESL.Domain.Infrastructure;
     using BESL.Persistence.Infrastructure;
+    using BESL.Application.Interfaces;
 
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEntityRepository<TEntity>
         where TEntity : class, IDeletableEntity

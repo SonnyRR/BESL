@@ -32,6 +32,7 @@
     using BESL.Web.Filters;
     using BESL.Web.Cron;
     using BESL.Persistence.Seeding;
+    using BESL.Persistence.Repositories;
 
     public class Startup
     {
