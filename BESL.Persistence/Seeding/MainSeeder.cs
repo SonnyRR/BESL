@@ -1,9 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using BESL.Domain.Entities;
-
-namespace BESL.Persistence.Seeding
+﻿namespace BESL.Persistence.Seeding
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using BESL.Domain.Entities;
+
     public class MainSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
@@ -40,7 +42,13 @@ namespace BESL.Persistence.Seeding
                     Description = "Play to win prizes by our sponsor Thermaltake including: keyboards, mices, gaming gear and PC components",
                     GameId =1,
                     CreatedOn = DateTime.UtcNow,
-                    FormatId = 1
+                    FormatId = 1,
+                    Tables = new List<TournamentTable>()
+                    {
+                        new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
+                        new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
+                        new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 }
+                    }
                 },
 
                 new Tournament()
@@ -49,7 +57,13 @@ namespace BESL.Persistence.Seeding
                     Description = "Corsair sponsors this round of summer 9v9 madness!. Prize pool includes a one-off custom gaming PC and many peripherals!",
                     GameId = 1,
                     CreatedOn = DateTime.UtcNow,
-                    FormatId = 2
+                    FormatId = 2,
+                    Tables = new List<TournamentTable>()
+                    {
+                        new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
+                        new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
+                        new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 }
+                    }
                 }
             };
 
