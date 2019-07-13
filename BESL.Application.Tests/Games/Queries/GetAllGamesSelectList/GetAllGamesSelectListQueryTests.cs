@@ -5,18 +5,22 @@
 
     using AutoMapper;
     using Xunit;
+    using Shouldly;
+    using System.Threading.Tasks;
 
     using BESL.Application.Games.Queries.GetAllGamesSelectList;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Persistence;
-    using Shouldly;
     using BESL.Domain.Entities;
+    using BESL.Application.Interfaces;
+    using BESL.Persistence.Repositories;
+
 
     [Collection("QueryCollection")]
     public class GetAllGamesSelectListQueryTests
     {
-        private readonly ApplicationDbContext dbContext;
         private readonly IMapper mapper;
+        private readonly IApplicationDbContext dbContext;
 
         public GetAllGamesSelectListQueryTests(QueryTestFixture fixture)
         {
@@ -26,22 +30,19 @@
 
         [Trait(nameof(Game), "Game query tests.")]
         [Fact(DisplayName = "GetAllGames handler given valid request should return valid GamesSelectList viewmodel.")]
-        public void Handle_GivenValidRequest_ShouldReturnValidViewModel()
+        public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
-            // Arrange
+            // Arrange           
             var query = new GetAllGamesSelectListQuery();
-            var sut = new GetAllGamesSelectListQueryHandler(this.dbContext, this.mapper);
+            var sut = new GetAllGamesSelectListQueryHandler(new EfDeletableEntityRepository<Game>((ApplicationDbContext)this.dbContext), this.mapper);
 
             // Act
-            var result = sut.Handle(query, CancellationToken.None)
-                .GetAwaiter()
-                .GetResult()
-                .ToList();
+            var result = await sut.Handle(query, CancellationToken.None);
 
             // Assert
             result.ShouldNotBeNull();
             result.ShouldNotBeEmpty();
-            result.Count.ShouldBe(3);
+            result.Count().ShouldBe(3);
         }
     }
 }

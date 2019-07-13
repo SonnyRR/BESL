@@ -1,17 +1,18 @@
 ﻿namespace BESL.Application.Tests.Games.Queries.GetGameDetails
 {
-    using System.Threading;
-
     using AutoMapper;
-    using Shouldly;
-    using Xunit;
-
+    using BESL.Application.Exceptions;
     using BESL.Application.Games.Queries.GetGameDetails;
+    using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
     using BESL.Persistence;
-    using BESL.Application.Exceptions;
+    using Moq;
+    using Shouldly;
     using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Xunit;
 
     [Collection("QueryCollection")]
     public class GetGameDetailsQueryTests
@@ -27,14 +28,24 @@
 
         [Trait(nameof(Game), "Game query tests.")]
         [Fact(DisplayName = "GetGameDetails query handler given valid request should return valid GameDetails viewmodel.")]
-        public void Handle_GivenValidRequest_ShouldReturnValidViewModel()
+        public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange
-            var query = new GetGameDetailsQuery() { Id = 2 };
-            var sut = new GetGameDetailsQueryHandler(this.dbContext, this.mapper);
+            var entityId = 2;
+            var query = new GetGameDetailsQuery() { Id = entityId };
+            var repositoryMock = new Mock<IDeletableEntityRepository<Game>>();
+            repositoryMock.Setup(m => m.GetByIdWithDeletedAsync(entityId))
+                .ReturnsAsync(new Game()
+                {
+                    Id = entityId,
+                    Name = "TF2",
+                    Description = "Team Fortress 2",
+                    GameImageUrl = "http://foo.bar"
+                });
+            var sut = new GetGameDetailsQueryHandler(repositoryMock.Object, this.mapper);
 
             // Act
-            var result = sut.Handle(query, CancellationToken.None).GetAwaiter().GetResult();
+            var result = await sut.Handle(query, CancellationToken.None);
 
             // Assert
             result.ShouldNotBeNull();
@@ -51,7 +62,9 @@
         {
             // Arrange
             var query = new GetGameDetailsQuery() { Id = 90125 };
-            var sut = new GetGameDetailsQueryHandler(this.dbContext, this.mapper);
+            var repositoryMock = new Mock<IDeletableEntityRepository<Game>>();
+            repositoryMock.Setup(r => r.GetByIdWithDeletedAsync()).ReturnsAsync((Game)null);
+            var sut = new GetGameDetailsQueryHandler(repositoryMock.Object, this.mapper);
 
             // Act
             var result = sut.Handle(query, CancellationToken.None);
@@ -63,7 +76,8 @@
         public void Handle_GivenInvalidRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var sut = new GetGameDetailsQueryHandler(this.dbContext, this.mapper);
+            var repositoryMock = new Mock<IDeletableEntityRepository<Game>>();
+            var sut = new GetGameDetailsQueryHandler(repositoryMock.Object, this.mapper);
 
             // Act
             var result = sut.Handle(null, CancellationToken.None);

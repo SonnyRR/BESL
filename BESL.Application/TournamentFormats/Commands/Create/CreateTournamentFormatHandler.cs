@@ -14,28 +14,29 @@
 
     public class CreateTournamentFormatHandler : IRequestHandler<CreateTournamentFormatCommand, int>
     {
-        private readonly IDeletableEntityRepository<TournamentFormat> repository;
+        private readonly IDeletableEntityRepository<TournamentFormat> formatRepository;
+        private readonly IDeletableEntityRepository<Game> gameRepository;
 
-        public CreateTournamentFormatHandler(IDeletableEntityRepository<TournamentFormat> repository)
+        public CreateTournamentFormatHandler(
+            IDeletableEntityRepository<TournamentFormat> formatRepository, 
+            IDeletableEntityRepository<Game> gameRepository)
         {
-            this.repository = repository;
+            this.formatRepository = formatRepository;
+            this.gameRepository = gameRepository;
         }
 
         public async Task<int> Handle(CreateTournamentFormatCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CreateTournamentFormatValidator();
-            var validationResult = validator.Validate(request);
-
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
-            if (this.repository.AllAsNoTrackingWithDeleted().Any(tf => tf.GameId == request.GameId && tf.Name == request.Name))
+            if (this.formatRepository.AllAsNoTrackingWithDeleted().Any(tf => tf.GameId == request.GameId && tf.Name == request.Name))
             {
                 throw new EntityAlreadyExists(nameof(TournamentFormat), $"{request.Name} - GameId:{request.GameId}");
             }
 
-            var game = await this.repository
+            var game = await this.gameRepository
                 .GetByIdWithDeletedAsync(request.GameId);              
 
             if (game == null)
@@ -53,8 +54,8 @@
                 CreatedOn = DateTime.UtcNow
             };
 
-            await this.repository.AddAsync(format);
-            return await this.repository.SaveChangesAsync(cancellationToken);
+            await this.formatRepository.AddAsync(format);
+            return await this.formatRepository.SaveChangesAsync(cancellationToken);
         }
     }
 }

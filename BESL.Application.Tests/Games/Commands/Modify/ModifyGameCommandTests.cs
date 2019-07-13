@@ -19,16 +19,19 @@
     using BESL.Application.Games.Commands.Modify;
     using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Validators;
+    using BESL.Application.Interfaces;
+    using System.Threading.Tasks;
 
     public class ModifyGameCommandTests : BaseTest<Game>
     {
         [Trait(nameof(Game), "Game modify tests.")]
         [Fact(DisplayName = "Handler should modify entity if request is valid.")]
-        public void Handle_GivenValidRequest_ShouldModifyEntity()
+        public async Task Handle_GivenValidRequest_ShouldModifyEntity()
         {
             // Arrange
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
-            var sut = new ModifyGameCommandHandler(this.dbContext, It.IsAny<IConfiguration>());
+
+            var sut = new ModifyGameCommandHandler(deletableEntityRepository, It.IsAny<IConfiguration>());
 
             cloudinaryHelperMock
                 .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
@@ -46,7 +49,7 @@
 
             var command = new ModifyGameCommand()
             {
-                Id = this.CreateGame(),
+                Id = 1,
                 Name = "Team Fortress 3",
                 Description = "Changed description from test",
                 GameImage = new FormFile(It.IsAny<Stream>(), It.IsAny<long>(), It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>())
@@ -54,7 +57,7 @@
 
             // Act
             var id = sut.Handle(command, CancellationToken.None).GetAwaiter().GetResult();
-            var game = this.dbContext.Games.SingleOrDefault(g => g.Name == "Team Fortress 3");
+            var game = await deletableEntityRepository.GetByIdWithDeletedAsync(1);
 
             // Assert
             game.ShouldNotBeNull();
@@ -90,22 +93,6 @@
 
             // Assert
             validationResult.IsValid.ShouldBe(validValue);
-        }
-
-        private int CreateGame()
-        {
-            var game = new Game()
-            {
-                Name = "Team Fortress 2",
-                Description = "Original Description",
-                GameImageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/440/header.jpg",
-                CreatedOn = DateTime.UtcNow,
-            };
-
-            this.dbContext.Games.Add(game);
-            this.dbContext.SaveChanges();
-
-            return game.Id;
         }
     }
 }

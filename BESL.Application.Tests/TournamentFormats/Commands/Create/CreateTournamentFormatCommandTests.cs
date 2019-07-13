@@ -1,9 +1,13 @@
 ﻿namespace BESL.Application.Tests.TournamentFormats.Commands.Create
 {
     using BESL.Application.Exceptions;
+    using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.TournamentFormats.Commands.Create;
     using BESL.Domain.Entities;
+    using BESL.Persistence;
+    using BESL.Persistence.Repositories;
+    using Moq;
     using Shouldly;
     using System.Threading;
     using System.Threading.Tasks;
@@ -24,7 +28,8 @@
                 TeamPlayersCount = 5
             };
 
-            var sut = new CreateTournamentFormatHandler(this.dbContext);
+            IDeletableEntityRepository<Game> gameRepo = new EfDeletableEntityRepository<Game>(this.dbContext);
+            var sut = new CreateTournamentFormatHandler(deletableEntityRepository, gameRepo);
 
             // Act
             var result = await sut.Handle(request, CancellationToken.None);
@@ -35,7 +40,7 @@
 
         [Trait(nameof(TournamentFormat), "TournamentFormat creation tests.")]
         [Fact(DisplayName = "Handle given Invalid request should throw NotFoundException.")]
-        public void sHandle_GivenInvalidRequest_ShouldThrowNotFoundException()
+        public void Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
             // Arrange
             var request = new CreateTournamentFormatCommand()
@@ -46,7 +51,8 @@
                 TeamPlayersCount = 5
             };
 
-            var sut = new CreateTournamentFormatHandler(this.dbContext);
+            IDeletableEntityRepository<Game> gameRepo = new EfDeletableEntityRepository<Game>(this.dbContext);
+            var sut = new CreateTournamentFormatHandler(deletableEntityRepository,gameRepo);
 
             // Assert
             Should.Throw<NotFoundException>(sut.Handle(request, CancellationToken.None));

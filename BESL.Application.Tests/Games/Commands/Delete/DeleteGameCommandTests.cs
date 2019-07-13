@@ -22,30 +22,30 @@
     using BESL.Domain.Entities;
     using BESL.Application.Interfaces;
     using BESL.Persistence.Repositories;
+    using System.Threading.Tasks;
 
     public class DeleteGameCommandTests : BaseTest<Game>
     {
 
         [Trait(nameof(Game), "Game deletion tests.")]
-        [Fact(DisplayName ="Handler should mark entity as deleted.")]
-        public void Handle_GivenValidRequest_ShouldMarkEntityAsDeleted()
+        [Fact(DisplayName = "Handler should mark entity as deleted.")]
+
+        public async Task Handle_GivenValidRequest_ShouldMarkEntityAsDeleted()
         {
             // Arrange
-            var id = this.CreateSampleGame();
-
-            // Act
             var deleteGameCommand = new DeleteGameCommand()
             {
-                Id = id,
+                Id = 1,
                 GameName = It.IsAny<string>()
             };
 
-            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository);
+            var sut = new DeleteGameCommandHandler(deletableEntityRepository);
+            
+            // Act
             sut.Handle(deleteGameCommand, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
 
-            var deletedGameEntity = this.dbContext.Games.SingleOrDefault(g => g.Id == id);
-
             // Assert
+            var deletedGameEntity = await deletableEntityRepository.GetByIdWithDeletedAsync(1);
             deletedGameEntity.IsDeleted.ShouldBe(true);
         }
 
@@ -54,7 +54,7 @@
         [InlineData(90125, typeof(NotFoundException))]
         [InlineData(1, typeof(DeleteFailureException))]
         public void Handle_GivenInvalidRequest_ShouldThrowCorrectExceptions(int id, Type exceptionType)
-        {            
+        {
             // Arrange
             if (exceptionType == typeof(DeleteFailureException))
             {
