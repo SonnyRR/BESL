@@ -4,21 +4,21 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
     using MediatR;
     using Microsoft.Extensions.Configuration;
 
     using BESL.Application.Interfaces;
     using BESL.Common.Cloudinary;
     using BESL.Domain.Entities;
-    using CloudinaryDotNet;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
-        private readonly IRepository<Game> repository;
+        private readonly IDeletableEntityRepository<Game> repository;
         private readonly IConfiguration configuration;
         private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public CreateGameCommandHandler(IRepository<Game> repository, IConfiguration configuration)
+        public CreateGameCommandHandler(IDeletableEntityRepository<Game> repository, IConfiguration configuration)
         {
             this.repository = repository;
             this.configuration = configuration;

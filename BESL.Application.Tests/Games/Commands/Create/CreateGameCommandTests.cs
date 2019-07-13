@@ -30,7 +30,7 @@
         {
             // Arrange
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
-            var sut = new CreateGameCommandHandler(this.repository, It.IsAny<IConfiguration>());
+            var sut = new CreateGameCommandHandler(this.deletableEntityRepository, It.IsAny<IConfiguration>());
 
             cloudinaryHelperMock
                 .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
@@ -70,7 +70,7 @@
         public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var sut = new CreateGameCommandHandler(It.IsAny<IRepository<Game>>(), It.IsAny<IConfiguration>());
+            var sut = new CreateGameCommandHandler(It.IsAny<IDeletableEntityRepository<Game>>(), It.IsAny<IConfiguration>());
             CreateGameCommand command = null;
 
             // Assert

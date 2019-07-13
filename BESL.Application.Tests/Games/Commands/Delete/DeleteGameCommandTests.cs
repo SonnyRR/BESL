@@ -53,17 +53,14 @@
         [Theory(DisplayName = "Handler should throw correct exceptions.")]
         [InlineData(90125, typeof(NotFoundException))]
         [InlineData(1, typeof(DeleteFailureException))]
-        public void Handle_GivenInvalidRequest_ShouldThrowCorrectExceptions(int id, Type exceptionType)
+        public async Task Handle_GivenInvalidRequest_ShouldThrowCorrectExceptions(int id, Type exceptionType)
         {
             // Arrange
             if (exceptionType == typeof(DeleteFailureException))
             {
-                id = this.CreateSampleGame();
-                this.dbContext
-                    .Games
-                    .SingleOrDefault(g => g.Id == id)
-                    .IsDeleted = true;
-                this.dbContext.SaveChanges();
+                var game = await this.deletableEntityRepository.GetByIdWithDeletedAsync(id);
+                deletableEntityRepository.Delete(game);
+                await deletableEntityRepository.SaveChangesAsync();
             }
 
             var sut = new DeleteGameCommandHandler(this.deletableEntityRepository);
@@ -91,7 +88,7 @@
         private int CreateSampleGame()
         {
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
-            var sut = new CreateGameCommandHandler(this.repository, It.IsAny<IConfiguration>());
+            var sut = new CreateGameCommandHandler(this.deletableEntityRepository, It.IsAny<IConfiguration>());
 
             cloudinaryHelperMock
                 .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
