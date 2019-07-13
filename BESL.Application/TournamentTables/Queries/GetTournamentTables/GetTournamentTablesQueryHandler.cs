@@ -11,15 +11,16 @@
     using Microsoft.EntityFrameworkCore;
     using System;
     using AutoMapper.QueryableExtensions;
+    using BESL.Domain.Entities;
 
     public class GetTournamentTablesQueryHandler : IRequestHandler<GetTournamentTablesQuery, TournamentTablesViewModel>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<TournamentTable> repository;
         private readonly IMapper mapper;
 
-        public GetTournamentTablesQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+        public GetTournamentTablesQueryHandler(IDeletableEntityRepository<TournamentTable> repository, IMapper mapper)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
             this.mapper = mapper;
         }
 
@@ -30,8 +31,8 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var tables = await this.dbContext
-                .TournamentTables
+            var tables = await this.repository
+                .AllAsNoTracking()
                     .Include(tt => tt.SignedUpTeams)
                     .Include(tt => tt.TeamTableResults)
                         .ThenInclude(ttr => ttr.Team)

@@ -11,15 +11,16 @@
     using AutoMapper.QueryableExtensions;
     using BESL.Application.Tournaments.Models;
     using Microsoft.EntityFrameworkCore;
+    using BESL.Domain.Entities;
 
     public class CreateTournamentQueryHandler : IRequestHandler<CreateTournamentQuery, CreateTournamentCommand>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<Tournament> repository;
         private readonly IMapper mapper;
 
-        public CreateTournamentQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+        public CreateTournamentQueryHandler(IDeletableEntityRepository<Tournament> repository, IMapper mapper)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
             this.mapper = mapper;
         }
 
@@ -27,8 +28,8 @@
         {
             CreateTournamentCommand command = new CreateTournamentCommand()
             {
-                Formats = await this.dbContext
-                            .TournamentFormats
+                Formats = await this.repository
+                            .AllAsNoTracking()
                                 .Include(tf=>tf.Game)
                             .ProjectTo<TournamentFormatSelectListLookupModel>(this.mapper.ConfigurationProvider)
                             .ToListAsync()

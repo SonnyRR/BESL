@@ -16,13 +16,13 @@
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IDeletableEntityRepository<Tournament> repository;
         private readonly IConfiguration configuration;
         private readonly CloudinaryHelper cloudinaryHelper;
 
-        public CreateTournamentCommandHandler(IApplicationDbContext context, IConfiguration configuration)
+        public CreateTournamentCommandHandler(IDeletableEntityRepository<Tournament> repository, IConfiguration configuration)
         {
-            this.context = context;
+            this.repository = repository;
             this.configuration = configuration;
             this.cloudinaryHelper = new CloudinaryHelper();
         }
@@ -34,7 +34,7 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            if (this.context.Tournaments.Any(t => t.Name == request.Name))
+            if (this.repository.AllAsNoTrackingWithDeleted().Any(t => t.Name == request.Name))
             {
                 throw new EntityAlreadyExists(nameof(Tournament), request.Name);
             }
@@ -47,7 +47,8 @@
                     name: $"{request.Name}-tournament-main-shot"
                 );
 
-            var gameId = (await this.context.TournamentFormats.SingleOrDefaultAsync(tf => tf.Id == request.FormatId)).GameId;
+            var gameId = (await this.repository.GetByIdWithDeletedAsync(request.FormatId)).GameId;
+
             Tournament tournament = new Tournament()
             {
                 Name = request.Name,
@@ -64,8 +65,8 @@
             tournament.Tables.Add(new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 });
             tournament.Tables.Add(new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 });
 
-            this.context.Tournaments.Add(tournament);
-            await this.context.SaveChangesAsync(cancellationToken);
+            await this.repository.AddAsync(tournament);
+            await this.repository.SaveChangesAsync(cancellationToken);
 
             return tournament.Id;
         }

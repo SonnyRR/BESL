@@ -10,22 +10,23 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
+    using BESL.Domain.Entities;
 
     public class GetAllTournamentsQueryHandler : IRequestHandler<GetAllTournamentsQuery, AllTournamentsViewModel>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<Tournament> repository;
         private readonly IMapper mapper;
 
-        public GetAllTournamentsQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+        public GetAllTournamentsQueryHandler(IDeletableEntityRepository<Tournament> repository, IMapper mapper)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
             this.mapper = mapper;
         }
 
         public async Task<AllTournamentsViewModel> Handle(GetAllTournamentsQuery request, CancellationToken cancellationToken)
         {
-            var tournamentsMapped = await this.dbContext
-                .Tournaments
+            var tournamentsMapped = await this.repository
+                .AllAsNoTracking()
                     .Include(t => t.Game)
                     .Include(t => t.Format)
                 .Where(t => !t.IsDeleted)
