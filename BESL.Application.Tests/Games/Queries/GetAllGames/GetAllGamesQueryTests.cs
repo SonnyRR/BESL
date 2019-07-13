@@ -12,16 +12,18 @@
     using BESL.Application.Tests.Infrastructure;
     using BESL.Persistence;
     using BESL.Domain.Entities;
+    using BESL.Application.Interfaces;
+    using BESL.Persistence.Repositories;
 
     [Collection("QueryCollection")]
     public class GetAllGamesQueryTests
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<Game> dbContext;
         private readonly IMapper mapper;
 
         public GetAllGamesQueryTests(QueryTestFixture fixture)
         {
-            this.dbContext = fixture.Context;
+            this.dbContext = new EfDeletableEntityRepository<Game>(fixture.Context);
             this.mapper = fixture.Mapper;
         }
 
