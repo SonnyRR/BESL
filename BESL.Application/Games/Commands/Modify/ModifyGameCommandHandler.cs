@@ -1,11 +1,9 @@
 ﻿namespace BESL.Application.Games.Commands.Modify
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
 
     using BESL.Application.Interfaces;
@@ -15,22 +13,21 @@
 
     public class ModifyGameCommandHandler : IRequestHandler<ModifyGameCommand, Unit>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<Game> repository;
         private readonly IConfiguration configuration;
         private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public ModifyGameCommandHandler(IApplicationDbContext dbContext, IConfiguration configuration)
+        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> repository, IConfiguration configuration)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
             this.configuration = configuration;
             this.cloudinaryHelper = new CloudinaryHelper();
         }
 
         public async Task<Unit> Handle(ModifyGameCommand request, CancellationToken cancellationToken)
         {
-            var existingGame = await this.dbContext
-                .Games
-                .SingleOrDefaultAsync(g => g.Id == request.Id);
+            var existingGame = await this.repository
+                .GetByIdWithDeletedAsync(request.Id);
 
             if (existingGame == null)
             {
@@ -52,8 +49,8 @@
                 existingGame.GameImageUrl = imageUrl;
             }
 
-            existingGame.ModifiedOn = DateTime.UtcNow;
-            await this.dbContext.SaveChangesAsync(cancellationToken);
+            this.repository.Update(existingGame);
+            await this.repository.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

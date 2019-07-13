@@ -11,22 +11,23 @@
 
     using BESL.Application.Interfaces;
     using BESL.Application.Common.Models;
+    using BESL.Domain.Entities;
 
     public class GetAllGamesSelectListQueryHandler : IRequestHandler<GetAllGamesSelectListQuery, IEnumerable<GameSelectItemLookupModel>>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<Game> repository;
         private readonly IMapper mapper;
 
-        public GetAllGamesSelectListQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+        public GetAllGamesSelectListQueryHandler(IDeletableEntityRepository<Game> repository, IMapper mapper)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<GameSelectItemLookupModel>> Handle(GetAllGamesSelectListQuery request, CancellationToken cancellationToken)
         {
-            var games = await this.dbContext
-                .Games
+            var games = await this.repository
+                .AllAsNoTracking()
                 .ProjectTo<GameSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

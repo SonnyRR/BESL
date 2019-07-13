@@ -13,11 +13,11 @@
 
     public class ModifyGameQueryHandler : IRequestHandler<ModifyGameQuery, ModifyGameViewModel>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IDeletableEntityRepository<Game> repository;
 
-        public ModifyGameQueryHandler(IApplicationDbContext context)
+        public ModifyGameQueryHandler(IDeletableEntityRepository<Game> repository)
         {
-            this.context = context;
+            this.repository = repository;
         }
 
         public async Task<ModifyGameViewModel> Handle(ModifyGameQuery request, CancellationToken cancellationToken)
@@ -27,9 +27,8 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var desiredGame = await this.context
-                .Games
-                .SingleOrDefaultAsync(g => g.Id == request.Id);
+            var desiredGame = await this.repository
+                .GetByIdWithDeletedAsync(request.Id);
 
             if (desiredGame == null)
             {

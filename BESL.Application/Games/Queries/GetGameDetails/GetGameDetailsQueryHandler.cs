@@ -14,12 +14,12 @@
 
     public class GetGameDetailsQueryHandler : IRequestHandler<GetGameDetailsQuery, GameDetailsViewModel>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IDeletableEntityRepository<Game> repository;
         private readonly IMapper mapper;
 
-        public GetGameDetailsQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetGameDetailsQueryHandler(IDeletableEntityRepository<Game> repository, IMapper mapper)
         {
-            this.context = context;
+            this.repository = repository;
             this.mapper = mapper;
         }
 
@@ -30,13 +30,15 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var gameDomain = await this.context.Games.FirstOrDefaultAsync(g => g.Id == request.Id);
+            var gameDomain = await this.repository
+                .GetByIdWithDeletedAsync(request.Id);
 
             if (gameDomain == null)
             {
                 throw new NotFoundException(nameof(Game), request.Id);
             }
 
+            //TODO
             var dto = this.mapper.Map<GameDetailsLookupModel>(gameDomain);
 
             var viewModel = new GameDetailsViewModel()

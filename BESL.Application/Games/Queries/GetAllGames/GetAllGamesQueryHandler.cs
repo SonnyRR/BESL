@@ -28,7 +28,7 @@
             GamesListViewModel viewModel = new GamesListViewModel();
 
             viewModel.Games = await this.repository
-                .All()
+                .AllAsNoTracking()
                 .ProjectTo<GameLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
