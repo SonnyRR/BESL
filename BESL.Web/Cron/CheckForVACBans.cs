@@ -1,4 +1,4 @@
-﻿namespace BESL.Web.CronJobs
+﻿namespace BESL.Web.Cron
 {
     using BESL.Common.SteamWebApi;
     using BESL.Domain.Entities;

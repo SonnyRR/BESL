@@ -1,4 +1,4 @@
-﻿namespace BESL.Web.CronJobs
+﻿namespace BESL.Web.Cron
 {
     using System;
     using Hangfire;

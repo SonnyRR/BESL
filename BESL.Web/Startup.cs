@@ -12,10 +12,8 @@
     using Hangfire;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -32,9 +30,8 @@
     using BESL.Web.Hubs;
     using BESL.Web.Services;
     using BESL.Web.Filters;
-    using BESL.Web.CronJobs;
-    using BESL.Persistence.Repositories;
-    using BESL.Persistence.Infrastructure;
+    using BESL.Web.Cron;
+    using BESL.Persistence.Seeding;
 
     public class Startup
     {
@@ -109,6 +106,19 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                //if (env.IsDevelopment())
+                //{
+                    #warning Note that this API is mutually exclusive with DbContext.Database.EnsureCreated(). EnsureCreated does not use migrations to create the database and therefore the database that is created cannot be later updated using migrations.
+                //    dbContext.Database.Migrate();
+                //}
+
+                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
