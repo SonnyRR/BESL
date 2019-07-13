@@ -22,7 +22,7 @@
     using BESL.Application.Infrastructure.Validators;
     using BESL.Domain.Entities;
 
-    public class CreateGameCommandTests : BaseTest
+    public class CreateGameCommandTests : BaseTest<Game>
     {
         [Trait(nameof(Game), "Game creation tests.")]
         [Fact(DisplayName ="Handle given valid request should create valid entity.")]
@@ -30,7 +30,7 @@
         {
             // Arrange
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
-            var sut = new CreateGameCommandHandler(this.dbContext, It.IsAny<IConfiguration>());
+            var sut = new CreateGameCommandHandler(this.repository, It.IsAny<IConfiguration>());
 
             cloudinaryHelperMock
                 .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
@@ -70,7 +70,7 @@
         public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var sut = new CreateGameCommandHandler(It.IsAny<IApplicationDbContext>(), It.IsAny<IConfiguration>());
+            var sut = new CreateGameCommandHandler(It.IsAny<IRepository<Game>>(), It.IsAny<IConfiguration>());
             CreateGameCommand command = null;
 
             // Assert

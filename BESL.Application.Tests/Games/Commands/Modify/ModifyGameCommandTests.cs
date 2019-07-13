@@ -20,7 +20,7 @@
     using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Validators;
 
-    public class ModifyGameCommandTests : BaseTest
+    public class ModifyGameCommandTests : BaseTest<Game>
     {
         [Trait(nameof(Game), "Game modify tests.")]
         [Fact(DisplayName = "Handler should modify entity if request is valid.")]

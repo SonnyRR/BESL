@@ -9,7 +9,7 @@
     using System.Threading.Tasks;
     using Xunit;
 
-    public class CreateTournamentFormatCommandTests : BaseTest
+    public class CreateTournamentFormatCommandTests : BaseTest<TournamentFormat>
     {
         [Trait(nameof(TournamentFormat), "TournamentFormat creation tests.")]
         [Fact(DisplayName = "Handle given valid request should create valid entity.")]

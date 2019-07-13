@@ -10,18 +10,17 @@
     using BESL.Application.Interfaces;
     using BESL.Common.Cloudinary;
     using BESL.Domain.Entities;
-    using BESL.Application.Exceptions;
     using CloudinaryDotNet;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
-        private readonly IApplicationDbContext context;
+        private readonly IRepository<Game> repository;
         private readonly IConfiguration configuration;
         private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public CreateGameCommandHandler(IApplicationDbContext context, IConfiguration configuration)
+        public CreateGameCommandHandler(IRepository<Game> repository, IConfiguration configuration)
         {
-            this.context = context;
+            this.repository = repository;
             this.configuration = configuration;
             this.cloudinaryHelper = new CloudinaryHelper();
         }
@@ -49,8 +48,8 @@
                 GameImageUrl = url
             };
 
-            this.context.Games.Add(game);
-            await this.context.SaveChangesAsync(cancellationToken);
+            await this.repository.AddAsync(game);
+            await this.repository.SaveChangesAsync(cancellationToken);
 
             return game.Id;
         }

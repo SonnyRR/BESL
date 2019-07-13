@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public interface IRepository<TEntity> : IDisposable
@@ -17,6 +18,6 @@
 
         void Delete(TEntity entity);
 
-        Task<int> SaveChangesAsync();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -20,8 +20,10 @@
     using BESL.Common.Cloudinary;
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
+    using BESL.Application.Interfaces;
+    using BESL.Persistence.Repositories;
 
-    public class DeleteGameCommandTests : BaseTest
+    public class DeleteGameCommandTests : BaseTest<Game>
     {
 
         [Trait(nameof(Game), "Game deletion tests.")]
@@ -38,7 +40,7 @@
                 GameName = It.IsAny<string>()
             };
 
-            var sut = new DeleteGameCommandHandler(this.dbContext);
+            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository);
             sut.Handle(deleteGameCommand, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
 
             var deletedGameEntity = this.dbContext.Games.SingleOrDefault(g => g.Id == id);
@@ -64,7 +66,7 @@
                 this.dbContext.SaveChanges();
             }
 
-            var sut = new DeleteGameCommandHandler(this.dbContext);
+            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository);
             var command = new DeleteGameCommand()
             {
                 Id = id,
@@ -80,7 +82,7 @@
         public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var sut = new DeleteGameCommandHandler(this.dbContext);
+            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository);
 
             // Assert
             Should.Throw<ArgumentNullException>(() => sut.Handle(null, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
@@ -89,7 +91,7 @@
         private int CreateSampleGame()
         {
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
-            var sut = new CreateGameCommandHandler(this.dbContext, It.IsAny<IConfiguration>());
+            var sut = new CreateGameCommandHandler(this.repository, It.IsAny<IConfiguration>());
 
             cloudinaryHelperMock
                 .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))

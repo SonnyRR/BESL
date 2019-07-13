@@ -26,17 +26,20 @@
 
         private static async Task SeedRootAdminAsync(UserManager<Player> userManager, RoleManager<PlayerRole> roleManager, string roleName)
         {
+            var result = await userManager
+                .CreateAsync(new Player() { UserName = ADMIN_USERNAME, Email = ADMIN_EMAIL }, ADMIN_PASSWORD);
+
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
+            }
             var rootAdminUser = await userManager.FindByNameAsync(ADMIN_USERNAME);
 
-            if (rootAdminUser == null)
-            {
-                var result = await userManager
-                    .CreateAsync(new Player() { UserName = ADMIN_USERNAME, Email = ADMIN_EMAIL }, ADMIN_PASSWORD);
+            var addToRoleResult = await userManager.AddToRoleAsync(rootAdminUser, Role.Administrator.ToString());
 
-                if (!result.Succeeded)
-                {
-                    throw new InvalidOperationException(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
-                }
+            if (!addToRoleResult.Succeeded)
+            {
+                throw new InvalidOperationException(string.Join(Environment.NewLine, addToRoleResult.Errors.Select(e => e.Description)));
             }
         }
     }

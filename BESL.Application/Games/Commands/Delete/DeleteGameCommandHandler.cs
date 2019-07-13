@@ -7,18 +7,17 @@
     using MediatR;
 
     using BESL.Application.Interfaces;
-    using Microsoft.EntityFrameworkCore;
     using BESL.Application.Exceptions;
-    using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
+    using BESL.Domain.Entities;
 
     public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<Game> repository;
 
-        public DeleteGameCommandHandler(IApplicationDbContext context)
+        public DeleteGameCommandHandler(IDeletableEntityRepository<Game> repository)
         {
-            this.dbContext = context;
+            this.repository = repository;
         }
 
         public async Task<Unit> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
@@ -28,9 +27,7 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var desiredGame = await this.dbContext
-                .Games
-                .SingleOrDefaultAsync(g => g.Id == request.Id);
+            var desiredGame = await this.repository.GetByIdWithDeletedAsync(request.Id);
 
             if (desiredGame == null)
             {
@@ -41,12 +38,9 @@
             {
                 throw new DeleteFailureException(nameof(Game), desiredGame.Id, ENTITY_ALREADY_DELETED_MSG);
             }
-            else
-            {
-                desiredGame.IsDeleted = true;
-                desiredGame.DeletedOn = DateTime.UtcNow;
-                await this.dbContext.SaveChangesAsync(cancellationToken);
-            }
+
+            this.repository.Delete(desiredGame);
+            await this.repository.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }
