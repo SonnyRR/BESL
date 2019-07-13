@@ -14,11 +14,11 @@
 
     public class CreateTournamentFormatHandler : IRequestHandler<CreateTournamentFormatCommand, int>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<TournamentFormat> repository;
 
-        public CreateTournamentFormatHandler(IApplicationDbContext dbContext)
+        public CreateTournamentFormatHandler(IDeletableEntityRepository<TournamentFormat> repository)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
         }
 
         public async Task<int> Handle(CreateTournamentFormatCommand request, CancellationToken cancellationToken)
@@ -30,14 +30,13 @@
             {
                 throw new ArgumentNullException(nameof(request));
             }
-            if (this.dbContext.TournamentFormats.Any(tf => tf.GameId == request.GameId && tf.Name == request.Name))
+            if (this.repository.AllAsNoTrackingWithDeleted().Any(tf => tf.GameId == request.GameId && tf.Name == request.Name))
             {
                 throw new EntityAlreadyExists(nameof(TournamentFormat), $"{request.Name} - GameId:{request.GameId}");
             }
 
-            var game = await this.dbContext
-                .Games
-                .SingleOrDefaultAsync(g => g.Id == request.GameId, cancellationToken);
+            var game = await this.repository
+                .GetByIdWithDeletedAsync(request.GameId);              
 
             if (game == null)
             {
@@ -54,8 +53,8 @@
                 CreatedOn = DateTime.UtcNow
             };
 
-            this.dbContext.TournamentFormats.Add(format);
-            return await this.dbContext.SaveChangesAsync(cancellationToken);
+            await this.repository.AddAsync(format);
+            return await this.repository.SaveChangesAsync(cancellationToken);
         }
     }
 }

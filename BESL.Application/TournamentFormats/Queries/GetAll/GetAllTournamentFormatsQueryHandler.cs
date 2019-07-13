@@ -10,23 +10,23 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
+    using BESL.Domain.Entities;
 
     public class GetAllTournamentFormatsQueryHandler : IRequestHandler<GetAllTournamentFormatsQuery, GetAllTournamentFormatsQueryViewModel>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<TournamentFormat> repository;
         private readonly IMapper mapper;
 
-        public GetAllTournamentFormatsQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+        public GetAllTournamentFormatsQueryHandler(IDeletableEntityRepository<TournamentFormat> repository, IMapper mapper)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
             this.mapper = mapper;
         }
 
         public async Task<GetAllTournamentFormatsQueryViewModel> Handle(GetAllTournamentFormatsQuery request, CancellationToken cancellationToken)
         {
-            var tournamentFormatsLookups = await this.dbContext
-                .TournamentFormats
-                .Where(tf => !tf.IsDeleted)
+            var tournamentFormatsLookups = await this.repository
+                .AllAsNoTracking()
                 .ProjectTo<TournamentFormatLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

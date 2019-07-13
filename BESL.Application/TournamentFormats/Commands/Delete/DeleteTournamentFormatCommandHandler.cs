@@ -14,19 +14,17 @@
 
     public class DeleteTournamentFormatCommandHandler : IRequestHandler<DeleteTournamentFormatCommand>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<TournamentFormat> repository;
 
-        public DeleteTournamentFormatCommandHandler(IApplicationDbContext dbContext)
+        public DeleteTournamentFormatCommandHandler(IDeletableEntityRepository<TournamentFormat> repository)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
         }
 
         public async Task<Unit> Handle(DeleteTournamentFormatCommand request, CancellationToken cancellationToken)
         {
-
-            var desiredFormat = await this.dbContext
-                .TournamentFormats
-                .SingleOrDefaultAsync(g => g.Id == request.Id);
+            var desiredFormat = await this.repository
+                .GetByIdWithDeletedAsync(request.Id);
 
             if (desiredFormat == null)
             {
@@ -38,9 +36,8 @@
                 throw new DeleteFailureException(nameof(TournamentFormat), desiredFormat.Id, ENTITY_ALREADY_DELETED_MSG);
             }
 
-            desiredFormat.IsDeleted = true;
-            desiredFormat.DeletedOn = DateTime.UtcNow;
-            await this.dbContext.SaveChangesAsync(cancellationToken);
+            this.repository.Delete(desiredFormat);
+            await this.repository.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

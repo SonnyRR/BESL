@@ -13,11 +13,11 @@
 
     public class ModifyTournamentFormatCommandHandler : IRequestHandler<ModifyTournamentFormatCommand,int>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<TournamentFormat> repository;
 
-        public ModifyTournamentFormatCommandHandler(IApplicationDbContext dbContext)
+        public ModifyTournamentFormatCommandHandler(IDeletableEntityRepository<TournamentFormat> repository)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
         }
 
         public async Task<int> Handle(ModifyTournamentFormatCommand request, CancellationToken cancellationToken)
@@ -27,8 +27,8 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var desiredFormat = await this.dbContext
-                .TournamentFormats
+            var desiredFormat = await this.repository
+                .AllWithDeleted()
                     .Include(tf => tf.Game)
                 .SingleOrDefaultAsync(f => f.Id == request.Id, cancellationToken);
 
@@ -42,7 +42,8 @@
             desiredFormat.TeamPlayersCount = request.TeamPlayersCount;
             desiredFormat.ModifiedOn = DateTime.UtcNow;
 
-            return await this.dbContext.SaveChangesAsync(cancellationToken);
+            this.repository.Update(desiredFormat);
+            return await this.repository.SaveChangesAsync(cancellationToken);
         }
     }
 }

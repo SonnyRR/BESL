@@ -17,13 +17,13 @@
 
     public class ModifyTournamentFormatQueryHandler : IRequestHandler<ModifyTournamentFormatQuery, ModifyTournamentFormatViewModel>
     {
-        private readonly IApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<TournamentFormat> repository;
         private readonly IMapper mapper;
         private readonly IMediator mediator;
 
-        public ModifyTournamentFormatQueryHandler(IApplicationDbContext dbContext, IMapper mapper, IMediator mediator)
+        public ModifyTournamentFormatQueryHandler(IDeletableEntityRepository<TournamentFormat> repository, IMapper mapper, IMediator mediator)
         {
-            this.dbContext = dbContext;
+            this.repository = repository;
             this.mapper = mapper;
             this.mediator = mediator;
         }
@@ -35,8 +35,8 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var desiredFormat = await this.dbContext
-                .TournamentFormats
+            var desiredFormat = await this.repository
+                .AllAsNoTrackingWithDeleted()
                     .Include(tf => tf.Game)
                 .SingleOrDefaultAsync(f => f.Id == request.Id, cancellationToken);
 
@@ -45,6 +45,7 @@
                 throw new NotFoundException(nameof(TournamentFormat), request.Id);
             }
 
+            // TODO .To<T>()
             var viewModel = new ModifyTournamentFormatViewModel()
             {
                 Id = desiredFormat.Id,
