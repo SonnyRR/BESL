@@ -28,7 +28,7 @@
             mainSteamUserInstance = SteamApiHelper.GetSteamUserInstance(configuration);
         }
 
-        public async Task CheckForBans()
+        public async Task CheckForBans()    
         {
             var players = await this.userManager
                 .Users

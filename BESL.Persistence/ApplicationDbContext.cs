@@ -1,17 +1,16 @@
 ﻿namespace BESL.Persistence
 {
+    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.ChangeTracking;
 
     using BESL.Domain.Entities;
     using BESL.Application.Interfaces;
     using BESL.Domain.Infrastructure;
-    using System;
 
     public class ApplicationDbContext : IdentityDbContext<Player, PlayerRole, string>, IApplicationDbContext
     {       

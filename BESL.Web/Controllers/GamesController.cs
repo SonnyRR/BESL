@@ -21,9 +21,9 @@
             return this.View(model);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(GetGameDetailsQuery query)
         {
-            var model = await this.Mediator.Send(new GetGameDetailsQuery() { Id = id });
+            var model = await this.Mediator.Send(query);
             return this.View(model);
         }
     }
