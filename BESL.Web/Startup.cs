@@ -15,6 +15,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +34,6 @@
     using BESL.Web.Cron;
     using BESL.Persistence.Seeding;
     using BESL.Persistence.Repositories;
-    using Microsoft.AspNetCore.Identity.UI.Services;
     using BESL.Messaging;
 
     public class Startup
