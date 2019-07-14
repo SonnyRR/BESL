@@ -7,7 +7,6 @@
 
     using MediatR;
     using Microsoft.Extensions.Configuration;
-    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
     using BESL.Common.Cloudinary;

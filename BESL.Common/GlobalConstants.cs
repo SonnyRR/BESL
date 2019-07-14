@@ -20,8 +20,15 @@
         #endregion
 
         #region Steam
+        public const string STEAM_PROVIDER_NAME = "Steam";
         public const string STEAM_ID_64_CLAIM_TYPE = "STEAM_ID64";
         public const string IS_VAC_BANNED_CLAIM_TYPE = "IS_VAC_BANNED";
+        public const string PROFILE_AVATAR_CLAIM_TYPE = "PROFILE_AVATAR_URL";
+        public const string PROFILE_AVATAR_MEDIUM_CLAIM_TYPE = "PROFILE_AVATAR_MEDIUM_URL";
+        #endregion
+
+        #region BESL
+        public const string DEFAULT_AVATAR = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,w_184/v1563120448/Missing_avatar.svg_dykhcv.png";
         #endregion
     }
 }
