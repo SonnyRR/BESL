@@ -9,7 +9,7 @@
     <li class="nav-item dropdown">
         <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>&nbsp;@User.Identity.Name</a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" asp-controller="Player" asp-action="Details" asp-route-id="@this.User.Identity.Name" title="Manage"><i class="fas fa-id-badge"></i>&nbsp;Profile</a>
+            <a class="dropdown-item" asp-page="/Players/Details" asp-route-id="@User.Identity.Name"  title="Manage"><i class="fas fa-id-badge"></i>&nbsp;Profile</a>
             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fas fa-cogs"></i>&nbsp;Settings</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item">

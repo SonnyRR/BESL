@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
 
-    public class PlayerController : BaseController
+    public class PlayersController : BaseController
     {
         public async Task<IActionResult> Details(string id)
         {
