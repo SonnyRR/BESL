@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
+    <ProjectReference Include="..\BESL.Messaging\BESL.Messaging.csproj" />
     <ProjectReference Include="..\BESL.Persistence\BESL.Persistence.csproj" />
     <ProjectReference Include="..\BESL.Common\BESL.Common.csproj" />
   </ItemGroup>

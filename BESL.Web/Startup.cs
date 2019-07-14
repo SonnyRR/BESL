@@ -33,6 +33,8 @@
     using BESL.Web.Cron;
     using BESL.Persistence.Seeding;
     using BESL.Persistence.Repositories;
+    using Microsoft.AspNetCore.Identity.UI.Services;
+    using BESL.Messaging;
 
     public class Startup
     {
@@ -73,6 +75,7 @@
                     opt.Password.RequireDigit = true;
                     opt.Password.RequireLowercase = true;
                     opt.Password.RequireUppercase = true;
+                    opt.Password.RequireNonAlphanumeric = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddUserStore<ApplicationUserStore>()
@@ -102,6 +105,9 @@
             );
 
             services.AddTransient<CheckForVACBans>();
+
+            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<ISmsSender, NullMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
