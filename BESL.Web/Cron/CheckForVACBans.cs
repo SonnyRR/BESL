@@ -1,15 +1,17 @@
 ﻿namespace BESL.Web.Cron
 {
-    using BESL.Common.SteamWebApi;
-    using BESL.Domain.Entities;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using SteamWebAPI2.Interfaces;
-    using System.Linq;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
+
     using static BESL.Common.GlobalConstants;
+    using BESL.Common.SteamWebApi;
+    using BESL.Domain.Entities;
 
     public class CheckForVACBans
     {
@@ -34,19 +36,23 @@
 
             foreach (var player in players)
             {
-                var id = player.Claims.SingleOrDefault(x => x.ClaimType == STEAM_ID_64_CLAIM_TYPE);
+                var claims = await this.userManager.GetClaimsAsync(player);
+                var claim = claims.SingleOrDefault(x => x.Type == STEAM_ID_64_CLAIM_TYPE);
 
-                if (id == null)
+                if (claim == null)
                     continue;
 
-                var currentPlayerId = ulong.Parse(id.ClaimValue);
+                var currentPlayerId = ulong.Parse(claim.Value);
 
                 var bans = await mainSteamUserInstance.GetPlayerBansAsync(currentPlayerId);
-                var isBanned = bans.Data.Any(b => b.VACBanned == true);
+                var isBanned = bans.Data.Any(b => b.VACBanned == false);
 
                 if (isBanned)
                 {
-                    await this.userManager.AddClaimAsync(player, new Claim(IS_VAC_BANNED_CLAIM_TYPE, "true"));
+                    if (!claims.Any(c => c.Type == IS_VAC_BANNED_CLAIM_TYPE))
+                    {
+                        await this.userManager.AddClaimAsync(player, new Claim(IS_VAC_BANNED_CLAIM_TYPE, "true"));
+                    }
                 }
             }
         }

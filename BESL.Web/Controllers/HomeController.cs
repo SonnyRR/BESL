@@ -3,14 +3,15 @@
     using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
     using BESL.Web.Models;
-    using BESL.Common.SteamWebApi;
-    using Microsoft.Extensions.Configuration;
+    using BESL.Domain.Entities;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
     public class HomeController : BaseController
     {
         public IActionResult Index()
-        {    
-            return this.View();
+        {
+                return this.View();
         }
 
         public IActionResult Privacy()
