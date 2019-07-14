@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using BESL.Common.SteamWebApi;
 using Microsoft.Extensions.Configuration;
 using MediatR;
+using static BESL.Common.GlobalConstants;
 
 namespace BESL.Web.Areas.Identity.Pages.Account
 {
@@ -86,7 +87,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             {
                 ErrorMessage = "Error loading external login information.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
-            }
+            }           
 
             // Sign in the user with this external login provider if the user already has a login.
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
@@ -103,6 +104,16 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             else
             {
                 // If the user does not have an account, then ask the user to create an account.
+                var steamId64 = ulong.Parse(info.ProviderKey.Split('/').Last());
+                var steamUser = SteamApiHelper.GetSteamUserInstance(this._configuration);
+                var playerResult = await steamUser.GetCommunityProfileAsync(steamId64);
+
+                if (playerResult.IsVacBanned)
+                {
+                    ErrorMessage = $"VAC banned accounts cannot register!";
+                    return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+                }
+
                 ReturnUrl = returnUrl;
                 LoginProvider = info.LoginProvider;
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
@@ -127,9 +138,9 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
-            var steamId64 = ulong.Parse(info.ProviderKey.Split('/').Last());
             if (ModelState.IsValid)
             {
+
                 var user = new Player { UserName = Input.Username, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -137,14 +148,15 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        if (info.ProviderDisplayName == "Steam")
-                        {
-                            await this._userManager.AddClaimAsync(user, new Claim("STEAM_ID64", steamId64.ToString()));
-
+                        if (info.ProviderDisplayName == STEAM_PROVIDER_NAME)
+                        {                         
+                            var steamId64 = ulong.Parse(info.ProviderKey.Split('/').Last());
                             var steamUser = SteamApiHelper.GetSteamUserInstance(this._configuration);
-
                             var playerResult = await steamUser.GetCommunityProfileAsync(steamId64);
-                            await this._userManager.AddClaimAsync(user, new Claim("PROFILE_AVATAR_URL", playerResult.AvatarFull.ToString()));
+
+                            await this._userManager.AddClaimAsync(user, new Claim(STEAM_ID_64_CLAIM_TYPE, steamId64.ToString()));
+                            await this._userManager.AddClaimAsync(user, new Claim(PROFILE_AVATAR_CLAIM_TYPE, playerResult.AvatarFull.ToString()));
+                            await this._userManager.AddClaimAsync(user, new Claim(PROFILE_AVATAR_MEDIUM_CLAIM_TYPE, playerResult.AvatarMedium.ToString()));
                         }
 
                         await _signInManager.SignInAsync(user, isPersistent: false);
