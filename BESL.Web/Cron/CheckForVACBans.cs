@@ -45,7 +45,7 @@
                 var currentPlayerId = ulong.Parse(claim.Value);
 
                 var bans = await mainSteamUserInstance.GetPlayerBansAsync(currentPlayerId);
-                var isBanned = bans.Data.Any(b => b.VACBanned == false);
+                var isBanned = bans.Data.Any(b => b.VACBanned == true);
 
                 if (isBanned)
                 {

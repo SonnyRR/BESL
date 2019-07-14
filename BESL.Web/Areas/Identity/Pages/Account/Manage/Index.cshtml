@@ -6,6 +6,7 @@
     ViewData["Title"] = "Profile settings";
     ViewData["ActivePage"] = ManageNavPages.Index;
     var profileAvatar = User.Claims.FirstOrDefault(c => c.Type == PROFILE_AVATAR_CLAIM_TYPE)?.Value;
+    var isVACBanned = User.Claims.FirstOrDefault(c => c.Type == IS_VAC_BANNED_CLAIM_TYPE)?.Value;
 }
 
 <h4>@ViewData["Title"]</h4>
@@ -39,12 +40,35 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+            <button id="update-profile-button" type="submit" class="btn btn-block btn-primary"><i class="fas fa-save"></i>&nbsp;Save</button>
         </form>
     </div>
     <div class="col-md-6">
-        <h4>Curren profile picture</h4>
-        <img src="@profileAvatar" class="rounded float-cleft" alt="...">
+        <h4>Current profile picture</h4>
+        @if(!string.IsNullOrWhiteSpace(profileAvatar))
+        {
+            <img src="@profileAvatar" class="rounded float-cleft">            
+        }
+        else
+        {
+            <img src="@DEFAULT_AVATAR" class="rounded float-cleft"> 
+        }
+        <h5 class="mt-4">VAC Status: 
+        @if(isVACBanned != null)
+        {
+            <strong class="text-danger">Banned</strong>
+        }
+        else
+        {
+            @if (!User.Claims.Any(c => c.Type == STEAM_ID_64_CLAIM_TYPE))
+            {
+            <strong class="text-warning">No linked steam account!</strong>
+            }
+            else
+            {
+            <strong class="text-success">All's good!</strong>
+            }
+        }</h5>
     </div>
 </div>
 
