@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BESL.Domain.Entities
+@inject SignInManager<Player> SignInManager
+@inject UserManager<Player> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>&nbsp;@User.Identity.Name</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" asp-controller="Player" asp-action="Details" asp-route-id="@this.User.Identity.Name" title="Manage"><i class="fas fa-id-badge"></i>&nbsp;Profile</a>
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fas fa-cogs"></i>&nbsp;Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item">
+                <form class="form-inline text-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</button>
+                </form>
+            </a>
+        </div>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt text-white"></i>&nbsp;Sign in</a>
+    </li>
+}
+</ul>
