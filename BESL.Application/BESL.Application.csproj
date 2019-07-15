@@ -22,5 +22,8 @@
     <Folder Include="Tournaments\Queries\GetAllTournaments\" />
     <Folder Include="TournamentFormats\Commands\Modify\" />
     <Folder Include="TournamentFormats\Queries\Modify\" />
+    <Folder Include="Teams\" />
+    <Folder Include="Teams\Commands\" />
+    <Folder Include="Teams\Commands\Create\" />
   </ItemGroup>
 </Project>

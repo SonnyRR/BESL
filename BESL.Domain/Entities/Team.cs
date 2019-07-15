@@ -15,8 +15,8 @@
         public string OwnerId { get; set; }
         public Player Owner { get; set; }
 
-        public int GameId { get; set; }
-        public Game Game { get; set; }
+        public int TournamentFormatId { get; set; }
+        public TournamentFormat TournamentFormat { get; set; }
             
         public int? CurrentActiveTournamentTableId { get; set; }
         public TournamentTable CurrentActiveTournamentTable { get; set; }
