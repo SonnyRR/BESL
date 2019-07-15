@@ -35,6 +35,7 @@
     using BESL.Persistence.Seeding;
     using BESL.Persistence.Repositories;
     using BESL.Messaging;
+    using BESL.Application.Infrastructure;
 
     public class Startup
     {
@@ -91,6 +92,8 @@
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ApplicationDependencyInjectionHelper>());
 
             services.AddMediatR(typeof(ApplicationDependencyInjectionHelper).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
+            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>)); // disabled, modelstate will be checked in controllers in order to return the correct views with errors instead of throwing HTTP 5** response codes
 
             services.AddScoped<IFileValidate, GameImageFileValidate>();
             services.AddScoped<INotifyService, NotifyService>();
