@@ -1,16 +1,19 @@
-﻿namespace BESL.Application.Players.Queries.PlayerDetails
+﻿namespace BESL.Application.Players.Queries.GetPlayerDetails
 {
     using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using MediatR;
-    using Microsoft.EntityFrameworkCore;
     using static BESL.Common.GlobalConstants;
-    public class PlayerDetailsQueryHandler : IRequestHandler<PlayerDetailsQuery, PlayerDetailsViewModel>
+
+    public class PlayerDetailsQueryHandler : IRequestHandler<GetPlayerDetailsQuery, PlayerDetailsViewModel>
     {
         private readonly IDeletableEntityRepository<Player> repository;
 
@@ -19,7 +22,7 @@
             this.repository = repository;
         }
 
-        public async Task<PlayerDetailsViewModel> Handle(PlayerDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<PlayerDetailsViewModel> Handle(GetPlayerDetailsQuery request, CancellationToken cancellationToken)
         {
             if(request == null)
             {

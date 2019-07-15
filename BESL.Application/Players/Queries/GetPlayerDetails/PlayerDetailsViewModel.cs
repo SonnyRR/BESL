@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Players.Queries.PlayerDetails
+﻿namespace BESL.Application.Players.Queries.GetPlayerDetails
 {
     public class PlayerDetailsViewModel
     {
