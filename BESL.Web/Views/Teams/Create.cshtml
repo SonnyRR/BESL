@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BESL.Application.Teams.Commands.Create.CreateTeamCommand
+@{
     ViewData["Title"] = "Create a team";
 }
 <div class="border rounded">
@@ -8,19 +9,21 @@
         <div class="col-md-7">
             <form class="mx-3 my-2">
                 <div class="form-group">
-                    <label for="teamName">Team name</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter team name...">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <label asp-for="Name">Team name</label>
+                    <input type="text" class="form-control" asp-for="Name" placeholder="Enter team name...">
+                    <span asp-validation-for="Name"></span>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <textarea type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"></textarea>
+                    <label asp-for="Description">Description</label>
+                    <textarea type="text" class="form-control" asp-for="Description" placeholder="Description of the team."></textarea>
+                    <span asp-validation-for="Description"></span>
                 </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <div class="form-group">
+                    <label asp-for="HomepageUrl">Homepage</label>
+                    <input type="text" class="form-control" asp-for="HomepageUrl" placeholder="https://foo.bar"></input>
+                    <span asp-validation-for="HomepageUrl"></span>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
             </form>
         </div>
     </div>
