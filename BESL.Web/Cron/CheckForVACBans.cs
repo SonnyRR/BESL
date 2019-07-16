@@ -18,13 +18,11 @@
         public const string CRON_SCHEDULE = "0 */2 * ? * *";
 
         private readonly UserManager<Player> userManager;
-        private readonly IConfiguration configuration;
         private readonly ISteamUser mainSteamUserInstance;
 
         public CheckForVACBans(UserManager<Player> userManager, IConfiguration configuration)
         {
             this.userManager = userManager;
-            this.configuration = configuration;
             mainSteamUserInstance = SteamApiHelper.GetSteamUserInstance(configuration);
         }
 
