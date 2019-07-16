@@ -31,5 +31,4 @@ connection.on("ReceiveMessageFailiure", function (messageHeader, message) {
     alertFadeFunc();
 });
 
-
 connection.start();

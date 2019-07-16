@@ -11,13 +11,13 @@
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Games.Queries.ModifyGame;
     using static BESL.Common.GlobalConstants;
-    using BESL.Web.Filters;
 
     public class GamesController : AdminController
     {
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            this.NotifyService.SendUserSuccessNotificationAsync("TEST", CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.View();
         }
 
