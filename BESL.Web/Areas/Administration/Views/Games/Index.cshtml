@@ -1,0 +1,50 @@
+﻿@model  BESL.Application.Games.Queries.GetAllGames.GamesListViewModel;
+@{ 
+    ViewData["ActivePage"] = ManageAdminNavPages.Index;
+    ViewData["Title"] = "Games";
+}
+<div class="border rounded">
+    <div class="container-fluid mt-2 mb-3">
+        <a asp-area="Administration" asp-controller="Games" asp-action="Create" class="btn btn-success mb-3"><i class="fas fa-plus-circle"></i>&nbsp;Add a game</a>
+        <table class="table table-hover rounded shadow">
+            <thead class="thead-dark rounded">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Active Tournaments</th>
+                    <th scope="col">Registered teams</th>
+                    <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                    <th scope="col" class="text-center"><i class="fas fa-trash-alt"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Games.Count > 0)
+                {
+                    @foreach (var game in Model.Games)
+                    {
+                        <tr>
+                            <th scope="row">@game.Id</th>
+                            <td>@game.Name</td>
+                            <td>@game.CurrentActiveTournaments</td>
+                            <td>@game.RegisteredTeams</td>
+                            <td class="text-center">
+                                <a asp-area="Administration" asp-controller="Games" asp-action="Modify" asp-route-id="@game.Id" class="btn btn-info align-center"><i class="fas fa-wrench"></i>&nbsp;Modify</a>
+                            </td>
+                            <td class="text-center">
+                                <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/Games/Delete/@game.Id?gameName=@game.Name" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to delete @game.Name ?">
+                                    <button class="btn btn-danger btn-"><i class="fas fa-times-circle"></i>&nbsp;Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center"><h5>No games registered.</h5></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
