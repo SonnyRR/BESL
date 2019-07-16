@@ -1,13 +1,10 @@
 ﻿@model BESL.Application.TournamentFormats.Queries.GetAll.GetAllTournamentFormatsQueryViewModel
 @{
-    Layout = null;
+    ViewData["ActivePage"] = ManageAdminNavPages.TournamentFormats;
 }
 <div class="border rounded">
     <div class="container-fluid mt-2 mb-3">
-        <form id="createFormatForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/TournamentFormats/Create" data-ajax-method="GET" data-ajax-update="#formatsContentContainer"></form>
-        <form id="refreshFormatForm" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/TournamentFormats/All" data-ajax-method="GET" data-ajax-update="#formatsContentContainer"></form>
-        <button class="btn btn-success mb-3" form="createFormatForm"><i class="fas fa-plus-circle"></i>&nbsp;Add a format</button>
-        <button class="btn btn-primary mb-3" form="refreshFormatForm"><i class="fas fa-redo-alt"></i>&nbsp;Refresh formats list</button>
+        <a asp-area="Administration" asp-controller="TournamentFormats" asp-action="Create" class="btn btn-success mb-3"><i class="fas fa-plus-circle"></i>&nbsp;Add a format</a>
         <table class="table table-hover rounded shadow">
             <thead class="thead-dark rounded">
                 <tr>
@@ -32,9 +29,7 @@
                             <td>@tournamentFormat.TeamPlayersCount</td>
                             <td>@tournamentFormat.TotalPlayersCount</td>
                             <td class="text-center">
-                                <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/TournamentFormats/Modify/@tournamentFormat.Id" data-ajax-method="GET" data-ajax-update="#formatsContentContainer">
-                                    <button class="btn btn-info align-center"><i class="fas fa-wrench"></i>&nbsp;Modify</button>
-                                </form>
+                                <a asp-area="Administration" asp-controller="TournamentsFormat" asp-route-id="@tournamentFormat.Id" class="btn btn-info align-center"><i class="fas fa-wrench"></i>&nbsp;Modify</a>
                             </td>
                             <td class="text-center">
                                 <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/TournamentFormats/Delete/@tournamentFormat.Id?formatName=@tournamentFormat.Name" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to delete @tournamentFormat.Name ?" data-ajax-update="#formatsContentContainer">
