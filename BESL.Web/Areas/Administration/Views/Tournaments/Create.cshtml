@@ -1,12 +1,13 @@
 ﻿@model BESL.Application.Tournaments.Commands.Create.CreateTournamentCommand
 @{
-    Layout = null;
+    ViewData["ActivePage"] = ManageAdminNavPages.Tournaments;
+    ViewData["Title"] = "Tournaments";
 }
 
 <div class="border rounded container-fluid float-left col-lg-6">
     <div class="container-fluid mt-2 mb-3">
         <h2>Create a tournament</h2>
-        <form id="tournamentCreateForm" class="mb-3" enctype="multipart/form-data" method="post" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Tournaments/Create" data-ajax-method="POST" data-ajax-update="#tournamentsContentContainer">
+        <form id="tournamentCreateForm" class="mb-3" enctype="multipart/form-data" method="post">
             <div class="form-group">
                 <label asp-for="Name">Name</label>
                 <input type="text" class="form-control" asp-for="Name" placeholder="Enter name...">
@@ -31,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="FormatId">Format</label>
-                <select class="form-control" asp-for="FormatId" asp-items="Model.Formats.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()"></select>
+                <select class="form-control" asp-for="FormatId" asp-items="@Model.Formats.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()"></select>
             </div>
             <label asp-for="TournamentImage">Image (< 4MB)</label>
             <div class="input-group">
@@ -46,19 +47,14 @@
             <span asp-validation-for="TournamentImage" class="text-danger"></span>
             <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
         </form>
-
-        <div>
-            <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Tournaments/All" data-ajax-method="GET" data-ajax-update="#tournamentsContentContainer">
-                <button class="btn btn-primary btn-block"><i class="fas fa-arrow-circle-left"></i>&nbsp;Back</button>
-            </form>
-        </div>
     </div>
 </div>
 
+@section  Scripts { 
 <script type="application/javascript" async defer>
-    $.validator.unobtrusive.parse(tournamentCreateForm);
     $('input[type="file"]').change(function(e){
         var fileName = e.target.files[0].name;
         $('.custom-file-label').html(fileName);
     });
 </script>
+}

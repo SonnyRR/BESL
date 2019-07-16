@@ -26,7 +26,7 @@
             await this.Mediator.Send(command);
 
             _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Modify(ModifyTournamentFormatQuery query)
@@ -38,11 +38,11 @@
         [HttpPost]
         public async Task<IActionResult> Modify(ModifyTournamentFormatCommand command)
         {
-            var viewModel = await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(All));
+            await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> Index()
         {
             var tournamentFormats = await this.Mediator.Send(new GetAllTournamentFormatsQuery()); 
             return this.View(tournamentFormats);
@@ -53,7 +53,7 @@
             await this.Mediator.Send(command);
 
             _ = this.NotifyService.SendUserSuccessNotificationAsync(command.FormatName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(Index));
         }
     }
 }

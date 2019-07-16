@@ -15,10 +15,10 @@
 
     public class CreateTournamentQueryHandler : IRequestHandler<CreateTournamentQuery, CreateTournamentCommand>
     {
-        private readonly IDeletableEntityRepository<Tournament> repository;
+        private readonly IDeletableEntityRepository<TournamentFormat> repository;
         private readonly IMapper mapper;
 
-        public CreateTournamentQueryHandler(IDeletableEntityRepository<Tournament> repository, IMapper mapper)
+        public CreateTournamentQueryHandler(IDeletableEntityRepository<TournamentFormat> repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;

@@ -1,0 +1,54 @@
+﻿@model BESL.Application.Tournaments.Queries.GetAllTournaments.AllTournamentsViewModel
+@{
+    ViewData["ActivePage"] = ManageAdminNavPages.Tournaments;
+    ViewData["Title"] = "Tournaments";
+}
+<div class="border rounded">
+    <div class="container-fluid mt-2 mb-3">
+        <a class="btn btn-success mb-3" asp-area="Administration" asp-controller="Tournaments" asp-action="Create"><i class="fas fa-plus-circle"></i>&nbsp;Add a tournament</a>
+        <table class="table table-hover rounded shadow">
+            <thead class="thead-dark rounded">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Game</th>
+                    <th scope="col">Format</th>
+                    <th scope="col" class="text-center">Tables</th>
+                    <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                    <th scope="col" class="text-center"><i class="fas fa-trash-alt"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Tournaments.Count() > 0)
+                {
+                    @foreach (var tournament in Model.Tournaments)
+                    {
+                        <tr>
+                            <th scope="row">@tournament.Id</th>
+                            <td>@tournament.Name</td>
+                            <td>@tournament.Game</td>
+                            <td>@tournament.Format</td>
+                            <td class="text-center">
+                                <a class="btn btn-primary" asp-area="Administration" asp-controller="Tournaments" asp-action="Tables" asp-route-id="@tournament.Id" align-center"><i class="fas fa-list"></i>&nbsp;Table list</a>
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-info align-center" asp-area="Administration" asp-controller="Tournaments" asp-action="Modify" asp-route-id="@tournament.Id"><i class="fas fa-wrench"></i>&nbsp;Modify</a>
+                            </td>
+                            <td class="text-center">
+                                <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="Administration/Tournaments/Delete/@tournament.Id?gameName=@tournament.Name" data-ajax-method="POST" data-ajax-confirm="Are you sure you want to delete @tournament.Name ?" data-ajax-update="#tournamentsContentContainer">
+                                    <button class="btn btn-danger btn-"><i class="fas fa-times-circle"></i>&nbsp;Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center"><h5>No tournaments registered.</h5></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

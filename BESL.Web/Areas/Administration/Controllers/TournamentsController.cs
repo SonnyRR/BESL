@@ -30,10 +30,10 @@
             await this.Mediator.Send(command);
 
             _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
-            return this.RedirectToAction("All");
+            return this.RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> Index()
         {
             var model = await this.Mediator.Send(new GetAllTournamentsQuery());
             return this.View(model);

@@ -11,14 +11,13 @@
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Games.Queries.ModifyGame;
     using static BESL.Common.GlobalConstants;
-    using BESL.Web.Filters;
 
-    [AjaxOnlyFilter]
     public class GamesController : AdminController
     {
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            this.NotifyService.SendUserSuccessNotificationAsync("TEST", CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.View();
         }
 
@@ -33,10 +32,10 @@
             await this.Mediator.Send(command);
             _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
 
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> Index()
         {
             var model = await this.Mediator.Send(new GetAllGamesQuery());
             return this.View(model);
@@ -60,7 +59,7 @@
 
             await this.Mediator.Send(command);
 
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -69,7 +68,7 @@
             await this.Mediator.Send(command);
 
             _ = this.NotifyService.SendUserSuccessNotificationAsync(command.GameName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(Index));
         }
     }
 }

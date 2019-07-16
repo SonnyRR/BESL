@@ -1,7 +1,8 @@
-﻿@model BESL.Application.Games.Queries.ModifyGame.ModifyGameViewModel
-
+﻿@using BESL.Web.Areas.Administration.Views.Shared;
+@model BESL.Application.Games.Queries.ModifyGame.ModifyGameViewModel
 @{
-    Layout = null;
+    ViewData["ActivePage"] = ManageAdminNavPages.Index;
+    ViewData["Title"] = "Games";
 }
 
 <div class="border rounded">
@@ -9,7 +10,7 @@
         <div class="row">
             <div class="col-lg-6 mb-3">
                 <h2>@Model.Name</h2>
-                <form id="gameModifyForm" class="mb-3" enctype="multipart/form-data" method="post" data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/Modify/@Model.Id" data-ajax-method="PUT" data-ajax-update="#gamesContentContainer">
+                <form id="gameModifyForm" class="mb-3" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label asp-for="Name">Name</label>
                         <input type="text" class="form-control" asp-for="@Model.Name">
@@ -33,11 +34,11 @@
                     <span asp-validation-for="GameImage" class="text-danger"></span>
                     <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
                 </form>
-                <div>
+                @*<div>
                     <form data-ajax="true" data-ajax-loading="#spinner" data-ajax-url="/Administration/Games/All" data-ajax-method="GET" data-ajax-update="#gamesContentContainer">
                         <button class="btn btn-primary btn-block"><i class="fas fa-arrow-circle-left"></i>&nbsp;Back</button>
                     </form>
-                </div>
+                </div>*@
             </div>
             <div class="col-lg-6">
                 <h4>Current game image:</h4>
@@ -50,10 +51,11 @@
     </div>
 </div>
 
+@section  Scripts { 
 <script type="application/javascript" async defer>
-    $.validator.unobtrusive.parse(gameModifyForm);
     $('input[type="file"]').change(function(e){
         var fileName = e.target.files[0].name;
         $('.custom-file-label').html(fileName);
     });
 </script>
+}

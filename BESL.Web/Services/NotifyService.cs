@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.SignalR;
     using BESL.Web.Hubs;
-    using BESL.Application.Interfaces;
+    using System.Threading;
 
     public class NotifyService : INotifyService
     {
@@ -16,12 +16,16 @@
 
         public async Task SendUserFailiureNotificationAsync(string messageHeader, string message, string userId)
         {
-            await this.hubContext.Clients.User(userId).SendAsync("ReceiveMessageFailiure", messageHeader, message);
+            await this.hubContext
+                .Clients
+                .User(userId).SendAsync("ReceiveMessageFailiure", messageHeader, message);
         }
 
         public async Task SendUserSuccessNotificationAsync(string messageHeader, string message, string userId)
         {
-            await this.hubContext.Clients.User(userId).SendAsync("ReceiveMessageSuccess", messageHeader, message);
+            await this.hubContext
+                .Clients
+                .User(userId).SendAsync("ReceiveMessageSuccess", messageHeader, message);
         }
     }
 }
