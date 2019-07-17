@@ -1,6 +1,5 @@
-﻿namespace BESL.Web.Cron
+﻿namespace BESL.Web.Infrastructure.Cron
 {
-    using System;
     using Hangfire;
      
     public class HangfireJobScheduler

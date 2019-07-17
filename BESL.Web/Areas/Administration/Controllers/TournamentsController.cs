@@ -29,7 +29,7 @@
 
             await this.Mediator.Send(command);
 
-            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            _ = this.UserNotificationHub.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction(nameof(Index));
         }
 

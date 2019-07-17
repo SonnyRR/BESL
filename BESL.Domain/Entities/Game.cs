@@ -18,6 +18,7 @@
 
         public string GameImageUrl { get; set; }
 
+        public virtual ICollection<TournamentFormat> TournamentFormats { get; set; } = new HashSet<TournamentFormat>();
         public virtual ICollection<Tournament> Tournaments { get; set; } = new HashSet<Tournament>();
         public virtual ICollection<Team> Teams { get; set; } = new HashSet<Team>();
     }

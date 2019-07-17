@@ -27,6 +27,7 @@
         {
             var tournamentFormatsLookups = await this.repository
                 .AllAsNoTracking()
+                .Where(e => !e.Game.IsDeleted)
                 .ProjectTo<TournamentFormatLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

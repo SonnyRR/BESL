@@ -27,6 +27,7 @@
         {
             var tournamentsMapped = await this.repository
                 .AllAsNoTracking()
+                .Where(t => !t.Game.IsDeleted)
                     .Include(t => t.Game)
                     .Include(t => t.Format)
                 .Where(t => !t.IsDeleted)

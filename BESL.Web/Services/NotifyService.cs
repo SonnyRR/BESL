@@ -2,8 +2,7 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.SignalR;
-    using BESL.Web.Hubs;
-    using System.Threading;
+    using BESL.Web.Infrastructure.Hubs;
 
     public class NotifyService : INotifyService
     {

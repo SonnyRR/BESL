@@ -28,14 +28,14 @@
     using BESL.Domain.Entities;
     using BESL.Persistence;
     using BESL.Web.Middlewares;
-    using BESL.Web.Hubs;
     using BESL.Web.Services;
     using BESL.Web.Filters;
-    using BESL.Web.Cron;
+    using BESL.Web.Infrastructure.Cron;
     using BESL.Persistence.Seeding;
     using BESL.Persistence.Repositories;
     using BESL.Messaging;
     using BESL.Application.Infrastructure;
+    using BESL.Web.Infrastructure.Hubs;
 
     public class Startup
     {

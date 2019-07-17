@@ -17,7 +17,7 @@
 
         public async Task<IActionResult> Create()
         {
-            this.NotifyService.SendUserSuccessNotificationAsync("TEST", CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            this.UserNotificationHub.SendUserSuccessNotificationAsync("TEST", CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.View();
         }
 
@@ -29,8 +29,7 @@
                 return this.View();
             }
 
-            await this.Mediator.Send(command);
-            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            await this.Mediator.Send(command);            
 
             return this.RedirectToAction(nameof(Index));
         }
@@ -67,7 +66,7 @@
         {
             await this.Mediator.Send(command);
 
-            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.GameName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            _ = this.UserNotificationHub.SendUserSuccessNotificationAsync(command.GameName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction(nameof(Index));
         }
     }

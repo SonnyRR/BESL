@@ -4,11 +4,11 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using static BESL.Common.GlobalConstants;
     using BESL.Application.TournamentFormats.Queries.Create;
     using BESL.Application.TournamentFormats.Commands.Create;
     using BESL.Application.TournamentFormats.Queries.GetAll;
     using BESL.Application.TournamentFormats.Commands.Delete;
-    using static BESL.Common.GlobalConstants;
     using BESL.Application.TournamentFormats.Queries.Modify;
     using BESL.Application.TournamentFormats.Commands.Modify;
 
@@ -25,7 +25,7 @@
         {
             await this.Mediator.Send(command);
 
-            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            _ = this.UserNotificationHub.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction(nameof(Index));
         }
 
@@ -52,7 +52,7 @@
         {
             await this.Mediator.Send(command);
 
-            _ = this.NotifyService.SendUserSuccessNotificationAsync(command.FormatName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
+            _ = this.UserNotificationHub.SendUserSuccessNotificationAsync(command.FormatName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction(nameof(Index));
         }
     }

@@ -15,13 +15,18 @@
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {
-        private readonly IDeletableEntityRepository<Tournament> repository;
+        private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
+        private readonly IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository;
         private readonly IConfiguration configuration;
         private readonly CloudinaryHelper cloudinaryHelper;
 
-        public CreateTournamentCommandHandler(IDeletableEntityRepository<Tournament> repository, IConfiguration configuration)
+        public CreateTournamentCommandHandler(
+            IDeletableEntityRepository<Tournament> tournamentRepository, 
+            IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository,
+            IConfiguration configuration)
         {
-            this.repository = repository;
+            this.tournamentRepository = tournamentRepository;
+            this.tournamentFormatsRepository = tournamentFormatsRepository;
             this.configuration = configuration;
             this.cloudinaryHelper = new CloudinaryHelper();
         }
@@ -33,7 +38,7 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            if (this.repository.AllAsNoTrackingWithDeleted().Any(t => t.Name == request.Name))
+            if (this.tournamentRepository.AllAsNoTrackingWithDeleted().Any(t => t.Name == request.Name))
             {
                 throw new EntityAlreadyExists(nameof(Tournament), request.Name);
             }
@@ -46,7 +51,11 @@
                     name: $"{request.Name}-tournament-main-shot"
                 );
 
-            var gameId = (await this.repository.GetByIdWithDeletedAsync(request.FormatId)).GameId;
+            var gameId = (await this.tournamentFormatsRepository.GetByIdWithDeletedAsync(request.FormatId))?.GameId;
+            if (gameId == null)
+            {
+                throw new NotFoundException(nameof(TournamentFormat), request.FormatId);
+            }
 
             Tournament tournament = new Tournament()
             {
@@ -55,7 +64,7 @@
                 TournamentImageUrl = url,
                 CreatedOn = DateTime.UtcNow,
                 FormatId = request.FormatId,
-                GameId = gameId,
+                GameId = (int)gameId,
                 StartDate = request.StartDate,
                 EndDate = request.EndDate
             };
@@ -64,8 +73,8 @@
             tournament.Tables.Add(new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 });
             tournament.Tables.Add(new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 });
 
-            await this.repository.AddAsync(tournament);
-            await this.repository.SaveChangesAsync(cancellationToken);
+            await this.tournamentRepository.AddAsync(tournament);
+            await this.tournamentRepository.SaveChangesAsync(cancellationToken);
 
             return tournament.Id;
         }
