@@ -20,9 +20,14 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users text-white"></i>&nbsp;Teams</a>
-                    <div class="dropdown-menu">                    
+                    <div class="dropdown-menu">
                         <a class="dropdown-item" asp-controller="Teams" asp-action="Create">Create</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item">Placeholder</a>
+                        <a class="dropdown-item">Placeholder</a>
+                        <a class="dropdown-item">Placeholder</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">All</a>
                     </div>
                 </li>
                 @if (User.IsInRole(Role.Administrator.ToString()))

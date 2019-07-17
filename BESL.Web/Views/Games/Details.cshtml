@@ -1,6 +1,7 @@
 ﻿@model BESL.Application.Games.Queries.GetGameDetails.GameDetailsViewModel
 @{
     ViewData["Title"] = Model.Name;
+    var paragraphEndIndex = Model.Description.IndexOf('.', 256) + 1;
 }
 
 <div class="row">
@@ -8,8 +9,16 @@
         <h3 class="display-4">@Model.Name</h3>
         <hr />
     </div>
-    <div class="lead col-sm-6">
-        <p>@Model.Description</p>
+</div>
+<div class="row">
+    <div class="lead col-md-6">
+        <p class="text-break">
+            @Model.Description.Substring(0, paragraphEndIndex)
+        </p>
+        <div id="collapse" style="display:none">
+            <p class="text-break">@Model.Description.Substring(paragraphEndIndex)</p>
+        </div>
+        <a href="#collapse" class="nav-toggle">Read More</a>
     </div>
     <div class="col-sm-6">
         <div class="d-flex justify-content-center">
@@ -20,3 +29,20 @@
 <h4>Current active tournamets:</h4>
 <vc:active-tournaments-table></vc:active-tournaments-table>
 
+@section Scripts{
+<script>
+    $(document).ready(function () {
+        $('.nav-toggle').click(function () {
+            var collapse_content_selector = $(this).attr('href');
+            var toggle_switch = $(this);
+            $(collapse_content_selector).toggle(function () {
+                if ($(this).css('display') == 'none') {
+                    toggle_switch.html('Read More');
+                } else {
+                    toggle_switch.html('Read Less');
+                }
+            });
+        });
+    });
+</script>
+}

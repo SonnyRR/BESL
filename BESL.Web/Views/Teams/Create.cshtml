@@ -2,30 +2,51 @@
 @{
     ViewData["Title"] = "Create a team";
 }
-<div class="border rounded">
-    <h4 class="display-4 mt-2 mx-3">Create a team</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-7">
-            <form class="mx-3 my-2">
-                <div class="form-group">
-                    <label asp-for="Name">Team name</label>
-                    <input type="text" class="form-control" asp-for="Name" placeholder="Enter team name...">
-                    <span asp-validation-for="Name"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description">Description</label>
-                    <textarea type="text" class="form-control" asp-for="Description" placeholder="Description of the team."></textarea>
-                    <span asp-validation-for="Description"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="HomepageUrl">Homepage</label>
-                    <input type="text" class="form-control" asp-for="HomepageUrl" placeholder="https://foo.bar"></input>
-                    <span asp-validation-for="HomepageUrl"></span>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Submit</button>
-            </form>
+
+<div class="col-md-7">
+    <div class="border rounded">
+        <h4 class="display-4 mt-2 mx-3">Create a team</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <form class="mx-3 my-2">
+                    <div class="form-group">
+                        <label asp-for="Name">Team name</label>
+                        <input type="text" class="form-control" asp-for="Name" placeholder="Enter team name...">
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description">Description</label>
+                        <textarea type="text" class="form-control" asp-for="Description" rows="3" placeholder="Description of the team."></textarea>
+                        <span asp-validation-for="Description"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HomepageUrl">Homepage</label>
+                        <input type="text" class="form-control" asp-for="HomepageUrl" placeholder="https://foo.bar"></input>
+                        <span asp-validation-for="HomepageUrl"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TournamentFormatId">Game</label>
+                        <select class="form-control" asp-for="TournamentFormatId" asp-items="@Model.Formats.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()"></select>
+                    </div>
+                    <label asp-for="TeamImage">Image (< 4MB)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="teamImageHelp">Upload</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" asp-for="TeamImage" aria-describedby="teamImageHelp">
+                            <label class="custom-file-label" asp-for="TeamImage">Choose file</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="TeamImage" class="text-danger"></span>
+                    <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
+@section Scripts {
+<partial name="~/Views/Shared/Partials/_FileUploadScript.cshtml" />
+}
