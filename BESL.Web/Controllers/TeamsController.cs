@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+    using BESL.Application.Teams.Commands.Create;
     using BESL.Application.Teams.Queries.Create;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -17,8 +18,9 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(string placeholder)
+        public async Task<IActionResult> Create(CreateTeamCommand command)
         {
+            await this.Mediator.Send(command);
             return this.View();
         }
 

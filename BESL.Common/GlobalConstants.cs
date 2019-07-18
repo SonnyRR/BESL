@@ -30,5 +30,10 @@
         #region BESL
         public const string DEFAULT_AVATAR = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,w_184/v1563120448/Missing_avatar.svg_dykhcv.png";
         #endregion
+
+        #region Teams
+        public const int TEAM_AVATAR_HEIGHT = 184; 
+        public const int TEAM_AVATAR_WIDTH = 184;
+        #endregion
     }
 }
