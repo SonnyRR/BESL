@@ -4,11 +4,20 @@
     using System.Threading.Tasks;
     using BESL.Application.Teams.Commands.Create;
     using BESL.Application.Teams.Queries.Create;
+    using BESL.Domain.Entities;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class TeamsController : BaseController
     {
+        private readonly UserManager<Player> userManager;
+
+        public TeamsController(UserManager<Player> userManager)
+        {
+            this.userManager = userManager;
+        }
+
         [Authorize]
         public async Task<IActionResult> Create()
         {
@@ -20,7 +29,9 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateTeamCommand command)
         {
+            command.OwnerId = this.userManager.GetUserId(this.User);
             await this.Mediator.Send(command);
+
             return this.NoContent();
         }
 
