@@ -1,28 +1,15 @@
 ﻿namespace BESL.Application.Tests.Games.Commands.Delete
 {
     using System;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
     using System.Threading;
-
-    using CloudinaryDotNet;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http.Internal;
-    using Microsoft.Extensions.Configuration;
+    using System.Threading.Tasks;
+    using BESL.Application.Exceptions;
+    using BESL.Application.Games.Commands.Delete;
+    using BESL.Application.Tests.Infrastructure;
+    using BESL.Domain.Entities;
     using Moq;
     using Shouldly;
     using Xunit;
-
-    using BESL.Application.Games.Commands.Create;
-    using BESL.Application.Games.Commands.Delete;
-    using BESL.Application.Tests.Infrastructure;
-    using BESL.Common.Cloudinary;
-    using BESL.Application.Exceptions;
-    using BESL.Domain.Entities;
-    using BESL.Application.Interfaces;
-    using BESL.Persistence.Repositories;
-    using System.Threading.Tasks;
 
     public class DeleteGameCommandTests : BaseTest<Game>
     {
@@ -83,35 +70,6 @@
 
             // Assert
             Should.Throw<ArgumentNullException>(() => sut.Handle(null, It.IsAny<CancellationToken>()).GetAwaiter().GetResult());
-        }
-
-        private int CreateSampleGame()
-        {
-            var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
-            var sut = new CreateGameCommandHandler(this.deletableEntityRepository, It.IsAny<IConfiguration>());
-
-            cloudinaryHelperMock
-                .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
-                .ReturnsAsync("https://steamcdn-a.akamaihd.net/steam/apps/440/header.jpg");
-
-            cloudinaryHelperMock
-                .Setup(x => x.GetInstance(It.IsAny<IConfiguration>()))
-                .Returns(() => null);
-
-            var field = typeof(CreateGameCommandHandler)
-                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                .SingleOrDefault(f => f.IsInitOnly && f.FieldType == typeof(ICloudinaryHelper));
-
-            field.SetValue(sut, cloudinaryHelperMock.Object);
-            var gameCommandRequest = new CreateGameCommand()
-            {
-                Name = "Team Fortress 2",
-                Description = "Stupid hat simulator.",
-                GameImage = new FormFile(It.IsAny<Stream>(), It.IsAny<long>(), It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>())
-            };
-
-            var id = sut.Handle(gameCommandRequest, It.IsAny<CancellationToken>()).GetAwaiter().GetResult();
-            return id;
         }
     }
 }

@@ -15,12 +15,12 @@
     using Xunit;
 
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Common.Cloudinary;
     using BESL.Application.Games.Commands.Modify;
     using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Validators;
     using BESL.Application.Interfaces;
     using System.Threading.Tasks;
+    using BESL.Application.Infrastructure.Cloudinary;
 
     public class ModifyGameCommandTests : BaseTest<Game>
     {
