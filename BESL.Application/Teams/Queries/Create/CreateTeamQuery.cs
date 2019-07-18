@@ -12,6 +12,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.Create;
     using BESL.Domain.Entities;
+    using BESL.Application.Common.Models.Lookups;
 
     public class CreateTeamQuery : IRequest<CreateTeamCommand>
     {

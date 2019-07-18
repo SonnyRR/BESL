@@ -10,8 +10,9 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using BESL.Application.Tournaments.Queries.GetAllTournaments;
     using BESL.Domain.Entities;
+    using BESL.Application.Common.Models.View;
+    using BESL.Application.Common.Models.Lookups;
 
     public class GetTournamentsForGameQuery : IRequest<AllTournamentsViewModel>
     {

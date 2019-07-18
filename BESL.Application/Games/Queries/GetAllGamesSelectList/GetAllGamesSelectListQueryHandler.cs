@@ -12,6 +12,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Common.Models;
     using BESL.Domain.Entities;
+    using BESL.Application.Common.Models.Lookups;
 
     public class GetAllGamesSelectListQueryHandler : IRequestHandler<GetAllGamesSelectListQuery, IEnumerable<GameSelectItemLookupModel>>
     {

@@ -1,6 +1,6 @@
 ﻿namespace BESL.Application.Teams.Commands.Create
 {
-    using BESL.Application.Common.Models;
+    using BESL.Application.Common.Models.Lookups;
     using MediatR;
     using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;

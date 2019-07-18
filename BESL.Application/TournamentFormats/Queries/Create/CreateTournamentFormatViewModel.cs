@@ -1,7 +1,7 @@
 ﻿namespace BESL.Application.TournamentFormats.Queries.Create
 {
-    using BESL.Application.Common.Models;
     using System.Collections.Generic;
+    using BESL.Application.Common.Models.Lookups;
 
     public class CreateTournamentFormatViewModel
     {

@@ -11,6 +11,8 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using BESL.Application.Common.Models.View;
+    using BESL.Application.Common.Models.Lookups;
 
     public class GetAllTournamentsQueryHandler : IRequestHandler<GetAllTournamentsQuery, AllTournamentsViewModel>
     {

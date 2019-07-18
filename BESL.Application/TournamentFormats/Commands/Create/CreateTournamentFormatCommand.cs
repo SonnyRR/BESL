@@ -1,8 +1,8 @@
 ﻿namespace BESL.Application.TournamentFormats.Commands.Create
 {
-    using System.Collections.Generic;
-    using BESL.Application.Common.Models;
+    using BESL.Application.Common.Models.Lookups;
     using MediatR;
+    using System.Collections.Generic;
 
     public class CreateTournamentFormatCommand : IRequest<int>
     {
