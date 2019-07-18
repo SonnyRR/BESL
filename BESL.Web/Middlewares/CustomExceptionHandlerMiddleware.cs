@@ -10,7 +10,6 @@
     using static BESL.Common.GlobalConstants;
     using BESL.Domain.Entities.Enums;
     using BESL.Web.Infrastructure.Services;
-    using BESL.Application.Interfaces;
 
     public class CustomExceptionHandlerMiddleware
     {
@@ -20,7 +19,7 @@
         {
             this.next = next;
         }
-
+         
         public async Task InvokeAsync(HttpContext context, INotifyService notifyService)
         {
             string userNameIdentifier = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

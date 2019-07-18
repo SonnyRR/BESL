@@ -3,8 +3,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
-
+ 
     using BESL.Application.Games.Commands.Create;
     using BESL.Application.Games.Commands.Delete;
     using BESL.Application.Games.Commands.Modify;
