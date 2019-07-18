@@ -22,6 +22,10 @@
                 .IsRequired()
                 .IsUnicode()
                 .HasMaxLength(500);
+
+            builder.HasMany(tf => tf.Teams)
+                .WithOne(t => t.TournamentFormat)
+                .HasForeignKey(t => t.TournamentFormatId);
         }
     }
 }

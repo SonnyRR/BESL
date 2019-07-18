@@ -4,14 +4,16 @@ using BESL.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BESL.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190718092612_AddedImageUrlToTeamDomainModel.")]
+    partial class AddedImageUrlToTeamDomainModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,6 +260,8 @@ namespace BESL.Persistence.Migrations
                         .HasMaxLength(1000)
                         .IsUnicode(true);
 
+                    b.Property<int?>("GameId");
+
                     b.Property<string>("HomepageUrl")
                         .HasMaxLength(256);
 
@@ -279,6 +283,8 @@ namespace BESL.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CurrentActiveTournamentTableId");
+
+                    b.HasIndex("GameId");
 
                     b.HasIndex("OwnerId");
 
@@ -570,12 +576,16 @@ namespace BESL.Persistence.Migrations
                         .WithMany("SignedUpTeams")
                         .HasForeignKey("CurrentActiveTournamentTableId");
 
+                    b.HasOne("BESL.Domain.Entities.Game")
+                        .WithMany("Teams")
+                        .HasForeignKey("GameId");
+
                     b.HasOne("BESL.Domain.Entities.Player", "Owner")
                         .WithMany("OwnedTeams")
                         .HasForeignKey("OwnerId");
 
                     b.HasOne("BESL.Domain.Entities.TournamentFormat", "TournamentFormat")
-                        .WithMany("Teams")
+                        .WithMany()
                         .HasForeignKey("TournamentFormatId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

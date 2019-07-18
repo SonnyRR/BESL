@@ -12,6 +12,8 @@
 
         public string HomepageUrl { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public string OwnerId { get; set; }
         public Player Owner { get; set; }
 

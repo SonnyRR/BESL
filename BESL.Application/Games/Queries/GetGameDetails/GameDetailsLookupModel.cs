@@ -1,7 +1,7 @@
 ﻿namespace BESL.Application.Games.Queries.GetGameDetails
 {
     using System.Collections.Generic;
-
+    using System.Linq;
     using AutoMapper;
 
     using BESL.Application.Interfaces.Mapping;
@@ -26,7 +26,7 @@
             configuration.CreateMap<Game, GameDetailsLookupModel>()
                 .ForMember(gdlm=>gdlm.GameImageUrl, o => o.MapFrom(g=>g.GameImageUrl))
                 .ForMember(gdlm => gdlm.Tournaments, o => o.MapFrom(g => g.Tournaments))
-                .ForMember(gdlm => gdlm.RegisteredTeams, o => o.MapFrom(g => g.Teams.Count));
+                .ForMember(gdlm => gdlm.RegisteredTeams, o => o.MapFrom(g => g.TournamentFormats.Sum(u=>u.Teams.Count)));
         }
     }
 }
