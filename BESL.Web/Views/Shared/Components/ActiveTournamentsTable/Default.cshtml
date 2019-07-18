@@ -12,13 +12,22 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var tournament in Model.Tournaments)
+                @if (Model.Tournaments.Count() != 0)
                 {
-                <tr>
-                    <td>@tournament.Name</td>
-                    <td>@tournament.Game</td>
-                    <td>@tournament.Format</td>
-                </tr>
+                    @foreach (var tournament in Model.Tournaments)
+                    {
+                        <tr>
+                            <td>@tournament.Name</td>
+                            <td>@tournament.Game</td>
+                            <td>@tournament.Format</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center"><h5 class="text-danger">No active tournaments.</h5></td>
+                    </tr>
                 }
             </tbody>
         </table>

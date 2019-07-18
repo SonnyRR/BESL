@@ -7,7 +7,6 @@
 
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
 
-    //[ViewComponent(Name = "ActiveTournamentsDropDownVC")] 
     public class ActiveTournamentsDropDownViewComponent : ViewComponent
     {
         private readonly IMediator mediator;

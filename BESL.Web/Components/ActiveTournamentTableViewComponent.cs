@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
+    using BESL.Application.Tournaments.Queries.GetTournamentsForGame;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
 
@@ -14,9 +15,9 @@
             this.mediator = mediator;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int gameId)
         {
-            var currentActiveTournamentsViewModel = await this.mediator.Send(new GetAllTournamentsQuery());
+            var currentActiveTournamentsViewModel = await this.mediator.Send(new GetTournamentsForGameQuery() { GameId = gameId });
             return this.View(currentActiveTournamentsViewModel);
         }
     }
