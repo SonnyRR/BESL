@@ -1,4 +1,4 @@
-﻿namespace BESL.Common.Cloudinary
+﻿namespace BESL.Application.Infrastructure.Cloudinary
 {
     using System.Threading.Tasks;
     using System.IO;

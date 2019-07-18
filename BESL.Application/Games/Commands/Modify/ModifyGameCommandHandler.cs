@@ -9,7 +9,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
-    using BESL.Common.Cloudinary;
+    using BESL.Application.Infrastructure.Cloudinary;
 
     public class ModifyGameCommandHandler : IRequestHandler<ModifyGameCommand, Unit>
     {

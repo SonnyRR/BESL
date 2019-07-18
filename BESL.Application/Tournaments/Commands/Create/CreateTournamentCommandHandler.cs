@@ -8,10 +8,10 @@
     using MediatR;
     using Microsoft.Extensions.Configuration;
 
-    using BESL.Application.Interfaces;
-    using BESL.Common.Cloudinary;
+    using BESL.Application.Interfaces;    
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
+    using BESL.Application.Infrastructure.Cloudinary;
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {
