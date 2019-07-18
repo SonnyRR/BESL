@@ -20,11 +20,12 @@
                 .WithMessage(string.Format(NAME_LENGTH_MSG, NAME_MIN_LENGTH, NAME_MAX_LENGTH));
 
             RuleFor(x => x.Description)
-                .Length(DESC_MIN_LENGTH, DESC_MAX_LENGTH)
                 .NotEmpty()
+                .Length(DESC_MIN_LENGTH, DESC_MAX_LENGTH)
                 .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MIN_LENGTH, DESC_MAX_LENGTH));
 
             RuleFor(x => x.GameImage)
+                .NotEmpty()
                 .SetValidator(new CustomGameImageFileValidator(fileValidate));
         }
     }

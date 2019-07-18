@@ -24,7 +24,7 @@
                 .HasForeignKey(tr => tr.Id);
 
             builder.Property(t => t.Name)
-                .HasMaxLength(25)
+                .HasMaxLength(35)
                 .IsUnicode()
                 .IsRequired();
 

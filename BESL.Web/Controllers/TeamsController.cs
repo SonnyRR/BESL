@@ -21,7 +21,7 @@
         public async Task<IActionResult> Create(CreateTeamCommand command)
         {
             await this.Mediator.Send(command);
-            return this.View();
+            return this.NoContent();
         }
 
         public async Task<IActionResult> Index(string id)
