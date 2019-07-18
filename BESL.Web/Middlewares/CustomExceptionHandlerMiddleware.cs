@@ -9,7 +9,7 @@
     using BESL.Application.Exceptions;
     using static BESL.Common.GlobalConstants;
     using BESL.Domain.Entities.Enums;
-    using BESL.Web.Services;
+    using BESL.Web.Infrastructure.Services;
     using BESL.Application.Interfaces;
 
     public class CustomExceptionHandlerMiddleware

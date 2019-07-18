@@ -5,11 +5,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.AspNetCore.SignalR;
 
     using BESL.Web.Controllers;
-    using BESL.Web.Services;
-    using BESL.Web.Infrastructure.Hubs;
+    using BESL.Web.Infrastructure.Services;
 
     [Area("Administration")]
     [Authorize(Roles = "Administrator")]

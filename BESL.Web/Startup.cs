@@ -28,7 +28,7 @@
     using BESL.Domain.Entities;
     using BESL.Persistence;
     using BESL.Web.Middlewares;
-    using BESL.Web.Services;
+    using BESL.Web.Infrastructure.Services;
     using BESL.Web.Filters;
     using BESL.Web.Infrastructure.Cron;
     using BESL.Persistence.Seeding;

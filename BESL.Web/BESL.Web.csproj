@@ -7,6 +7,21 @@
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Areas\Administration\Data\**" />
+    <Compile Remove="Areas\Administration\Models\**" />
+    <Compile Remove="Views\Competitions\**" />
+    <Content Remove="Areas\Administration\Data\**" />
+    <Content Remove="Areas\Administration\Models\**" />
+    <Content Remove="Views\Competitions\**" />
+    <EmbeddedResource Remove="Areas\Administration\Data\**" />
+    <EmbeddedResource Remove="Areas\Administration\Models\**" />
+    <EmbeddedResource Remove="Views\Competitions\**" />
+    <None Remove="Areas\Administration\Data\**" />
+    <None Remove="Areas\Administration\Models\**" />
+    <None Remove="Views\Competitions\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OpenId.Steam" Version="2.1.0" />
@@ -40,9 +55,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Administration\Data\" />
-    <Folder Include="Areas\Administration\Models\" />
-    <Folder Include="Views\Competitions\" />
     <Folder Include="Areas\Administration\Views\Home\" />
     <Folder Include="wwwroot\lib\font-awesome\" />
     <Folder Include="Areas\Administration\Views\Shared\Partials\" />
