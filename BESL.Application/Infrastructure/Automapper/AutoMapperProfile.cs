@@ -11,6 +11,8 @@
         {
             this.LoadStandardMappings();
             this.LoadCustomMappings();
+            this.LoadToMappings();
+            this.LoadFromMappings();
             this.LoadConverters();
         }
 
@@ -35,6 +37,26 @@
             foreach (var map in mapsFrom)
             {
                 map.CreateMappings(this);
+            }
+        }
+
+        private void LoadToMappings()
+        {
+            var mapsFrom = MapperProfileHelper.GetToMaps(Assembly.GetExecutingAssembly());
+
+            foreach (var map in mapsFrom)
+            {
+                CreateMap(map.Source, map.Destination).ReverseMap();
+            }
+        }
+
+        private void LoadFromMappings()
+        {
+            var mapsFrom = MapperProfileHelper.GetFromMaps(Assembly.GetExecutingAssembly());
+
+            foreach (var map in mapsFrom)
+            {
+                CreateMap(map.Source, map.Destination).ReverseMap();
             }
         }
     }

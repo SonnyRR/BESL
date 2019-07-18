@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
 
+    using global::AutoMapper;
     using BESL.Application.Interfaces.Mapping;
 
     public static class MapperProfileHelper
@@ -45,6 +46,44 @@
                     select (IHaveCustomMapping)Activator.CreateInstance(type)).ToList();
 
             return mapsFrom;
+        }
+
+        public static IList<Map> GetToMaps(Assembly rootAssembly)
+        {
+            var types = rootAssembly.GetExportedTypes();
+
+            var toMaps = from t in types
+                         from i in t.GetTypeInfo().GetInterfaces()
+                         where i.GetTypeInfo().IsGenericType &&
+                               i.GetTypeInfo().GetGenericTypeDefinition() == typeof(IMapTo<>) &&
+                               !t.GetTypeInfo().IsAbstract &&
+                               !t.GetTypeInfo().IsInterface
+                         select new Map
+                         {
+                             Source = t,
+                             Destination = i.GetTypeInfo().GetGenericArguments()[0],
+                         };
+
+            return toMaps.ToList();
+        }
+
+        public static IList<Map> GetFromMaps(Assembly rootAssembly)
+        {
+            var types = rootAssembly.GetExportedTypes();
+
+            var fromMaps = from t in types
+                           from i in t.GetTypeInfo().GetInterfaces()
+                           where i.GetTypeInfo().IsGenericType &&
+                                 i.GetGenericTypeDefinition() == typeof(IMapFrom<>) &&
+                                 !t.GetTypeInfo().IsAbstract &&
+                                 !t.GetTypeInfo().IsInterface
+                           select new Map
+                           {
+                               Source = i.GetTypeInfo().GetGenericArguments()[0],
+                               Destination = t,
+                           };
+
+            return fromMaps.ToList();
         }
 
         public sealed class Map
