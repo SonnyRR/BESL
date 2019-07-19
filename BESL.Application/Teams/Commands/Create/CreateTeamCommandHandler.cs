@@ -14,6 +14,7 @@
     using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Cloudinary;
     using BESL.Application.Exceptions;
+    using System.Linq;
 
     public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand>
     {
@@ -43,11 +44,14 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
-            //var gameId = (await this.formatRepository.GetByIdWithDeletedAsync(request.TournamentFormatId))?.GameId;
-            //if (gameId == null)
-            //{
-            //    throw new NotFoundException(nameof(TournamentFormat), request.TournamentFormatId);
-            //}
+            var doesTournamentFormatExist = this.formatRepository
+                .AllAsNoTrackingWithDeleted()
+                .Any(f => f.Id == request.TournamentFormatId);
+
+            if (!doesTournamentFormatExist)
+            {
+                throw new NotFoundException(nameof(TournamentFormat), request.TournamentFormatId);
+            }
 
             var cloudinary = this.cloudinaryHelper.GetInstance(this.configuration);
 
