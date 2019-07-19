@@ -1,3 +1,6 @@
 ﻿@model  BESL.Application.Players.Queries.GetPlayerDetails.PlayerDetailsViewModel
-
+@{
+    ViewData["Title"] = Model.Username;
+}
 <h3>@Model.Username</h3>
+<vc:player-details-teams-></vc:player-details-teams->

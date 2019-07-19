@@ -13,10 +13,8 @@
 
     public class GamesController : AdminController
     {
-
         public async Task<IActionResult> Create()
         {
-            this.UserNotificationHub.SendUserSuccessNotificationAsync("TEST", CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.View();
         }
 
@@ -28,8 +26,7 @@
                 return this.View();
             }
 
-            await this.Mediator.Send(command);            
-
+            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Index));
         }
 
@@ -39,9 +36,9 @@
             return this.View(model);
         }
 
-        public async Task<IActionResult> Modify(int id)
+        public async Task<IActionResult> Modify(ModifyGameQuery query)
         {
-            var model = await this.Mediator.Send(new ModifyGameQuery() { Id = id });
+            var model = await this.Mediator.Send(query);
             return this.View(model);
         }
 
@@ -56,7 +53,6 @@
             }
 
             await this.Mediator.Send(command);
-
             return this.RedirectToAction(nameof(Index));
         }
 
