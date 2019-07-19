@@ -12,14 +12,17 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
+    using AutoMapper;
 
     public class PlayerDetailsQueryHandler : IRequestHandler<GetPlayerDetailsQuery, PlayerDetailsViewModel>
     {
         private readonly IDeletableEntityRepository<Player> repository;
+        private readonly IMapper mapper;
 
-        public PlayerDetailsQueryHandler(IDeletableEntityRepository<Player> repository)
+        public PlayerDetailsQueryHandler(IDeletableEntityRepository<Player> repository, IMapper mapper)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
 
         public async Task<PlayerDetailsViewModel> Handle(GetPlayerDetailsQuery request, CancellationToken cancellationToken)
@@ -39,13 +42,7 @@
                 throw new NotFoundException(nameof(Player), request.Username);
             }
 
-            var viewModel = new PlayerDetailsViewModel()
-            {
-                Username = desiredPlayer.UserName,
-                IsVACBanned = desiredPlayer.Claims.Any(c => c.ClaimType == IS_VAC_BANNED_CLAIM_TYPE),
-                AvatarFullUrl = desiredPlayer.Claims.SingleOrDefault(c => c.ClaimType == PROFILE_AVATAR_CLAIM_TYPE)?.ClaimValue
-            };
-
+            var viewModel = this.mapper.Map<PlayerDetailsViewModel>(desiredPlayer);            
             return viewModel;
         }
     }
