@@ -11,7 +11,9 @@
             }
         </h1>
         <div class="mt-2">
-            <h6 class="lead">Steam ID64: <a href="https://steamcommunity.com/profiles/@Model.SteamId64">@Model.SteamId64</a></h6>
+            <h6 class="lead">Steam ID64: @if (!string.IsNullOrWhiteSpace(Model.SteamId64))
+            {<a href="https://steamcommunity.com/profiles/@Model.SteamId64">@Model.SteamId64</a>}
+            else {<strong class="text-warning">No linked steam account.</strong>}</h6>
             <h6 class="lead">VAC Status: @if (Model.IsVACBanned)
             {<strong class="text-danger">Banned</strong>}
             else
@@ -21,5 +23,7 @@
     </div>
 </div>
 <div class="row mx-3 mb-3">
-    <vc:player-details-teams user-id="@Model.Id"></vc:player-details-teams>
+    <div class="col-md-9">
+        <vc:player-details-teams user-id="@Model.Id"></vc:player-details-teams>
+    </div>
 </div>

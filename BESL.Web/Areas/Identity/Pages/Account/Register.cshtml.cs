@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-
+using static BESL.Common.GlobalConstants;
 namespace BESL.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
@@ -88,6 +88,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                    await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(PROFILE_AVATAR_CLAIM_TYPE, DEFAULT_AVATAR));
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }

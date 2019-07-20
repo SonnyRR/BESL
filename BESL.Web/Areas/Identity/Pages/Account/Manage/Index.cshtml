@@ -45,30 +45,25 @@
     </div>
     <div class="col-md-6">
         <h4>Current profile picture</h4>
-        @if(!string.IsNullOrWhiteSpace(profileAvatar))
-        {
-            <img src="@profileAvatar" class="rounded float-cleft">            
-        }
-        else
-        {
-            <img src="@DEFAULT_AVATAR" class="rounded float-cleft"> 
-        }
-        <h5 class="mt-4">VAC Status: 
-        @if(isVACBanned != null)
-        {
-            <strong class="text-danger">Banned</strong>
-        }
-        else
-        {
-            @if (!User.Claims.Any(c => c.Type == STEAM_ID_64_CLAIM_TYPE))
+        <img src="@profileAvatar" class="rounded float-cleft">
+        <h5 class="mt-4">
+            VAC Status:
+            @if (isVACBanned != null)
             {
-            <strong class="text-warning">No linked steam account!</strong>
+                <strong class="text-danger">Banned</strong>
             }
             else
             {
-            <strong class="text-success">All's good!</strong>
+                @if (!User.Claims.Any(c => c.Type == STEAM_ID_64_CLAIM_TYPE))
+                {
+                    <strong class="text-warning">No linked steam account!</strong>
+                }
+                else
+                {
+                    <strong class="text-success">All's good!</strong>
+                }
             }
-        }</h5>
+        </h5>
     </div>
 </div>
 
