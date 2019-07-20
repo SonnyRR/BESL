@@ -4,7 +4,9 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
     using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -19,9 +21,18 @@
             this.repository = repository;
         }
 
-        public Task<TeamsForPlayerViewModel> Handle(GetTeamsForPlayerQuery request, CancellationToken cancellationToken)
+        public async Task<TeamsForPlayerViewModel> Handle(GetTeamsForPlayerQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var teams = await this.repository
+                .AllAsNoTracking()
+                    .Include(x => x.Team)
+                .Where(x => x.PlayerId == request.UserId)
+                .ToListAsync(cancellationToken);
+
+            var mapped = this.mapper.Map<TeamForPlayerLookupModel[]>(teams);
+
+            var vm = new TeamsForPlayerViewModel() { PlayerTeams = mapped };
+            return vm;
         }
     }
 }

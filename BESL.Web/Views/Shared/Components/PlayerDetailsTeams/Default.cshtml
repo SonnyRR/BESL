@@ -1,30 +1,24 @@
-﻿@model BESL.Application.Players.Queries.GetPlayerDetails.PlayerDetailsViewModel
-    <table class="table table-sm">
-        <thead>
+﻿@model BESL.Application.Teams.Queries.GetTeamsForPlayer.TeamsForPlayerViewModel
+<div class="col-md-8">
+    <h4>Team history</h4>
+    <small class="text-muted">All dates are in UTC.</small>
+    <table class="table table-sm shadow rounded">
+        <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Team name</th>
+                <th scope="col">Joined On</th>
+                <th scope="col">Left On</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>t1</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>t2</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>t3</td>
-            </tr>
+            @foreach (var team in Model.PlayerTeams)
+            {
+                <tr>
+                    <th scope="row">@team.TeamName</th>
+                    <td>@team.JoinedDate</td>
+                    <td>@team.LeftDate</td>
+                </tr>
+            }
         </tbody>
     </table>
+</div>

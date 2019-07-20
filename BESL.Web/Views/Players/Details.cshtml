@@ -1,6 +1,25 @@
-﻿@model  BESL.Application.Players.Queries.GetPlayerDetails.PlayerDetailsViewModel
+﻿@model BESL.Application.Players.Queries.GetPlayerDetails.PlayerDetailsViewModel
 @{
     ViewData["Title"] = Model.Username;
 }
-<h3>@Model.Username</h3>
-<vc:player-details-teams-></vc:player-details-teams->
+<div class="row mx-3 mb-3">
+    <img class="img-thumbnail ml-3" src="@Model.AvatarFullUrl" />
+    <div class="col-md-6">
+        <h1>
+            @Model.Username@if (Model.IsVACBanned)
+            {@:&nbsp;<span class="badge badge-danger">VAC</span>
+            }
+        </h1>
+        <div class="mt-2">
+            <h6 class="lead">Steam ID64: <a href="https://steamcommunity.com/profiles/@Model.SteamId64">@Model.SteamId64</a></h6>
+            <h6 class="lead">VAC Status: @if (Model.IsVACBanned)
+            {<strong class="text-danger">Banned</strong>}
+            else
+            {<strong class="text-success">Good</strong>}</h6>
+            <h6 class="lead">Registered on: @Model.RegisteredOn</h6>
+        </div>
+    </div>
+</div>
+<div class="row mx-3 mb-3">
+    <vc:player-details-teams user-id="@Model.Id"></vc:player-details-teams>
+</div>

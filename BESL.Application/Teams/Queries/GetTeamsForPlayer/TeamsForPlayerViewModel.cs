@@ -4,6 +4,6 @@
 
     public class TeamsForPlayerViewModel
     {
-        public ICollection<TeamsForPlayerLookupModel> PlayerTeams { get; set; }
+        public ICollection<TeamForPlayerLookupModel> PlayerTeams { get; set; }
     }
 }
