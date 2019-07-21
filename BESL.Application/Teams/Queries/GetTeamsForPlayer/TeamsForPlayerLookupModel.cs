@@ -20,7 +20,6 @@
             configuration.CreateMap<PlayerTeam, TeamForPlayerLookupModel>()
                 .ForMember(lm => lm.JoinedDate, o => o.MapFrom(pt => pt.CreatedOn.ToString()))
                 .ForMember(lm => lm.LeftDate, o => o.MapFrom(pt => pt.DeletedOn.HasValue ? pt.DeletedOn.Value.ToString() : "N/A"));
-
         }
     }
 }

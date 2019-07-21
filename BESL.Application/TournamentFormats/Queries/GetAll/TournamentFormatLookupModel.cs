@@ -1,16 +1,16 @@
-﻿using AutoMapper;
-using BESL.Application.Interfaces.Mapping;
-using BESL.Domain.Entities;
-
-namespace BESL.Application.TournamentFormats.Queries.GetAll
+﻿namespace BESL.Application.TournamentFormats.Queries.GetAll
 {
+    using AutoMapper;
+    using BESL.Application.Interfaces.Mapping;
+    using BESL.Domain.Entities;
+
     public class TournamentFormatLookupModel : IHaveCustomMapping
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public string  Description { get; set; }
+        public string Description { get; set; }
 
         public int TotalPlayersCount { get; set; }
 

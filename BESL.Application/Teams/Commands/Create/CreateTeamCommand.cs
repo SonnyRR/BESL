@@ -1,12 +1,14 @@
 ﻿namespace BESL.Application.Teams.Commands.Create
 {
+    using System.Collections.Generic;
+
     using AutoMapper;
+    using MediatR;
+    using Microsoft.AspNetCore.Http;
+
     using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
-    using MediatR;
-    using Microsoft.AspNetCore.Http;
-    using System.Collections.Generic;
 
     public class CreateTeamCommand : IRequest, IMapTo<Team>
     {

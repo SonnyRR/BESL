@@ -10,6 +10,7 @@
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Cloudinary;
+    using CloudinaryDotNet;
 
     public class ModifyGameCommandHandler : IRequestHandler<ModifyGameCommand, Unit>
     {
@@ -43,9 +44,8 @@
                 var imageUrl = await this.cloudinaryHelper.UploadImage(
                     cloudinary,
                     request.GameImage,
-                    name: $"{request.Name}-main-shot"
-                //transformation: new Transformation().Width(500).Height(500)
-                );
+                    name: $"{request.Name}-main-shot",
+                    transformation: new Transformation().Width(460).Height(215));
                 existingGame.GameImageUrl = imageUrl;
             }
 

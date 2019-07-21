@@ -38,8 +38,7 @@
                     cloudinary,
                     request.GameImage,
                     name: $"{request.Name}-main-shot",
-                    transformation: new Transformation().Width(460).Height(215)
-                ); 
+                    transformation: new Transformation().Width(460).Height(215)); 
 
             Game game = new Game()
             {

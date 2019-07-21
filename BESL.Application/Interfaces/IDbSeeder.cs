@@ -5,6 +5,6 @@
 
     public interface IDbSeeder
     {
-        Task SeedAsync(IApplicationDbContext dbContext, IServiceProvider serviceProvider);
+        Task SeedAsync(IApplicationDbContext databaseContext, IServiceProvider serviceProvider);
     }
 }

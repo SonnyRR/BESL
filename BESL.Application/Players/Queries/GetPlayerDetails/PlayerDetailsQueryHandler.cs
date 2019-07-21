@@ -1,18 +1,16 @@
 ﻿namespace BESL.Application.Players.Queries.GetPlayerDetails
 {
     using System;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
+    using AutoMapper;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using static BESL.Common.GlobalConstants;
-    using AutoMapper;
 
     public class PlayerDetailsQueryHandler : IRequestHandler<GetPlayerDetailsQuery, PlayerDetailsViewModel>
     {
@@ -27,7 +25,7 @@
 
         public async Task<PlayerDetailsViewModel> Handle(GetPlayerDetailsQuery request, CancellationToken cancellationToken)
         {
-            if(request == null)
+            if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
@@ -42,7 +40,7 @@
                 throw new NotFoundException(nameof(Player), request.Username);
             }
 
-            var viewModel = this.mapper.Map<PlayerDetailsViewModel>(desiredPlayer);            
+            var viewModel = this.mapper.Map<PlayerDetailsViewModel>(desiredPlayer);
             return viewModel;
         }
     }

@@ -1,11 +1,13 @@
-﻿using AutoMapper;
-using BESL.Application.Interfaces.Mapping;
-using BESL.Domain.Entities;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace BESL.Application.TournamentTables.Queries.GetTournamentTables
+﻿namespace BESL.Application.TournamentTables.Queries.GetTournamentTables
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using AutoMapper;
+
+    using BESL.Application.Interfaces.Mapping;
+    using BESL.Domain.Entities;
+
     public class TournamentTableLookupModel : IHaveCustomMapping
     {
         public int Id { get; set; }

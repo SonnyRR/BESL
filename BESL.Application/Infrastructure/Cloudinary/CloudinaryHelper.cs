@@ -11,8 +11,7 @@
     public class CloudinaryHelper : ICloudinaryHelper
     {
         public Cloudinary GetInstance(IConfiguration configuration)
-        {
-            
+        {            
             #warning Don't forget to enter your Cloudinary credentials.
             /*
              * dotnet user-secrets set "cloudinary-cloud" "your_cloud_id"
@@ -29,7 +28,8 @@
             return instance;
         }
 
-        public async Task<string> UploadImage(Cloudinary cloudinary, 
+        public async Task<string> UploadImage(
+            Cloudinary cloudinary, 
             IFormFile fileForm, 
             string name, 
             Transformation transformation = null)

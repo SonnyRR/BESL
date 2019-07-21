@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.Games.Queries.GetGameDetails
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -8,7 +9,6 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using System;
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
 
@@ -41,7 +41,6 @@
                 throw new NotFoundException(nameof(Game), request.Id);
             }
 
-            //TODO
             var dto = this.mapper.Map<GameDetailsLookupModel>(gameDomain);
 
             var viewModel = new GameDetailsViewModel()

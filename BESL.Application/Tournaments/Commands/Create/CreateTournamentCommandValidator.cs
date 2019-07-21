@@ -26,7 +26,7 @@
                 .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MIN_LENGTH, DESC_MAX_LENGTH));
 
             RuleFor(t => t.StartDate)
-                .GreaterThan(t => new System.DateTime(2015,1,1))
+                .GreaterThan(t => new System.DateTime(2015, 1, 1))
                 .WithMessage("edede");
 
             RuleFor(t => t.TournamentImage)

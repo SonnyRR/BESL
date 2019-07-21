@@ -1,6 +1,7 @@
 ﻿namespace BESL.Application.Teams.Commands.Create
 {
     using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -9,12 +10,11 @@
     using MediatR;
     using Microsoft.Extensions.Configuration;
 
-    using BESL.Application.Interfaces;
-    using static BESL.Common.GlobalConstants;
-    using BESL.Domain.Entities;
-    using BESL.Application.Infrastructure.Cloudinary;
     using BESL.Application.Exceptions;
-    using System.Linq;
+    using BESL.Application.Interfaces;
+    using BESL.Application.Infrastructure.Cloudinary;
+    using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand>
     {
@@ -59,8 +59,7 @@
                     cloudinary,
                     request.TeamImage,
                     name: $"{request.TeamImage}-team-main-shot",
-                    transformation: new Transformation().Width(TEAM_AVATAR_WIDTH).Height(TEAM_AVATAR_HEIGHT)
-                );
+                    transformation: new Transformation().Width(TEAM_AVATAR_WIDTH).Height(TEAM_AVATAR_HEIGHT));
 
             var team = this.mapper.Map<Team>(request);
             team.ImageUrl = url;

@@ -1,15 +1,15 @@
 ﻿namespace BESL.Application.TournamentFormats.Queries.GetAll
 {
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
-    using System.Linq;
     using BESL.Domain.Entities;
 
     public class GetAllTournamentFormatsQueryHandler : IRequestHandler<GetAllTournamentFormatsQuery, GetAllTournamentFormatsQueryViewModel>

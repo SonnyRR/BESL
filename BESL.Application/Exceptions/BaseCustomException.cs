@@ -9,7 +9,7 @@
         }
 
         public BaseCustomException(string message)
-            :base(message)
+            : base(message)
         {
         }
     }

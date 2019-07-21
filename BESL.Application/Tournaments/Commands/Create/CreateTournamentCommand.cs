@@ -1,12 +1,12 @@
 ﻿namespace BESL.Application.Tournaments.Commands.Create
 {
+    using System;
     using System.Collections.Generic;
 
     using MediatR;
     using Microsoft.AspNetCore.Http;
 
     using BESL.Application.Tournaments.Models;
-    using System;
 
     public class CreateTournamentCommand : IRequest<int>
     {

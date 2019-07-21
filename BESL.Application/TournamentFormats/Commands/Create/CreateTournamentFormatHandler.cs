@@ -1,16 +1,15 @@
 ﻿namespace BESL.Application.TournamentFormats.Commands.Create
 {
+    using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using System;
-    using System.Linq;
 
     public class CreateTournamentFormatHandler : IRequestHandler<CreateTournamentFormatCommand, int>
     {
@@ -31,6 +30,7 @@
             {
                 throw new ArgumentNullException(nameof(request));
             }
+
             if (this.formatRepository.AllAsNoTrackingWithDeleted().Any(tf => tf.GameId == request.GameId && tf.Name == request.Name))
             {
                 throw new EntityAlreadyExists(nameof(TournamentFormat), $"{request.Name} - GameId:{request.GameId}");

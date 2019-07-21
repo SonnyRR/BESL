@@ -4,13 +4,13 @@
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
     using BESL.Application.Tournaments.Commands.Create;
-    using AutoMapper.QueryableExtensions;
     using BESL.Application.Tournaments.Models;
-    using Microsoft.EntityFrameworkCore;
     using BESL.Domain.Entities;
 
     public class CreateTournamentQueryHandler : IRequestHandler<CreateTournamentQuery, CreateTournamentCommand>
@@ -30,7 +30,7 @@
             {
                 Formats = await this.repository
                             .AllAsNoTracking()
-                                .Include(tf=>tf.Game)
+                                .Include(tf => tf.Game)
                             .ProjectTo<TournamentFormatSelectListLookupModel>(this.mapper.ConfigurationProvider)
                             .ToListAsync()
             };

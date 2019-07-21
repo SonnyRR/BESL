@@ -23,7 +23,7 @@
         {
             var context = new ValidationContext(request);
 
-            var failures = validators
+            var failures = this.validators
                 .Select(v => v.Validate(context))
                 .SelectMany(result => result.Errors)
                 .Where(f => f != null)

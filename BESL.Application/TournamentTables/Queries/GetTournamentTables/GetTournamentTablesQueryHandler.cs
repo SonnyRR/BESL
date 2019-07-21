@@ -1,16 +1,16 @@
 ﻿namespace BESL.Application.TournamentTables.Queries.GetTournamentTables
 {
+    using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using System.Linq;
-    using Microsoft.EntityFrameworkCore;
-    using System;
-    using AutoMapper.QueryableExtensions;
     using BESL.Domain.Entities;
 
     public class GetTournamentTablesQueryHandler : IRequestHandler<GetTournamentTablesQuery, TournamentTablesViewModel>

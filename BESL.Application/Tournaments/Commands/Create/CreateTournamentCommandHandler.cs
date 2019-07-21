@@ -43,15 +43,15 @@
                 throw new EntityAlreadyExists(nameof(Tournament), request.Name);
             }
 
-            var cloudinary = cloudinaryHelper.GetInstance(this.configuration);
+            var cloudinary = this.cloudinaryHelper.GetInstance(this.configuration);
 
-            var url = await cloudinaryHelper.UploadImage(
+            var url = await this.cloudinaryHelper.UploadImage(
                     cloudinary,
                     request.TournamentImage,
-                    name: $"{request.Name}-tournament-main-shot"
-                );
+                    name: $"{request.Name}-tournament-main-shot");
 
             var gameId = (await this.tournamentFormatsRepository.GetByIdWithDeletedAsync(request.FormatId))?.GameId;
+
             if (gameId == null)
             {
                 throw new NotFoundException(nameof(TournamentFormat), request.FormatId);

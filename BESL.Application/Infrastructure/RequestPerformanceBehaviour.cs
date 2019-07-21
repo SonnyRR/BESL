@@ -27,12 +27,12 @@
 
             this.stopwatch.Stop();
 
-            if (stopwatch.ElapsedMilliseconds > 500)
+            if (this.stopwatch.ElapsedMilliseconds > 500)
             {
                 var name = typeof(TRequest).Name;
 
                 // TODO: Add User Details
-                logger.LogWarning("BESL Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, this.stopwatch.ElapsedMilliseconds, request);
+                this.logger.LogWarning("BESL Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, this.stopwatch.ElapsedMilliseconds, request);
             }
 
             return response;

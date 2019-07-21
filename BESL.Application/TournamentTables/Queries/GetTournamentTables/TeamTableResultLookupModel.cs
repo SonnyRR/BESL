@@ -3,7 +3,6 @@
     using AutoMapper;
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
-    using System;
 
     public class TeamTableResultLookupModel : IHaveCustomMapping
     {

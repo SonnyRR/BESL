@@ -33,7 +33,6 @@
                 .InclusiveBetween(TEAM_PLAYERS_MIN_COUNT, TEAM_PLAYERS_MAX_COUNT)
                 .WithMessage(string.Format(TEAM_PLAYERS_COUNT_MSG, TEAM_PLAYERS_MIN_COUNT, TEAM_PLAYERS_MAX_COUNT));
 
-
             RuleFor(f => f.GameId)
                 .NotEmpty();
         }

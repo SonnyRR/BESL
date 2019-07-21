@@ -24,9 +24,9 @@
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<Game, GameDetailsLookupModel>()
-                .ForMember(gdlm=>gdlm.GameImageUrl, o => o.MapFrom(g=>g.GameImageUrl))
+                .ForMember(gdlm => gdlm.GameImageUrl, o => o.MapFrom(g => g.GameImageUrl))
                 .ForMember(gdlm => gdlm.Tournaments, o => o.MapFrom(g => g.Tournaments))
-                .ForMember(gdlm => gdlm.RegisteredTeams, o => o.MapFrom(g => g.TournamentFormats.Sum(u=>u.Teams.Count)));
+                .ForMember(gdlm => gdlm.RegisteredTeams, o => o.MapFrom(g => g.TournamentFormats.Sum(u => u.Teams.Count)));
         }
     }
 }

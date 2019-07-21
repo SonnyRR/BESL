@@ -1,13 +1,12 @@
 ﻿namespace BESL.Application.Games.Queries.ModifyGame
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using System;
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
 

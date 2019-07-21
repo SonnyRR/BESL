@@ -8,8 +8,8 @@
 
     using BESL.Application.Interfaces;
     using BESL.Application.Exceptions;
-    using static BESL.Common.GlobalConstants;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand>
     {

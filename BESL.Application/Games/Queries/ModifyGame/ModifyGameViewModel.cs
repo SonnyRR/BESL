@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace BESL.Application.Games.Queries.ModifyGame
+﻿namespace BESL.Application.Games.Queries.ModifyGame
 {
+    using Microsoft.AspNetCore.Http;
+
     public class ModifyGameViewModel
     {
         public int Id { get; set; }
@@ -13,6 +13,5 @@ namespace BESL.Application.Games.Queries.ModifyGame
         public string GameImageUrl { get; set; }
 
         public IFormFile GameImage { get; set; }
-
     }
 }

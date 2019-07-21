@@ -31,7 +31,7 @@
             {
                 var model = await this.repository
                     .AllAsNoTracking()
-                        .Include(tf=>tf.Game)
+                        .Include(tf => tf.Game)
                     .ProjectTo<TournamentFormatSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 

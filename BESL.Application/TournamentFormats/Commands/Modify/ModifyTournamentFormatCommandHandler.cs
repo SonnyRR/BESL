@@ -11,7 +11,7 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
 
-    public class ModifyTournamentFormatCommandHandler : IRequestHandler<ModifyTournamentFormatCommand,int>
+    public class ModifyTournamentFormatCommandHandler : IRequestHandler<ModifyTournamentFormatCommand, int>
     {
         private readonly IDeletableEntityRepository<TournamentFormat> repository;
 

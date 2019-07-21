@@ -1,14 +1,15 @@
 ﻿namespace BESL.Application.Teams.Queries.GetTeamsForPlayer
 {
-    using AutoMapper;
-    using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
-    using MediatR;
-    using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using AutoMapper;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+
+    using BESL.Application.Interfaces;
+    using BESL.Domain.Entities;
 
     public class GetTeamsForPlayerQueryHandler : IRequestHandler<GetTeamsForPlayerQuery, TeamsForPlayerViewModel>
     {
