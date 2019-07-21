@@ -7,10 +7,12 @@
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.DependencyInjection;
     using System.Linq;
+    using BESL.Application.Interfaces;
+    using System.Threading;
 
-    public class ApplicationDbContextSeeder : ISeeder
+    public class ApplicationDbContextSeeder : IDbSeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(IApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (dbContext == null)
             {
@@ -22,7 +24,7 @@
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
-            if (dbContext.Users.Any() || dbContext.Games.Any())
+            if (dbContext.Players.Any() || dbContext.Games.Any())
             {
                 // DB is seeded.
                 return;
@@ -32,7 +34,7 @@
                 .GetService<ILoggerFactory>()
                 .CreateLogger(typeof(ApplicationDbContextSeeder));
 
-            var seeders = new List<ISeeder>
+            var seeders = new List<IDbSeeder>
                           {
                               new RoleSeeder(),
                               new RootAdminSeeder(),
@@ -42,7 +44,7 @@
             foreach (var seeder in seeders)
             {
                 await seeder.SeedAsync(dbContext, serviceProvider);
-                await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync(CancellationToken.None);
                 logger.LogInformation($"Seeder {seeder.GetType().Name} - COMPLETED.");
             }
         }

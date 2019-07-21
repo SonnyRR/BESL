@@ -10,10 +10,11 @@
     using static BESL.Common.GlobalConstants;
     using BESL.Domain.Entities;
     using BESL.Domain.Entities.Enums;
+    using BESL.Application.Interfaces;
 
-    public class RootAdminSeeder : ISeeder
+    public class RootAdminSeeder : IDbSeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(IApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider
               .GetRequiredService<RoleManager<PlayerRole>>();
@@ -41,6 +42,8 @@
             {
                 throw new InvalidOperationException(string.Join(Environment.NewLine, addToRoleResult.Errors.Select(e => e.Description)));
             }
+
+            rootAdminUser.Claims.Add(new IdentityUserClaim<string>() { ClaimType = PROFILE_AVATAR_CLAIM_TYPE, ClaimValue = DEFAULT_AVATAR, UserId = rootAdminUser.Id });
         }
     }
 }

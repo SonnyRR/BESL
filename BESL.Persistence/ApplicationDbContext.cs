@@ -11,6 +11,7 @@
     using BESL.Domain.Entities;
     using BESL.Application.Interfaces;
     using BESL.Domain.Infrastructure;
+    using System.Collections.Generic;
 
     public class ApplicationDbContext : IdentityDbContext<Player, PlayerRole, string>, IApplicationDbContext
     {       

@@ -2,13 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
 
+    using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
 
-    public class MainSeeder : ISeeder
+    public class MainSeeder : IDbSeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(IApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var games = new Game[]
             {
@@ -22,7 +24,7 @@
             };
 
             await dbContext.AddRangeAsync(games);
-            await dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync(CancellationToken.None);
 
             var formats = new TournamentFormat[]
             {
@@ -31,7 +33,7 @@
             };
 
             await dbContext.AddRangeAsync(formats);
-            await dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync(CancellationToken.None);
 
 
             var tournaments = new Tournament[]
@@ -68,7 +70,7 @@
             };
 
             await dbContext.AddRangeAsync(tournaments);
-            await dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync(CancellationToken.None);
         }
     }
 }

@@ -9,10 +9,11 @@
 
     using BESL.Domain.Entities;
     using BESL.Domain.Entities.Enums;
+    using BESL.Application.Interfaces;
 
-    public class RoleSeeder : ISeeder
+    public class RoleSeeder : IDbSeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(IApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider
                 .GetRequiredService<RoleManager<PlayerRole>>();
