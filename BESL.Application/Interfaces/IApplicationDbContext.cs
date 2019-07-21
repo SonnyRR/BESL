@@ -6,7 +6,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Domain.Entities;
-    using Microsoft.EntityFrameworkCore.ChangeTracking;
+    using System.Collections.Generic;
 
     public interface IApplicationDbContext
     {
@@ -34,7 +34,11 @@
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
-        Task<int> SaveChangesAsync( bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+
+        Task AddRangeAsync(params object[] entities);
+
+        Task AddRangeAsync(IEnumerable<object> entities, CancellationToken cancellationToken = default);
 
         int SaveChanges();
 
