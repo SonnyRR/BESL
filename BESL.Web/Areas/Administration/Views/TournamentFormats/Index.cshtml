@@ -24,11 +24,11 @@
                     @foreach (var tournamentFormat in Model.TournamentFormats)
                     {
                         <tr>
-                            <th scope="row">@tournamentFormat.Id</th>
-                            <td>@tournamentFormat.Name</td>
-                            <td>@tournamentFormat.Game</td>
-                            <td>@tournamentFormat.TeamPlayersCount</td>
-                            <td>@tournamentFormat.TotalPlayersCount</td>
+                            <th scope="row" class="align-middle">@tournamentFormat.Id</th>
+                            <td class="align-middle">@tournamentFormat.Name</td>
+                            <td class="align-middle">@tournamentFormat.Game</td>
+                            <td class="align-middle">@tournamentFormat.TeamPlayersCount</td>
+                            <td class="align-middle">@tournamentFormat.TotalPlayersCount</td>
                             <td class="text-center">
                                 <a asp-area="Administration" asp-controller="TournamentFormats" asp-action="Modify" asp-route-id="@tournamentFormat.Id" class="btn btn-info align-center"><i class="fas fa-wrench"></i>&nbsp;Modify</a>
                             </td>

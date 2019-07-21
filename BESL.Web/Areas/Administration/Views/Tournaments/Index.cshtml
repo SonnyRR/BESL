@@ -24,10 +24,10 @@
                     @foreach (var tournament in Model.Tournaments)
                     {
                         <tr>
-                            <th scope="row">@tournament.Id</th>
-                            <td>@tournament.Name</td>
-                            <td>@tournament.Game</td>
-                            <td>@tournament.Format</td>
+                            <th scope="row" class="align-middle">@tournament.Id</th>
+                            <td class="align-middle">@tournament.Name</td>
+                            <td class="align-middle">@tournament.Game</td>
+                            <td class="align-middle">@tournament.Format</td>
                             <td class="text-center">
                                 <a class="btn btn-primary" asp-area="Administration" asp-controller="Tournaments" asp-action="Tables" asp-route-id="@tournament.Id" align-center"><i class="fas fa-list"></i>&nbsp;Table list</a>
                             </td>
