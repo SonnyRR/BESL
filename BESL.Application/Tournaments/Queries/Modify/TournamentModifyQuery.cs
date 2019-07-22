@@ -47,7 +47,6 @@
                 }
 
                 var modifyCommand = this.mapper.Map<ModifyTournamentCommand>(desiredTournament);
-
                 return modifyCommand;
             }
         }

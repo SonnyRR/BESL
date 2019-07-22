@@ -1,18 +1,18 @@
 ﻿namespace BESL.Application.Tournaments.Commands.Modify
 {
     using System;
-    using System.Collections.Generic;
 
     using MediatR;
     using Microsoft.AspNetCore.Http;
 
-    using BESL.Application.Tournaments.Models;
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
     using AutoMapper;
 
     public class ModifyTournamentCommand : IRequest<Unit>, IHaveCustomMapping
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }

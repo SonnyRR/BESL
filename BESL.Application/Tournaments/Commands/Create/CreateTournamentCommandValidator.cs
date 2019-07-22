@@ -24,16 +24,17 @@
                 .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MIN_LENGTH, DESC_MAX_LENGTH));
 
             RuleFor(t => t.StartDate)
+                .NotEmpty()
                 .GreaterThanOrEqualTo(t => DateTime.UtcNow.Date)
                 .WithMessage(START_DATE_MSG);
 
             RuleFor(t => t.EndDate)
+                .NotEmpty()
                 .GreaterThanOrEqualTo(t => DateTime.UtcNow.Date.AddMonths(END_DATE_MIN_MONTH_LENGTH))
                 .WithMessage(string.Format(END_DATE_MSG, END_DATE_MIN_MONTH_LENGTH));
 
             RuleFor(t => t.TournamentImage)
                 .NotEmpty()
-                .NotNull()
                 .SetValidator(new CustomGameImageFileValidator(fileValidate));
         }
     }
