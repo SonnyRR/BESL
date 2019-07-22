@@ -2,7 +2,7 @@
 {
     using AutoMapper;
     using BESL.Application.Exceptions;
-    using BESL.Application.Games.Queries.Modifyy;;;
+    using BESL.Application.Games.Queries.Modify;
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
