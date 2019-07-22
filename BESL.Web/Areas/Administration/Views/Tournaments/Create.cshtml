@@ -22,12 +22,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDate">Start date</label>
-                <input type="date" class="form-control" asp-for="StartDate" min="2019-01-01" value="@DateTime.UtcNow.ToString("yyyy-MM-dd")">
+                <input type="date" class="form-control" asp-for="StartDate" min="2019-01-01" value="@DateTime.UtcNow.Date.ToString("yyyy-MM-dd")">
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate">End date</label>
-                <input type="date" class="form-control" asp-for="EndDate" min="2019-01-01" value="@DateTime.UtcNow.AddDays(30).ToString("yyyy-MM-dd")">
+                <input type="date" class="form-control" asp-for="EndDate" min="2019-01-01" value="@DateTime.UtcNow.Date.AddMonths(1).ToString("yyyy-MM-dd")">
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
