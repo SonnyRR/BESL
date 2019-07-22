@@ -53,6 +53,7 @@
             desiredTournament.Description = request.Description;
             desiredTournament.StartDate = request.StartDate;
             desiredTournament.EndDate = request.EndDate;
+            desiredTournament.IsActive = request.IsActive;
 
             this.repository.Update(desiredTournament);
             await this.repository.SaveChangesAsync(cancellationToken);

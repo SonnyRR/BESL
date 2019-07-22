@@ -1,0 +1,69 @@
+﻿@model BESL.Application.Tournaments.Commands.Modify.ModifyTournamentCommand
+@{
+    ViewData["Title"] = "Modify tournament";
+}
+
+<div class="border rounded container-fluid float-left col-lg-6">
+    <div class="container-fluid mt-2 mb-3">
+        <h2>Create a tournament</h2>
+        <form id="tournamentCreateForm" class="mb-3" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input type="text" class="form-control" asp-for="Name" placeholder="Enter name...">
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <small id="gameNameHelp" class="form-text text-muted">Tournament name.</small>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+                <textarea class="form-control" maxlength="1000" asp-for="Description" rows="5" placeholder="Enter description..."></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+                <small id="gameDescHelp" class="form-text text-muted">Description of the tournament.</small>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate">Start date</label>
+                <input type="date" class="form-control" asp-for="StartDate" min="2019-01-01" value="@DateTime.UtcNow.Date.ToString("yyyy-MM-dd")">
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate">End date</label>
+                <input type="date" class="form-control" asp-for="EndDate" min="2019-01-01" value="@DateTime.UtcNow.Date.AddMonths(1).ToString("yyyy-MM-dd")">
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="@Model.IsActive">
+                        <input asp-for="@Model.IsActive"/>
+                        @Html.DisplayNameFor(m => m.IsActive)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Format</label>
+                <select disabled class="form-control">
+                    <option>@Model.FormatName</option>
+                </select>
+            </div>
+            <label asp-for="TournamentImage">Image (< 4MB)</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="tournamentImageHelp">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" asp-for="TournamentImage" name="tournamentImage" id="tournamentImage" aria-describedby="tournamentImageHelp">
+                    <label class="custom-file-label" for="tournamentImage">Choose file</label>
+                </div>
+            </div>
+            <span asp-validation-for="TournamentImage" class="text-danger"></span>
+            <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="application/javascript" async defer>
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('.custom-file-label').html(fileName);
+        });
+    </script>
+}

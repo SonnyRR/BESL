@@ -9,6 +9,7 @@
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
     using BESL.Application.TournamentTables.Queries.GetTournamentTables;
     using BESL.Application.Tournaments.Queries.Modify;
+    using BESL.Application.Tournaments.Commands.Modify;
 
     public class TournamentsController : AdminController
     {
@@ -46,7 +47,14 @@
         public async Task<IActionResult> Modify(TournamentModifyQuery query)
         {
             var model = await this.Mediator.Send(query);
-            return this.NoContent();
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Modify(ModifyTournamentCommand command)
+        {
+            var model = await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Index));
         }
     }
 }

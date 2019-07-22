@@ -66,7 +66,8 @@
                 FormatId = request.FormatId,
                 GameId = (int)gameId,
                 StartDate = request.StartDate,
-                EndDate = request.EndDate
+                EndDate = request.EndDate,
+                IsActive = true
             };
 
             tournament.Tables.Add(new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 });
