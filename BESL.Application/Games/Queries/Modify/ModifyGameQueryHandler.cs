@@ -1,4 +1,5 @@
-﻿namespace BESL.Application.Games.Queries.ModifyGame
+﻿namespace BESL.Application.Games.Queries.Modify
+
 {
     using System;
     using System.Threading;

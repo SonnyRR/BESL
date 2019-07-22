@@ -3,6 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
     using MediatR;
     using Microsoft.Extensions.Configuration;
 
@@ -10,7 +11,6 @@
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Cloudinary;
-    using CloudinaryDotNet;
 
     public class ModifyGameCommandHandler : IRequestHandler<ModifyGameCommand, Unit>
     {

@@ -4,6 +4,6 @@
 
     public class GetTournamentTablesQuery : IRequest<TournamentTablesViewModel>
     {
-        public int TournamentId { get; set; }
+        public int Id { get; set; }
     }
 }

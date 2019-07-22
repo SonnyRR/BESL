@@ -1,4 +1,6 @@
-﻿namespace BESL.Application.Games.Queries.ModifyGame
+﻿namespace BESL.Application.Games.Queries.Modify
+
+
 {
     using BESL.Application.Infrastructure.Validators;
     using BESL.Application.Interfaces;

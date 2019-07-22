@@ -36,7 +36,7 @@
                     .Include(tt => tt.SignedUpTeams)
                     .Include(tt => tt.TeamTableResults)
                         .ThenInclude(ttr => ttr.Team)
-                .Where(tt => tt.TournamentId == request.TournamentId)
+                .Where(tt => tt.TournamentId == request.Id)
                 .ProjectTo<TournamentTableLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 

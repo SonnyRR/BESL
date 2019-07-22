@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Tournaments.Commands.Create
+﻿namespace BESL.Application.Tournaments.Commands.Modify
 {
     using System;
 
@@ -8,10 +8,10 @@
     using BESL.Application.Interfaces;
     using static BESL.Application.Tournaments.Validation.Constants;
 
-    public class CreateTournamentCommandValidator : AbstractValidator<CreateTournamentCommand>
-    {
 
-        public CreateTournamentCommandValidator(IFileValidate fileValidate)
+    public class ModifyTournamentCommandValidator : AbstractValidator<ModifyTournamentCommand>
+    {
+        public ModifyTournamentCommandValidator(IFileValidate fileValidate)
         {
             RuleFor(t => t.Name)
                 .NotEmpty()
@@ -24,16 +24,16 @@
                 .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MIN_LENGTH, DESC_MAX_LENGTH));
 
             RuleFor(t => t.StartDate)
+                .NotEmpty()
                 .GreaterThanOrEqualTo(t => DateTime.UtcNow.Date)
                 .WithMessage(START_DATE_MSG);
 
             RuleFor(t => t.EndDate)
+                .NotEmpty()
                 .GreaterThanOrEqualTo(t => DateTime.UtcNow.Date.AddMonths(END_DATE_MIN_MONTH_LENGTH))
                 .WithMessage(string.Format(END_DATE_MSG, END_DATE_MIN_MONTH_LENGTH));
 
             RuleFor(t => t.TournamentImage)
-                .NotEmpty()
-                .NotNull()
                 .SetValidator(new CustomGameImageFileValidator(fileValidate));
         }
     }

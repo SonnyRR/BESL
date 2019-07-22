@@ -7,8 +7,8 @@
     using BESL.Application.Tournaments.Commands.Create;
     using BESL.Application.Tournaments.Queries.Create;
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
-    using static BESL.Common.GlobalConstants;
     using BESL.Application.TournamentTables.Queries.GetTournamentTables;
+    using BESL.Application.Tournaments.Queries.Modify;
 
     public class TournamentsController : AdminController
     {
@@ -28,8 +28,6 @@
             }
 
             await this.Mediator.Send(command);
-
-            _ = this.UserNotificationHub.SendUserSuccessNotificationAsync(command.Name, CREATED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction(nameof(Index));
         }
 
@@ -39,10 +37,16 @@
             return this.View(model);
         }
 
-        public async Task<IActionResult> Tables(int id)
+        public async Task<IActionResult> Tables(GetTournamentTablesQuery query)
         {
-            var viewModel = await this.Mediator.Send(new GetTournamentTablesQuery() { TournamentId = id });
+            var viewModel = await this.Mediator.Send(query);
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Modify(TournamentModifyQuery query)
+        {
+            var model = await this.Mediator.Send(query);
+            return this.NoContent();
         }
     }
 }

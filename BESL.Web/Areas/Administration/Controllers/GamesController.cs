@@ -8,7 +8,7 @@
     using BESL.Application.Games.Commands.Delete;
     using BESL.Application.Games.Commands.Modify;
     using BESL.Application.Games.Queries.GetAllGames;
-    using BESL.Application.Games.Queries.ModifyGame;
+    using BESL.Application.Games.Queries.Modify;
     using static BESL.Common.GlobalConstants;
 
     public class GamesController : AdminController
