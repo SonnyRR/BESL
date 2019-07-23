@@ -1,17 +1,13 @@
 ﻿namespace BESL.Application.Games.Commands.Modify
 {
+    using FluentValidation;
+
     using BESL.Application.Infrastructure.Validators;
     using BESL.Application.Interfaces;
-    using FluentValidation;
+    using static Validation.Constants;
 
     public class ModifyGameCommandValidator : AbstractValidator<ModifyGameCommand>
     {
-        private const int NAME_MIN_LENGTH = 3, NAME_MAX_LENGTH = 40;
-        private const int DESC_MIN_LENGTH = 160, DESC_MAX_LENGTH = 1000;
-
-        private const string NAME_LENGTH_MSG = "Game name length must be between {0} and {1} characters long!";
-        private const string DESC_LENGTH_MSG = "Game description length must be between {0} and {1} characters long!";
-
         public ModifyGameCommandValidator(IFileValidate fileValidate)
         {
             RuleFor(x => x.Name)

@@ -10,8 +10,9 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
+    using BESL.Application.Games.Commands.Modify;
 
-    public class ModifyGameQueryHandler : IRequestHandler<ModifyGameQuery, ModifyGameViewModel>
+    public class ModifyGameQueryHandler : IRequestHandler<ModifyGameQuery, ModifyGameCommand>
     {
         private readonly IDeletableEntityRepository<Game> repository;
 
@@ -20,7 +21,7 @@
             this.repository = repository;
         }
 
-        public async Task<ModifyGameViewModel> Handle(ModifyGameQuery request, CancellationToken cancellationToken)
+        public async Task<ModifyGameCommand> Handle(ModifyGameQuery request, CancellationToken cancellationToken)
         {
             if (request == null)
             {
@@ -35,7 +36,7 @@
                 throw new NotFoundException(nameof(Game), request.Id);
             }
 
-            var viewModel = new ModifyGameViewModel()
+            var viewModel = new ModifyGameCommand()
             {
                 Id = desiredGame.Id,
                 Name = desiredGame.Name,

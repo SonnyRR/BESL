@@ -6,8 +6,8 @@
 
     using BESL.Application.Infrastructure.Validators;
     using BESL.Application.Interfaces;
-    using static BESL.Application.Tournaments.Validation.Constants;
-
+    using static Validation.Constants;
+   
 
     public class ModifyTournamentCommandValidator : AbstractValidator<ModifyTournamentCommand>
     {

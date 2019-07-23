@@ -1,19 +1,10 @@
 ﻿namespace BESL.Application.TournamentFormats.Commands.Create
 {
     using FluentValidation;
+    using static Validation.Constants;
 
     public class CreateTournamentFormatValidator : AbstractValidator<CreateTournamentFormatCommand>
-    {
-        private const int NAME_MIN_LENGTH = 3, NAME_MAX_LENGTH = 25;
-        private const int DESC_MIN_LENGTH = 25, DESC_MAX_LENGTH = 500;
-
-        private const int TEAM_PLAYERS_MIN_COUNT = 1, TEAM_PLAYERS_MAX_COUNT = 12;
-
-        private const string NAME_LENGTH_MSG = "Format name length must be between {0} and {1} characters long!";
-        private const string DESC_LENGTH_MSG = "Format description length must be between {0} and {1} characters long!";
-
-        private const string TEAM_PLAYERS_COUNT_MSG = "Team players count must be between {0} and {1}!";
-
+    {        
         public CreateTournamentFormatValidator()
         {
             RuleFor(f => f.Name)

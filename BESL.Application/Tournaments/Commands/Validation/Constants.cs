@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Tournaments.Validation
+﻿namespace BESL.Application.Tournaments.Commands.Validation
 {
     public static class Constants
     {

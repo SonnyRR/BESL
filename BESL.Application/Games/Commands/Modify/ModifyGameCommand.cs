@@ -11,6 +11,8 @@
 
         public string Description { get; set; }
 
+        public string GameImageUrl { get; set; }
+
         public IFormFile GameImage { get; set; }
     }
 }

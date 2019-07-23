@@ -1,8 +1,8 @@
 ﻿namespace BESL.Application.TournamentFormats.Commands.Modify
 {
+    using MediatR;
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
-    using MediatR;
 
     public class ModifyTournamentFormatCommand : IRequest<int>, IMapFrom<TournamentFormat>
     {
@@ -15,6 +15,8 @@
         public int TeamPlayersCount { get; set; }
 
         public string GameName { get; set; }
+
+        public int GameId { get; set; }
 
     }
 }

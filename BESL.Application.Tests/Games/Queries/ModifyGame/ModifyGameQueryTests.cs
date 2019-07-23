@@ -1,18 +1,18 @@
 ﻿namespace BESL.Application.Tests.Games.Queries.ModifyGame
 {
-    using AutoMapper;
-    using BESL.Application.Exceptions;
-    using BESL.Application.Games.Queries.Modify;
-    using BESL.Application.Interfaces;
-    using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
-    using BESL.Persistence;
-    using Moq;
-    using Shouldly;
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using Moq;
+    using Shouldly;
     using Xunit;
+
+    using BESL.Application.Exceptions;
+    using BESL.Application.Games.Queries.Modify;
+    using BESL.Application.Interfaces;
+    using BESL.Application.Tournaments.Commands.Modify;
+    using BESL.Domain.Entities;
    
     public class ModifyGameQueryTests
     {
@@ -40,7 +40,7 @@
 
             // Assert
             result.ShouldNotBeNull();
-            result.ShouldBeOfType<ModifyGameViewModel>();
+            result.ShouldBeOfType<ModifyTournamentCommand>();
             result.GameImageUrl.ShouldBe("http://vidindrinkingteam.bg/gomotarzi_everything_alcoholic.jpg");
         }
 
