@@ -1,8 +1,8 @@
-﻿namespace BESL.Application.TournamentFormats.Queries.Modify
+﻿namespace BESL.Application.TournamentFormats.Commands.Modify
 {
     using FluentValidation;
 
-    public class ModifyTournamentFormatQueryValidator : AbstractValidator<ModifyTournamentFormatViewModel>
+    public class ModifyTournamentFormatCommandValidator : AbstractValidator<ModifyTournamentFormatCommand>
     {
         private const int NAME_MIN_LENGTH = 3, NAME_MAX_LENGTH = 25;
         private const int DESC_MIN_LENGTH = 25, DESC_MAX_LENGTH = 500;
@@ -14,7 +14,7 @@
 
         private const string TEAM_PLAYERS_COUNT_MSG = "Team players count must be between {0} and {1}!";
 
-        public ModifyTournamentFormatQueryValidator()
+        public ModifyTournamentFormatCommandValidator()
         {
             RuleFor(f => f.Name)
                 .MinimumLength(NAME_MIN_LENGTH)
@@ -32,9 +32,6 @@
                 .NotEmpty()
                 .InclusiveBetween(TEAM_PLAYERS_MIN_COUNT, TEAM_PLAYERS_MAX_COUNT)
                 .WithMessage(string.Format(TEAM_PLAYERS_COUNT_MSG, TEAM_PLAYERS_MIN_COUNT, TEAM_PLAYERS_MAX_COUNT));
-
-            RuleFor(f => f.GameId)
-                .NotEmpty();
         }
     }
 }

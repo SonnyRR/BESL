@@ -6,16 +6,14 @@
 
     using AutoMapper;
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using Microsoft.EntityFrameworkCore;
+    using BESL.Application.TournamentFormats.Commands.Modify;
     using BESL.Application.Exceptions;
-    using BESL.Domain.Entities;
-    using BESL.Application.Common.Models;
-    using AutoMapper.QueryableExtensions;
-    using BESL.Application.Games.Queries.GetAllGamesSelectList;
+    using BESL.Domain.Entities;   
 
-    public class ModifyTournamentFormatQueryHandler : IRequestHandler<ModifyTournamentFormatQuery, ModifyTournamentFormatViewModel>
+    public class ModifyTournamentFormatQueryHandler : IRequestHandler<ModifyTournamentFormatQuery, ModifyTournamentFormatCommand>
     {
         private readonly IDeletableEntityRepository<TournamentFormat> repository;
         private readonly IMapper mapper;
@@ -28,7 +26,7 @@
             this.mediator = mediator;
         }
 
-        public async Task<ModifyTournamentFormatViewModel> Handle(ModifyTournamentFormatQuery request, CancellationToken cancellationToken)
+        public async Task<ModifyTournamentFormatCommand> Handle(ModifyTournamentFormatQuery request, CancellationToken cancellationToken)
         {
             if (request == null)
             {
@@ -45,16 +43,7 @@
                 throw new NotFoundException(nameof(TournamentFormat), request.Id);
             }
 
-            // TODO .To<T>()
-            var viewModel = new ModifyTournamentFormatViewModel()
-            {
-                Id = desiredFormat.Id,
-                Name = desiredFormat.Name,
-                Description = desiredFormat.Description,
-                TeamPlayersCount = desiredFormat.TeamPlayersCount,
-                GameName = desiredFormat.Game.Name,
-                GameId = desiredFormat.Game.Id
-            };
+            var viewModel = this.mapper.Map<ModifyTournamentFormatCommand>(desiredFormat);
 
             return viewModel;
         }

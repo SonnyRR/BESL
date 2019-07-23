@@ -53,6 +53,11 @@
         [HttpPost]
         public async Task<IActionResult> Modify(ModifyTournamentCommand command)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(command);
+            }
+
             var model = await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Index));
         }

@@ -1,6 +1,7 @@
 ﻿@model BESL.Application.Tournaments.Commands.Modify.ModifyTournamentCommand
 @{
     ViewData["Title"] = "Modify tournament";
+    ViewData["ActivePage"] = ManageAdminNavPages.Tournaments;
 }
 
 <div class="border rounded container-fluid float-left col-lg-6">
@@ -32,7 +33,7 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label asp-for="@Model.IsActive">
-                        <input asp-for="@Model.IsActive"/>
+                        <input asp-for="@Model.IsActive" />
                         @Html.DisplayNameFor(m => m.IsActive)
                     </label>
                 </div>
@@ -40,7 +41,10 @@
             <div class="form-group">
                 <label>Format</label>
                 <select disabled class="form-control">
-                    <option>@Model.FormatName</option>
+                    <option value="@Model.FormatName">@Model.FormatName</option>
+                </select>
+                <select hidden asp-for="FormatName">
+                    <option value="@Model.FormatName">@Model.FormatName</option>
                 </select>
             </div>
             <label asp-for="TournamentImage">Image (< 4MB)</label>
