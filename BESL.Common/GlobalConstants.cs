@@ -2,6 +2,10 @@
 {
     public class GlobalConstants
     {
+        #region Culture
+        public const string DATE_FORMAT = "dd//MM//yyyy";
+        #endregion
+
         #region Root admin credentials
         public const string ADMIN_USERNAME = "LeagueAdministrator";
         public const string ADMIN_PASSWORD = "BanHammer1000%";
