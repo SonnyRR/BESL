@@ -17,7 +17,7 @@
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<Tournament, TournamentLookupModel>()
-                .ForMember(tlm => tlm.Game, o => o.MapFrom(t => t.Game.Name))
+                .ForMember(tlm => tlm.Game, o => o.MapFrom(t => t.Format.Game.Name))
                 .ForMember(tlm => tlm.Format, o => o.MapFrom(t => t.Format.Name));
         }
     }

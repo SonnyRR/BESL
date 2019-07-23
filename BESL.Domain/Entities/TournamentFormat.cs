@@ -17,5 +17,6 @@
         public Game Game { get; set; }
 
         public ICollection<Team> Teams { get; set; } = new HashSet<Team>();
+        public ICollection<Tournament> Tournaments { get; set; } = new HashSet<Tournament>();
     }
 }

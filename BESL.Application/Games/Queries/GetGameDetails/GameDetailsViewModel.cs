@@ -12,8 +12,8 @@
 
         public string GameImageUrl { get; set; }
 
-        public ICollection<CompetitionLookupModel> Tournaments { get; set; }
-
         public int RegisteredTeams { get; set; }
+
+        public ICollection<CompetitionLookupModel> Tournaments { get; set; }
     }
 }

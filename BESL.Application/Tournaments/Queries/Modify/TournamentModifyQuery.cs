@@ -38,7 +38,7 @@
                 var desiredTournament = await this.repository
                     .AllAsNoTrackingWithDeleted()
                         .Include(x => x.Format)
-                        .Include(x => x.Game)
+                            .ThenInclude(x => x.Game)
                     .FirstOrDefaultAsync(t => t.Id == request.Id);
 
                 if (desiredTournament == null)

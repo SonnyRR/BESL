@@ -49,7 +49,6 @@
                 Name = dto.Name,
                 Description = dto.Description,
                 Tournaments = dto.Tournaments,
-                RegisteredTeams = dto.RegisteredTeams,
                 GameImageUrl = dto.GameImageUrl
             };
 

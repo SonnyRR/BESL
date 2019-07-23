@@ -44,10 +44,19 @@
                 throw new ArgumentNullException(nameof(request));
             }
 
+            var doesTeamAlreadyExist = this.teamRepository
+                .AllAsNoTrackingWithDeleted()
+                .Any(t => t.Name == request.Name);
+
+            if (doesTeamAlreadyExist)
+            {
+                throw new EntityAlreadyExists(nameof(Team), request.Name);
+            }
+
             var doesTournamentFormatExist = this.formatRepository
                 .AllAsNoTrackingWithDeleted()
                 .Any(f => f.Id == request.TournamentFormatId);
-
+            
             if (!doesTournamentFormatExist)
             {
                 throw new NotFoundException(nameof(TournamentFormat), request.TournamentFormatId);

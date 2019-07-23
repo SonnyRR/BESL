@@ -23,7 +23,7 @@
                 .IsRequired()
                 .HasMaxLength(1000);                
 
-            builder.HasMany(g => g.Tournaments)
+            builder.HasMany(g => g.TournamentFormats)
                 .WithOne(c => c.Game)
                 .HasForeignKey(c => c.GameId);
         }

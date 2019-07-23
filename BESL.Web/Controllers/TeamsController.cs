@@ -32,7 +32,7 @@
             command.OwnerId = this.userManager.GetUserId(this.User);
             await this.Mediator.Send(command);
 
-            return this.NoContent();
+            return this.RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Index(string id)

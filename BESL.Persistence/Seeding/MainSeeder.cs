@@ -42,7 +42,6 @@
                 {
                     Name = "ThermalTake eSports 2019 6v6",
                     Description = "Play to win prizes by our sponsor Thermaltake including: keyboards, mices, gaming gear and PC components",
-                    GameId =1,
                     CreatedOn = DateTime.UtcNow,
                     FormatId = 1,
                     Tables = new List<TournamentTable>()
@@ -57,7 +56,6 @@
                 {
                     Name = "Corsair 9v9 Summer Highlander",
                     Description = "Corsair sponsors this round of summer 9v9 madness!. Prize pool includes a one-off custom gaming PC and many peripherals!",
-                    GameId = 1,
                     CreatedOn = DateTime.UtcNow,
                     FormatId = 2,
                     Tables = new List<TournamentTable>()

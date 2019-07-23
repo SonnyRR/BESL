@@ -33,7 +33,8 @@
             {
                 var lookupModels = await this.repository
                     .AllAsNoTracking()
-                    .Where(t => t.GameId == request.GameId)
+                        .Include(t => t.Format)
+                    .Where(t => t.Format.GameId == request.GameId)
                     .ProjectTo<TournamentLookupModel>(this.mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 

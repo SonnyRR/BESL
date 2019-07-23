@@ -32,7 +32,7 @@
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<Tournament, ModifyTournamentCommand>()
-                .ForMember(x => x.FormatName, o => o.MapFrom(src => $"{src.Format.Name} - {src.Game.Name}"));
+                .ForMember(x => x.FormatName, o => o.MapFrom(src => $"{src.Format.Name} - {src.Format.Game.Name}"));
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿namespace BESL.Application.Games.Queries.GetAllGames
-{    
+{
     using System.Threading;
     using System.Threading.Tasks;
     using System.Linq;
@@ -29,6 +29,8 @@
 
             viewModel.Games = await this.repository
                 .AllAsNoTracking()
+                    .Include(g => g.TournamentFormats)
+                    .ThenInclude(tf => tf.Tournaments)
                 .ProjectTo<GameLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

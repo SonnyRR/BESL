@@ -27,9 +27,6 @@
         public int FormatId { get; set; }
         public TournamentFormat Format { get; set; }
 
-        public int GameId { get; set; }
-        public Game Game { get; set; }
-
         public virtual ICollection<TournamentTable> Tables { get; set; } = new HashSet<TournamentTable>();
     }
 }

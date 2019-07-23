@@ -9,9 +9,9 @@
     {
         public void Configure(EntityTypeBuilder<Tournament> builder)
         {
-            builder.HasOne(c => c.Game)
+            builder.HasOne(c => c.Format)
                 .WithMany(g => g.Tournaments)
-                .HasForeignKey(c => c.GameId);
+                .HasForeignKey(c => c.FormatId);
 
             builder.HasMany(c => c.Tables)
                 .WithOne(ct => ct.Tournament)

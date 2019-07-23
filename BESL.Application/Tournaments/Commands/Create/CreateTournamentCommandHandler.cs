@@ -64,7 +64,6 @@
                 TournamentImageUrl = url,
                 CreatedOn = DateTime.UtcNow,
                 FormatId = request.FormatId,
-                GameId = (int)gameId,
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,
                 IsActive = true
