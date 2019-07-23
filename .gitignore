@@ -6,6 +6,7 @@
 # Custom
 .DS_Store
 .zip
+StyleCop.Cache
 
 # User-specific files
 *.suo
