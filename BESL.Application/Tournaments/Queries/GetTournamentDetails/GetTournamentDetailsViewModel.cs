@@ -1,9 +1,11 @@
-﻿using AutoMapper;
-using BESL.Application.Interfaces.Mapping;
-using BESL.Domain.Entities;
-using static BESL.Common.GlobalConstants;
-namespace BESL.Application.Tournaments.Queries.GetTournamentDetails
+﻿namespace BESL.Application.Tournaments.Queries.GetTournamentDetails
 {
+    using AutoMapper;
+
+    using BESL.Application.Interfaces.Mapping;
+    using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
+
     public class GetTournamentDetailsViewModel : IHaveCustomMapping
     {
         public int Id { get; set; }

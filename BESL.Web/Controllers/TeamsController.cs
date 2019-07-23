@@ -1,13 +1,15 @@
 ﻿namespace BESL.Web.Controllers
 {
-    using System;
     using System.Threading.Tasks;
-    using BESL.Application.Teams.Commands.Create;
-    using BESL.Application.Teams.Queries.Create;
-    using BESL.Domain.Entities;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
+    using BESL.Application.Teams.Commands.Create;
+    using BESL.Application.Teams.Queries.Create;
+    using BESL.Domain.Entities;
+
 
     public class TeamsController : BaseController
     {

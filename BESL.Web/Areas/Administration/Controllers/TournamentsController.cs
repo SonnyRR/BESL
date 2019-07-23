@@ -5,11 +5,11 @@
     using Microsoft.AspNetCore.Mvc;
 
     using BESL.Application.Tournaments.Commands.Create;
+    using BESL.Application.Tournaments.Commands.Modify;
     using BESL.Application.Tournaments.Queries.Create;
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
-    using BESL.Application.TournamentTables.Queries.GetTournamentTables;
     using BESL.Application.Tournaments.Queries.Modify;
-    using BESL.Application.Tournaments.Commands.Modify;
+    using BESL.Application.TournamentTables.Queries.GetTournamentTables;
 
     public class TournamentsController : AdminController
     {

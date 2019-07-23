@@ -4,5 +4,6 @@
 
     public class GetTournamentDetailsQuery
     {
+        public int Id { get; set; }
     }
 }

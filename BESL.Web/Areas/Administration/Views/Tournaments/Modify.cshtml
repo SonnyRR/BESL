@@ -1,4 +1,5 @@
-﻿@model BESL.Application.Tournaments.Commands.Modify.ModifyTournamentCommand
+﻿@using static BESL.Common.GlobalConstants;
+@model BESL.Application.Tournaments.Commands.Modify.ModifyTournamentCommand
 @{
     ViewData["Title"] = "Modify tournament";
     ViewData["ActivePage"] = ManageAdminNavPages.Tournaments;
@@ -22,12 +23,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDate">Start date</label>
-                <input type="date" class="form-control" asp-for="StartDate" min="2019-01-01" value="@DateTime.UtcNow.Date.ToString("yyyy-MM-dd")">
+                <input type="date" class="form-control" asp-for="StartDate" min="2019-01-01" value="@Model.StartDate.ToString(DATEPICKER_DATE_FORMAT)">
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate">End date</label>
-                <input type="date" class="form-control" asp-for="EndDate" min="2019-01-01" value="@DateTime.UtcNow.Date.AddMonths(1).ToString("yyyy-MM-dd")">
+                <input type="date" class="form-control" asp-for="EndDate" min="2019-01-01" value="@Model.EndDate.ToString(DATEPICKER_DATE_FORMAT)">
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
