@@ -26,8 +26,8 @@
         public Task SendEmailAsync(string email, string subject, string message)
         {
             // Plug in your email service here to send an email.
-            var mailService = new SendGridEmailSender(loggerFactory, sendGridApiKey, "vk@besl.bg", "VK");
-            return mailService.SendEmailAsync(email,subject,message);
+            var mailService = new SendGridEmailSender(this.loggerFactory, this.sendGridApiKey, "vk@besl.bg", "VK");
+            return mailService.SendEmailAsync(email, subject, message);
         }
 
         public Task SendSmsAsync(string number, string message)

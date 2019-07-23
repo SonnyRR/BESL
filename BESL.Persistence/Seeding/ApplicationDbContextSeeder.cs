@@ -2,13 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.DependencyInjection;
-    using System.Linq;
+
     using BESL.Application.Interfaces;
-    using System.Threading;
 
     public class ApplicationDbContextSeeder : IDbSeeder
     {

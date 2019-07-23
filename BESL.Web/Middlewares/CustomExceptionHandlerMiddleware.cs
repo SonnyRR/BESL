@@ -7,9 +7,9 @@
     using Microsoft.AspNetCore.Http;
 
     using BESL.Application.Exceptions;
-    using static BESL.Common.GlobalConstants;
     using BESL.Domain.Entities.Enums;
     using BESL.Web.Infrastructure.Services;
+    using static BESL.Common.GlobalConstants;
 
     public class CustomExceptionHandlerMiddleware
     {
@@ -34,6 +34,7 @@
                 catch (ValidationException validationException)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
+
                     foreach (var kvp in validationException.Failures)
                     {
                         string propertyName = kvp.Key;
@@ -46,6 +47,7 @@
                             stringBuilder.AppendLine($" *{failure}");
                         }
                     }
+
                     await notifyService.SendUserFailiureNotificationAsync(validationException.Message, stringBuilder.ToString(), userNameIdentifier);
                     await this.next(context);
                 }

@@ -1,11 +1,9 @@
 ﻿namespace BESL.Application.TournamentFormats.Commands.Delete
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;

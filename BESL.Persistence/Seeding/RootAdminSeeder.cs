@@ -7,10 +7,10 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
 
-    using static BESL.Common.GlobalConstants;
     using BESL.Domain.Entities;
     using BESL.Domain.Entities.Enums;
     using BESL.Application.Interfaces;
+    using static BESL.Common.GlobalConstants;
 
     public class RootAdminSeeder : IDbSeeder
     {
@@ -34,6 +34,7 @@
             {
                 throw new InvalidOperationException(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
             }
+
             var rootAdminUser = await userManager.FindByNameAsync(ADMIN_USERNAME);
 
             var addToRoleResult = await userManager.AddToRoleAsync(rootAdminUser, Role.Administrator.ToString());

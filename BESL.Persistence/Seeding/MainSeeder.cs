@@ -28,13 +28,12 @@
 
             var formats = new TournamentFormat[]
             {
-                new TournamentFormat() { Name = "6v6", Description = "6v6 is the most common form of competitive format played in Team Fortress 2, and is often viewed as the 'default' format. It is played with 6 players per team, with class limits and weapons bans. The weapon bans and maps vary depending on the specific league.", TeamPlayersCount = 6, TotalPlayersCount=12, GameId = 1, CreatedOn = DateTime.UtcNow },
-                new TournamentFormat() { Name = "9v9", Description = "Highlander, a form of 9v9, is the largest competitive Team Fortress format. Its similarities to average public servers makes it an ideal starting point for new players, and its requirement that each team has one of every class means no matter what you like to play, there's a spot on the team for you.", TeamPlayersCount = 9, TotalPlayersCount=18, GameId = 1, CreatedOn = DateTime.UtcNow },
+                new TournamentFormat() { Name = "6v6", Description = "6v6 is the most common form of competitive format played in Team Fortress 2, and is often viewed as the 'default' format. It is played with 6 players per team, with class limits and weapons bans. The weapon bans and maps vary depending on the specific league.", TeamPlayersCount = 6, TotalPlayersCount = 12, GameId = 1, CreatedOn = DateTime.UtcNow },
+                new TournamentFormat() { Name = "9v9", Description = "Highlander, a form of 9v9, is the largest competitive Team Fortress format. Its similarities to average public servers makes it an ideal starting point for new players, and its requirement that each team has one of every class means no matter what you like to play, there's a spot on the team for you.", TeamPlayersCount = 9, TotalPlayersCount = 18, GameId = 1, CreatedOn = DateTime.UtcNow },
             };
 
             await dbContext.AddRangeAsync(formats);
             await dbContext.SaveChangesAsync(CancellationToken.None);
-
 
             var tournaments = new Tournament[]
             {

@@ -34,7 +34,7 @@
                 .AddEnvironmentVariables()
                 .Build();
 
-            var connectionString = configuration.GetConnectionString(connectionStringName);
+            var connectionString = configuration.GetConnectionString(this.connectionStringName);
 
             return this.Create(connectionString);
         }

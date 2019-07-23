@@ -9,7 +9,6 @@
 
     public class GamesController : BaseController
     {
-
         public IActionResult Index()
         {
             return this.View();

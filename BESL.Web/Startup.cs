@@ -41,7 +41,7 @@
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -104,8 +104,7 @@
             services.AddSignalR();
 
             services.AddHangfire(cfg => cfg.UseSqlServerStorage(
-                this.Configuration.GetConnectionString(DbConnectionStringHandler.GetHangfireConnectionStringNameForCurrentOS()))
-            );
+                this.Configuration.GetConnectionString(DbConnectionStringHandler.GetHangfireConnectionStringNameForCurrentOS())));
 
             services.AddTransient<CheckForVACBans>();
 

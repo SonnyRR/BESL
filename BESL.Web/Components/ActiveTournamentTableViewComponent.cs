@@ -1,9 +1,11 @@
 ﻿namespace BESL.Web.Components
 {
-    using BESL.Application.Tournaments.Queries.GetTournamentsForGame;
+    using System.Threading.Tasks;
+
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
+
+    using BESL.Application.Tournaments.Queries.GetTournamentsForGame;
 
     public class ActiveTournamentsTableViewComponent : ViewComponent
     {

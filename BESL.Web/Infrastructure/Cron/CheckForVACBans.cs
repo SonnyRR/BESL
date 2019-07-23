@@ -9,9 +9,9 @@
     using Microsoft.Extensions.Configuration;
     using SteamWebAPI2.Interfaces;
 
-    using static BESL.Common.GlobalConstants;
     using BESL.Common.SteamWebApi;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class CheckForVACBans
     {
@@ -23,7 +23,7 @@
         public CheckForVACBans(UserManager<Player> userManager, IConfiguration configuration)
         {
             this.userManager = userManager;
-            mainSteamUserInstance = SteamApiHelper.GetSteamUserInstance(configuration);
+            this.mainSteamUserInstance = SteamApiHelper.GetSteamUserInstance(configuration);
         }
 
         public async Task CheckForBans()    
@@ -38,11 +38,13 @@
                 var claim = claims.SingleOrDefault(x => x.Type == STEAM_ID_64_CLAIM_TYPE);
 
                 if (claim == null)
+                {
                     continue;
+                }
 
                 var currentPlayerId = ulong.Parse(claim.Value);
 
-                var bans = await mainSteamUserInstance.GetPlayerBansAsync(currentPlayerId);
+                var bans = await this.mainSteamUserInstance.GetPlayerBansAsync(currentPlayerId);
                 var isBanned = bans.Data.Any(b => b.VACBanned == true);
 
                 if (isBanned)
