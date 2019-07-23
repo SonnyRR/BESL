@@ -7,12 +7,12 @@
     public class CreateTeamCommandValidator : AbstractValidator<CreateTeamCommand>
     {
         private const int NAME_MIN_LENGTH = 3, NAME_MAX_LENGTH = 35;
-        private const int DESC_MAX_LENGTH = 1000;
-        private const int URL_MAX_LENGTH = 35;
+        private const int DESC_MIN_LENGTH = 20, DESC_MAX_LENGTH = 1000;
+        private const string URL_EXPRESSION = @"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
 
         private const string NAME_LENGTH_MSG = "Team name length must be between {0} and {1} characters long!";
-        private const string DESC_LENGTH_MSG = "Team description length must not be above {0} characters long!";
-        private const string URL_LENGTH_MSG = "Team homepage url length must not be above {0} characters long!";
+        private const string DESC_LENGTH_MSG = "Team description length must be between {0} and {1} characters long!";
+        private const string URL_EXPRESSION_MSG = "Homepage input value is not a valid URL!";
 
         public CreateTeamCommandValidator(IFileValidate fileValidate)
         {
@@ -23,12 +23,12 @@
 
             RuleFor(x => x.Description)
                 .NotEmpty()
-                .MaximumLength(DESC_MAX_LENGTH)
-                .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MAX_LENGTH));
+                .Length(DESC_MIN_LENGTH, DESC_MAX_LENGTH)
+                .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MIN_LENGTH, DESC_MAX_LENGTH));
 
             RuleFor(x => x.HomepageUrl)
-                .MaximumLength(35)
-                .WithMessage(string.Format(URL_LENGTH_MSG, URL_MAX_LENGTH));
+                .Matches(URL_EXPRESSION)
+                .WithMessage(URL_EXPRESSION_MSG);
 
             RuleFor(x => x.TournamentFormatId)
                 .NotEmpty();
