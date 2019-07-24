@@ -13,7 +13,6 @@
         public int TournamentId { get; set; }
         public Tournament Tournament { get; set; }
 
-        public virtual ICollection<Team> SignedUpTeams { get; set; } = new HashSet<Team>();
         public virtual ICollection<TeamTableResult> TeamTableResults { get; set; } = new HashSet<TeamTableResult>();
     }
 }

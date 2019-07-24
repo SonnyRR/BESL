@@ -13,6 +13,10 @@
         public int TournamentTableId { get; set; }
         public TournamentTable TournamentTable { get; set; }
 
+        public bool IsDropped { get; set; }
+
+        public bool IsActive { get; set; }
+
         public int MatchesPlayed => this.PlayedMatches
             .Count();
 

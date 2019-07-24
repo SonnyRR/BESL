@@ -33,7 +33,6 @@
 
             var tables = await this.repository
                 .AllAsNoTracking()
-                    .Include(tt => tt.SignedUpTeams)
                     .Include(tt => tt.TeamTableResults)
                         .ThenInclude(ttr => ttr.Team)
                 .Where(tt => tt.TournamentId == request.Id)

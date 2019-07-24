@@ -31,8 +31,7 @@
             configuration.CreateMap<Tournament, GetTournamentDetailsViewModel>()
                 .ForMember(vm => vm.StartDate, o => o.MapFrom(src => src.StartDate.ToString(DATE_FORMAT)))
                 .ForMember(vm => vm.EndDate, o => o.MapFrom(src => src.EndDate.ToString(DATE_FORMAT)))
-                .ForMember(vm => vm.Format, o => o.MapFrom(src => src.Format.Name));
-                //.ForMember(vm => vm.;
+                .ForMember(vm => vm.Format, o => o.MapFrom(src => $"{src.Format.Name} - {src.Format.Game.Name}"));
         }
     }
 }

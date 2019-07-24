@@ -18,10 +18,6 @@
                 .WithMany(c => c.Tables)
                 .HasForeignKey(ct => ct.TournamentId);
 
-            builder.HasMany(ct => ct.SignedUpTeams)
-                .WithOne(t => t.CurrentActiveTournamentTable)
-                .HasForeignKey(t => t.CurrentActiveTournamentTableId);
-
             builder.HasMany(ct => ct.TeamTableResults)
                 .WithOne(tr => tr.TournamentTable)
                 .HasForeignKey(tr => tr.TournamentTableId);

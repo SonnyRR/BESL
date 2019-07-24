@@ -15,13 +15,13 @@
                 .WithMany(p => p.OwnedTeams)
                 .HasForeignKey(t => t.OwnerId);
 
-            builder.HasOne(t => t.CurrentActiveTournamentTable)
-                .WithMany(cact => cact.SignedUpTeams)
-                .HasForeignKey(t => t.CurrentActiveTournamentTableId);
+            builder.HasOne(t => t.CurrentActiveTeamTableResult)
+                .WithOne(ttr => ttr.Team)
+                .HasForeignKey<Team>(t => t.CurrentActiveTeamTableResultId);
 
             builder.HasMany(t => t.PreviousTeamTableResults)
                 .WithOne(tr => tr.Team)
-                .HasForeignKey(tr => tr.Id);
+                .HasForeignKey(tr => tr.TeamId);
 
             builder.Property(t => t.Name)
                 .HasMaxLength(35)
