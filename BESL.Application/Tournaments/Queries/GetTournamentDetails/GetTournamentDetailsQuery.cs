@@ -39,7 +39,8 @@
                             .ThenInclude(tf => tf.Game)
                         .Include(t => t.Tables)
                             .ThenInclude(tb => tb.TeamTableResults)
-                    .SingleOrDefaultAsync(cancellationToken);
+                                .ThenInclude(ttr => ttr.Team)
+                    .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken);
 
                 var viewModel = this.mapper.Map<GetTournamentDetailsViewModel>(desiredTournament);
                 return viewModel;

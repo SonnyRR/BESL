@@ -1,2 +1,42 @@
-﻿@{
+﻿@model BESL.Application.Tournaments.Queries.GetTournamentDetails.GetTournamentDetailsViewModel;
+@{
+    ViewData["Title"] = Model.Name;
+    @*var paragraphEndIndex = Model.Description.IndexOf('.', 256) + 1;*@
+}
+
+<h4 class="display-4">@Model.Name</h4>
+<hr />
+<div class="row">
+    <div class="lead col-md-6">
+        <p class="text-break">
+            @Model.Description
+        </p>
+        <div id="collapse" style="display:none">
+            <p class="text-break">@Model.Description)</p>
+        </div>
+        <a href="#collapse" class="nav-toggle">Read More</a>
+    </div>
+    <div class="col-sm-6">
+        <div class="d-flex justify-content-center">
+            <img src="@Model.TournamentImageUrl" class="img-fluid rounded-lg shadow border" alt="Responsive image">
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+    $(document).ready(function () {
+        $('.nav-toggle').click(function () {
+            var collapse_content_selector = $(this).attr('href');
+            var toggle_switch = $(this);
+            $(collapse_content_selector).toggle(function () {
+                if ($(this).css('display') == 'none') {
+                    toggle_switch.html('Read More');
+                } else {
+                    toggle_switch.html('Read Less');
+                }
+            });
+        });
+    });
+    </script>
 }

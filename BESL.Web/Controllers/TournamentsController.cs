@@ -1,12 +1,15 @@
 ﻿namespace BESL.Web.Controllers
 {
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using BESL.Application.Tournaments.Queries.GetTournamentDetails;
 
     public class TournamentsController : BaseController
     {
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(GetTournamentDetailsQuery query)
         {
-            return this.View();
+            var viewModel = await this.Mediator.Send(query);
+            return this.View(viewModel);
         }
     }
 }

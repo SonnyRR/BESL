@@ -1,8 +1,10 @@
 ﻿namespace BESL.Application.Tournaments.Queries.GetTournamentDetails
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using AutoMapper;
 
-    using BESL.Application.Interfaces.Mapping;
+    using BESL.Application.Interfaces.Mapping;    
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
 
@@ -26,12 +28,16 @@
 
         public string Game { get; set; }
 
+        public ICollection<TournamentTable> TournamentTables { get; set; }
+
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<Tournament, GetTournamentDetailsViewModel>()
                 .ForMember(vm => vm.StartDate, o => o.MapFrom(src => src.StartDate.ToString(DATE_FORMAT)))
                 .ForMember(vm => vm.EndDate, o => o.MapFrom(src => src.EndDate.ToString(DATE_FORMAT)))
-                .ForMember(vm => vm.Format, o => o.MapFrom(src => $"{src.Format.Name} - {src.Format.Game.Name}"));
+                .ForMember(vm => vm.Format, o => o.MapFrom(src => $"{src.Format.Name}"))
+                .ForMember(vm => vm.Game, o => o.MapFrom(src=>src.Format.Game.Name))
+                .ForMember(vm => vm.TournamentTables, o => o.MapFrom(src=> src.Tables.ToList()));
         }
     }
 }
