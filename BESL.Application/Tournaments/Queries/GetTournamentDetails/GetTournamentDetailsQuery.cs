@@ -35,11 +35,11 @@
 
                 var desiredTournament = await this.tournamentRepository
                     .AllAsNoTrackingWithDeleted()
-                        .Include(t => t.Format)
-                            .ThenInclude(tf => tf.Game)
-                        .Include(t => t.Tables)
-                            .ThenInclude(tb => tb.TeamTableResults)
-                                .ThenInclude(ttr => ttr.Team)
+                    .Include(t => t.Format)
+                        .ThenInclude(tf => tf.Game)
+                    .Include(t => t.Tables)
+                        .ThenInclude(tb => tb.TeamTableResults)
+                            .ThenInclude(ttr => ttr.Team)
                     .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken);
 
                 var viewModel = this.mapper.Map<GetTournamentDetailsViewModel>(desiredTournament);

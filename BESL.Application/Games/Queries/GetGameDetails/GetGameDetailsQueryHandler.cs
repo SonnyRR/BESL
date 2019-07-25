@@ -33,7 +33,7 @@
             var gameDomain = await this.repository
                 .AllAsNoTracking()
                 .Include(g => g.TournamentFormats)
-                .ThenInclude(tf => tf.Teams)
+                    .ThenInclude(tf => tf.Teams)
                 .FirstOrDefaultAsync(g => g.Id == request.Id, cancellationToken);
 
             if (gameDomain == null)
