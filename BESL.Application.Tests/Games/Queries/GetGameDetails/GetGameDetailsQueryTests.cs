@@ -1,29 +1,36 @@
 ﻿namespace BESL.Application.Tests.Games.Queries.GetGameDetails
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using AutoMapper;
+    using Moq;
+    using Shouldly;
+    using Xunit;
+    using MockQueryable.Moq;
+
     using BESL.Application.Exceptions;
     using BESL.Application.Games.Queries.GetGameDetails;
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
     using BESL.Persistence;
-    using Moq;
-    using Shouldly;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Xunit;
+    using BESL.Persistence.Repositories;
+    using System.Collections.Generic;
+    using System.Linq;
+    using MockExtensions = Infrastructure.MockExtensions;
 
     [Collection("QueryCollection")]
     public class GetGameDetailsQueryTests
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<Game> gameRepository;
         private readonly IMapper mapper;
 
         public GetGameDetailsQueryTests(QueryTestFixture fixture)
         {
             this.mapper = fixture.Mapper;
-            this.dbContext = fixture.Context;
+            this.gameRepository = new EfDeletableEntityRepository<Game>(fixture.Context);
         }
 
         [Trait(nameof(Game), "Game query tests.")]
@@ -33,16 +40,23 @@
             // Arrange
             var entityId = 2;
             var query = new GetGameDetailsQuery() { Id = entityId };
-            var repositoryMock = new Mock<IDeletableEntityRepository<Game>>();
-            repositoryMock.Setup(m => m.GetByIdWithDeletedAsync(entityId))
-                .ReturnsAsync(new Game()
+            var gameRepositoryMock = new Mock<IDeletableEntityRepository<Game>>();
+            var resultData = new List<Game>()
+            {
+                new Game()
                 {
-                    Id = entityId,
-                    Name = "TF2",
-                    Description = "Team Fortress 2",
-                    GameImageUrl = "http://foo.bar"
-                });
-            var sut = new GetGameDetailsQueryHandler(repositoryMock.Object, this.mapper);
+                    Id = 2,
+                    Name = "TestGame",
+                    Description = "TestGameDescription",
+                    GameImageUrl = "https://www.foo.bar/thumbnail.jpg",
+                    CreatedOn = new DateTime(2019, 05, 21)
+                }
+            };
+
+            var resultDataMock = resultData.AsQueryable().BuildMock();
+
+            gameRepositoryMock.Setup(x => x.AllAsNoTracking()).Returns(resultDataMock.Object);
+            var sut = new GetGameDetailsQueryHandler(gameRepositoryMock.Object, this.mapper);
 
             // Act
             var result = await sut.Handle(query, CancellationToken.None);
@@ -62,9 +76,7 @@
         {
             // Arrange
             var query = new GetGameDetailsQuery() { Id = 90125 };
-            var repositoryMock = new Mock<IDeletableEntityRepository<Game>>();
-            repositoryMock.Setup(r => r.GetByIdWithDeletedAsync()).ReturnsAsync((Game)null);
-            var sut = new GetGameDetailsQueryHandler(repositoryMock.Object, this.mapper);
+            var sut = new GetGameDetailsQueryHandler(this.gameRepository, this.mapper);
 
             // Act
             var result = sut.Handle(query, CancellationToken.None);
