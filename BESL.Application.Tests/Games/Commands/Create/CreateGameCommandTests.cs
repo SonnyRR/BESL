@@ -16,11 +16,11 @@
     using Xunit;
 
     using BESL.Application.Games.Commands.Create;
-    using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Interfaces;
-    using BESL.Application.Infrastructure.Validators;
-    using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Cloudinary;
+    using BESL.Application.Infrastructure.Validators;
+    using BESL.Application.Tests.Infrastructure;
+    using BESL.Domain.Entities;
 
     public class CreateGameCommandTests : BaseTest<Game>
     {
@@ -30,6 +30,7 @@
         {
             // Arrange
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
+            var cloudinaryMock = new Mock<Cloudinary>();
             var sut = new CreateGameCommandHandler(this.deletableEntityRepository, It.IsAny<IConfiguration>());
 
             cloudinaryHelperMock
@@ -38,7 +39,7 @@
 
             cloudinaryHelperMock
                 .Setup(x => x.GetInstance(It.IsAny<IConfiguration>()))
-                .Returns(() => null);
+                .Returns(() => It.IsAny<Cloudinary>());
 
             var field = typeof(CreateGameCommandHandler)
                 .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
@@ -88,6 +89,7 @@
                 Headers = new HeaderDictionary()
             };
             formFile.ContentType = "image/jpeg";
+
             var request = new CreateGameCommand()
             {
                 Name = "Dota 2",
@@ -104,8 +106,8 @@
         }
 
         [Trait(nameof(Game), "Game creation tests.")]
-        [Fact(DisplayName = "Validator given invalid request should validate successfully.")]
-        public void Validator_InvalidRequest_ShouldNotValidate()
+        [Fact(DisplayName = "Validator given invalid request should validate correctly.")]
+        public void Validator_InvalidRequest_ShouldValidateCorrectly()
         {
             // Arrange
             var fileStream = File.OpenRead(Path.Combine("Common", "TestPictures", "invalid-file.txt"));

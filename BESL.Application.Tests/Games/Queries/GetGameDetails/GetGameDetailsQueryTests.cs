@@ -1,6 +1,8 @@
 ﻿namespace BESL.Application.Tests.Games.Queries.GetGameDetails
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -15,11 +17,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
-    using BESL.Persistence;
     using BESL.Persistence.Repositories;
-    using System.Collections.Generic;
-    using System.Linq;
-    using MockExtensions = Infrastructure.MockExtensions;
 
     [Collection("QueryCollection")]
     public class GetGameDetailsQueryTests
@@ -45,17 +43,17 @@
             {
                 new Game()
                 {
-                    Id = 2,
+                    Id = entityId,
                     Name = "TestGame",
-                    Description = "TestGameDescription",
+                    Description = "TesxtGameDescription",
                     GameImageUrl = "https://www.foo.bar/thumbnail.jpg",
                     CreatedOn = new DateTime(2019, 05, 21)
                 }
             };
 
             var resultDataMock = resultData.AsQueryable().BuildMock();
-
             gameRepositoryMock.Setup(x => x.AllAsNoTracking()).Returns(resultDataMock.Object);
+
             var sut = new GetGameDetailsQueryHandler(gameRepositoryMock.Object, this.mapper);
 
             // Act
@@ -76,7 +74,19 @@
         {
             // Arrange
             var query = new GetGameDetailsQuery() { Id = 90125 };
-            var sut = new GetGameDetailsQueryHandler(this.gameRepository, this.mapper);
+            var gameRepositoryMock = new Mock<IDeletableEntityRepository<Game>>();
+            var resultData = new List<Game>()
+            {
+                new Game()
+                {
+                    Id = 3
+                }
+            };
+
+            var resultDataMock = resultData.AsQueryable().BuildMock();
+            gameRepositoryMock.Setup(x => x.AllAsNoTracking()).Returns(resultDataMock.Object);
+
+            var sut = new GetGameDetailsQueryHandler(gameRepositoryMock.Object, this.mapper);
 
             // Act
             var result = sut.Handle(query, CancellationToken.None);

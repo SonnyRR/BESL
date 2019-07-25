@@ -11,9 +11,9 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Games.Queries.Modify;
     using BESL.Application.Interfaces;
-    using BESL.Application.Tournaments.Commands.Modify;
     using BESL.Domain.Entities;
-   
+    using BESL.Application.Games.Commands.Modify;
+
     public class ModifyGameQueryTests
     {
         [Trait(nameof(Game), "Game query tests.")]
@@ -27,7 +27,7 @@
             repositoryMock.Setup(e => e.GetByIdWithDeletedAsync(entityId))
                 .ReturnsAsync(new Game()
                 {
-                    Id = 2,
+                    Id = entityId,
                     Name = "TF2",
                     Description = "Team Fortress 2",
                     GameImageUrl = "http://vidindrinkingteam.bg/gomotarzi_everything_alcoholic.jpg"
@@ -40,7 +40,7 @@
 
             // Assert
             result.ShouldNotBeNull();
-            result.ShouldBeOfType<ModifyTournamentCommand>();
+            result.ShouldBeOfType<ModifyGameCommand>();
             result.GameImageUrl.ShouldBe("http://vidindrinkingteam.bg/gomotarzi_everything_alcoholic.jpg");
         }
 

@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using System.Threading;
-    using System.Threading.Tasks;
 
     using AutoMapper;
     using Shouldly;
@@ -10,37 +9,68 @@
 
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Persistence;
     using BESL.Domain.Entities;
     using BESL.Application.Interfaces;
     using BESL.Persistence.Repositories;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using Moq;
+    using MockQueryable.Moq;
+    using System;
 
-    [Collection("QueryCollection")]
     public class GetAllGamesQueryTests
     {
-        private readonly IDeletableEntityRepository<Game> dbContext;
         private readonly IMapper mapper;
 
-        public GetAllGamesQueryTests(QueryTestFixture fixture)
+        public GetAllGamesQueryTests()
         {
-            this.dbContext = new EfDeletableEntityRepository<Game>(fixture.Context);
-            this.mapper = fixture.Mapper;
+            this.mapper = AutoMapperFactory.Create();
         }
 
         [Trait(nameof(Game), "Game query tests.")]
         [Fact(DisplayName = "GetAllGames handler given valid request should return valid GetAllGames viewmodel.")]
-        public void Handle_GivenValidRequest_ShouldReturnValidViewModel()
+        public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange
             var query = new GetAllGamesQuery();
-            var sut = new GetAllGamesQueryHandler(this.dbContext, this.mapper);
+            var gameRepositoryMock = new Mock<IDeletableEntityRepository<Game>>();
+            var dataSet = new List<Game>()
+            {
+                new Game()
+                {
+                    Id = 1,
+                    Name = It.IsAny<string>(),
+                    Description = "SampleDesc",
+                    CreatedOn = It.IsAny<DateTime>(),
+                    GameImageUrl = It.IsAny<string>(),
+                    TournamentFormats = new HashSet<TournamentFormat>()
+                    {
+                        new TournamentFormat()
+                        {
+                            Name = It.IsAny<string>(),
+                            Teams = new HashSet<Team>()
+                            {
+                                new Team()
+                                {
+                                    Name = "SampleTeam"
+                                }
+                            }
+                        }
+                    }
+                },
+            }.AsQueryable();
+
+            var dataSetMock = dataSet.BuildMock();
+            gameRepositoryMock.Setup(m => m.AllAsNoTracking()).Returns(dataSetMock.Object);
+
+            var sut = new GetAllGamesQueryHandler(gameRepositoryMock.Object, this.mapper);
 
             // Act
-            var result = sut.Handle(query, CancellationToken.None).GetAwaiter().GetResult();
+            var result = await sut.Handle(query, CancellationToken.None);
 
             // Assert
-            result.Games.Count.ShouldBe(3);
-            result.Games.Any(g => g.Name == "SampleGame2").ShouldBe(true);
+            result.Games.Count.ShouldBe(1);
+            result.Games.Any(x => x.RegisteredTeams == 1).ShouldBeTrue();
         }
     }
 }

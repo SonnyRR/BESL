@@ -7,6 +7,7 @@
     using Microsoft.Extensions.Configuration;
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
+    using System;
 
     public class CloudinaryHelper : ICloudinaryHelper
     {
@@ -36,7 +37,7 @@
         {
             if (fileForm == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(fileForm));
             }
 
             byte[] image;

@@ -1,6 +1,7 @@
 ﻿namespace BESL.Application.Tests.Infrastructure
 {
     using System;
+
     using AutoMapper;
     using BESL.Persistence;
     using Xunit;
@@ -8,17 +9,18 @@
     public class QueryTestFixture : IDisposable
     {
         public ApplicationDbContext Context { get; private set; }
+
         public IMapper Mapper { get; private set; }
 
         public QueryTestFixture()
         {
-            Context = ApplicationDbContextFactory.Create().GetAwaiter().GetResult();
-            Mapper = AutoMapperFactory.Create();
+            this.Context = ApplicationDbContextFactory.Create().GetAwaiter().GetResult();
+            this.Mapper = AutoMapperFactory.Create();
         }
 
         public void Dispose()
         {
-            ApplicationDbContextFactory.Destroy(Context);
+            ApplicationDbContextFactory.Destroy(this.Context);
         }
     }
 

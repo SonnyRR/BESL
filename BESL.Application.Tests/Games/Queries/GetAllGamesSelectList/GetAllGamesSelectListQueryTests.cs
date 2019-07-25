@@ -2,30 +2,31 @@
 {
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
 
     using AutoMapper;
     using Xunit;
     using Shouldly;
-    using System.Threading.Tasks;
 
     using BESL.Application.Games.Queries.GetAllGamesSelectList;
-    using BESL.Application.Tests.Infrastructure;
-    using BESL.Persistence;
-    using BESL.Domain.Entities;
     using BESL.Application.Interfaces;
+    using BESL.Application.Tests.Infrastructure;
+    using BESL.Domain.Entities;
+    using BESL.Persistence;
     using BESL.Persistence.Repositories;
+    using Moq;
+    using System.Collections.Generic;
+    using MockQueryable.Moq;
+    using BESL.Application.Common.Models.Lookups;
+    using System;
 
-
-    [Collection("QueryCollection")]
     public class GetAllGamesSelectListQueryTests
     {
         private readonly IMapper mapper;
-        private readonly IApplicationDbContext dbContext;
 
-        public GetAllGamesSelectListQueryTests(QueryTestFixture fixture)
+        public GetAllGamesSelectListQueryTests()
         {
-            this.mapper = fixture.Mapper;
-            this.dbContext = fixture.Context;
+            this.mapper = AutoMapperFactory.Create();
         }
 
         [Trait(nameof(Game), "Game query tests.")]
@@ -34,7 +35,42 @@
         {
             // Arrange           
             var query = new GetAllGamesSelectListQuery();
-            var sut = new GetAllGamesSelectListQueryHandler(new EfDeletableEntityRepository<Game>((ApplicationDbContext)this.dbContext), this.mapper);
+            var gameRepositoryMock = new Mock<IDeletableEntityRepository<Game>>();
+            var dataSet = new List<Game>()
+            {
+                new Game()
+                {
+                    Id = 1,
+                    Name = It.IsAny<string>(),
+                    Description = It.IsAny<string>(),
+                    CreatedOn = It.IsAny<DateTime>(),
+                    TournamentFormats = It.IsAny<ICollection<TournamentFormat>>(),
+                    GameImageUrl = It.IsAny<string>()
+                },
+                new Game()
+                {
+                    Id = 2,
+                    Name = It.IsAny<string>(),
+                    Description = It.IsAny<string>(),
+                    CreatedOn = It.IsAny<DateTime>(),
+                    TournamentFormats = It.IsAny<ICollection<TournamentFormat>>(),
+                    GameImageUrl = It.IsAny<string>()
+                },
+                new Game()
+                {
+                    Id = 3,
+                    Name = It.IsAny<string>(),
+                    Description = It.IsAny<string>(),
+                    CreatedOn = It.IsAny<DateTime>(),
+                    TournamentFormats = It.IsAny<ICollection<TournamentFormat>>(),
+                    GameImageUrl = It.IsAny<string>()
+                },
+            }.AsQueryable();
+
+            var dataSetMock = dataSet.BuildMock();
+            gameRepositoryMock.Setup(m => m.AllAsNoTracking()).Returns(dataSetMock.Object);
+
+            var sut = new GetAllGamesSelectListQueryHandler(gameRepositoryMock.Object, this.mapper);
 
             // Act
             var result = await sut.Handle(query, CancellationToken.None);
@@ -42,6 +78,7 @@
             // Assert
             result.ShouldNotBeNull();
             result.ShouldNotBeEmpty();
+            result.ShouldBeOfType<List<GameSelectItemLookupModel>>();
             result.Count().ShouldBe(3);
         }
     }

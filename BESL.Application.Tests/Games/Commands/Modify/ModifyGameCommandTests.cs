@@ -1,10 +1,10 @@
 ﻿namespace BESL.Application.Tests.Games.Commands.Modify
 {
-    using System;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
 
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Http;
@@ -18,14 +18,12 @@
     using BESL.Application.Games.Commands.Modify;
     using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Validators;
-    using BESL.Application.Interfaces;
-    using System.Threading.Tasks;
     using BESL.Application.Infrastructure.Cloudinary;
 
     public class ModifyGameCommandTests : BaseTest<Game>
     {
         [Trait(nameof(Game), "Game modify tests.")]
-        [Fact(DisplayName = "Handler should modify entity if request is valid.")]
+        [Fact(DisplayName = "Handler given valid request should modify entity.")]
         public async Task Handle_GivenValidRequest_ShouldModifyEntity()
         {
             // Arrange
@@ -47,9 +45,10 @@
 
             field.SetValue(sut, cloudinaryHelperMock.Object);
 
+            var gameId = 1;
             var command = new ModifyGameCommand()
             {
-                Id = 1,
+                Id = gameId,
                 Name = "Team Fortress 3",
                 Description = "Changed description from test",
                 GameImage = new FormFile(It.IsAny<Stream>(), It.IsAny<long>(), It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>())
@@ -57,7 +56,7 @@
 
             // Act
             var id = sut.Handle(command, CancellationToken.None).GetAwaiter().GetResult();
-            var game = await deletableEntityRepository.GetByIdWithDeletedAsync(1);
+            var game = await deletableEntityRepository.GetByIdWithDeletedAsync(gameId);
 
             // Assert
             game.ShouldNotBeNull();
@@ -79,6 +78,7 @@
             {
                 Headers = new HeaderDictionary()
             };
+
             formFile.ContentType = contentType;
             var request = new ModifyGameCommand()
             {
