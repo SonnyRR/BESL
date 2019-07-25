@@ -40,5 +40,15 @@
         public const int TEAM_AVATAR_HEIGHT = 184; 
         public const int TEAM_AVATAR_WIDTH = 184;
         #endregion
+
+        #region Games
+        public const int GAME_IMAGE_HEIGHT = 215;
+        public const int GAME_IMAGE_WIDTH = 460;
+        #endregion
+
+        #region Tournaments
+        public const int TOURNAMENT_IMAGE_HEIGHT = 215;
+        public const int TOURNAMENT_IMAGE_WIDTH = 460;
+        #endregion
     }
 }

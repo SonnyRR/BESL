@@ -9,8 +9,9 @@
     using Microsoft.Extensions.Configuration;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Cloudinary;
+    using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
@@ -38,7 +39,7 @@
                     cloudinary,
                     request.GameImage,
                     name: $"{request.Name}-main-shot",
-                    transformation: new Transformation().Width(460).Height(215)); 
+                    transformation: new Transformation().Width(GAME_IMAGE_WIDTH).Height(GAME_IMAGE_HEIGHT)); 
 
             Game game = new Game()
             {

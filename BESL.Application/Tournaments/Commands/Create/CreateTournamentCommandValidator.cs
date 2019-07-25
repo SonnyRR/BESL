@@ -10,7 +10,6 @@
 
     public class CreateTournamentCommandValidator : AbstractValidator<CreateTournamentCommand>
     {
-
         public CreateTournamentCommandValidator(IFileValidate fileValidate)
         {
             RuleFor(t => t.Name)

@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using System.Linq;
 
+    using CloudinaryDotNet;
     using MediatR;
     using Microsoft.Extensions.Configuration;
 
@@ -12,6 +13,8 @@
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
     using BESL.Application.Infrastructure.Cloudinary;
+    using static BESL.Common.GlobalConstants;
+
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {
@@ -48,7 +51,8 @@
             var url = await this.cloudinaryHelper.UploadImage(
                     cloudinary,
                     request.TournamentImage,
-                    name: $"{request.Name}-tournament-main-shot");
+                    name: $"{request.Name}-tournament-main-shot",
+                    transformation: new Transformation().Width(TOURNAMENT_IMAGE_WIDTH).Height(TOURNAMENT_IMAGE_HEIGHT));
 
             var gameId = (await this.tournamentFormatsRepository.GetByIdWithDeletedAsync(request.FormatId))?.GameId;
 
