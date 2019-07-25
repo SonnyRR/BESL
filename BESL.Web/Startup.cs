@@ -35,7 +35,7 @@
     using BESL.Persistence.Repositories;
     using BESL.Messaging;
     using BESL.Application.Infrastructure;
-    using BESL.Web.Infrastructure.Hubs;
+    using BESL.Web.Hubs;
 
     public class Startup
     {

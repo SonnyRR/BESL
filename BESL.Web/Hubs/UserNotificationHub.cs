@@ -1,4 +1,4 @@
-﻿namespace BESL.Web.Infrastructure.Hubs
+﻿namespace BESL.Web.Hubs
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
