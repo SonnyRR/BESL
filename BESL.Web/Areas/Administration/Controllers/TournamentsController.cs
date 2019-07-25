@@ -10,6 +10,7 @@
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
     using BESL.Application.Tournaments.Queries.Modify;
     using BESL.Application.TournamentTables.Queries.GetTournamentTables;
+    using BESL.Application.Tournaments.Commands.Delete;
 
     public class TournamentsController : AdminController
     {
@@ -26,6 +27,18 @@
             {
                 var model = await this.Mediator.Send(new CreateTournamentQuery());
                 return this.View(model);
+            }
+
+            await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(DeleteTournamentCommand command)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
             }
 
             await this.Mediator.Send(command);
