@@ -28,5 +28,6 @@
     <Folder Include="Games\Commands\Validation\" />
     <Folder Include="Tournaments\Commands\Validation\" />
     <Folder Include="TournamentFormats\Commands\Validation\" />
+    <Folder Include="Tournaments\Commands\Delete\" />
   </ItemGroup>
 </Project>
