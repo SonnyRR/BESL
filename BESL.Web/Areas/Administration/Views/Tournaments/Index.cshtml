@@ -35,7 +35,7 @@
                                 <a class="btn btn-info align-center" asp-area="Administration" asp-controller="Tournaments" asp-action="Modify" asp-route-id="@tournament.Id"><i class="fas fa-wrench"></i>&nbsp;Modify</a>
                             </td>
                             <td class="text-center">
-                                <form asp-area="Administration" asp-controller="Tournaments" asp-action="Delete" asp-route-id="@tournament.Id" onsubmit="return submitForm(this);">
+                                <form asp-area="Administration" asp-controller="Tournaments" asp-action="Delete" asp-route-id="@tournament.Id" onsubmit="return submitForm(this, '@tournament.Name');">
                                     <button class="btn btn-danger"><i class="fas fa-times-circle"></i>&nbsp;Delete</button>
                                 </form>
                             </td>
@@ -55,8 +55,8 @@
 
 @section Scripts{
 <script>
-function submitForm() {
-        return confirm('Do you really want to delete ?);
+    function submitForm(a, b) {
+        return confirm(`Do you really want to delete ${b} ?`);
     }
 </script>
 }
