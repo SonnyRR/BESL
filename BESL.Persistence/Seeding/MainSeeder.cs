@@ -28,8 +28,24 @@
 
             var formats = new TournamentFormat[]
             {
-                new TournamentFormat() { Name = "6v6", Description = "6v6 is the most common form of competitive format played in Team Fortress 2, and is often viewed as the 'default' format. It is played with 6 players per team, with class limits and weapons bans. The weapon bans and maps vary depending on the specific league.", TeamPlayersCount = 6, TotalPlayersCount = 12, GameId = 1, CreatedOn = DateTime.UtcNow },
-                new TournamentFormat() { Name = "9v9", Description = "Highlander, a form of 9v9, is the largest competitive Team Fortress format. Its similarities to average public servers makes it an ideal starting point for new players, and its requirement that each team has one of every class means no matter what you like to play, there's a spot on the team for you.", TeamPlayersCount = 9, TotalPlayersCount = 18, GameId = 1, CreatedOn = DateTime.UtcNow },
+                new TournamentFormat()
+                {
+                    Name = "6v6",
+                    Description = "6v6 is the most common form of competitive format played in Team Fortress 2, and is often viewed as the 'default' format. It is played with 6 players per team, with class limits and weapons bans. The weapon bans and maps vary depending on the specific league.",
+                    TeamPlayersCount = 6,
+                    TotalPlayersCount = 12,
+                    GameId = 1,
+                    CreatedOn = DateTime.UtcNow
+                },
+                new TournamentFormat()
+                {
+                    Name = "9v9",
+                    Description = "Highlander, a form of 9v9, is the largest competitive Team Fortress format. Its similarities to average public servers makes it an ideal starting point for new players, and its requirement that each team has one of every class means no matter what you like to play, there's a spot on the team for you.",
+                    TeamPlayersCount = 9,
+                    TotalPlayersCount = 18,
+                    GameId = 1,
+                    CreatedOn = DateTime.UtcNow
+                },
             };
 
             await dbContext.AddRangeAsync(formats);
@@ -43,6 +59,7 @@
                     Description = "Play to win prizes by our sponsor Thermaltake including: keyboards, mices, gaming gear and PC components",
                     CreatedOn = DateTime.UtcNow,
                     FormatId = 1,
+                    TournamentImageUrl = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,h_215,w_460/v1564073951/BESL/logo-tt-esports_xpuspv.jpg",
                     Tables = new List<TournamentTable>()
                     {
                         new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
@@ -57,6 +74,7 @@
                     Description = "Corsair sponsors this round of summer 9v9 madness!. Prize pool includes a one-off custom gaming PC and many peripherals!",
                     CreatedOn = DateTime.UtcNow,
                     FormatId = 2,
+                    TournamentImageUrl = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,h_215,w_460/v1564074113/BESL/blog_Introducing-The-New-Sails-Logo-Content-1_vbr56j.png",
                     Tables = new List<TournamentTable>()
                     {
                         new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
