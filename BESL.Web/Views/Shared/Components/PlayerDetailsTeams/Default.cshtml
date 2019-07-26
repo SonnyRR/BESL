@@ -11,12 +11,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var team in Model.PlayerTeams)
+            @if (Model.PlayerTeams.Count != 0)
+            {
+                @foreach (var team in Model.PlayerTeams)
+                {
+                    <tr>
+                        <th scope="row">@team.TeamName</th>
+                        <td>@team.JoinedDate</td>
+                        <td>@team.LeftDate</td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <th scope="row">@team.TeamName</th>
-                    <td>@team.JoinedDate</td>
-                    <td>@team.LeftDate</td>
+                    <td colspan="3" class="text-center"><h5>No teams history.</h5></td>
                 </tr>
             }
         </tbody>
