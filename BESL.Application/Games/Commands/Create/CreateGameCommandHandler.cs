@@ -12,6 +12,7 @@
     using BESL.Application.Infrastructure.Cloudinary;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
+    using BESL.Application.Exceptions;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
@@ -27,7 +28,7 @@
         }
 
         public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
-        {
+        {            
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));

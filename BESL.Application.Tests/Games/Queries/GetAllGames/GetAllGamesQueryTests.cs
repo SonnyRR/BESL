@@ -1,22 +1,21 @@
 ﻿namespace BESL.Application.Tests.Games.Queries.GetAllGames
 {
-    using System.Linq;
+    using System;
     using System.Threading;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using AutoMapper;
     using Shouldly;
     using Xunit;
+    using Moq;
+    using MockQueryable.Moq;
 
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
-    using BESL.Application.Interfaces;
-    using BESL.Persistence.Repositories;
-    using System.Threading.Tasks;
-    using System.Collections.Generic;
-    using Moq;
-    using MockQueryable.Moq;
-    using System;
+    using BESL.Application.Interfaces;  
 
     public class GetAllGamesQueryTests
     {

@@ -53,8 +53,8 @@
                 }
                 catch (BaseCustomException exception)
                 {
+                    // FIXME
                     await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, exception.Message, userNameIdentifier);
-                    await this.next(context);
                 }
             }
             else

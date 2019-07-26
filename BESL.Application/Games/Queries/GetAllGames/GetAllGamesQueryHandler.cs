@@ -11,6 +11,7 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using BESL.Application.Exceptions;
 
     public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, GamesListViewModel>
     {
