@@ -15,11 +15,13 @@
     using BESL.Application.Infrastructure.Cloudinary;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
+    using Microsoft.EntityFrameworkCore;
 
     public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand>
     {
         private readonly IDeletableEntityRepository<Team> teamRepository;
         private readonly IDeletableEntityRepository<TournamentFormat> formatRepository;
+        private readonly IDeletableEntityRepository<PlayerTeam> playerTeamRepository;
         private readonly IConfiguration configuration;
         private readonly ICloudinaryHelper cloudinaryHelper;
         private readonly IMapper mapper;
@@ -27,11 +29,13 @@
         public CreateTeamCommandHandler(
             IDeletableEntityRepository<Team> teamRepository,
             IDeletableEntityRepository<TournamentFormat> formatRepository,
+            IDeletableEntityRepository<PlayerTeam> playerRepository,
             IConfiguration configuration,
             IMapper mapper)
         {
             this.teamRepository = teamRepository;
             this.formatRepository = formatRepository;
+            this.playerTeamRepository = playerRepository;
             this.configuration = configuration;
             this.cloudinaryHelper = new CloudinaryHelper();
             this.mapper = mapper;
@@ -39,9 +43,18 @@
 
         public async Task<Unit> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
-            if (request == null)
+            request = request ?? throw new ArgumentNullException(nameof(request));
+
+            var isPlayerAlreadyInATeamWithTheSameFormat = this.playerTeamRepository
+                .AllAsNoTrackingWithDeleted()
+                .Include(pt => pt.Team)
+                .Where(pt => pt.PlayerId == request.OwnerId)
+                .Any(pt => pt.Team.TournamentFormatId == request.TournamentFormatId);
+            
+            if (isPlayerAlreadyInATeamWithTheSameFormat)
             {
-                throw new ArgumentNullException(nameof(request));
+                // placeholder
+                throw new Exception();
             }
 
             var doesTeamAlreadyExist = this.teamRepository
@@ -74,6 +87,7 @@
             team.ImageUrl = url;
 
             await this.teamRepository.AddAsync(team);
+            await this.playerTeamRepository.AddAsync(new PlayerTeam() { Team = team, PlayerId = request.OwnerId });
             await this.teamRepository.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

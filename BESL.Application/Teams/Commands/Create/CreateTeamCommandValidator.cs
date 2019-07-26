@@ -33,6 +33,9 @@
             RuleFor(x => x.TournamentFormatId)
                 .NotEmpty();
 
+            RuleFor(x => x.OwnerId)
+                .NotEmpty();
+
             RuleFor(x => x.TeamImage)
                 .NotEmpty()
                 .SetValidator(new CustomGameImageFileValidator(fileValidate));
