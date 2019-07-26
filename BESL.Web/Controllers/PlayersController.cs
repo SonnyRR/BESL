@@ -1,7 +1,7 @@
 ﻿namespace BESL.Web.Controllers
 {
     using System.Threading.Tasks;
-    using BESL.Application.Players.Queries.GetPlayerDetails;
+    using BESL.Application.Players.Queries.Details;
     using Microsoft.AspNetCore.Mvc;
 
     public class PlayersController : BaseController

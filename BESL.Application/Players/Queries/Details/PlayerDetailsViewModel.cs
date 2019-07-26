@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Players.Queries.GetPlayerDetails
+﻿namespace BESL.Application.Players.Queries.Details
 {
     using System.Linq;
 

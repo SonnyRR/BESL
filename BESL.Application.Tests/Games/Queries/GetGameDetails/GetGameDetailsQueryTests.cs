@@ -13,7 +13,7 @@
     using MockQueryable.Moq;
 
     using BESL.Application.Exceptions;
-    using BESL.Application.Games.Queries.GetGameDetails;
+    using BESL.Application.Games.Queries.Details;
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;

@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Tournaments.Queries.GetTournamentDetails
+﻿namespace BESL.Application.Tournaments.Queries.Details
 {
     using System.Collections.Generic;
     using System.Linq;

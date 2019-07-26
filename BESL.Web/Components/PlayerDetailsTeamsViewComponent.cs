@@ -5,7 +5,7 @@
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
 
-    using BESL.Application.Teams.Queries.GetTeamsForPlayer;
+    using BESL.Application.Players.Queries.Details;
 
     public class PlayerDetailsTeamsViewComponent : ViewComponent
     {

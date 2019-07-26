@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Teams.Queries.GetTeamsForPlayer
+﻿namespace BESL.Application.Players.Queries.Details
 {
     using MediatR;
 

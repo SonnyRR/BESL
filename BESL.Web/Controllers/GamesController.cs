@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using BESL.Application.Games.Queries.GetAllGames;
-    using BESL.Application.Games.Queries.GetGameDetails;
+    using BESL.Application.Games.Queries.Details;
 
     public class GamesController : BaseController
     {

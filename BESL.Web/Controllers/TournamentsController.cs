@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using BESL.Application.Tournaments.Queries.GetTournamentDetails;
+    using BESL.Application.Tournaments.Queries.Details;
 
     public class TournamentsController : BaseController
     {

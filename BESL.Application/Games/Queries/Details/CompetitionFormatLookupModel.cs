@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Games.Queries.GetGameDetails
+﻿namespace BESL.Application.Games.Queries.Details
 {
     using AutoMapper;
 
