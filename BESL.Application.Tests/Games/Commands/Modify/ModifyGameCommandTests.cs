@@ -55,7 +55,7 @@
             };
 
             // Act
-            var id = sut.Handle(command, CancellationToken.None).GetAwaiter().GetResult();
+            var id = await sut.Handle(command, CancellationToken.None);
             var game = await deletableEntityRepository.GetByIdWithDeletedAsync(gameId);
 
             // Assert
@@ -65,12 +65,11 @@
         }
 
         [Trait(nameof(Game), "Game modify tests.")]
-        [Theory(DisplayName = "Validator should validate correctly request")]
-        [InlineData("invalid-file.txt", false, "text/plain", "Dota 2", "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.")]
-        [InlineData("gamePictureValid.jpg", false, "image/jpeg", "D", "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.")] 
-        [InlineData("gamePictureValid.jpg", true, "image/jpeg", "Dota 2", "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.")] 
-        [InlineData("gamePictureValid.jpg", false, "image/jpeg", "Dota 2", "invalidDescription")]
-        public void Validator_GivenValidRequest_ShouldValidateCorrectly(string fileName, bool validValue, string contentType, string gameName, string gameDesc)
+        [Theory(DisplayName = "Validator given invalid requests should validate correctly.")]
+        [InlineData("invalid-file.txt", "text/plain", "Dota 2", "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.")]
+        [InlineData("gamePictureValid.jpg", "image/jpeg", "D", "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.")] 
+        [InlineData("gamePictureValid.jpg", "image/jpeg", "Dota 2", "invalidDescription")]
+        public void Validator_GivenInvalidRequests_ShouldValidateCorrectly(string fileName, string contentType, string gameName, string gameDesc)
         {
             // Arrange
             var fileStream = File.OpenRead(Path.Combine("Common", "TestPictures", fileName));
@@ -92,7 +91,54 @@
             var validationResult = sut.Validate(request);
 
             // Assert
-            validationResult.IsValid.ShouldBe(validValue);
+            validationResult.IsValid.ShouldBe(false);
+        }
+
+        [Trait(nameof(Game), "Game modify tests.")]
+        [Fact(DisplayName = "Validator given valid request should validate successfully")]
+        public void Validator_GivenValidRequest_ShouldValidateCorrectly()
+        {
+            // Arrange
+            var fileStream = File.OpenRead(Path.Combine("Common", "TestPictures", "gamePictureValid.jpg"));
+            var formFile = new FormFile(fileStream, 0, fileStream.Length, "gamePicture", "gamePictureValid.jpg")
+            {
+                Headers = new HeaderDictionary()
+            };
+
+            formFile.ContentType = "image/jpeg";
+            var request = new ModifyGameCommand()
+            {
+                Name = "Dota 2",
+                Description = "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.",
+                GameImage = formFile
+            };
+
+            // Act
+            var sut = new ModifyGameCommandValidator(new GameImageFileValidate());
+            var validationResult = sut.Validate(request);
+
+            // Assert
+            validationResult.IsValid.ShouldBe(true);
+        }
+
+        [Trait(nameof(Game), "Game modify tests.")]
+        [Fact(DisplayName = "Validator given valid request with no image should validate successfully")]
+        public void Validator_GivenValidRequestWithNoImage_ShouldValidateCorrectly()
+        {
+            // Arrange
+            var request = new ModifyGameCommand()
+            {
+                Name = "Dota 2",
+                Description = "The most-played game on Steam. Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it's their 10th hour of play or 1,000th, there's always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own. One Battlefield. Infinite Possibilities. When it comes to diversity of heroes, abilities, and powerful items, Dota boasts an endless array—no two games are the same. Any hero can fill multiple roles, and there's an abundance of items to help meet the needs of each game. Dota doesn't provide limitations on how to play, it empowers you to express your own style.",
+                GameImage = null
+            };
+
+            // Act
+            var sut = new ModifyGameCommandValidator(new GameImageFileValidate());
+            var validationResult = sut.Validate(request);
+
+            // Assert
+            validationResult.IsValid.ShouldBe(true);
         }
     }
 }

@@ -11,8 +11,8 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Games.Queries.Modify;
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
     using BESL.Application.Games.Commands.Modify;
+    using BESL.Domain.Entities;
 
     public class ModifyGameQueryTests
     {
@@ -24,14 +24,17 @@
             var entityId = 2;
             var request = new ModifyGameQuery() { Id = entityId };
             var repositoryMock = new Mock<IDeletableEntityRepository<Game>>();
-            repositoryMock.Setup(e => e.GetByIdWithDeletedAsync(entityId))
-                .ReturnsAsync(new Game()
-                {
-                    Id = entityId,
-                    Name = "TF2",
-                    Description = "Team Fortress 2",
-                    GameImageUrl = "http://vidindrinkingteam.bg/gomotarzi_everything_alcoholic.jpg"
-                });
+
+            var dataSet = new Game()
+            {
+                Id = entityId,
+                Name = "TF2",
+                Description = "Team Fortress 2",
+                GameImageUrl = "http://vidindrinkingteam.bg/gomotarzi_everything_alcoholic.jpg",
+                CreatedOn = It.IsAny<DateTime>()
+            };
+
+            repositoryMock.Setup(x => x.GetByIdWithDeletedAsync(entityId)).ReturnsAsync(dataSet);
 
             var sut = new ModifyGameQueryHandler(repositoryMock.Object);
 

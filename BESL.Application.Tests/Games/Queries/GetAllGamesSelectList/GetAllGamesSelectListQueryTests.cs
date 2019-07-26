@@ -1,24 +1,22 @@
 ﻿namespace BESL.Application.Tests.Games.Queries.GetAllGamesSelectList
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using Moq;
+    using MockQueryable.Moq;
     using Xunit;
     using Shouldly;
 
+    using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Games.Queries.GetAllGamesSelectList;
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
-    using BESL.Persistence;
-    using BESL.Persistence.Repositories;
-    using Moq;
-    using System.Collections.Generic;
-    using MockQueryable.Moq;
-    using BESL.Application.Common.Models.Lookups;
-    using System;
 
     public class GetAllGamesSelectListQueryTests
     {
@@ -59,7 +57,7 @@
                 new Game()
                 {
                     Id = 3,
-                    Name = It.IsAny<string>(),
+                    Name = "CS:GO",
                     Description = It.IsAny<string>(),
                     CreatedOn = It.IsAny<DateTime>(),
                     TournamentFormats = It.IsAny<ICollection<TournamentFormat>>(),
@@ -80,6 +78,7 @@
             result.ShouldNotBeEmpty();
             result.ShouldBeOfType<List<GameSelectItemLookupModel>>();
             result.Count().ShouldBe(3);
+            result.SingleOrDefault(g => g.Id == 3).Name.ShouldBe("CS:GO");
         }
     }
 }

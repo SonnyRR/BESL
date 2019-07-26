@@ -1,17 +1,17 @@
 ﻿namespace BESL.Application.Tests.TournamentFormats.Commands.Create
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using Shouldly;
+    using Xunit;
+
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.TournamentFormats.Commands.Create;
     using BESL.Domain.Entities;
-    using BESL.Persistence;
     using BESL.Persistence.Repositories;
-    using Moq;
-    using Shouldly;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Xunit;
 
     public class CreateTournamentFormatCommandTests : BaseTest<TournamentFormat>
     {
@@ -24,12 +24,12 @@
             {
                 GameId = 2,
                 Name = "5v5",
-                Description = "Plain old 5v5 classic counter-strike competitie format",
+                Description = "Plain old 5v5 classic counter-strike competitive format",
                 TeamPlayersCount = 5
             };
 
             IDeletableEntityRepository<Game> gameRepo = new EfDeletableEntityRepository<Game>(this.dbContext);
-            var sut = new CreateTournamentFormatHandler(deletableEntityRepository, gameRepo);
+            var sut = new CreateTournamentFormatHandler(base.deletableEntityRepository, gameRepo);
 
             // Act
             var result = await sut.Handle(request, CancellationToken.None);
