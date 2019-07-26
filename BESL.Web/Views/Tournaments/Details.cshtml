@@ -1,23 +1,33 @@
 ﻿@model BESL.Application.Tournaments.Queries.GetTournamentDetails.GetTournamentDetailsViewModel;
 @{
     ViewData["Title"] = Model.Name;
-    @*var paragraphEndIndex = Model.Description.IndexOf('.', 256) + 1;*@
 }
 
 <h4 class="display-4">@Model.Name</h4>
 <hr />
 <div class="row">
     <div class="lead col-md-6">
-        <p class="text-break">
-            @Model.Description
-        </p>
-
-        @if (Model.Description.Length >= 256)
+        @if (Model.Description.Length > 256)
         {
-            <div id="collapse" style="display:none">
-                <p class="text-break">@Model.Description)</p>
-            </div>
-            <a href="#collapse" class="nav-toggle">Read More</a>
+            var paragraphEndIndex = Model.Description.IndexOf('.', 256) + 1;
+
+            <p class="text-break">
+                @Model.Description.Substring(0, paragraphEndIndex)
+            </p>
+
+            @if (Model.Description.Length != paragraphEndIndex)
+            {
+                <div id="collapse" style="display:none">
+                    <p class="text-break">@Model.Description.Substring(paragraphEndIndex)</p>
+                </div>
+                <a href="#collapse" class="nav-toggle">Read More</a>
+            }
+        }
+        else
+        {
+            <p class="text-break">
+                @Model.Description
+            </p>
         }
     </div>
     <div class="col-sm-6">
@@ -28,8 +38,7 @@
 </div>
 
 @section Scripts{
-    <script>
-        $(document).ready(function () {
+    <script>$(document).ready(function () {
             $('.nav-toggle').click(function () {
                 var collapse_content_selector = $(this).attr('href');
                 var toggle_switch = $(this);
@@ -41,6 +50,5 @@
                     }
                 });
             });
-        });
-    </script>
+        });</script>
 }

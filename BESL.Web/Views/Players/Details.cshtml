@@ -8,7 +8,8 @@
     <div class="col-md-6">
         <h1>
             @Model.Username@if (Model.IsVACBanned)
-            {@:&nbsp;<span class="badge badge-danger">VAC</span>
+            {
+                @:&nbsp;<span class="badge badge-danger">VAC</span>
             }
         </h1>
         <div class="mt-2">

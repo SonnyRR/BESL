@@ -1,7 +1,6 @@
 ﻿@model BESL.Application.Games.Queries.GetGameDetails.GameDetailsViewModel
 @{
     ViewData["Title"] = Model.Name;
-    var paragraphEndIndex = Model.Description.IndexOf('.', 256) + 1;
 }
 
 <div class="row">
@@ -12,13 +11,28 @@
 </div>
 <div class="row">
     <div class="lead col-md-6">
-        <p class="text-break">
-            @Model.Description.Substring(0, paragraphEndIndex)
-        </p>
-        <div id="collapse" style="display:none">
-            <p class="text-break">@Model.Description.Substring(paragraphEndIndex)</p>
-        </div>
-        <a href="#collapse" class="nav-toggle">Read More</a>
+        @if (Model.Description.Length > 256)
+        {
+            var paragraphEndIndex = Model.Description.IndexOf('.', 256) + 1;
+
+            <p class="text-break">
+                @Model.Description.Substring(0, paragraphEndIndex)
+            </p>
+
+            @if (Model.Description.Length != paragraphEndIndex)
+            {
+                <div id="collapse" style="display:none">
+                    <p class="text-break">@Model.Description.Substring(paragraphEndIndex)</p>
+                </div>
+                <a href="#collapse" class="nav-toggle">Read More</a>
+            }
+        }
+        else
+        {
+            <p class="text-break">
+                @Model.Description
+            </p>
+        }
     </div>
     <div class="col-sm-6">
         <div class="d-flex justify-content-center">
@@ -30,19 +44,17 @@
 <vc:active-tournaments-table game-id="@Model.Id"></vc:active-tournaments-table>
 
 @section Scripts{
-<script>
-    $(document).ready(function () {
-        $('.nav-toggle').click(function () {
-            var collapse_content_selector = $(this).attr('href');
-            var toggle_switch = $(this);
-            $(collapse_content_selector).toggle(function () {
-                if ($(this).css('display') == 'none') {
-                    toggle_switch.html('Read More');
-                } else {
-                    toggle_switch.html('Read Less');
-                }
+    <script>$(document).ready(function () {
+            $('.nav-toggle').click(function () {
+                var collapse_content_selector = $(this).attr('href');
+                var toggle_switch = $(this);
+                $(collapse_content_selector).toggle(function () {
+                    if ($(this).css('display') == 'none') {
+                        toggle_switch.html('Read More');
+                    } else {
+                        toggle_switch.html('Read Less');
+                    }
+                });
             });
-        });
-    });
-</script>
+        });</script>
 }
