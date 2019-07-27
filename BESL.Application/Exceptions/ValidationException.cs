@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Text;
     using FluentValidation.Results;
 
     using static BESL.Common.GlobalConstants;
@@ -10,7 +10,7 @@
     public class ValidationException : BaseCustomException
     {
         public ValidationException()
-            : base(VALIDATION_EXCEPTION_BASE_MSG)
+            : base()
         {
             this.Failures = new Dictionary<string, string[]>();
         }
@@ -35,5 +35,29 @@
         }
 
         public IDictionary<string, string[]> Failures { get; }
+
+        public override string Message
+        {
+            get
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine(VALIDATION_EXCEPTION_BASE_MSG);
+
+                foreach (var kvp in this.Failures)
+                {
+                    string propertyName = kvp.Key;
+                    string[] propertyFailure = kvp.Value;
+
+                    stringBuilder.AppendLine($"{propertyName}:");
+
+                    foreach (var failure in propertyFailure)
+                    {
+                        stringBuilder.AppendLine($" *{failure}");
+                    }
+                }
+
+                return stringBuilder.ToString().Trim();
+            }
+        }
     }
 }

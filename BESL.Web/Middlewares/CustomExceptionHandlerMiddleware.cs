@@ -19,13 +19,13 @@
         {
             this.next = next;
         }
-         
+
         public async Task InvokeAsync(HttpContext context, INotifyService notifyService)
         {
             string userNameIdentifier = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             bool isCurrentUserAdmin = context.User.IsInRole(Role.Administrator.ToString());
 
-            if (isCurrentUserAdmin)
+            if (userNameIdentifier != null)
             {
                 try
                 {
@@ -33,22 +33,7 @@
                 }
                 catch (ValidationException validationException)
                 {
-                    StringBuilder stringBuilder = new StringBuilder();
-
-                    foreach (var kvp in validationException.Failures)
-                    {
-                        string propertyName = kvp.Key;
-                        string[] propertyFailure = kvp.Value;
-
-                        stringBuilder.AppendLine($"{propertyName}:");
-
-                        foreach (var failure in propertyFailure)
-                        {
-                            stringBuilder.AppendLine($" *{failure}");
-                        }
-                    }
-
-                    await notifyService.SendUserFailiureNotificationAsync(validationException.Message, stringBuilder.ToString(), userNameIdentifier);
+                    await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, validationException.Message, userNameIdentifier);
                     await this.next(context);
                 }
                 catch (BaseCustomException exception)
@@ -57,6 +42,7 @@
                     await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, exception.Message, userNameIdentifier);
                 }
             }
+
             else
             {
                 await this.next(context);
