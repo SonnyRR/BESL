@@ -17,6 +17,7 @@
         public const string VALIDATION_EXCEPTION_BASE_MSG = "One or more validation failures have occurred.";
         public const string ENTITY_ALREADY_DELETED_MSG = "Entity is already deleted.";
         public const string ERROR_OCCURED_MSG = "An error has occured!";
+        public const string PLAYER_ALREADY_PART_OF_A_TEAM_MSG = "You are already a member of a team with the same format!";
         #endregion
 
         #region SignalR Notification messages

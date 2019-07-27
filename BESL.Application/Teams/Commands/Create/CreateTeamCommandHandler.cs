@@ -8,6 +8,7 @@
     using AutoMapper;
     using CloudinaryDotNet;
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
 
     using BESL.Application.Exceptions;
@@ -15,7 +16,6 @@
     using BESL.Application.Infrastructure.Cloudinary;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
-    using Microsoft.EntityFrameworkCore;
 
     public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand>
     {
@@ -53,8 +53,7 @@
             
             if (isPlayerAlreadyInATeamWithTheSameFormat)
             {
-                // placeholder
-                throw new Exception();
+                throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException();
             }
 
             var doesTeamAlreadyExist = this.teamRepository

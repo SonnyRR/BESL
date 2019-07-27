@@ -1,19 +1,13 @@
 ﻿namespace BESL.Application.Teams.Commands.Create
 {
+    using FluentValidation;
+
     using BESL.Application.Infrastructure.Validators;
     using BESL.Application.Interfaces;
-    using FluentValidation;
+    using static BESL.Application.Teams.Commands.Validation.Constants;
 
     public class CreateTeamCommandValidator : AbstractValidator<CreateTeamCommand>
     {
-        private const int NAME_MIN_LENGTH = 3, NAME_MAX_LENGTH = 35;
-        private const int DESC_MIN_LENGTH = 20, DESC_MAX_LENGTH = 1000;
-        private const string URL_EXPRESSION = @"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
-
-        private const string NAME_LENGTH_MSG = "Team name length must be between {0} and {1} characters long!";
-        private const string DESC_LENGTH_MSG = "Team description length must be between {0} and {1} characters long!";
-        private const string URL_EXPRESSION_MSG = "Homepage input value is not a valid URL!";
-
         public CreateTeamCommandValidator(IFileValidate fileValidate)
         {
             RuleFor(x => x.Name)
