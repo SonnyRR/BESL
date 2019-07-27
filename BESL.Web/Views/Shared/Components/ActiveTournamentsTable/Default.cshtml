@@ -17,7 +17,7 @@
                     @foreach (var tournament in Model.Tournaments)
                     {
                         <tr>
-                            <td><a asp-controller="Tournaments" asp-action="Details" asp-route-id="@tournament.Id">@tournament.Name</a><td>
+                            <td><a asp-controller="Tournaments" asp-action="Details" asp-route-id="@tournament.Id">@tournament.Name</a></td>
                             <td>@tournament.Game</td>
                             <td>@tournament.Format</td>
                         </tr>

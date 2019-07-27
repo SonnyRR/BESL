@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Players.Queries.Details
+﻿namespace BESL.Application.Teams.Queries.GetTeamsForPlayer
 {
     using System.Collections.Generic;
 
