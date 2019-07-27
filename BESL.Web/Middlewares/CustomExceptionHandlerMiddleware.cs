@@ -1,8 +1,9 @@
 ﻿namespace BESL.Web.Middlewares
 {
     using System.Security.Claims;
-    using System.Text;
     using System.Threading.Tasks;
+    using System.Net.Http;
+    using System.Threading;
 
     using Microsoft.AspNetCore.Http;
 
@@ -38,7 +39,9 @@
                 }
                 catch (BaseCustomException exception)
                 {
-                    // FIXME
+                    context.Request.Method = HttpMethod.Get.Method;
+                    await this.next(context);
+                    Thread.Sleep(100);
                     await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, exception.Message, userNameIdentifier);
                 }
             }
@@ -47,6 +50,6 @@
             {
                 await this.next(context);
             }
-        }
+         }
     }
 }

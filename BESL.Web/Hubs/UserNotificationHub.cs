@@ -1,10 +1,11 @@
 ﻿namespace BESL.Web.Hubs
 {
-    using System.Security.Claims;
     using System.Threading.Tasks;
-    using BESL.Domain.Entities;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.SignalR;
+
+    using BESL.Domain.Entities;
 
     public class UserNotificationHub : Hub
     {

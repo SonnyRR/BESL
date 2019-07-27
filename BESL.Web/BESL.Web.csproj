@@ -55,7 +55,6 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\lib\font-awesome\" />
     <Folder Include="Views\Shared\Components\ActiveTournamentsTable\" />
     <Folder Include="Views\Teams\" />
     <Folder Include="Views\Shared\Components\TournamentSkillTables\" />
