@@ -27,7 +27,7 @@
             RuleFor(x => x.TournamentFormatId)
                 .NotEmpty();
 
-            RuleFor(x => x.OwnerId)
+            RuleFor(x => x.TournamentFormatId)
                 .NotEmpty();
 
             RuleFor(x => x.TeamImage)

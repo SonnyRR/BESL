@@ -3,22 +3,15 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     using BESL.Application.Teams.Commands.Create;
     using BESL.Application.Teams.Queries.Create;
-    using BESL.Domain.Entities;
-
+    using System.Security.Claims;
 
     public class TeamsController : BaseController
     {
-        private readonly UserManager<Player> userManager;
-
-        public TeamsController(UserManager<Player> userManager)
-        {
-            this.userManager = userManager;
-        }
+        private string CurrentUserId => this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         [Authorize]
         public async Task<IActionResult> Create()
@@ -31,10 +24,15 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateTeamCommand command)
         {
-            command.OwnerId = this.userManager.GetUserId(this.User);
-            await this.Mediator.Send(command);
+            if (!this.ModelState.IsValid)
+            {
+                command.Formats = (await this.Mediator.Send(new CreateTeamQuery())).Formats;
+                return this.View(command);
+            }
 
-            return this.RedirectToAction("Index", "Home");
+            command.OwnerId = this.CurrentUserId;
+            var assignedId = await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Details), assignedId);
         }
 
         public async Task<IActionResult> Index(string id)
@@ -44,6 +42,7 @@
 
         public async Task<IActionResult> Details(int id)
         {
+            //var viewModel = await this.Mediator.Send();
             return this.View();
         }
     }

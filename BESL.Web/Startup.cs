@@ -8,8 +8,8 @@
 
     using AutoMapper;
     using FluentValidation.AspNetCore;
-    using MediatR;
     using Hangfire;
+    using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Hosting;
