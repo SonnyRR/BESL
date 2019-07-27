@@ -11,6 +11,7 @@
     using BESL.Domain.Entities.Enums;
     using BESL.Web.Infrastructure.Services;
     using static BESL.Common.GlobalConstants;
+    using System.Net;
 
     public class CustomExceptionHandlerMiddleware
     {
@@ -39,10 +40,23 @@
                 }
                 catch (BaseCustomException exception)
                 {
-                    context.Request.Method = HttpMethod.Get.Method;
-                    await this.next(context);
-                    Thread.Sleep(100);
-                    await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, exception.Message, userNameIdentifier);
+                    if (context.Request.Method == HttpMethod.Post.Method)
+                    {
+                        context.Request.Method = HttpMethod.Get.Method;
+                        await this.next(context);
+                        Thread.Sleep(100);
+                        await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, exception.Message, userNameIdentifier);
+                    }
+
+                    else
+                    {
+                        context.Request.Method = HttpMethod.Get.Method;
+                        context.Request.Path = "/";
+                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                        await this.next(context);
+                        Thread.Sleep(110);
+                        await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, exception.Message, userNameIdentifier);
+                    }
                 }
             }
 
@@ -50,6 +64,6 @@
             {
                 await this.next(context);
             }
-         }
+        }
     }
 }

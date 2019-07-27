@@ -8,6 +8,7 @@
     using BESL.Application.Teams.Commands.Create;
     using BESL.Application.Teams.Queries.Create;
     using System.Security.Claims;
+    using BESL.Application.Teams.Queries.Details;
 
     public class TeamsController : BaseController
     {
@@ -40,9 +41,9 @@
             return this.View();
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(GetTeamDetailsQuery query)
         {
-            //var viewModel = await this.Mediator.Send();
+            var viewModel = await this.Mediator.Send(query);
             return this.View();
         }
     }
