@@ -1,0 +1,23 @@
+﻿namespace BESL.Web.Infrastructure
+{
+    using System;
+    using System.Security.Claims;
+
+    using Microsoft.AspNetCore.Http;
+
+    using BESL.Application.Interfaces;
+
+    public class UserAccessor : IUserAcessor
+    {
+        private readonly IHttpContextAccessor httpContextAccessor;
+
+        public UserAccessor(IHttpContextAccessor httpContextAccessor)
+        {
+            this.httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+        }
+
+        public ClaimsPrincipal User => this.httpContextAccessor.HttpContext.User;
+
+        public object UserId => this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    }
+}

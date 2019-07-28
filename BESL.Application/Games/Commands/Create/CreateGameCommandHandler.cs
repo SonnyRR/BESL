@@ -12,7 +12,6 @@
     using BESL.Application.Infrastructure.Cloudinary;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
-    using BESL.Application.Exceptions;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {

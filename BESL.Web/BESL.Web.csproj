@@ -38,6 +38,7 @@
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
     <PackageReference Include="Hangfire" Version="1.7.5" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
 

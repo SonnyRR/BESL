@@ -36,6 +36,7 @@
     using BESL.Messaging;
     using BESL.Application.Infrastructure;
     using BESL.Web.Hubs;
+    using BESL.Web.Infrastructure;
 
     public class Startup
     {
@@ -102,6 +103,7 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             services.AddSignalR();
+            services.AddHttpContextAccessor();
 
             services.AddHangfire(cfg => cfg.UseSqlServerStorage(
                 this.Configuration.GetConnectionString(DbConnectionStringHandler.GetHangfireConnectionStringNameForCurrentOS())));
@@ -110,6 +112,8 @@
 
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISmsSender, NullMessageSender>();
+
+            services.AddTransient<IUserAcessor, UserAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
