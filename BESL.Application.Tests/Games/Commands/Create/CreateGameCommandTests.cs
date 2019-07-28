@@ -21,6 +21,7 @@
     using BESL.Application.Infrastructure.Validators;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
+    using MediatR;
 
     public class CreateGameCommandTests : BaseTest<Game>
     {

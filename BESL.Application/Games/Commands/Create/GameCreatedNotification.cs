@@ -9,6 +9,7 @@
     using BESL.Domain.Entities;
     using BESL.Domain.Entities.Enums;
     using static BESL.Common.GlobalConstants;
+    using BESL.Application.Infrastructure.Redis;
 
     public class GameCreatedNotification : INotification
     {
@@ -17,11 +18,10 @@
         public class Handler : INotificationHandler<GameCreatedNotification>
         {
             private readonly IDeletableEntityRepository<Notification> notificationRepository;
-            private readonly IUserAcessor userAcessor;
-
-            public Handler(IDeletableEntityRepository<Notification> notificationRepository, IUserAcessor userAcessor)
+            private readonly IUserAcessor userAcessor;            
+            public Handler( IDeletableEntityRepository<Notification> notificationRepository, IUserAcessor userAcessor)
             {
-                this.notificationRepository = notificationRepository;
+                this.notificationRepository = notificationRepository;                
                 this.userAcessor = userAcessor;
             }
 

@@ -37,6 +37,7 @@
     using BESL.Application.Infrastructure;
     using BESL.Web.Hubs;
     using BESL.Web.Infrastructure;
+    using BESL.Application.Infrastructure.Redis;
 
     public class Startup
     {
@@ -117,6 +118,9 @@
             services.AddTransient<ISmsSender, NullMessageSender>();
 
             services.AddTransient<IUserAcessor, UserAccessor>();
+
+            services.Configure<RedisConfiguration>(Configuration.GetSection("Redis"));
+            services.AddSingleton<IRedisConnectionFactory, RedisConnectionFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
