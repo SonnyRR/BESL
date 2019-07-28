@@ -9,8 +9,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SteamWebAPI2\SteamWebAPI2.csproj" />
-  </ItemGroup>
-
 </Project>
