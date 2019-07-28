@@ -96,7 +96,7 @@
 
             // MediatR pipeline behaviour call order is determined by the order they are registered.
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestNotificationBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestExceptionNotificationBehaviour<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>)); // disabled, modelstate will be checked in controllers in order to return the correct views with errors instead of throwing HTTP 5** response codes
 
             services.AddScoped<IFileValidate, GameImageFileValidate>();
