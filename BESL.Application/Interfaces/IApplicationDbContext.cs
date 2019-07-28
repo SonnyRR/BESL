@@ -32,6 +32,8 @@
 
         DbSet<TournamentTable> TournamentTables { get; set; }
 
+        DbSet<Notification> Notifications { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
