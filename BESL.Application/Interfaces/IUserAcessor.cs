@@ -6,6 +6,6 @@
     {
         ClaimsPrincipal User { get; }
 
-        object UserId { get; }
+        string UserId { get; }
     }
 }

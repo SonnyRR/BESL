@@ -18,6 +18,6 @@
 
         public ClaimsPrincipal User => this.httpContextAccessor.HttpContext.User;
 
-        public object UserId => this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        public string UserId => this.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }
