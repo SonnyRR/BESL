@@ -31,8 +31,7 @@
             {
                 var name = typeof(TRequest).Name;
 
-                // TODO: Add User Details
-                this.logger.LogWarning("BESL Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, this.stopwatch.ElapsedMilliseconds, request);
+                this.logger.LogWarning("BESL Long Running Request: {Name}-[UserId: {userId}] ({ElapsedMilliseconds} milliseconds) {@Request}", name, this.stopwatch.ElapsedMilliseconds, request);
             }
 
             return response;
