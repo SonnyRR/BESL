@@ -15,6 +15,10 @@
             builder.Property(n => n.Content)
                 .IsUnicode()
                 .HasMaxLength(1024);
+
+            builder.Property(n => n.Header)
+                .IsUnicode()
+                .HasMaxLength(1024);
         }
     }
 }

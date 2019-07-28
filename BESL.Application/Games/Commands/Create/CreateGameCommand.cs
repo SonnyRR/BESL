@@ -3,7 +3,7 @@
     using MediatR;
     using Microsoft.AspNetCore.Http;
 
-    public class CreateGameCommand : IRequest<int>
+    public class CreateGameCommand : IRequest
     {
         public string Name { get; set; }
 

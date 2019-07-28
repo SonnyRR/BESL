@@ -20,7 +20,7 @@
         public const string PLAYER_ALREADY_PART_OF_A_TEAM_MSG = "You are already a member of a team with the same format!";
         #endregion
 
-        #region SignalR Notification messages
+        #region Notification messages
         public const string CREATED_SUCCESSFULLY_MSG = "has been created successfully!";
         public const string DELETED_SUCCESSFULLY_MSG = "has been deleted!";
         #endregion

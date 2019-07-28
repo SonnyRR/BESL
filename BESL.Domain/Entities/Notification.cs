@@ -8,8 +8,10 @@
         public string PlayerId { get; set; }
         public Player Player { get; set; }
 
+        public string Header { get; set; }
+
         public string Content { get; set; }
 
-        public NotificationSeverity Severity { get; set; }
+        public NotificationType Type { get; set; }
     }
 }

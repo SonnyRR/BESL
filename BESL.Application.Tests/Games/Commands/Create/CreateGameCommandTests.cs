@@ -55,7 +55,7 @@
             };
 
             // Act
-            var id = await sut.Handle(command, CancellationToken.None);
+            await sut.Handle(command, CancellationToken.None);
             var game = this.dbContext.Games.SingleOrDefault(g => g.Name == "Team Fortress 2");
 
             // Assert
