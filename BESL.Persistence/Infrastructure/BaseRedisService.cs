@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Infrastructure.Redis
+﻿namespace BESL.Persistence.Infrastructure
 {
     using System;
     using System.Linq;

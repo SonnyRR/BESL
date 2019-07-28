@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Interfaces
+﻿namespace BESL.Persistence.Infrastructure
 { 
     using StackExchange.Redis;
 

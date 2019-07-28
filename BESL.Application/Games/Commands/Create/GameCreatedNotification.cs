@@ -9,7 +9,6 @@
     using BESL.Domain.Entities;
     using BESL.Domain.Entities.Enums;
     using static BESL.Common.GlobalConstants;
-    using BESL.Application.Infrastructure.Redis;
 
     public class GameCreatedNotification : INotification
     {

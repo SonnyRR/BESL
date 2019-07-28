@@ -1,16 +1,15 @@
-﻿namespace BESL.Application.Infrastructure.Redis
+﻿namespace BESL.Persistence
 {
+    using System;
+
     using Microsoft.Extensions.Options;
     using StackExchange.Redis;
-    using System;
+
+    using BESL.Persistence.Infrastructure;
 
     public class RedisConnectionFactory : IRedisConnectionFactory
     {
-        /// <summary>
-        ///     The _connection.
-        /// </summary>
-        private readonly Lazy<ConnectionMultiplexer> _connection;
-       
+        private readonly Lazy<ConnectionMultiplexer> _connection;       
 
         private readonly IOptions<RedisConfiguration> redis;
 

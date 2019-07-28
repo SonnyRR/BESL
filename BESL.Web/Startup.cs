@@ -37,7 +37,7 @@
     using BESL.Application.Infrastructure;
     using BESL.Web.Hubs;
     using BESL.Web.Infrastructure;
-    using BESL.Application.Infrastructure.Redis;
+    using BESL.Persistence.Infrastructure;
 
     public class Startup
     {

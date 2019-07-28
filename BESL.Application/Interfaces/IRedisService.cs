@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Infrastructure.Redis
+﻿namespace BESL.Application.Interfaces
 {
     public interface IRedisService<T>
     {

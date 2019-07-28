@@ -1,9 +1,11 @@
-﻿namespace BESL.Application.Infrastructure.Redis
+﻿namespace BESL.Persistence.Redis
 {
     using System;
+    using BESL.Application.Interfaces;
+    using BESL.Persistence.Infrastructure;
     using StackExchange.Redis;
 
-    public class RedisVoteService<T> : BaseService<T>, IRedisService<T>
+    public class RedisVoteService<T> : BaseRedisService<T>, IRedisService<T>
     {
         internal readonly IDatabase Db;
         protected readonly IRedisConnectionFactory ConnectionFactory;
