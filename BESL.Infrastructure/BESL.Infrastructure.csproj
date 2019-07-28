@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Messaging\" />
+    <Folder Include="Messaging\SendGrid\" />
+    <Folder Include="SteamWebApi2\" />
+    <Folder Include="Cloudinary\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.2.5" />
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="Steam.Models" Version="3.0.8" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.8.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BESL.Application\BESL.Application.csproj" />
+  </ItemGroup>
+</Project>

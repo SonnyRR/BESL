@@ -32,12 +32,14 @@
     using BESL.Web.Filters;
     using BESL.Web.Infrastructure.Cron;
     using BESL.Persistence.Seeding;
-    using BESL.Persistence.Repositories;
-    using BESL.Messaging;
+    using BESL.Persistence.Repositories;   
     using BESL.Application.Infrastructure;
     using BESL.Web.Hubs;
     using BESL.Web.Infrastructure;
     using BESL.Persistence.Infrastructure;
+    using BESL.Infrastructure.Messaging;
+    using CloudinaryDotNet;
+    using BESL.Infrastructure.Cloudinary;
 
     public class Startup
     {
@@ -118,6 +120,9 @@
             services.AddTransient<ISmsSender, NullMessageSender>();
 
             services.AddTransient<IUserAcessor, UserAccessor>();
+
+            services.AddSingleton<Cloudinary>(x => CloudinaryFactory.GetInstance(this.Configuration));
+            services.AddTransient<ICloudinaryHelper, CloudinaryHelper>();
 
             services.Configure<RedisConfiguration>(Configuration.GetSection("Redis"));
             services.AddSingleton<IRedisConnectionFactory, RedisConnectionFactory>();

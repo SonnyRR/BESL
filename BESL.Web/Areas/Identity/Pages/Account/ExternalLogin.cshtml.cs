@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using BESL.Common.SteamWebApi;
+using BESL.Infrastructure.SteamWebAPI2;
 using Microsoft.Extensions.Configuration;
 using MediatR;
 using static BESL.Common.GlobalConstants;

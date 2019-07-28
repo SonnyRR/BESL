@@ -3,7 +3,7 @@
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
-
+    using BESL.Application.Interfaces;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
@@ -11,12 +11,13 @@
     {
         private readonly Stopwatch stopwatch;
         private readonly ILogger<TRequest> logger;
+        private readonly IUserAcessor userAcessor;
 
-        public RequestPerformanceBehaviour(ILogger<TRequest> logger)
+        public RequestPerformanceBehaviour(ILogger<TRequest> logger, IUserAcessor userAcessor)
         {
             this.stopwatch = new Stopwatch();
-
             this.logger = logger;
+            this.userAcessor = userAcessor;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -31,7 +32,7 @@
             {
                 var name = typeof(TRequest).Name;
 
-                this.logger.LogWarning("BESL Long Running Request: {Name}-[UserId: {userId}] ({ElapsedMilliseconds} milliseconds) {@Request}", name, this.stopwatch.ElapsedMilliseconds, request);
+                this.logger.LogWarning("BESL Long Running Request: {Name}-[UserId: {userId}] ({ElapsedMilliseconds} milliseconds) {@Request}", name, this.userAcessor.UserId, this.stopwatch.ElapsedMilliseconds, request);
             }
 
             return response;

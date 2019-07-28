@@ -7,12 +7,10 @@
 
     using CloudinaryDotNet;
     using MediatR;
-    using Microsoft.Extensions.Configuration;
 
     using BESL.Application.Interfaces;    
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
-    using BESL.Application.Infrastructure.Cloudinary;
     using static BESL.Common.GlobalConstants;
 
 
@@ -20,18 +18,16 @@
     {
         private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
         private readonly IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository;
-        private readonly IConfiguration configuration;
-        private readonly CloudinaryHelper cloudinaryHelper;
+        private readonly ICloudinaryHelper cloudinaryHelper;
 
         public CreateTournamentCommandHandler(
             IDeletableEntityRepository<Tournament> tournamentRepository, 
             IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository,
-            IConfiguration configuration)
+            ICloudinaryHelper cloudinaryHelper)
         {
             this.tournamentRepository = tournamentRepository;
             this.tournamentFormatsRepository = tournamentFormatsRepository;
-            this.configuration = configuration;
-            this.cloudinaryHelper = new CloudinaryHelper();
+            this.cloudinaryHelper = cloudinaryHelper;
         }
 
         public async Task<int> Handle(CreateTournamentCommand request, CancellationToken cancellationToken)
@@ -46,10 +42,7 @@
                 throw new EntityAlreadyExists(nameof(Tournament), request.Name);
             }
 
-            var cloudinary = this.cloudinaryHelper.GetInstance(this.configuration);
-
             var url = await this.cloudinaryHelper.UploadImage(
-                    cloudinary,
                     request.TournamentImage,
                     name: $"{request.Name}-tournament-main-shot",
                     transformation: new Transformation().Width(TOURNAMENT_IMAGE_WIDTH).Height(TOURNAMENT_IMAGE_HEIGHT));

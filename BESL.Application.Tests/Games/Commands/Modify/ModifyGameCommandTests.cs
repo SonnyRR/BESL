@@ -1,24 +1,21 @@
 ﻿namespace BESL.Application.Tests.Games.Commands.Modify
 {
     using System.IO;
-    using System.Linq;
-    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
-    using Microsoft.Extensions.Configuration;
     using Moq;
     using Shouldly;
     using Xunit;
 
-    using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Games.Commands.Modify;
-    using BESL.Domain.Entities;
     using BESL.Application.Infrastructure.Validators;
-    using BESL.Application.Infrastructure.Cloudinary;
+    using BESL.Application.Interfaces;
+    using BESL.Application.Tests.Infrastructure;
+    using BESL.Domain.Entities;
 
     public class ModifyGameCommandTests : BaseTest<Game>
     {
@@ -29,21 +26,11 @@
             // Arrange
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
 
-            var sut = new ModifyGameCommandHandler(deletableEntityRepository, It.IsAny<IConfiguration>());
-
             cloudinaryHelperMock
-                .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
+                .Setup(x => x.UploadImage(It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
                 .ReturnsAsync("https://steamcdn-a.akamaihd.net/steam/apps/440/changed-picture.jpg");
 
-            cloudinaryHelperMock
-                .Setup(x => x.GetInstance(It.IsAny<IConfiguration>()))
-                .Returns(() => null);
-
-            var field = typeof(ModifyGameCommandHandler)
-                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                .SingleOrDefault(f => f.IsInitOnly && f.FieldType == typeof(ICloudinaryHelper));
-
-            field.SetValue(sut, cloudinaryHelperMock.Object);
+            var sut = new ModifyGameCommandHandler(deletableEntityRepository, cloudinaryHelperMock.Object);
 
             var gameId = 1;
             var command = new ModifyGameCommand()

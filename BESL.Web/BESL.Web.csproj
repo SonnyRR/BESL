@@ -44,12 +44,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
-    <ProjectReference Include="..\BESL.Messaging\BESL.Messaging.csproj" />
     <ProjectReference Include="..\BESL.Common\BESL.Common.csproj" />
     <ProjectReference Include="..\BESL.Application\BESL.Application.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
     <ProjectReference Include="..\BESL.Persistence\BESL.Persistence.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\BESL.Infrastructure\BESL.Infrastructure.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

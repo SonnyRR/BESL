@@ -4,7 +4,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using BESL.Application.Exceptions;
-    using BESL.Application.Infrastructure.Cloudinary;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using MediatR;
@@ -13,14 +12,12 @@
     public class ModifyTournamentCommandHandler : IRequestHandler<ModifyTournamentCommand>
     {
         private readonly IDeletableEntityRepository<Tournament> repository;
-        private readonly IConfiguration configuration;
-        private readonly CloudinaryHelper cloudinaryHelper;
+        private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public ModifyTournamentCommandHandler(IDeletableEntityRepository<Tournament> repository, IConfiguration configuration)
+        public ModifyTournamentCommandHandler(IDeletableEntityRepository<Tournament> repository, ICloudinaryHelper cloudinaryHelper)
         {
             this.repository = repository;
-            this.configuration = configuration;
-            this.cloudinaryHelper = new CloudinaryHelper();
+            this.cloudinaryHelper = cloudinaryHelper;
         }
 
         public async Task<Unit> Handle(ModifyTournamentCommand request, CancellationToken cancellationToken)
@@ -38,11 +35,8 @@
             }
 
             if (request.TournamentImage != null)
-            {
-                var cloudinary = this.cloudinaryHelper.GetInstance(this.configuration);
-
+            {                
                 var url = await this.cloudinaryHelper.UploadImage(
-                        cloudinary,
                         request.TournamentImage,
                         name: $"{request.Name}-tournament-main-shot");
 

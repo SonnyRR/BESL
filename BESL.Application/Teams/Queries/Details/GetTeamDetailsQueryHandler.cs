@@ -27,7 +27,7 @@
 
             var desiredTeam = await this.teamRepository
                 .AllAsNoTrackingWithDeleted()
-                .SingleOrDefaultAsync(x => x.Id == request.Id + 21, cancellationToken);
+                .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (desiredTeam == null)
             {

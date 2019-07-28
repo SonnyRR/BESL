@@ -3,21 +3,19 @@
     using System;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
-    using Microsoft.Extensions.Configuration;
+
     using Moq;
     using Shouldly;
     using Xunit;
 
     using BESL.Application.Games.Commands.Create;
     using BESL.Application.Interfaces;
-    using BESL.Application.Infrastructure.Cloudinary;
     using BESL.Application.Infrastructure.Validators;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
@@ -34,21 +32,11 @@
             var cloudinaryMock = new Mock<Cloudinary>();
             var mediatorMock = new Mock<IMediator>();
 
-            var sut = new CreateGameCommandHandler(this.deletableEntityRepository, It.IsAny<IConfiguration>(), mediatorMock.Object);
-
             cloudinaryHelperMock
-                .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
+                .Setup(x => x.UploadImage(It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
                 .ReturnsAsync("https://steamcdn-a.akamaihd.net/steam/apps/440/header.jpg");
 
-            cloudinaryHelperMock
-                .Setup(x => x.GetInstance(It.IsAny<IConfiguration>()))
-                .Returns(() => It.IsAny<Cloudinary>());
-
-            var field = typeof(CreateGameCommandHandler)
-                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                .SingleOrDefault(f => f.IsInitOnly && f.FieldType == typeof(ICloudinaryHelper));
-
-            field.SetValue(sut, cloudinaryHelperMock.Object);
+            var sut = new CreateGameCommandHandler(this.deletableEntityRepository, cloudinaryHelperMock.Object, mediatorMock.Object);
 
             var command = new CreateGameCommand()
             {
@@ -76,7 +64,7 @@
         {
             // Arrange
             var mediatorMock = new Mock<IMediator>();
-            var sut = new CreateGameCommandHandler(It.IsAny<IDeletableEntityRepository<Game>>(), It.IsAny<IConfiguration>(), mediatorMock.Object);
+            var sut = new CreateGameCommandHandler(It.IsAny<IDeletableEntityRepository<Game>>(), It.IsAny<ICloudinaryHelper>(), mediatorMock.Object);
             CreateGameCommand command = null;
 
             // Assert

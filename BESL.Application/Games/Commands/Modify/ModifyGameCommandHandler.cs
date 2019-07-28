@@ -5,24 +5,20 @@
 
     using CloudinaryDotNet;
     using MediatR;
-    using Microsoft.Extensions.Configuration;
 
     using BESL.Application.Interfaces;
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
-    using BESL.Application.Infrastructure.Cloudinary;
 
     public class ModifyGameCommandHandler : IRequestHandler<ModifyGameCommand, Unit>
     {
         private readonly IDeletableEntityRepository<Game> repository;
-        private readonly IConfiguration configuration;
         private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> repository, IConfiguration configuration)
+        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> repository, ICloudinaryHelper cloudinaryHelper)
         {
             this.repository = repository;
-            this.configuration = configuration;
-            this.cloudinaryHelper = new CloudinaryHelper();
+            this.cloudinaryHelper = cloudinaryHelper;
         }
 
         public async Task<Unit> Handle(ModifyGameCommand request, CancellationToken cancellationToken)
@@ -40,9 +36,7 @@
 
             if (request.GameImage != null)
             {
-                var cloudinary = this.cloudinaryHelper.GetInstance(this.configuration);
                 var imageUrl = await this.cloudinaryHelper.UploadImage(
-                    cloudinary,
                     request.GameImage,
                     name: $"{request.Name}-main-shot",
                     transformation: new Transformation().Width(460).Height(215));
