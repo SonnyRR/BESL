@@ -32,7 +32,9 @@
             // Arrange
             var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
             var cloudinaryMock = new Mock<Cloudinary>();
-            var sut = new CreateGameCommandHandler(this.deletableEntityRepository, It.IsAny<IConfiguration>());
+            var mediatorMock = new Mock<IMediator>();
+
+            var sut = new CreateGameCommandHandler(this.deletableEntityRepository, It.IsAny<IConfiguration>(), mediatorMock.Object);
 
             cloudinaryHelperMock
                 .Setup(x => x.UploadImage(It.IsAny<Cloudinary>(), It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
@@ -60,6 +62,7 @@
             var game = this.dbContext.Games.SingleOrDefault(g => g.Name == "Team Fortress 2");
 
             // Assert
+            mediatorMock.Verify(x => x.Publish(It.IsAny<GameCreatedNotification>(), It.IsAny<CancellationToken>()));
             game.ShouldNotBeNull();            
             this.dbContext.Games.Count().ShouldBe(4);
             game.Name.ShouldBe("Team Fortress 2");
@@ -72,7 +75,8 @@
         public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var sut = new CreateGameCommandHandler(It.IsAny<IDeletableEntityRepository<Game>>(), It.IsAny<IConfiguration>());
+            var mediatorMock = new Mock<IMediator>();
+            var sut = new CreateGameCommandHandler(It.IsAny<IDeletableEntityRepository<Game>>(), It.IsAny<IConfiguration>(), mediatorMock.Object);
             CreateGameCommand command = null;
 
             // Assert

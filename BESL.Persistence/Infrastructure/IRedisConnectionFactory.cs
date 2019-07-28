@@ -1,5 +1,5 @@
-﻿namespace BESL.Application.Infrastructure.Redis
-{
+﻿namespace BESL.Application.Interfaces
+{ 
     using StackExchange.Redis;
 
     public interface IRedisConnectionFactory

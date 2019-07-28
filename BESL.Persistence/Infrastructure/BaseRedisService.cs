@@ -5,7 +5,7 @@
     using System.Reflection;
     using StackExchange.Redis;
 
-    public abstract class BaseService<T>
+    public abstract class BaseRedisService<T>
     {
         protected string Name => this.Type.Name;
 

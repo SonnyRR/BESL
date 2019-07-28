@@ -1,8 +1,6 @@
 ﻿namespace BESL.Application.Infrastructure.Redis
 {
     using System;
-    using System.Linq;
-    using System.Reflection;
     using StackExchange.Redis;
 
     public class RedisVoteService<T> : BaseService<T>, IRedisService<T>
