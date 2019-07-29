@@ -16,10 +16,10 @@
             this.Database = redisConnectionFactory.Connection().GetDatabase();
         }
 
-        public void Save(string key, T data)
+        public void Save(string key, T data, TimeSpan? expiration = null)
         {
             var serializedObject = JsonHelper.SerializeObjectToJson(data);
-            this.Database.StringSet(key, serializedObject);
+            this.Database.StringSet(key, serializedObject, expiration);
         }
 
         public T Get(string key)

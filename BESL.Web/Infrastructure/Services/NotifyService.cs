@@ -1,14 +1,15 @@
 ﻿namespace BESL.Web.Infrastructure.Services
 {
-    using System.Collections.Concurrent;
     using System.Threading.Tasks;
-    using BESL.Web.Hubs;
+
     using Microsoft.AspNetCore.SignalR;
+
+    using BESL.Application.Interfaces;
+    using BESL.Web.Hubs;
 
     public class NotifyService : INotifyService
     {
         private readonly IHubContext<UserNotificationHub> hubContext;
-        private readonly ConcurrentDictionary<string, string> nonPersistentPushNotifications;
 
         public NotifyService(IHubContext<UserNotificationHub> hubContext)
         {

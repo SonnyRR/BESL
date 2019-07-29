@@ -1,4 +1,4 @@
-﻿namespace BESL.Web.Infrastructure.Services
+﻿namespace BESL.Application.Interfaces
 {    
     using System.Threading.Tasks;
 

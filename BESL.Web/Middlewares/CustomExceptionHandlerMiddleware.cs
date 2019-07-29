@@ -2,16 +2,16 @@
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using System.Net;
     using System.Net.Http;
     using System.Threading;
 
     using Microsoft.AspNetCore.Http;
 
     using BESL.Application.Exceptions;
+    using BESL.Application.Interfaces;
     using BESL.Domain.Entities.Enums;
-    using BESL.Web.Infrastructure.Services;
     using static BESL.Common.GlobalConstants;
-    using System.Net;
 
     public class CustomExceptionHandlerMiddleware
     {

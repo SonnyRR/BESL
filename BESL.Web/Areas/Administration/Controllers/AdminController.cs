@@ -7,7 +7,7 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using BESL.Web.Controllers;
-    using BESL.Web.Infrastructure.Services;
+    using BESL.Application.Interfaces;
 
     [Area("Administration")]
     [Authorize(Roles = "Administrator")]
