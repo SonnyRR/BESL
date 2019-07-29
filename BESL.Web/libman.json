@@ -13,18 +13,44 @@
         "js/bootstrap.min.js",
         "js/bootstrap.bundle.min.js",
         "css/bootstrap.min.css",
+        "css/bootstrap.min.css.map",
         "css/bootstrap-reboot.min.css",
         "css/bootstrap-grid.min.css"
       ]
     },
     {
       "library": "font-awesome@5.9.0",
-      "destination": "wwwroot/lib/font-awesome/",
-      //"files": [
-      //  "css/all.min.css",
-      //  "css/all.css",
-      //  "webfonts/*"
-      //]
+      "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "jquery@3.4.1",
+      "destination": "wwwroot/lib/jquery",
+      "files": [
+        "jquery.js",
+        "jquery.min.js",
+        "jquery.min.map"
+      ]
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive"
+    },
+    {
+      "library": "jquery-validate@1.19.1",
+      "destination": "wwwroot/lib/jquery-validate",
+      "files": [
+        "jquery.validate.js",
+        "jquery.validate.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery-ajax-unobtrusive@3.2.6",
+      "destination": "wwwroot/lib/jquery-ajax-unobtrusive/",
+      "files": [
+        "dist/jquery.unobtrusive-ajax.js",
+        "dist/jquery.unobtrusive-ajax.min.js"
+      ]
     }
   ]
 }
