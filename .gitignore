@@ -7,6 +7,8 @@
 .DS_Store
 .zip
 StyleCop.Cache
+**/wwwroot/lib
+appsettings.Development.json
 
 # User-specific files
 *.suo
