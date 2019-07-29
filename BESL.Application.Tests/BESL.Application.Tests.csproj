@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BESL.Application\BESL.Application.csproj" />
     <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
     <ProjectReference Include="..\BESL.Persistence\BESL.Persistence.csproj" />
   </ItemGroup>

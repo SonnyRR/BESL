@@ -1,7 +1,6 @@
 ﻿namespace BESL.Common
 {   
     using System.Runtime.InteropServices;
-
     /// <summary>
     /// Class that manages connection string key names depending on the current OS.
     /// </summary>
