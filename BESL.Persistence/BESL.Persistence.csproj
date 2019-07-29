@@ -28,6 +28,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Seeding\" />
-    <Folder Include="Redis\" />
   </ItemGroup>
 </Project>

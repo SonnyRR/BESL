@@ -40,7 +40,6 @@
     using BESL.Infrastructure.Messaging;
     using CloudinaryDotNet;
     using BESL.Infrastructure.Cloudinary;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -126,6 +125,7 @@
 
             services.Configure<RedisConfiguration>(Configuration.GetSection("Redis"));
             services.AddSingleton<IRedisConnectionFactory, RedisConnectionFactory>();
+            services.AddTransient(typeof(IRedisService<>), typeof(RedisService<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
