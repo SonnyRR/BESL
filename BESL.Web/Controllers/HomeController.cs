@@ -13,6 +13,8 @@
 
         public IActionResult Privacy()
         {
+            // just for testing
+            throw new System.Exception();
             return this.View();
         }
 
