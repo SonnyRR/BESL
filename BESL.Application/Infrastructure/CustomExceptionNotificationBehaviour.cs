@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.Infrastructure
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -10,16 +11,15 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
-    using System;
 
-    public class RequestExceptionNotificationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class CustomExceptionNotificationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
         private readonly ILogger logger;
         private readonly IUserAcessor userAcessor;
         private readonly IRedisService<Notification> redisService;
 
-        public RequestExceptionNotificationBehaviour(
+        public CustomExceptionNotificationBehaviour(
             ILogger<TRequest> logger, 
             IUserAcessor userAcessor,
             IRedisService<Notification> redisService)
