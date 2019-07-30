@@ -1,6 +1,7 @@
 ﻿namespace BESL.Persistence.Infrastructure
 {
     using System;
+    using System.Threading.Tasks;
 
     using StackExchange.Redis;
 
@@ -16,17 +17,17 @@
             this.Database = redisConnectionFactory.Connection().GetDatabase();
         }
 
-        public void Save(string key, T data, TimeSpan? expiration = null)
+        public async Task Save(string key, T data, TimeSpan? expiration = null)
         {
             var serializedObject = JsonHelper.SerializeObjectToJson(data);
-            this.Database.StringSet(key, serializedObject, expiration);
+            await this.Database.StringSetAsync(key, serializedObject, expiration);
         }
 
-        public T Get(string key)
+        public async Task<T> Get(string key)
         {
             try
             {
-                var res = this.Database.StringGet(key);
+                var res = await this.Database.StringGetAsync(key);
 
                 if (res.IsNull)
                     return default;
@@ -39,12 +40,12 @@
             }
         }
 
-        public void Delete(string key)
+        public async Task Delete(string key)
         {
             if(string.IsNullOrWhiteSpace(key) || key.Contains(":"))
                 throw new ArgumentException("invalid key");
 
-            this.Database.KeyDelete(key);
+            await this.Database.KeyDeleteAsync(key);
         }
     }
 }

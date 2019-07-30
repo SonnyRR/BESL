@@ -1,4 +1,6 @@
-﻿namespace BESL.Common
+﻿using System;
+
+namespace BESL.Common
 {
     public class GlobalConstants
     {
@@ -20,9 +22,10 @@
         public const string PLAYER_ALREADY_PART_OF_A_TEAM_MSG = "You are already a member of a team with the same format!";
         #endregion
 
-        #region Notification messages
+        #region Notifications
         public const string CREATED_SUCCESSFULLY_MSG = "has been created successfully!";
         public const string DELETED_SUCCESSFULLY_MSG = "has been deleted!";
+        public const double REDIS_NOTIFICATION_EXPIRATION_MINUTES = 5;
         #endregion
 
         #region Steam

@@ -1,13 +1,14 @@
 ﻿namespace BESL.Application.Interfaces
 {
     using System;
+    using System.Threading.Tasks;
 
     public interface IRedisService<T>
     {
-        T Get(string key);
+        Task<T> Get(string key);
 
-        void Save(string key, T obj, TimeSpan? expiration = null);
+        Task Save(string key, T obj, TimeSpan? expiration = null);
 
-        void Delete(string key); 
+        Task Delete(string key); 
     }
 }
