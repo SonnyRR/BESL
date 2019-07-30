@@ -54,8 +54,6 @@
         public async Task<IActionResult> Delete(DeleteTournamentFormatCommand command)
         {
             await this.Mediator.Send(command);
-
-            _ = this.UserNotificationHub.SendUserSuccessNotificationAsync(command.FormatName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction(nameof(Index));
         }
     }

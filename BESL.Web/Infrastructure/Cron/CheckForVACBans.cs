@@ -7,9 +7,9 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
-    using BESL.Infrastructure.SteamWebAPI2.Interfaces;
 
     using BESL.Infrastructure.SteamWebAPI2;
+    using BESL.Infrastructure.SteamWebAPI2.Interfaces;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
 

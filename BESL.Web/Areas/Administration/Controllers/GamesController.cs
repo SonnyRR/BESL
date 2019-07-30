@@ -60,8 +60,6 @@
         public async Task<IActionResult> Delete(DeleteGameCommand command)
         {
             await this.Mediator.Send(command);
-
-            _ = this.UserNotificationHub.SendUserSuccessNotificationAsync(command.GameName, DELETED_SUCCESSFULLY_MSG, this.UserNameIdentifier);
             return this.RedirectToAction(nameof(Index));
         }
     }

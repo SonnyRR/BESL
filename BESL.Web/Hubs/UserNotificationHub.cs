@@ -2,36 +2,39 @@
 {
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.SignalR;
 
     using BESL.Domain.Entities;
+    using BESL.Application.Interfaces;
+    using static BESL.Common.GlobalConstants;
 
     public class UserNotificationHub : Hub
     {
-        private readonly UserManager<Player> userManager;
+        private readonly IUserAcessor userAcessor;
+        private readonly IRedisService<Notification> notificationRedisService;
 
-        public UserNotificationHub(UserManager<Player> userManager)
+        public UserNotificationHub(IUserAcessor userAcessor, IRedisService<Notification> notificationRedisService)
         {
-            this.userManager = userManager;
+            this.userAcessor = userAcessor;
+            this.notificationRedisService = notificationRedisService;
         }
 
-        public async Task SendUserSuccessNotificationAsync(string messageHeader, string message)
+        public async Task SendUserSuccessNotificationAsync(string header, string message)
         {
-            var userId = this.userManager.GetUserId(this.Context.User);
+            var userId = this.userAcessor.UserId;
+            await this.Clients
+                .User(userId)
+                .SendAsync("ReceiveMessageSuccess", header, message);
+        }
+
+        public async Task SendUserFailiureNotificationAsync()
+        {
+            var userId = this.userAcessor.UserId;
+            var kvp = await this.notificationRedisService.Get(userId);
 
             await this.Clients
                 .User(userId)
-                .SendAsync("ReceiveMessageSuccess", messageHeader, message);
-        }
-
-        public async Task SendUserFailiureNotificationAsync(string messageHeader, string message)
-        {
-            var userId = this.userManager.GetUserId(this.Context.User);
-
-            await this.Clients
-                .User(userId)
-                .SendAsync("ReceiveMessageFailiure", messageHeader, message);
+                .SendAsync("ReceiveMessageFailiure", ERROR_OCCURED_MSG, kvp.Content);
         }
     }
 }

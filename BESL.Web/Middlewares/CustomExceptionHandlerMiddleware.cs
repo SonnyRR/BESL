@@ -35,7 +35,7 @@
                 }
                 catch (ValidationException validationException)
                 {
-                    await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, validationException.Message, userNameIdentifier);
+                    //await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, validationException.Message, userNameIdentifier);
                     await this.next(context);
                 }
                 catch (BaseCustomException exception)
@@ -45,7 +45,7 @@
                         context.Request.Method = HttpMethod.Get.Method;
                         await this.next(context);
                         Thread.Sleep(100);
-                        await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, exception.Message, userNameIdentifier);
+                        await notifyService.SendUserFailiureNotificationAsync(userNameIdentifier);
                     }
 
                     else
@@ -55,7 +55,7 @@
                         context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                         await this.next(context);
                         Thread.Sleep(110);
-                        await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, exception.Message, userNameIdentifier);
+                        await notifyService.SendUserFailiureNotificationAsync(userNameIdentifier);
                     }
                 }
             }
