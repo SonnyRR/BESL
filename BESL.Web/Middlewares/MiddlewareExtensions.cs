@@ -8,5 +8,10 @@
         {
             return builder.UseMiddleware<CustomExceptionHandlerMiddleware>();
         }
+
+        public static IApplicationBuilder UseNotificationHandlerMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<NotificationHandlerMiddleware>();
+        }
     }
 }

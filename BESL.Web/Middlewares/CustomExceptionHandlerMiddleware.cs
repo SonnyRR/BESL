@@ -25,7 +25,6 @@
         public async Task InvokeAsync(HttpContext context, INotifyService notifyService)
         {
             string userNameIdentifier = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            bool isCurrentUserAdmin = context.User.IsInRole(Role.Administrator.ToString());
 
             if (userNameIdentifier != null)
             {
@@ -35,7 +34,7 @@
                 }
                 catch (ValidationException validationException)
                 {
-                    //await notifyService.SendUserFailiureNotificationAsync(ERROR_OCCURED_MSG, validationException.Message, userNameIdentifier);
+                    // TODO
                     await this.next(context);
                 }
                 catch (BaseCustomException exception)
@@ -44,18 +43,15 @@
                     {
                         context.Request.Method = HttpMethod.Get.Method;
                         await this.next(context);
-                        Thread.Sleep(100);
-                        await notifyService.SendUserFailiureNotificationAsync();
                     }
 
                     else
                     {
+                        // FIXME
                         context.Request.Method = HttpMethod.Get.Method;
                         context.Request.Path = "/";
                         context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                         await this.next(context);
-                        Thread.Sleep(110);
-                        await notifyService.SendUserFailiureNotificationAsync();
                     }
                 }
             }

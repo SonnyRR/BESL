@@ -4,8 +4,8 @@
 
     public interface INotifyService
     {
-        Task SendUserSuccessNotificationAsync(string header, string content);
+        Task SendUserSuccessNotificationAsync(string header, string content, string userId = null);
 
-        Task SendUserFailiureNotificationAsync();
+        Task SendUserFailiureNotificationAsync(string header, string message, string userId = null);
     }
 }

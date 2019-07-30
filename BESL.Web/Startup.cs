@@ -28,18 +28,19 @@
     using BESL.Domain.Entities;
     using BESL.Persistence;
     using BESL.Web.Middlewares;
-    using BESL.Web.Infrastructure.Services;
     using BESL.Web.Filters;
-    using BESL.Web.Infrastructure.Cron;
+    using BESL.Web.Infrastructure;
     using BESL.Persistence.Seeding;
     using BESL.Persistence.Repositories;   
     using BESL.Application.Infrastructure;
-    using BESL.Web.Hubs;
     using BESL.Web.Infrastructure;
     using BESL.Persistence.Infrastructure;
     using BESL.Infrastructure.Messaging;
     using CloudinaryDotNet;
     using BESL.Infrastructure.Cloudinary;
+    using BESL.Infrastructure.Hubs;
+    using BESL.Infrastructure.CronJobs;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -102,7 +103,7 @@
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>)); // disabled, modelstate will be checked in controllers in order to return the correct views with errors instead of throwing HTTP 5** response codes
 
             services.AddScoped<IFileValidate, GameImageFileValidate>();
-            services.AddScoped<INotifyService, NotifyService>();
+            services.AddScoped<INotifyService, UserNotificationHub>();
 
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -176,6 +177,7 @@
                 routeBuilder.MapHub<UserNotificationHub>("/userNotificationHub");
             });
 
+            app.UseNotificationHandlerMiddleware();
             app.UseCustomExceptionHandlerMiddleware();
 
             app.UseMvc(routes =>
