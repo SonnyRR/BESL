@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
     using System.Net;
     using System.Net.Http;
-    using System.Threading;
 
     using Microsoft.AspNetCore.Http;
 
@@ -12,6 +11,8 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities.Enums;
     using static BESL.Common.GlobalConstants;
+    using Microsoft.AspNetCore.Mvc;
+    using BESL.Web.Infrastructure;
 
     public class CustomExceptionHandlerMiddleware
     {
@@ -32,17 +33,21 @@
                 {
                     await this.next(context);
                 }
-                catch (ValidationException validationException)
+                catch (BaseCustomException ex)
                 {
-                    // TODO
-                    await this.next(context);
-                }
-                catch (BaseCustomException exception)
-                {
-                    if (context.Request.Method == HttpMethod.Post.Method)
+                    if (ex is NotFoundException)
+                    {
+                        var result = new ViewResult
+                        {
+                            ViewName = "~/Views/Shared/NotFound.cshtml",
+                        };
+
+                        await context.WriteResultAsync(result);
+                    }
+
+                    else if (context.Request.Method == HttpMethod.Post.Method)
                     {
                         context.Request.Method = HttpMethod.Get.Method;
-                        await this.next(context);
                     }
 
                     else
@@ -51,9 +56,10 @@
                         context.Request.Method = HttpMethod.Get.Method;
                         context.Request.Path = "/";
                         context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                        await this.next(context);
                     }
                 }
+
+                await this.next(context);
             }
 
             else
