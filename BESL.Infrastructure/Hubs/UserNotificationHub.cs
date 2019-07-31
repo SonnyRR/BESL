@@ -7,24 +7,20 @@
     public class UserNotificationHub : Hub, INotifyService
     {
         private readonly IUserAcessor userAcessor;
+        private readonly IHubContext<UserNotificationHub> hubContext;
 
-        public UserNotificationHub(IUserAcessor userAcessor)
+        public UserNotificationHub(IUserAcessor userAcessor, IHubContext<UserNotificationHub> hubContext)
         {
             this.userAcessor = userAcessor;
+            this.hubContext = hubContext;
         }
-
-        public async Task SendUserSuccessNotificationAsync(string header, string message, string userId = null)
+         
+        public async Task SendUserPushNotification(string header, string message, string type, string userId = null)
         {
-            await this.Clients
-                .User(userId ?? this.userAcessor.UserId)
-                .SendAsync("ReceiveMessageSuccess", header, message);
-        }
-
-        public async Task SendUserFailiureNotificationAsync(string header, string message, string userId = null)
-        {
-            await this.Clients
-                .User(userId ?? this.userAcessor.UserId)
-                .SendAsync("ReceiveMessageFailiure", header, message);
+            await this.hubContext
+             .Clients
+             .User(userId ?? this.userAcessor.UserId)
+             .SendAsync("ReceivePushNotification", header, message, type);
         }
     }
 }
