@@ -1,16 +1,12 @@
 ﻿namespace BESL.Web.Middlewares
 {
-    using System.Security.Claims;
     using System.Threading.Tasks;
-    using System.Net;
     using System.Net.Http;
 
     using Microsoft.AspNetCore.Http;
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities.Enums;
-    using static BESL.Common.GlobalConstants;
     using Microsoft.AspNetCore.Mvc;
     using BESL.Web.Infrastructure;
 
@@ -25,46 +21,31 @@
 
         public async Task InvokeAsync(HttpContext context, INotifyService notifyService)
         {
-            string userNameIdentifier = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (userNameIdentifier != null)
+            try
             {
-                try
-                {
-                    await this.next(context);
-                }
-                catch (BaseCustomException ex)
-                {
-                    if (ex is NotFoundException)
-                    {
-                        var result = new ViewResult
-                        {
-                            ViewName = "~/Views/Shared/NotFound.cshtml",
-                        };
-
-                        await context.WriteResultAsync(result);
-                    }
-
-                    else if (context.Request.Method == HttpMethod.Post.Method)
-                    {
-                        context.Request.Method = HttpMethod.Get.Method;
-                    }
-
-                    else
-                    {
-                        // FIXME
-                        context.Request.Method = HttpMethod.Get.Method;
-                        context.Request.Path = "/";
-                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    }
-                }
-
                 await this.next(context);
             }
-
-            else
+            catch (BaseCustomException ex)
             {
-                await this.next(context);
+                if (ex is NotFoundException)
+                {
+                    var result = new ViewResult
+                    {
+                        ViewName = "~/Views/Shared/NotFound.cshtml",
+                    };
+
+                    if (!context.Response.HasStarted)
+                    {
+                        context.Response.StatusCode = StatusCodes.Status404NotFound;
+                        await context.WriteResultAsync(result);
+                    }
+                }
+
+                else
+                {
+                    context.Request.Method = HttpMethod.Get.Method;
+                    await this.next(context);
+                }
             }
         }
     }

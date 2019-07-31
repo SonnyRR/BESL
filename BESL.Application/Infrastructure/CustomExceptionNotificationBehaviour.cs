@@ -11,6 +11,8 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
+    using BESL.Domain.Entities.Enums;
+    using System.Web;
 
     public class CustomExceptionNotificationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
@@ -20,7 +22,7 @@
         private readonly IRedisService<Notification> redisService;
 
         public CustomExceptionNotificationBehaviour(
-            ILogger<TRequest> logger, 
+            ILogger<TRequest> logger,
             IUserAcessor userAcessor,
             IRedisService<Notification> redisService)
         {
@@ -40,12 +42,21 @@
             catch (BaseCustomException exception)
             {
                 this.logger.LogError("BESL Request: {Name}-[UserId: {userId}] {@Request}, {@exception}", typeof(TRequest).Name, this.userAcessor.UserId, request, exception);
-                var notification = new Notification()
-                {
-                    Content = exception.Message
-                };
 
-                await this.redisService.Save(this.userAcessor.UserId, notification, TimeSpan.FromSeconds(REDIS_NOTIFICATION_EXPIRATION_MINUTES));
+                if (this.userAcessor.UserId != null && !(exception is NotFoundException))
+                {
+                    var notification = new Notification()
+                    {
+                        Type = NotificationType.Error,
+                        CreatedOn = DateTime.UtcNow,
+                        Header = ERROR_OCCURED_MSG,
+                        PlayerId = this.userAcessor.UserId,
+                        Content = HttpUtility.HtmlEncode(exception.Message)
+                    };
+
+                    await this.redisService.Save(this.userAcessor.UserId, notification, TimeSpan.FromSeconds(REDIS_NOTIFICATION_EXPIRATION_MINUTES));
+                }
+
                 throw exception;
             }
 

@@ -25,7 +25,7 @@ namespace BESL.Common
         #region Notifications
         public const string CREATED_SUCCESSFULLY_MSG = "has been created successfully!";
         public const string DELETED_SUCCESSFULLY_MSG = "has been deleted!";
-        public const double REDIS_NOTIFICATION_EXPIRATION_MINUTES = 5;
+        public const double REDIS_NOTIFICATION_EXPIRATION_MINUTES = 2;
         #endregion
 
         #region Steam
