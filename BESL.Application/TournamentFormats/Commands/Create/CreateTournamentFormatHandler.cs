@@ -55,7 +55,9 @@
             };
 
             await this.formatRepository.AddAsync(format);
-            return await this.formatRepository.SaveChangesAsync(cancellationToken);
+            await this.formatRepository.SaveChangesAsync(cancellationToken);
+
+            return format.Id;
         }
     }
 }

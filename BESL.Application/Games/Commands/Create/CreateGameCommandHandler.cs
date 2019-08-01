@@ -11,7 +11,7 @@
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
 
-    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand>
+    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
         private readonly IDeletableEntityRepository<Game> repository;
         private readonly ICloudinaryHelper cloudinaryHelper;
@@ -27,7 +27,7 @@
             this.mediator = mediator;
         }
 
-        public async Task<Unit> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
             {
@@ -51,7 +51,7 @@
 
             await this.mediator.Publish(new GameCreatedNotification() { GameName = game.Name });
 
-            return Unit.Value;
+            return game.Id;
         }
     }
 }

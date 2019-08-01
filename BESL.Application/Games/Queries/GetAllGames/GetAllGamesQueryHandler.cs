@@ -2,7 +2,6 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Linq;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
@@ -11,7 +10,6 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using BESL.Application.Exceptions;
 
     public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, GamesListViewModel>
     {

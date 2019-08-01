@@ -10,7 +10,7 @@
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
 
-    public class CreateTeamCommand : IRequest, IMapTo<Team>
+    public class CreateTeamCommand : IRequest<int>, IMapTo<Team>
     {
         public string Name { get; set; }
 

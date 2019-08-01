@@ -15,7 +15,7 @@
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
 
-    public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand>
+    public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand, int>
     {
         private readonly IDeletableEntityRepository<Team> teamRepository;
         private readonly IDeletableEntityRepository<TournamentFormat> formatRepository;
@@ -37,7 +37,7 @@
             this.mapper = mapper;
         }
 
-        public async Task<Unit> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
@@ -82,7 +82,7 @@
             await this.playerTeamRepository.AddAsync(new PlayerTeam() { Team = team, PlayerId = request.OwnerId });
             await this.teamRepository.SaveChangesAsync(cancellationToken);
 
-            return Unit.Value;
+            return team.Id;
         }
     }
 }
