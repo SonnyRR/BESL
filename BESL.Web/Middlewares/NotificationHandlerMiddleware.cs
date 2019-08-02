@@ -1,17 +1,11 @@
 ﻿namespace BESL.Web.Middlewares
 {
-    using System.Security.Claims;
-    using System.Threading.Tasks;
-    using System.Net;
-    using System.Net.Http;
     using System.Threading;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
 
-    using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities.Enums;
-    using static BESL.Common.GlobalConstants;
     using BESL.Domain.Entities;
 
     public class NotificationHandlerMiddleware
@@ -41,7 +35,7 @@
                 if (notification != null)
                 {
                     // Artificial delay in order for the response to be fully sent to the client.
-                    Thread.Sleep(250);
+                    Thread.Sleep(150);
                     await notifyService.SendUserPushNotification(notification.Header, notification.Content, notification.Type.ToString());
                 }
             }

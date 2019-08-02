@@ -11,19 +11,23 @@ function alertFadeFunc() {
     }, 7000);
 
 }
-connection.on("ReceivePushNotification", function (messageHeader, message, type) {
+connection.on("ReceivePushNotification", function (messageHeader, message, notificationType) {
     let element = document.getElementById("alertPanel");
     element.style.display = "block";
     let alertType = '';
-    switch (type) {
+    switch (notificationType) {
         case 'Error':
             alertType = 'alert-danger';
+            break;
         case 'Warning':
             alertType = 'alert-warning';
+            break;            
         case 'Info':
             alertType = 'alert-primary';
+            break;            
         default:
             alertType = 'alert-success';
+            break;            
     }
     let html = `<div id="alertDiv" class="alert ${alertType} alert-dismissible fade show" role="alert"><strong>${messageHeader}</strong> ${message}<button type = "button" class="close" data-dismiss="alert" aria-label="Close">        <span aria-hidden="true">&times;</span>  </button ></div>`;
     element.innerHTML = html;
