@@ -1,0 +1,17 @@
+﻿@model BESL.Application.Notifications.Queries.GetNotificationsForPlayer.PlayerNotificationsViewModel
+@{
+}
+<a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="badge badge-danger">6</span>&nbsp; <i class="fas fa-bell text-white"></i></a>
+<div class="dropdown-menu">
+    @if (Model.Notifications.Count() != 0)
+    {
+        @foreach (var notification in Model.Notifications)
+        {
+            @* TODO *@
+        }
+    }
+    else
+    {
+        <a class="dropdown-item">"No notifications."</a>
+    }
+</div>

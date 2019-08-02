@@ -1,11 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using BESL.Domain.Entities
+@using System.Security.Claims;
 @inject SignInManager<Player> SignInManager
 @inject UserManager<Player> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    <li class="nav-item dropdown">
+        <vc:player-notifications user-id=@this.User.FindFirstValue(ClaimTypes.NameIdentifier)></vc:player-notifications>    
+    </li>
     <li class="nav-item dropdown">
         <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>&nbsp;@User.Identity.Name</a>
         <div class="dropdown-menu">

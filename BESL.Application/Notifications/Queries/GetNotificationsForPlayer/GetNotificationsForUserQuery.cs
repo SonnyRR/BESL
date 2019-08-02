@@ -1,0 +1,46 @@
+﻿namespace BESL.Application.Notifications.Queries.GetNotificationsForPlayer
+{
+    using System;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+
+    using BESL.Application.Interfaces;
+    using BESL.Domain.Entities;
+
+    public class GetNotificationsForPlayerQuery : IRequest<PlayerNotificationsViewModel>
+    {
+        public string UserId { get; set; }
+
+        public class Handler : IRequestHandler<GetNotificationsForPlayerQuery, PlayerNotificationsViewModel>
+        {
+            private readonly IMapper mapper;
+            private readonly IDeletableEntityRepository<Notification> notificationRepository;
+
+            public Handler(IMapper mapper, IDeletableEntityRepository<Notification> notificationRepository)
+            {
+                this.mapper = mapper;
+                this.notificationRepository = notificationRepository;
+            }
+
+            public async Task<PlayerNotificationsViewModel> Handle(GetNotificationsForPlayerQuery request, CancellationToken cancellationToken)
+            {
+                request = request ?? throw new ArgumentNullException(nameof(request));
+
+                var notificationLookups = await this.notificationRepository
+                    .AllAsNoTracking()
+                    .Where(n => n.PlayerId == request.UserId)
+                    .ProjectTo<PlayerNotificationLookupModel>(this.mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
+
+                var viewModel = new PlayerNotificationsViewModel { Notifications = notificationLookups };
+                return viewModel;
+            }
+        }
+    }
+}
