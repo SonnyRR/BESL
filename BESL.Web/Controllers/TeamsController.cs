@@ -38,8 +38,8 @@
             }
 
             command.OwnerId = this.userAcessor.UserId;
-            var assignedId = await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(Details), assignedId);
+            var teamId = await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Details), teamId);
         }
 
         public async Task<IActionResult> Details(GetTeamDetailsQuery query)

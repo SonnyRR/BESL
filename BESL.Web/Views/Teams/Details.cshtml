@@ -1,0 +1,27 @@
+﻿@model BESL.Application.Teams.Queries.Details.GetTeamDetailsViewModel
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="row mx-3 mb-3">
+    <img class="img-thumbnail ml-3" src="@Model.TeamImageUrl" />
+    <div class="col-md-6">
+        <h1>
+            @Model.Name
+        </h1>
+        <div class="mt-2">
+            <h6 class="lead">
+                Todo
+            </h6>
+            <h6 class="lead">
+                Todo
+            </h6>
+            <h6 class="lead">Created on: @Model.CreatedOn</h6>
+        </div>
+    </div>
+</div>
+@*<div class="row mx-3 mb-3">
+    <div class="col-md-9">
+        <vc:player-details-teams user-id="@Model.Id"></vc:player-details-teams>
+    </div>
+</div>*@

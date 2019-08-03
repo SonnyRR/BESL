@@ -1,15 +1,33 @@
 ﻿@model BESL.Application.Notifications.Queries.GetNotificationsForPlayer.PlayerNotificationsViewModel
 <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="badge badge-danger">@Model.Notifications.Count()</span>&nbsp; <i class="fas fa-bell text-white"></i></a>
-<div class="dropdown-menu col-md-9">
+<div class="dropdown-menu dropdown-menu-xl-left mx-2">
+    <h6 class="h5 mx-2 mt-2 text-muted">Notifications</h6>
+    <hr />
     @if (Model.Notifications.Count() != 0)
     {
         @foreach (var notification in Model.Notifications)
         {
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-header">Notification</div>
-                <div class="card-body">
-                    <h5 class="card-title">@notification.Header</h5>
-                    <p class="card-text">@notification.Content</p>
+            <div class="container mx-2" style="width:300px">
+                <div class="rounded border border-dark mx-n3 bg-primary text-white">
+                    @*<div class="card text-white bg-primary">
+                            <div class="card-header d-flex">
+                                <div class="p-2">Notification</div>
+                                <div class="ml-auto my-auto"><i class="fas fa-times-circle"></i></div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@notification.Header</h5>
+                                <p class="card-text">@notification.Content</p>
+                            </div>
+                        </div>*@
+                    <div class="media mx-2 my-2">
+                        <div class="media-body">
+                            <div class="d-flex">
+                                <h5 class="text-break">@notification.Header</h5>
+                                <div class="ml-auto"><button class="btn btn-sm btn-danger"><i class="fas fa-times-circle"></i></button></div>
+                            </div>
+                            <p class="text-break">@notification.Content</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         }
