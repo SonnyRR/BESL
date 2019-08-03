@@ -5,7 +5,7 @@ namespace BESL.Common
     public class GlobalConstants
     {
         #region Culture
-        public const string DATE_FORMAT = "dd/MM/yyyy";
+        public const string DATE_FORMAT = @"dd/MM/yyyy";
         public const string DATEPICKER_DATE_FORMAT = "yyyy-MM-dd";
         #endregion
 

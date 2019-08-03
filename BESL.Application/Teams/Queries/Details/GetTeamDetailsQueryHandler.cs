@@ -3,12 +3,14 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using AutoMapper;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using MediatR;
-    using Microsoft.EntityFrameworkCore;
 
     public class GetTeamDetailsQueryHandler : IRequestHandler<GetTeamDetailsQuery, GetTeamDetailsViewModel>
     {
@@ -34,7 +36,7 @@
                 throw new NotFoundException(nameof(Team), request.Id);
             }
 
-            return new GetTeamDetailsViewModel();
+            return this.mapper.Map<GetTeamDetailsViewModel>(desiredTeam);
         }
     }
 }

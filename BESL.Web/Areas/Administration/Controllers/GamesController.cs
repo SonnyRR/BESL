@@ -9,8 +9,7 @@
     using BESL.Application.Games.Commands.Modify;
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Games.Queries.Modify;
-    using static BESL.Common.GlobalConstants;
-
+    
     public class GamesController : AdminController
     {
         public async Task<IActionResult> Create()
@@ -48,7 +47,6 @@
             if (!this.ModelState.IsValid)
             {
                 var model = await this.Mediator.Send(new ModifyGameQuery() { Id = command.Id });
-
                 return this.View(model);
             }
 
