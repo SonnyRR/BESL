@@ -4,10 +4,9 @@
     using System.Net.Http;
 
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
 
     using BESL.Application.Exceptions;
-    using BESL.Application.Interfaces;
-    using Microsoft.AspNetCore.Mvc;
     using BESL.Web.Infrastructure;
 
     public class CustomExceptionHandlerMiddleware
@@ -19,7 +18,7 @@
             this.next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, INotifyService notifyService)
+        public async Task InvokeAsync(HttpContext context)
         {
             try
             {

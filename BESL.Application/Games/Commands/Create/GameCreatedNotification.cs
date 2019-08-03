@@ -18,6 +18,7 @@
         {
             private readonly IDeletableEntityRepository<Notification> notificationRepository;
             private readonly IUserAcessor userAcessor;            
+
             public Handler( IDeletableEntityRepository<Notification> notificationRepository, IUserAcessor userAcessor)
             {
                 this.notificationRepository = notificationRepository;                

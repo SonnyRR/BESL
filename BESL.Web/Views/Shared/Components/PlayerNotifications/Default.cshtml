@@ -1,17 +1,21 @@
 ﻿@model BESL.Application.Notifications.Queries.GetNotificationsForPlayer.PlayerNotificationsViewModel
-@{
-}
-<a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="badge badge-danger">6</span>&nbsp; <i class="fas fa-bell text-white"></i></a>
-<div class="dropdown-menu">
+<a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="badge badge-danger">@Model.Notifications.Count()</span>&nbsp; <i class="fas fa-bell text-white"></i></a>
+<div class="dropdown-menu col-md-9">
     @if (Model.Notifications.Count() != 0)
     {
         @foreach (var notification in Model.Notifications)
         {
-            @* TODO *@
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Notification</div>
+                <div class="card-body">
+                    <h5 class="card-title">@notification.Header</h5>
+                    <p class="card-text">@notification.Content</p>
+                </div>
+            </div>
         }
     }
     else
     {
-        <a class="dropdown-item">"No notifications."</a>
+        <a class="dropdown-item">No notifications.</a>
     }
 </div>

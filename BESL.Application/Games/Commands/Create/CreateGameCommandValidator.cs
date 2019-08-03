@@ -8,7 +8,6 @@
 
     public class CreateGameCommandValidator : AbstractValidator<CreateGameCommand>
     {
-
         public CreateGameCommandValidator(IFileValidate fileValidate)
         {
             RuleFor(x => x.Name)

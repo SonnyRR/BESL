@@ -35,7 +35,7 @@
                 if (notification != null)
                 {
                     // Artificial delay in order for the response to be fully sent to the client.
-                    Thread.Sleep(150);
+                    Thread.Sleep(200);                    
                     await notifyService.SendUserPushNotification(notification.Header, notification.Content, notification.Type.ToString());
                 }
             }

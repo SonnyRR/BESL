@@ -9,10 +9,16 @@
     using BESL.Application.Teams.Queries.Create;
     using System.Security.Claims;
     using BESL.Application.Teams.Queries.Details;
+    using BESL.Application.Interfaces;
 
     public class TeamsController : BaseController
     {
-        private string CurrentUserId => this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private readonly IUserAcessor userAcessor;
+
+        public TeamsController(IUserAcessor userAcessor)
+        {
+            this.userAcessor = userAcessor;
+        }
 
         [Authorize]
         public async Task<IActionResult> Create()
@@ -31,20 +37,15 @@
                 return this.View(command);
             }
 
-            command.OwnerId = this.CurrentUserId;
+            command.OwnerId = this.userAcessor.UserId;
             var assignedId = await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Details), assignedId);
-        }
-
-        public async Task<IActionResult> Index(string id)
-        {
-            return this.View();
         }
 
         public async Task<IActionResult> Details(GetTeamDetailsQuery query)
         {
             var viewModel = await this.Mediator.Send(query);
-            return this.View();
+            return this.View(viewModel);
         }
     }
 }
