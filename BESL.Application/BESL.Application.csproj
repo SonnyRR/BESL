@@ -32,5 +32,8 @@
     <Folder Include="Notifications\" />
     <Folder Include="Notifications\Queries\" />
     <Folder Include="Notifications\Queries\GetNotificationsForPlayer\" />
+    <Folder Include="Teams\Queries\GetPlayersForTeam\" />
+    <Folder Include="Teams\Commands\Modify\" />
+    <Folder Include="Teams\Queries\Modify\" />
   </ItemGroup>
 </Project>

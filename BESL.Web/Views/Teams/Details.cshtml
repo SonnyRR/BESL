@@ -1,27 +1,43 @@
 ﻿@model BESL.Application.Teams.Queries.Details.GetTeamDetailsViewModel
+@using BESL.Domain.Entities
+@using System.Security.Claims
+@inject BESL.Application.Interfaces.IDeletableEntityRepository<Team> teamRepository
 @{
     ViewData["Title"] = Model.Name;
 }
 
 <div class="row mx-3 mb-3">
-    <img class="img-thumbnail ml-3" src="@Model.TeamImageUrl" />
+    <img class="img-thumbnail ml-3 shadow" src="@Model.TeamImageUrl" />
     <div class="col-md-6">
         <h1>
             @Model.Name
         </h1>
         <div class="mt-2">
             <h6 class="lead">
-                Todo
+                Homepage:&nbsp;<a href="@Model.HomepageUrl">@Model.HomepageUrl</a>
             </h6>
             <h6 class="lead">
-                Todo
+                Format:&nbsp;@Model.TournamentFormat
             </h6>
             <h6 class="lead">Created on: @Model.CreatedOn</h6>
         </div>
     </div>
+    @if (this.teamRepository.AllAsNoTracking().SingleOrDefault(x => x.Id == Model.Id).OwnerId == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+    {
+        <div class="col-sm-3">
+            <a class="btn btn-primary text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id">Manage</a>
+        </div>
+    }
 </div>
-@*<div class="row mx-3 mb-3">
-    <div class="col-md-9">
-        <vc:player-details-teams user-id="@Model.Id"></vc:player-details-teams>
+<div class="row mx-3 mb-3">
+    <div class="col-md-12">
+        <div class="card card-body my-2 shadow">
+            @Model.Description
+        </div>
     </div>
-</div>*@
+</div>
+<div class="row mx-3 mb-3">
+    <div class="col-md-12">
+        <vc:get-players-for-team team-id="@Model.Id"></vc:get-players-for-team>
+    </div>
+</div>

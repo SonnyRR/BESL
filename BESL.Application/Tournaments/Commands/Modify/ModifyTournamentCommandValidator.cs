@@ -33,7 +33,6 @@
                 .GreaterThanOrEqualTo(t => DateTime.UtcNow.Date.AddMonths(END_DATE_MIN_MONTH_LENGTH))
                 .WithMessage(string.Format(END_DATE_MSG, END_DATE_MIN_MONTH_LENGTH));
 
-            // F this...
             When(e => e.TournamentImage != null, () => RuleFor(t => t.TournamentImage)
                 .SetValidator(new CustomGameImageFileValidator(fileValidate)));
         }

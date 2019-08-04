@@ -39,7 +39,7 @@
 
             if (this.tournamentRepository.AllAsNoTrackingWithDeleted().Any(t => t.Name == request.Name))
             {
-                throw new EntityAlreadyExists(nameof(Tournament), request.Name);
+                throw new EntityAlreadyExistsException(nameof(Tournament), request.Name);
             }
 
             var url = await this.cloudinaryHelper.UploadImage(

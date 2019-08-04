@@ -33,7 +33,7 @@
 
             if (this.formatRepository.AllAsNoTrackingWithDeleted().Any(tf => tf.GameId == request.GameId && tf.Name == request.Name))
             {
-                throw new EntityAlreadyExists(nameof(TournamentFormat), $"{request.Name} - GameId:{request.GameId}");
+                throw new EntityAlreadyExistsException(nameof(TournamentFormat), $"{request.Name} - GameId:{request.GameId}");
             }
 
             var game = await this.gameRepository

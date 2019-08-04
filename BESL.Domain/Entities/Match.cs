@@ -10,6 +10,9 @@
         public int TeamTableResultId { get; set; }
         public TeamTableResult TeamTableResult { get; set; }
 
+        public int PlayWeekId { get; set; }
+        public PlayWeek PlayWeek { get; set; }
+
         public int HomeTeamId { get; set; }
         public Team HomeTeam { get; set; }
 

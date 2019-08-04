@@ -52,7 +52,7 @@
                 var bans = await this.mainSteamUserInstance.GetPlayerBansAsync(currentPlayerId);
                 var isBanned = bans.Data.Any(b => b.VACBanned == true);
 
-                if (!isBanned)
+                if (isBanned)
                 {
                     if (!player.Claims.Any(c => c.ClaimType == IS_VAC_BANNED_CLAIM_TYPE))
                     {

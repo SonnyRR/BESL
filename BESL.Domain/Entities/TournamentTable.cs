@@ -1,7 +1,6 @@
 ﻿namespace BESL.Domain.Entities
 {
     using System.Collections.Generic;
-
     using BESL.Domain.Infrastructure;
 
     public class TournamentTable : BaseDeletableModel<int>
@@ -14,5 +13,6 @@
         public Tournament Tournament { get; set; }
 
         public virtual ICollection<TeamTableResult> TeamTableResults { get; set; } = new HashSet<TeamTableResult>();
+        public virtual ICollection<PlayWeek> PlayWeeks { get; set; } = new HashSet<PlayWeek>();
     }
 }

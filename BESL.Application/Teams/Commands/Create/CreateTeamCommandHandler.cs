@@ -41,30 +41,19 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var isPlayerAlreadyInATeamWithTheSameFormat = this.playerTeamRepository
-                .AllAsNoTrackingWithDeleted()
-                .Include(pt => pt.Team)
-                .Where(pt => pt.PlayerId == request.OwnerId)
-                .Any(pt => pt.Team.TournamentFormatId == request.TournamentFormatId);
-
+            var isPlayerAlreadyInATeamWithTheSameFormat = await this.CheckIfOwnerIsAlreadyInATeamWithTheSameFormat(request);
             if (isPlayerAlreadyInATeamWithTheSameFormat)
             {
                 throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException();
             }
 
-            var doesTeamAlreadyExist = this.teamRepository
-                .AllAsNoTrackingWithDeleted()
-                .Any(t => t.Name == request.Name);
-
+            var doesTeamAlreadyExist = await this.CheckIfTeamWithTheSameNameExists(request);
             if (doesTeamAlreadyExist)
             {
-                throw new EntityAlreadyExists(nameof(Team), request.Name);
+                throw new EntityAlreadyExistsException(nameof(Team), request.Name);
             }
 
-            var doesTournamentFormatExist = this.formatRepository
-                .AllAsNoTrackingWithDeleted()
-                .Any(f => f.Id == request.TournamentFormatId);
-
+            var doesTournamentFormatExist = await this.CheckIfTournamentFormatExists(request);
             if (!doesTournamentFormatExist)
             {
                 throw new NotFoundException(nameof(TournamentFormat), request.TournamentFormatId);
@@ -83,6 +72,29 @@
             await this.teamRepository.SaveChangesAsync(cancellationToken);
 
             return team.Id;
+        }
+
+        private async Task<bool> CheckIfOwnerIsAlreadyInATeamWithTheSameFormat(CreateTeamCommand request)
+        {
+            return await this.playerTeamRepository
+                   .AllAsNoTrackingWithDeleted()
+                   .Include(pt => pt.Team)
+                   .Where(pt => pt.PlayerId == request.OwnerId)
+                   .AnyAsync(pt => pt.Team.TournamentFormatId == request.TournamentFormatId);
+        }
+
+        private async Task<bool> CheckIfTeamWithTheSameNameExists(CreateTeamCommand request)
+        {
+            return await this.teamRepository
+                .AllAsNoTrackingWithDeleted()
+                .AnyAsync(t => t.Name == request.Name);
+        }
+
+        private async Task<bool> CheckIfTournamentFormatExists(CreateTeamCommand request)
+        {
+            return await this.formatRepository
+                .AllAsNoTrackingWithDeleted()
+                .AnyAsync(f => f.Id == request.TournamentFormatId);
         }
     }
 }

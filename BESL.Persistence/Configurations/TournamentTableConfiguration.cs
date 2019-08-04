@@ -5,22 +5,26 @@
 
     using BESL.Domain.Entities;
 
-    public class CompetitionTableConfiguration : IEntityTypeConfiguration<TournamentTable>
+    public class TournamentTableConfiguration : IEntityTypeConfiguration<TournamentTable>
     {
         public void Configure(EntityTypeBuilder<TournamentTable> builder)
         {
-            builder.Property(ct => ct.Name)
+            builder.Property(tt => tt.Name)
                 .HasMaxLength(15)
                 .IsUnicode()
                 .IsRequired();
 
-            builder.HasOne(ct => ct.Tournament)
+            builder.HasOne(tt => tt.Tournament)
                 .WithMany(c => c.Tables)
                 .HasForeignKey(ct => ct.TournamentId);
 
-            builder.HasMany(ct => ct.TeamTableResults)
+            builder.HasMany(tt => tt.TeamTableResults)
                 .WithOne(tr => tr.TournamentTable)
                 .HasForeignKey(tr => tr.TournamentTableId);
+
+            builder.HasMany(tt => tt.PlayWeeks)
+                .WithOne(pw => pw.TournamentTable)
+                .HasForeignKey(pw => pw.TournamentTableId);
         }
     }
 }

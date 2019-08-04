@@ -1,0 +1,68 @@
+﻿@model BESL.Application.Teams.Commands.Modify.ModifyTeamCommand
+@{
+    ViewData["Title"] = $"[Modify] {Model.Name}";
+}
+
+<div class="border rounded">
+    <div class="container-fluid mt-2">
+        <div class="row">
+            <div class="col-lg-6 mb-3">
+                <h4>@Model.Name</h4>
+                <form id="tournamentCreateForm" class="mb-3" enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <label asp-for="Name">Name</label>
+                        <input type="text" class="form-control" asp-for="Name" placeholder="Enter name...">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <small id="gameNameHelp" class="form-text text-muted">Team name.</small>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description">Description</label>
+                        <textarea class="form-control" maxlength="1000" asp-for="Description" rows="5" placeholder="Enter description..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                        <small id="gameDescHelp" class="form-text text-muted">Description of the tournament.</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Format</label>
+                        <select disabled class="form-control">
+                            <option value="@Model.FormatName">@Model.FormatName</option>
+                        </select>
+                        <select hidden asp-for="FormatName">
+                            <option value="@Model.FormatName">@Model.FormatName</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HomepageUrl">Homepage</label>
+                        <small class="text-muted">Required</small>
+                        <input type="text" class="form-control" asp-for="HomepageUrl" placeholder="https://foo.bar">
+                        <span asp-validation-for="HomepageUrl" class="text-danger"></span>
+                    </div>
+                    <label asp-for="TeamImage">Image (< 4MB)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="teamImageHelp">Upload</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" asp-for="TeamImage" aria-describedby="teamImageHelp">
+                            <label class="custom-file-label" asp-for="TeamImage">Choose file</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="TeamImage" class="text-danger"></span>
+                    <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <h4>Current game image:</h4>
+                <picture class="d-flex justify-content-center">
+                    <source srcset="@Model.ImageUrl" type="image/svg+xml">
+                    <img src="@Model.TeamImage" class="img img-thumbnail ml-6" alt="...">
+                </picture>
+                <span class="text-muted d-flex justify-content-center">184x184</span>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+@section Scripts{
+    <partial name="~/Views/Shared/Partials/_FileUploadScript.cshtml"></partial>
+}
