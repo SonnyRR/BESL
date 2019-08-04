@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BESL.Common
+﻿namespace BESL.Common
 {
     public class GlobalConstants
     {
@@ -38,6 +36,7 @@ namespace BESL.Common
 
         #region BESL
         public const string DEFAULT_AVATAR = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,w_184/v1563120448/BESL/Missing_avatar.svg_dykhcv.png";
+        public const string DEFAULT_AVATAR_MEDIUM = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,w_64/v1563120448/BESL/Missing_avatar.svg_dykhcv.png";
         #endregion
 
         #region Teams

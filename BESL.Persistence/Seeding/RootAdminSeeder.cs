@@ -45,6 +45,7 @@
             }
 
             rootAdminUser.Claims.Add(new IdentityUserClaim<string>() { ClaimType = PROFILE_AVATAR_CLAIM_TYPE, ClaimValue = DEFAULT_AVATAR, UserId = rootAdminUser.Id });
+            rootAdminUser.Claims.Add(new IdentityUserClaim<string>() { ClaimType = PROFILE_AVATAR_MEDIUM_CLAIM_TYPE, ClaimValue = DEFAULT_AVATAR_MEDIUM, UserId = rootAdminUser.Id });
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using static BESL.Common.GlobalConstants;
+
 namespace BESL.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
@@ -89,6 +88,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(PROFILE_AVATAR_CLAIM_TYPE, DEFAULT_AVATAR));
+                    await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(PROFILE_AVATAR_MEDIUM_CLAIM_TYPE, DEFAULT_AVATAR_MEDIUM));
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
