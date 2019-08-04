@@ -12,6 +12,13 @@
     {
         public async Task SeedAsync(IApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
+            await this.SeedGamesAsync(dbContext);
+            await this.SeedTournamentFormatsAsync(dbContext);
+            await this.SeedTournamentsAsync(dbContext);
+        }
+
+        public async Task SeedGamesAsync(IApplicationDbContext dbContext)
+        {
             var games = new Game[]
             {
                 new Game()
@@ -25,7 +32,10 @@
 
             await dbContext.AddRangeAsync(games);
             await dbContext.SaveChangesAsync(CancellationToken.None);
+        }
 
+        public async Task SeedTournamentFormatsAsync(IApplicationDbContext dbContext)
+        {
             var formats = new TournamentFormat[]
             {
                 new TournamentFormat()
@@ -50,7 +60,10 @@
 
             await dbContext.AddRangeAsync(formats);
             await dbContext.SaveChangesAsync(CancellationToken.None);
+        }
 
+        public async Task SeedTournamentsAsync(IApplicationDbContext dbContext)
+        {
             var tournaments = new Tournament[]
             {
                 new Tournament()
