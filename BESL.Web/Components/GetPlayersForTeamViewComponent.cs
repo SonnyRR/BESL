@@ -1,8 +1,11 @@
 ﻿namespace BESL.Web.Components
 {
     using System.Threading.Tasks;
+
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
+
+    using BESL.Application.Teams.Queries.GetPlayersForTeam;
 
     public class GetPlayersForTeamViewComponent : ViewComponent
     {
@@ -13,11 +16,10 @@
             this.mediator = mediator;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string teamId)
+        public async Task<IViewComponentResult> InvokeAsync(int teamId)
         {
-            // TODO
-            return this.View();
+            var viewModel = await this.mediator.Send(new GetPlayersForTeamQuery { TeamId = teamId });
+            return this.View(viewModel);
         }
-
     }
 }

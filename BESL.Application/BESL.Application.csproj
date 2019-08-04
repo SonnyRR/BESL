@@ -32,5 +32,6 @@
     <Folder Include="Notifications\" />
     <Folder Include="Notifications\Queries\" />
     <Folder Include="Notifications\Queries\GetNotificationsForPlayer\" />
+    <Folder Include="Teams\Queries\GetPlayersForTeam\" />
   </ItemGroup>
 </Project>

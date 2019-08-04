@@ -59,5 +59,6 @@
     <Folder Include="Views\Shared\Components\ActiveTournamentsTable\" />
     <Folder Include="Views\Shared\Components\TournamentSkillTables\" />
     <Folder Include="Views\Shared\Components\PlayerNotifications\" />
+    <Folder Include="Views\Shared\Components\GetPlayersForTeam\" />
   </ItemGroup>
 </Project>
