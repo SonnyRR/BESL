@@ -13,12 +13,12 @@
 
     public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, GamesListViewModel>
     {
-        private readonly IDeletableEntityRepository<Game> repository;
+        private readonly IDeletableEntityRepository<Game> gameRepository;
         private readonly IMapper mapper;
 
-        public GetAllGamesQueryHandler(IDeletableEntityRepository<Game> repository, IMapper mapper)
+        public GetAllGamesQueryHandler(IDeletableEntityRepository<Game> gameRepository, IMapper mapper)
         {
-            this.repository = repository;
+            this.gameRepository = gameRepository;
             this.mapper = mapper;
         }
 
@@ -26,7 +26,7 @@
         {
             GamesListViewModel viewModel = new GamesListViewModel();
 
-            viewModel.Games = await this.repository
+            viewModel.Games = await this.gameRepository
                 .AllAsNoTracking()
                     .Include(g => g.TournamentFormats)
                     .ThenInclude(tf => tf.Tournaments)

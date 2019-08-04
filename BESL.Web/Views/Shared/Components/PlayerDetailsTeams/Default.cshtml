@@ -16,7 +16,7 @@
                 @foreach (var team in Model.PlayerTeams)
                 {
                     <tr>
-                        <th scope="row">@team.TeamName</th>
+                        <th scope="row"><a asp-controller="Teams" asp-action="Details" asp-route-id="@team.TeamId">@team.TeamName</a></th>
                         <td>@team.JoinedDate</td>
                         <td>@team.LeftDate</td>
                     </tr>

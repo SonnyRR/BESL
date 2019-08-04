@@ -1,52 +1,57 @@
 ﻿namespace BESL.Application.Games.Commands.Modify
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
     using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
-    public class ModifyGameCommandHandler : IRequestHandler<ModifyGameCommand, Unit>
+    public class ModifyGameCommandHandler : IRequestHandler<ModifyGameCommand, int>
     {
-        private readonly IDeletableEntityRepository<Game> repository;
+        private readonly IDeletableEntityRepository<Game> gameRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> repository, ICloudinaryHelper cloudinaryHelper)
+        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> gameRepository, ICloudinaryHelper cloudinaryHelper)
         {
-            this.repository = repository;
+            this.gameRepository = gameRepository;
             this.cloudinaryHelper = cloudinaryHelper;
         }
 
-        public async Task<Unit> Handle(ModifyGameCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(ModifyGameCommand request, CancellationToken cancellationToken)
         {
-            var existingGame = await this.repository
-                .GetByIdWithDeletedAsync(request.Id);
+            request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (existingGame == null)
-            {
-                throw new NotFoundException(nameof(Game), request.Id);
-            }
+            var existingGame = await this.gameRepository
+                .AllAsNoTracking()
+                .SingleOrDefaultAsync(g => g.Id == request.Id, cancellationToken)
+                ?? throw new NotFoundException(nameof(Game), request.Id);
 
             existingGame.Name = request.Name;
             existingGame.Description = request.Description;
 
             if (request.GameImage != null)
             {
-                var imageUrl = await this.cloudinaryHelper.UploadImage(
-                    request.GameImage,
-                    name: $"{request.Name}-main-shot",
-                    transformation: new Transformation().Width(460).Height(215));
-                existingGame.GameImageUrl = imageUrl;
+                var imageUrl = 
+                existingGame.GameImageUrl = await this.UploadGameImage(request);
             }
 
-            this.repository.Update(existingGame);
-            await this.repository.SaveChangesAsync(cancellationToken);
+            this.gameRepository.Update(existingGame);
+            return await this.gameRepository.SaveChangesAsync(cancellationToken);
+        }
 
-            return Unit.Value;
+        private async Task<string> UploadGameImage(ModifyGameCommand request)
+        {
+            return await this.cloudinaryHelper.UploadImage(
+                request.GameImage,
+                name: $"{request.Name}-main-shot",
+                transformation: new Transformation().Width(GAME_IMAGE_WIDTH).Height(GAME_IMAGE_HEIGHT));
         }
     }
 }

@@ -23,7 +23,6 @@
     <Folder Include="Games\Commands\Delete\" />
     <Folder Include="Tournaments\Queries\GetAllTournaments\" />
     <Folder Include="TournamentFormats\Queries\Modify\" />
-    <Folder Include="Tournaments\Queries\Modify\" />
     <Folder Include="Tournaments\Commands\Modify\" />
     <Folder Include="Games\Commands\Validation\" />
     <Folder Include="Tournaments\Commands\Validation\" />

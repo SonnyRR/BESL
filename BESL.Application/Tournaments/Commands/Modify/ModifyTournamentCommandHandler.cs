@@ -3,44 +3,38 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using MediatR;
-    using Microsoft.Extensions.Configuration;
 
-    public class ModifyTournamentCommandHandler : IRequestHandler<ModifyTournamentCommand>
+    public class ModifyTournamentCommandHandler : IRequestHandler<ModifyTournamentCommand, int>
     {
-        private readonly IDeletableEntityRepository<Tournament> repository;
+        private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public ModifyTournamentCommandHandler(IDeletableEntityRepository<Tournament> repository, ICloudinaryHelper cloudinaryHelper)
+        public ModifyTournamentCommandHandler(IDeletableEntityRepository<Tournament> tournamentRepository, ICloudinaryHelper cloudinaryHelper)
         {
-            this.repository = repository;
+            this.tournamentRepository = tournamentRepository;
             this.cloudinaryHelper = cloudinaryHelper;
         }
 
-        public async Task<Unit> Handle(ModifyTournamentCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(ModifyTournamentCommand request, CancellationToken cancellationToken)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
 
-            var desiredTournament = await this.repository.GetByIdWithDeletedAsync(request.Id);
+            request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (desiredTournament == null)
-            {
-                throw new NotFoundException(nameof(Tournament), request.Id);
-            }
+            var desiredTournament = await this.tournamentRepository
+                .AllAsNoTracking()
+                .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken)
+                ?? throw new NotFoundException(nameof(Tournament), request.Id);
 
             if (request.TournamentImage != null)
-            {                
-                var url = await this.cloudinaryHelper.UploadImage(
-                        request.TournamentImage,
-                        name: $"{request.Name}-tournament-main-shot");
-
-                desiredTournament.TournamentImageUrl = url;
+            {
+                desiredTournament.TournamentImageUrl = await this.UploadImage(request);
             }
 
             desiredTournament.Name = request.Name;
@@ -49,10 +43,23 @@
             desiredTournament.EndDate = request.EndDate;
             desiredTournament.IsActive = request.IsActive;
 
-            this.repository.Update(desiredTournament);
-            await this.repository.SaveChangesAsync(cancellationToken);
+            this.tournamentRepository.Update(desiredTournament);
+            return await this.tournamentRepository.SaveChangesAsync(cancellationToken);
+        }
 
-            return Unit.Value;
+        private async Task<string> UploadImage(ModifyTournamentCommand request)
+        {
+            var url = await this.cloudinaryHelper.UploadImage(
+                       request.TournamentImage,
+                       name: $"{request.Name}-tournament-main-shot");
+            return url;
+        }
+
+        private async Task<bool> CheckIfTournamentWithTheSameNameExists(string name)
+        {
+            return await this.tournamentRepository
+                .AllAsNoTrackingWithDeleted()
+                .AnyAsync(t => t.Name == name);
         }
     }
 }

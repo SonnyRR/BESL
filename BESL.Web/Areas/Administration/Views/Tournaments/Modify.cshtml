@@ -36,9 +36,9 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label asp-for="@Model.IsActive">
-                                <input asp-for="@Model.IsActive" />
                                 @Html.DisplayNameFor(m => m.IsActive)
                             </label>
+                            <input asp-for="@Model.IsActive" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -66,10 +66,11 @@
             </div>
             <div class="col-lg-6">
                 <h4>Current game image:</h4>
-                <picture class="d-flex justify-content-center">
+                <picture class="d-flex justify-content-center my-4">
                     <source srcset="@Model.TournamentImageUrl" type="image/svg+xml">
                     <img src="@Model.TournamentImageUrl" class="img img-thumbnail ml-6" alt="...">
                 </picture>
+                <a class="btn btn-primary text-white">Open sign-ups</a>
             </div>
         </div>
     </div>

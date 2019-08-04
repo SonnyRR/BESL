@@ -9,7 +9,7 @@
     using BESL.Domain.Entities;
     using AutoMapper;
 
-    public class ModifyTournamentCommand : IRequest<Unit>, IHaveCustomMapping
+    public class ModifyTournamentCommand : IRequest<int>, IHaveCustomMapping
     {
         public int Id { get; set; }
 
@@ -24,6 +24,8 @@
         public string FormatName { get; set; }
 
         public bool IsActive { get; set; }
+
+        public bool AreSignupsOpen { get; set; }
 
         public DateTime StartDate { get; set; }
 

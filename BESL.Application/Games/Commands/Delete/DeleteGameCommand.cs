@@ -2,7 +2,7 @@
 {
     using MediatR;
 
-    public class DeleteGameCommand : IRequest
+    public class DeleteGameCommand : IRequest<int>
     {
         public int Id { get; set; }
 

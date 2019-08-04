@@ -14,42 +14,35 @@
 
     public class GetGameDetailsQueryHandler : IRequestHandler<GetGameDetailsQuery, GameDetailsViewModel>
     {
-        private readonly IDeletableEntityRepository<Game> repository;
+        private readonly IDeletableEntityRepository<Game> gameRepository;
         private readonly IMapper mapper;
 
-        public GetGameDetailsQueryHandler(IDeletableEntityRepository<Game> repository, IMapper mapper)
+        public GetGameDetailsQueryHandler(IDeletableEntityRepository<Game> gameRepository, IMapper mapper)
         {
-            this.repository = repository;
+            this.gameRepository = gameRepository;
             this.mapper = mapper;
         }
 
         public async Task<GameDetailsViewModel> Handle(GetGameDetailsQuery request, CancellationToken cancellationToken)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
+            request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var gameDomain = await this.repository
+            var gameDomain = await this.gameRepository
                 .AllAsNoTracking()
                 .Include(g => g.TournamentFormats)
                     .ThenInclude(tf => tf.Teams)
-                .FirstOrDefaultAsync(g => g.Id == request.Id, cancellationToken);
+                .FirstOrDefaultAsync(g => g.Id == request.Id, cancellationToken)
+                ?? throw new NotFoundException(nameof(Game), request.Id);
 
-            if (gameDomain == null)
-            {
-                throw new NotFoundException(nameof(Game), request.Id);
-            }
-
-            var dto = this.mapper.Map<GameDetailsLookupModel>(gameDomain);
+            var lookupModel = this.mapper.Map<GameDetailsLookupModel>(gameDomain);
 
             var viewModel = new GameDetailsViewModel()
             {
-                Id = dto.Id,
-                Name = dto.Name,
-                Description = dto.Description,
-                Tournaments = dto.Tournaments,
-                GameImageUrl = dto.GameImageUrl
+                Id = lookupModel.Id,
+                Name = lookupModel.Name,
+                Description = lookupModel.Description,
+                Tournaments = lookupModel.Tournaments,
+                GameImageUrl = lookupModel.GameImageUrl
             };
 
             return viewModel;

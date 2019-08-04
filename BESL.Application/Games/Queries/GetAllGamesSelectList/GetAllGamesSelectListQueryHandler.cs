@@ -16,21 +16,21 @@
 
     public class GetAllGamesSelectListQueryHandler : IRequestHandler<GetAllGamesSelectListQuery, IEnumerable<GameSelectItemLookupModel>>
     {
-        private readonly IDeletableEntityRepository<Game> repository;
+        private readonly IDeletableEntityRepository<Game> gameRepository;
         private readonly IMapper mapper;
 
-        public GetAllGamesSelectListQueryHandler(IDeletableEntityRepository<Game> repository, IMapper mapper)
+        public GetAllGamesSelectListQueryHandler(IDeletableEntityRepository<Game> gameRepository, IMapper mapper)
         {
-            this.repository = repository;
+            this.gameRepository = gameRepository;
             this.mapper = mapper;
         }
 
         public async Task<IEnumerable<GameSelectItemLookupModel>> Handle(GetAllGamesSelectListQuery request, CancellationToken cancellationToken)
         {
-            var games = await this.repository
+            var games = await this.gameRepository
                 .AllAsNoTracking()
                 .ProjectTo<GameSelectItemLookupModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return games;
         }

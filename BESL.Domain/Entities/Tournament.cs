@@ -18,6 +18,8 @@
 
         public bool IsActive { get; set; }
 
+        public bool AreSignupsOpen { get; set; }
+
         public string TournamentImageUrl { get; set; }
 
         public DateTime StartDate { get; set; }

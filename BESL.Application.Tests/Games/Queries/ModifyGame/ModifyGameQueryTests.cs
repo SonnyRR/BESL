@@ -13,6 +13,9 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Games.Commands.Modify;
     using BESL.Domain.Entities;
+    using System.Collections.Generic;
+    using System.Linq;
+    using MockQueryable.Moq;
 
     public class ModifyGameQueryTests
     {
@@ -25,16 +28,22 @@
             var request = new ModifyGameQuery() { Id = entityId };
             var repositoryMock = new Mock<IDeletableEntityRepository<Game>>();
 
-            var dataSet = new Game()
+            var dataSet = new List<Game>()
             {
-                Id = entityId,
-                Name = "TF2",
-                Description = "Team Fortress 2",
-                GameImageUrl = "http://vidindrinkingteam.bg/gomotarzi_everything_alcoholic.jpg",
-                CreatedOn = It.IsAny<DateTime>()
-            };
+                new Game()
+                {
+                    Id = 2,
+                    Name = It.IsAny<string>(),
+                    Description = It.IsAny<string>(),
+                    CreatedOn = It.IsAny<DateTime>(),
+                    TournamentFormats = It.IsAny<ICollection<TournamentFormat>>(),
+                    GameImageUrl = "http://vidindrinkingteam.bg/gomotarzi_everything_alcoholic.jpg"
+                }
+            }.AsQueryable();
 
-            repositoryMock.Setup(x => x.GetByIdWithDeletedAsync(entityId)).ReturnsAsync(dataSet);
+            var dataSetMock = dataSet.BuildMock();
+
+            repositoryMock.Setup(x => x.AllAsNoTracking()).Returns(dataSetMock.Object);
 
             var sut = new ModifyGameQueryHandler(repositoryMock.Object);
 
@@ -56,8 +65,23 @@
             var request = new ModifyGameQuery() { Id = entityId };
             var repositoryMock = new Mock<IDeletableEntityRepository<Game>>();
 
-            repositoryMock.Setup(e => e.GetByIdWithDeletedAsync(entityId))
-                .ReturnsAsync((Game)null);
+            var dataSet = new List<Game>()
+            {
+                new Game()
+                {
+                    Id = 1,
+                    Name = It.IsAny<string>(),
+                    Description = It.IsAny<string>(),
+                    CreatedOn = It.IsAny<DateTime>(),
+                    TournamentFormats = It.IsAny<ICollection<TournamentFormat>>(),
+                    GameImageUrl = It.IsAny<string>()
+                }
+            }.AsQueryable();
+
+            var dataSetMock = dataSet.BuildMock();
+
+            repositoryMock.Setup(e => e.AllAsNoTracking())
+                .Returns(dataSetMock.Object);
 
             var sut = new ModifyGameQueryHandler(repositoryMock.Object);
 
