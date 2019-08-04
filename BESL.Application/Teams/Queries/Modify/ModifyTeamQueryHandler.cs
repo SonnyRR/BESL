@@ -8,7 +8,7 @@
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
-    using BESL.Application.Interfaces;   
+    using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.Modify;
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
@@ -30,6 +30,8 @@
 
             var desiredTeam = await this.teamRepository
                 .AllAsNoTracking()
+                .Include(t => t.TournamentFormat)
+                    .ThenInclude(tf => tf.Game)
                 .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.Id);
 

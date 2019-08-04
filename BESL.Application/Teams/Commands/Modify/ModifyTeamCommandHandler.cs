@@ -46,7 +46,7 @@
             desiredTeam.Description = request.Description;
             desiredTeam.HomepageUrl = request.HomepageUrl;
 
-            if (request.ImageUrl != null)
+            if (request.TeamImage != null)
             {
                 desiredTeam.ImageUrl = await this.UploadImage(request);
             }

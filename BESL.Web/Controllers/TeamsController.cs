@@ -9,6 +9,8 @@
     using BESL.Application.Teams.Commands.Create;
     using BESL.Application.Teams.Queries.Create;
     using BESL.Application.Teams.Queries.Details;
+    using BESL.Application.Teams.Queries.Modify;
+    using BESL.Application.Teams.Commands.Modify;
 
     public class TeamsController : BaseController
     {
@@ -48,10 +50,23 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Manage(GetTeamDetailsQuery query)
+        public async Task<IActionResult> Modify(ModifyTeamQuery query)
         {
             var viewModel = await this.Mediator.Send(query);
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Modify(ModifyTeamCommand command)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(command);
+            }
+
+            var viewModel = await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Details), new { Id = command.Id });
         }
     }
 }

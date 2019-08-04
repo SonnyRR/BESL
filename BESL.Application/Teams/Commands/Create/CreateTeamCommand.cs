@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
 
-    using AutoMapper;
     using MediatR;
     using Microsoft.AspNetCore.Http;
 
@@ -24,10 +23,5 @@
         public IEnumerable<TournamentFormatSelectItemLookupModel> Formats { get; set; }
 
         public IFormFile TeamImage { get; set; }
-
-        public void CreateMappings(Profile configuration)
-        {
-            configuration.CreateMap<CreateTeamCommand, Team>();
-        }
     }
 }
