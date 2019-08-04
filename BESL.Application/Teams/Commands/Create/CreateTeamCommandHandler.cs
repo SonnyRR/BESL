@@ -50,7 +50,7 @@
             var doesTeamAlreadyExist = await this.CheckIfTeamWithTheSameNameExists(request);
             if (doesTeamAlreadyExist)
             {
-                throw new EntityAlreadyExists(nameof(Team), request.Name);
+                throw new EntityAlreadyExistsException(nameof(Team), request.Name);
             }
 
             var doesTournamentFormatExist = await this.CheckIfTournamentFormatExists(request);

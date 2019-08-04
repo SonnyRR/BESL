@@ -46,5 +46,12 @@
             var viewModel = await this.Mediator.Send(query);
             return this.View(viewModel);
         }
+
+        [Authorize]
+        public async Task<IActionResult> Manage(GetTeamDetailsQuery query)
+        {
+            var viewModel = await this.Mediator.Send(query);
+            return this.View(viewModel);
+        }
     }
 }
