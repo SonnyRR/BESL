@@ -4,6 +4,6 @@
 
     public class GetPlayersForTeamViewModel
     {
-        public IEnumerable<PlayerLookup> Players { get; set; }
+        public IList<PlayerLookup> Players { get; set; }
     }
 }
