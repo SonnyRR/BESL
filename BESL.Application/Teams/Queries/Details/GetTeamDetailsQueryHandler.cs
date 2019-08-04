@@ -28,7 +28,9 @@
             request = request ?? throw new ArgumentNullException(nameof(request));
 
             var desiredTeam = await this.teamRepository
-                .AllAsNoTrackingWithDeleted()
+                .AllAsNoTracking()
+                .Include(t => t.TournamentFormat)
+                    .ThenInclude(tf => tf.Game)
                 .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (desiredTeam == null)

@@ -5,11 +5,10 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.Create;
     using BESL.Application.Teams.Queries.Create;
-    using System.Security.Claims;
     using BESL.Application.Teams.Queries.Details;
-    using BESL.Application.Interfaces;
 
     public class TeamsController : BaseController
     {
@@ -39,7 +38,7 @@
 
             command.OwnerId = this.userAcessor.UserId;
             var teamId = await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(Details), teamId);
+            return this.RedirectToAction(nameof(Details), new { Id = teamId });
         }
 
         public async Task<IActionResult> Details(GetTeamDetailsQuery query)

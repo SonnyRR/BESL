@@ -4,19 +4,24 @@
 }
 
 <div class="row mx-3 mb-3">
-    <img class="img-thumbnail ml-3" src="@Model.TeamImageUrl" />
+    <img class="img-thumbnail ml-3 shadow" src="@Model.TeamImageUrl" />
     <div class="col-md-6">
         <h1>
             @Model.Name
         </h1>
         <div class="mt-2">
             <h6 class="lead">
-                Todo
+                Homepage:&nbsp;<a href="@Model.HomepageUrl">@Model.HomepageUrl</a>
             </h6>
             <h6 class="lead">
-                Todo
+                Format:&nbsp;@Model.TournamentFormat
             </h6>
             <h6 class="lead">Created on: @Model.CreatedOn</h6>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card card-body my-2 shadow">
+            @Model.Description
         </div>
     </div>
 </div>
