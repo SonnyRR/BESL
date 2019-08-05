@@ -1,4 +1,11 @@
 # ASP.NET
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure for Students(c423efad-61a1-4b3f-a1dc-6208534fa56a)'
+    appType: 'webApp'
+    appName: 'bulgarianesportsleague'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
 # Build and test ASP.NET projects.
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
