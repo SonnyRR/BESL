@@ -4,6 +4,7 @@ a.navbar-brand {
   white-space: normal;
   word-break: break-all;
   font-family: Aldrich;
+  margin-right: 0.5rem;
 }
 
 img.logo-img {
