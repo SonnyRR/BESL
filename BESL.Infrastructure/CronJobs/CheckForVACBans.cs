@@ -16,7 +16,7 @@
 
     public class CheckForVACBans
     {
-        public const string CRON_SCHEDULE = "0 */2 * ? * *";
+        public const string CRON_SCHEDULE = "0 0 1 * * ?";
 
         private readonly ISteamUser mainSteamUserInstance;
         private readonly IDeletableEntityRepository<Player> playerRepository;
