@@ -7,7 +7,6 @@
 .DS_Store
 .zip
 StyleCop.Cache
-appsettings.json
 **/wwwroot/lib/**
 
 # User-specific files
