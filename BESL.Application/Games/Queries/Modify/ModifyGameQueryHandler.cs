@@ -14,18 +14,18 @@
 
     public class ModifyGameQueryHandler : IRequestHandler<ModifyGameQuery, ModifyGameCommand>
     {
-        private readonly IDeletableEntityRepository<Game> gameRepository;
+        private readonly IDeletableEntityRepository<Game> gamesRepository;
 
-        public ModifyGameQueryHandler(IDeletableEntityRepository<Game> gameRepository)
+        public ModifyGameQueryHandler(IDeletableEntityRepository<Game> gamesRepository)
         {
-            this.gameRepository = gameRepository;
+            this.gamesRepository = gamesRepository;
         }
 
         public async Task<ModifyGameCommand> Handle(ModifyGameQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredGame = await this.gameRepository
+            var desiredGame = await this.gamesRepository
                 .AllAsNoTracking()
                 .SingleOrDefaultAsync(g => g.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Game), request.Id);

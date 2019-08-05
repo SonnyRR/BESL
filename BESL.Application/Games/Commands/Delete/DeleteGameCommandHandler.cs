@@ -14,18 +14,18 @@
 
     public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, int>
     {
-        private readonly IDeletableEntityRepository<Game> gameRepository;
+        private readonly IDeletableEntityRepository<Game> gamesRepository;
 
-        public DeleteGameCommandHandler(IDeletableEntityRepository<Game> gameRepository)
+        public DeleteGameCommandHandler(IDeletableEntityRepository<Game> gamesRepository)
         {
-            this.gameRepository = gameRepository;
+            this.gamesRepository = gamesRepository;
         }
 
         public async Task<int> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredGame = await this.gameRepository
+            var desiredGame = await this.gamesRepository
                 .AllWithDeleted()
                 .SingleOrDefaultAsync(g => g.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Game), request.Id);
@@ -35,8 +35,8 @@
                 throw new DeleteFailureException(nameof(Game), desiredGame.Id, ENTITY_ALREADY_DELETED_MSG);
             }
 
-            this.gameRepository.Delete(desiredGame);
-            return await this.gameRepository.SaveChangesAsync(cancellationToken);
+            this.gamesRepository.Delete(desiredGame);
+            return await this.gamesRepository.SaveChangesAsync(cancellationToken);
         }
     }
 }

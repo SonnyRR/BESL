@@ -15,12 +15,12 @@
 
     public class ModifyTeamQueryHandler : IRequestHandler<ModifyTeamQuery, ModifyTeamCommand>
     {
-        private readonly IDeletableEntityRepository<Team> teamRepository;
+        private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IMapper mapper;
 
-        public ModifyTeamQueryHandler(IDeletableEntityRepository<Team> teamRepository, IMapper mapper)
+        public ModifyTeamQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IMapper mapper)
         {
-            this.teamRepository = teamRepository;
+            this.teamsRepository = teamsRepository;
             this.mapper = mapper;
         }
 
@@ -28,7 +28,7 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredTeam = await this.teamRepository
+            var desiredTeam = await this.teamsRepository
                 .AllAsNoTracking()
                 .Include(t => t.TournamentFormat)
                     .ThenInclude(tf => tf.Game)

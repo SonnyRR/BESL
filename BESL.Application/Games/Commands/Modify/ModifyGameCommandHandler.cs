@@ -15,12 +15,12 @@
 
     public class ModifyGameCommandHandler : IRequestHandler<ModifyGameCommand, int>
     {
-        private readonly IDeletableEntityRepository<Game> gameRepository;
+        private readonly IDeletableEntityRepository<Game> gamesRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> gameRepository, ICloudinaryHelper cloudinaryHelper)
+        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> gamesRepository, ICloudinaryHelper cloudinaryHelper)
         {
-            this.gameRepository = gameRepository;
+            this.gamesRepository = gamesRepository;
             this.cloudinaryHelper = cloudinaryHelper;
         }
 
@@ -28,7 +28,7 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var existingGame = await this.gameRepository
+            var existingGame = await this.gamesRepository
                 .AllAsNoTracking()
                 .SingleOrDefaultAsync(g => g.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Game), request.Id);
@@ -37,13 +37,12 @@
             existingGame.Description = request.Description;
 
             if (request.GameImage != null)
-            {
-                var imageUrl = 
+            { 
                 existingGame.GameImageUrl = await this.UploadGameImage(request);
             }
 
-            this.gameRepository.Update(existingGame);
-            return await this.gameRepository.SaveChangesAsync(cancellationToken);
+            this.gamesRepository.Update(existingGame);
+            return await this.gamesRepository.SaveChangesAsync(cancellationToken);
         }
 
         private async Task<string> UploadGameImage(ModifyGameCommand request)

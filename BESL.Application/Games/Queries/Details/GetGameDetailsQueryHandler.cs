@@ -14,12 +14,12 @@
 
     public class GetGameDetailsQueryHandler : IRequestHandler<GetGameDetailsQuery, GameDetailsViewModel>
     {
-        private readonly IDeletableEntityRepository<Game> gameRepository;
+        private readonly IDeletableEntityRepository<Game> gamesRepository;
         private readonly IMapper mapper;
 
-        public GetGameDetailsQueryHandler(IDeletableEntityRepository<Game> gameRepository, IMapper mapper)
+        public GetGameDetailsQueryHandler(IDeletableEntityRepository<Game> gamesRepository, IMapper mapper)
         {
-            this.gameRepository = gameRepository;
+            this.gamesRepository = gamesRepository;
             this.mapper = mapper;
         }
 
@@ -27,7 +27,7 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var gameDomain = await this.gameRepository
+            var gameDomain = await this.gamesRepository
                 .AllAsNoTracking()
                 .Include(g => g.TournamentFormats)
                     .ThenInclude(tf => tf.Teams)

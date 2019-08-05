@@ -13,16 +13,16 @@
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
-        private readonly IDeletableEntityRepository<Game> gameRepository;
+        private readonly IDeletableEntityRepository<Game> gamesRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
         private readonly IMediator mediator;
 
         public CreateGameCommandHandler(
-            IDeletableEntityRepository<Game> gameRepository,
+            IDeletableEntityRepository<Game> gamesRepository,
             ICloudinaryHelper cloudinaryHelper,
             IMediator mediator)
         {
-            this.gameRepository = gameRepository;
+            this.gamesRepository = gamesRepository;
             this.cloudinaryHelper = cloudinaryHelper;
             this.mediator = mediator;
         }
@@ -38,8 +38,8 @@
                 GameImageUrl = await this.UploadGameImage(request)
             };
 
-            await this.gameRepository.AddAsync(game);
-            await this.gameRepository.SaveChangesAsync(cancellationToken);
+            await this.gamesRepository.AddAsync(game);
+            await this.gamesRepository.SaveChangesAsync(cancellationToken);
 
             await this.mediator.Publish(new GameCreatedNotification() { GameName = game.Name });
 

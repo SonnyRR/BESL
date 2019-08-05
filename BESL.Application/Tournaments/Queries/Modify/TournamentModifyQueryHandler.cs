@@ -15,12 +15,12 @@
 
     public class TournamentModifyQueryHandler : IRequestHandler<TournamentModifyQuery, ModifyTournamentCommand>
     {
-        private readonly IDeletableEntityRepository<Tournament> repository;
+        private readonly IDeletableEntityRepository<Tournament> tournamentsRepository;
         private readonly IMapper mapper;
 
-        public TournamentModifyQueryHandler(IDeletableEntityRepository<Tournament> repository, IMapper mapper)
+        public TournamentModifyQueryHandler(IDeletableEntityRepository<Tournament> tournamentsRepository, IMapper mapper)
         {
-            this.repository = repository;
+            this.tournamentsRepository = tournamentsRepository;
             this.mapper = mapper;
         }
 
@@ -28,16 +28,12 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredTournament = await this.repository
+            var desiredTournament = await this.tournamentsRepository
                 .AllAsNoTrackingWithDeleted()
                 .Include(x => x.Format)
                     .ThenInclude(x => x.Game)
-                .FirstOrDefaultAsync(t => t.Id == request.Id);
-
-            if (desiredTournament == null)
-            {
-                throw new NotFoundException(nameof(Tournament), request.Id);
-            }
+                .FirstOrDefaultAsync(t => t.Id == request.Id)
+                ?? throw new NotFoundException(nameof(Tournament), request.Id);
 
             var modifyCommand = this.mapper.Map<ModifyTournamentCommand>(desiredTournament);
             return modifyCommand;

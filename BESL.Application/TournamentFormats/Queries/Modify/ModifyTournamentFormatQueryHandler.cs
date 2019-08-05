@@ -15,36 +15,26 @@
 
     public class ModifyTournamentFormatQueryHandler : IRequestHandler<ModifyTournamentFormatQuery, ModifyTournamentFormatCommand>
     {
-        private readonly IDeletableEntityRepository<TournamentFormat> repository;
+        private readonly IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository;
         private readonly IMapper mapper;
-        private readonly IMediator mediator;
 
-        public ModifyTournamentFormatQueryHandler(IDeletableEntityRepository<TournamentFormat> repository, IMapper mapper, IMediator mediator)
+        public ModifyTournamentFormatQueryHandler(IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository, IMapper mapper)
         {
-            this.repository = repository;
+            this.tournamentFormatsRepository = tournamentFormatsRepository;
             this.mapper = mapper;
-            this.mediator = mediator;
         }
 
         public async Task<ModifyTournamentFormatCommand> Handle(ModifyTournamentFormatQuery request, CancellationToken cancellationToken)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
+            request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredFormat = await this.repository
+            var desiredFormat = await this.tournamentFormatsRepository
                 .AllAsNoTrackingWithDeleted()
                     .Include(tf => tf.Game)
-                .SingleOrDefaultAsync(f => f.Id == request.Id, cancellationToken);
-
-            if (desiredFormat == null)
-            {
-                throw new NotFoundException(nameof(TournamentFormat), request.Id);
-            }
+                .SingleOrDefaultAsync(f => f.Id == request.Id, cancellationToken)
+                ?? throw new NotFoundException(nameof(TournamentFormat), request.Id);
 
             var viewModel = this.mapper.Map<ModifyTournamentFormatCommand>(desiredFormat);
-
             return viewModel;
         }
     }

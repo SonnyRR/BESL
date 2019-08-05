@@ -1,47 +1,40 @@
 ﻿namespace BESL.Application.Teams.Queries.GetPlayersForTeam
 {
     using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
-    using System.Linq;
-    using AutoMapper.QueryableExtensions;
 
     public class GetPlayersForTeamQueryHandler : IRequestHandler<GetPlayersForTeamQuery, GetPlayersForTeamViewModel>
     {
         private readonly IMapper mapper;
-        private readonly IDeletableEntityRepository<Player> playerRepository;
-        private readonly IDeletableEntityRepository<Team> teamRepository;
+        private readonly IDeletableEntityRepository<Team> teamsRepository;
 
-        public GetPlayersForTeamQueryHandler(
-            IMapper mapper,
-            IDeletableEntityRepository<Player> playerRepository,
-            IDeletableEntityRepository<Team> teamRepository)
+        public GetPlayersForTeamQueryHandler(IMapper mapper, IDeletableEntityRepository<Team> teamRepository)
         {
             this.mapper = mapper;
-            this.playerRepository = playerRepository;
-            this.teamRepository = teamRepository;
+            this.teamsRepository = teamRepository;
         }
 
         public async Task<GetPlayersForTeamViewModel> Handle(GetPlayersForTeamQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var doesTeamExist = await this.DoesTeamExist(request);
-
-            if (!doesTeamExist)
+            if (!await this.DoesTeamExist(request))
             {
                 throw new NotFoundException(nameof(Team), request.TeamId);
             }
 
-            var teamPlayers = await this.teamRepository
+            var teamPlayers = await this.teamsRepository
                 .AllAsNoTracking()
                 .Include(t => t.PlayerTeams)
                     .ThenInclude(pt => pt.Player)
@@ -57,7 +50,7 @@
 
         private async Task<bool> DoesTeamExist(GetPlayersForTeamQuery request)
         {
-            return await this.teamRepository
+            return await this.teamsRepository
                 .AllAsNoTracking()
                 .AnyAsync(x => x.Id == request.TeamId);
         }

@@ -15,20 +15,20 @@
 
     public class CreateTournamentQueryHandler : IRequestHandler<CreateTournamentQuery, CreateTournamentCommand>
     {
-        private readonly IDeletableEntityRepository<TournamentFormat> repository;
+        private readonly IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository;
         private readonly IMapper mapper;
 
-        public CreateTournamentQueryHandler(IDeletableEntityRepository<TournamentFormat> repository, IMapper mapper)
+        public CreateTournamentQueryHandler(IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository, IMapper mapper)
         {
-            this.repository = repository;
+            this.tournamentFormatsRepository = tournamentFormatsRepository;
             this.mapper = mapper;
         }
 
         public async Task<CreateTournamentCommand> Handle(CreateTournamentQuery request, CancellationToken cancellationToken)
         {
-            CreateTournamentCommand command = new CreateTournamentCommand()
+            CreateTournamentCommand command = new CreateTournamentCommand
             {
-                Formats = await this.repository
+                Formats = await this.tournamentFormatsRepository
                             .AllAsNoTracking()
                                 .Include(tf => tf.Game)
                             .ProjectTo<TournamentFormatSelectListLookupModel>(this.mapper.ConfigurationProvider)

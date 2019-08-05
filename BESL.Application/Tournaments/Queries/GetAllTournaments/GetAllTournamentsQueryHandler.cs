@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.Tournaments.Queries.GetAllTournaments
 {
+    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -16,25 +17,27 @@
 
     public class GetAllTournamentsQueryHandler : IRequestHandler<GetAllTournamentsQuery, AllTournamentsViewModel>
     {
-        private readonly IDeletableEntityRepository<Tournament> repository;
+        private readonly IDeletableEntityRepository<Tournament> tournamentsRepository;
         private readonly IMapper mapper;
 
-        public GetAllTournamentsQueryHandler(IDeletableEntityRepository<Tournament> repository, IMapper mapper)
+        public GetAllTournamentsQueryHandler(IDeletableEntityRepository<Tournament> tournamentsRepository, IMapper mapper)
         {
-            this.repository = repository;
+            this.tournamentsRepository = tournamentsRepository;
             this.mapper = mapper;
         }
 
         public async Task<AllTournamentsViewModel> Handle(GetAllTournamentsQuery request, CancellationToken cancellationToken)
         {
-            var tournamentsMapped = await this.repository
+            request = request ?? throw new ArgumentNullException(nameof(request));
+
+            var tournamentsMapped = await this.tournamentsRepository
                 .AllAsNoTracking()
                     .Include(t => t.Format)
                 .Where(t => !t.Format.Game.IsDeleted && !t.IsDeleted)
                 .ProjectTo<TournamentLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            var viewModel = new AllTournamentsViewModel()
+            var viewModel = new AllTournamentsViewModel
             {
                 Tournaments = tournamentsMapped
             };

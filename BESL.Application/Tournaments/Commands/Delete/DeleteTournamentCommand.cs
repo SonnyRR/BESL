@@ -1,12 +1,9 @@
 ﻿namespace BESL.Application.Tournaments.Commands.Delete
 {
-    using System;
     using MediatR;
 
-    public class DeleteTournamentCommand : IRequest
+    public class DeleteTournamentCommand : IRequest<int>
     {
         public int Id { get; set; }
-
-
     }
 }

@@ -15,12 +15,12 @@
 
     public class ModifyTeamCommandHandler : IRequestHandler<ModifyTeamCommand, int>
     {
-        private readonly IDeletableEntityRepository<Team> teamRepository;
+        private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public ModifyTeamCommandHandler(IDeletableEntityRepository<Team> teamRepository, ICloudinaryHelper cloudinaryHelper)
+        public ModifyTeamCommandHandler(IDeletableEntityRepository<Team> teamsRepository, ICloudinaryHelper cloudinaryHelper)
         {
-            this.teamRepository = teamRepository;
+            this.teamsRepository = teamsRepository;
             this.cloudinaryHelper = cloudinaryHelper;
         }
 
@@ -28,7 +28,7 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredTeam = await this.teamRepository
+            var desiredTeam = await this.teamsRepository
                 .AllAsNoTracking()
                 .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.Id);
@@ -52,8 +52,8 @@
             }
 
 
-            this.teamRepository.Update(desiredTeam);
-            return await this.teamRepository.SaveChangesAsync(cancellationToken);
+            this.teamsRepository.Update(desiredTeam);
+            return await this.teamsRepository.SaveChangesAsync(cancellationToken);
         }
 
         private async Task<string> UploadImage(ModifyTeamCommand request)
@@ -67,7 +67,7 @@
 
         private async Task<bool> CheckIfTeamWithGivenNameAlreadyExists(string name)
         {
-            return await this.teamRepository
+            return await this.teamsRepository
                 .AllAsNoTrackingWithDeleted()
                 .AnyAsync(t => t.Name == name);
         }

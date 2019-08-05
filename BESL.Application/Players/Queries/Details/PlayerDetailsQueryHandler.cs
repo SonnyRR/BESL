@@ -14,31 +14,24 @@
 
     public class PlayerDetailsQueryHandler : IRequestHandler<GetPlayerDetailsQuery, PlayerDetailsViewModel>
     {
-        private readonly IDeletableEntityRepository<Player> repository;
+        private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly IMapper mapper;
 
-        public PlayerDetailsQueryHandler(IDeletableEntityRepository<Player> repository, IMapper mapper)
+        public PlayerDetailsQueryHandler(IDeletableEntityRepository<Player> playersRepository, IMapper mapper)
         {
-            this.repository = repository;
+            this.playersRepository = playersRepository;
             this.mapper = mapper;
         }
 
         public async Task<PlayerDetailsViewModel> Handle(GetPlayerDetailsQuery request, CancellationToken cancellationToken)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
+            request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredPlayer = await this.repository
+            var desiredPlayer = await this.playersRepository
                 .AllAsNoTracking()
                 .Include(p => p.Claims)
-                .SingleOrDefaultAsync(p => p.UserName == request.Username, cancellationToken);
-
-            if (desiredPlayer == null)
-            {
-                throw new NotFoundException(nameof(Player), request.Username);
-            }
+                .SingleOrDefaultAsync(p => p.UserName == request.Username, cancellationToken)
+                ?? throw new NotFoundException(nameof(Player), request.Username);
 
             var viewModel = this.mapper.Map<PlayerDetailsViewModel>(desiredPlayer);
             return viewModel;

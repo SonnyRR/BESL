@@ -1,43 +1,42 @@
 ﻿namespace BESL.Application.TournamentFormats.Commands.Delete
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
 
-    public class DeleteTournamentFormatCommandHandler : IRequestHandler<DeleteTournamentFormatCommand>
+    public class DeleteTournamentFormatCommandHandler : IRequestHandler<DeleteTournamentFormatCommand, int>
     {
-        private readonly IDeletableEntityRepository<TournamentFormat> repository;
+        private readonly IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository;
 
-        public DeleteTournamentFormatCommandHandler(IDeletableEntityRepository<TournamentFormat> repository)
+        public DeleteTournamentFormatCommandHandler(IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository)
         {
-            this.repository = repository;
+            this.tournamentFormatsRepository = tournamentFormatsRepository;
         }
 
-        public async Task<Unit> Handle(DeleteTournamentFormatCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(DeleteTournamentFormatCommand request, CancellationToken cancellationToken)
         {
-            var desiredFormat = await this.repository
-                .GetByIdWithDeletedAsync(request.Id);
+            request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (desiredFormat == null)
-            {
-                throw new NotFoundException(nameof(TournamentFormat), request.Id);
-            }
+            var desiredFormat = await this.tournamentFormatsRepository
+                .AllAsNoTracking()
+                .SingleOrDefaultAsync(t => t.Id == request.Id)
+                ?? throw new NotFoundException(nameof(TournamentFormat), request.Id);
 
             if (desiredFormat.IsDeleted)
             {
                 throw new DeleteFailureException(nameof(TournamentFormat), desiredFormat.Id, ENTITY_ALREADY_DELETED_MSG);
             }
 
-            this.repository.Delete(desiredFormat);
-            await this.repository.SaveChangesAsync(cancellationToken);
-
-            return Unit.Value;
+            this.tournamentFormatsRepository.Delete(desiredFormat);
+            return await this.tournamentFormatsRepository.SaveChangesAsync(cancellationToken);
         }
     }
 }

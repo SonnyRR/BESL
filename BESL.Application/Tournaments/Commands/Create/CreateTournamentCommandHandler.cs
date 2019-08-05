@@ -13,28 +13,32 @@
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
     using static BESL.Common.GlobalConstants;
+    using BESL.Application.TournamentTables.Commands.Create;
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {
-        private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
+        private readonly IDeletableEntityRepository<Tournament> tournamentsRepository;
         private readonly IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
+        private readonly IMediator mediator;
 
         public CreateTournamentCommandHandler(
-            IDeletableEntityRepository<Tournament> tournamentRepository, 
+            IDeletableEntityRepository<Tournament> tournamentsRepository, 
             IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository,
-            ICloudinaryHelper cloudinaryHelper)
+            ICloudinaryHelper cloudinaryHelper,
+            IMediator mediator)
         {
-            this.tournamentRepository = tournamentRepository;
+            this.tournamentsRepository = tournamentsRepository;
             this.tournamentFormatsRepository = tournamentFormatsRepository;
             this.cloudinaryHelper = cloudinaryHelper;
+            this.mediator = mediator;
         }
 
         public async Task<int> Handle(CreateTournamentCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (this.tournamentRepository.AllAsNoTrackingWithDeleted().Any(t => t.Name == request.Name))
+            if (await this.CheckIfTournamentWithGivenNameAlreadyExists(request))
             {
                 throw new EntityAlreadyExistsException(nameof(Tournament), request.Name);
             }
@@ -58,12 +62,10 @@
                 AreSignupsOpen = true
             };
 
-            tournament.Tables.Add(new TournamentTable() { Name = OPEN_TABLE_NAME, CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS });
-            tournament.Tables.Add(new TournamentTable() { Name = MID_TABLE_NAME, CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = MID_TABLE_MAX_TEAMS });
-            tournament.Tables.Add(new TournamentTable() { Name = PREM_TABLE_NAME, CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS });
+            await this.tournamentsRepository.AddAsync(tournament);
+            await this.tournamentsRepository.SaveChangesAsync(cancellationToken);
 
-            await this.tournamentRepository.AddAsync(tournament);
-            await this.tournamentRepository.SaveChangesAsync(cancellationToken);
+            await this.mediator.Send(new CreateTablesForTournamentCommand { TournamentId = tournament.Id });
 
             return tournament.Id;
         }
@@ -74,6 +76,13 @@
                     request.TournamentImage,
                     name: $"{request.Name}-tournament-main-shot",
                     transformation: new Transformation().Width(TOURNAMENT_IMAGE_WIDTH).Height(TOURNAMENT_IMAGE_HEIGHT));
+        }
+
+        private async Task<bool> CheckIfTournamentWithGivenNameAlreadyExists(CreateTournamentCommand request)
+        {
+            return await this.tournamentsRepository
+                .AllAsNoTrackingWithDeleted()
+                .AnyAsync(t => t.Name == request.Name);
         }
     }
 }

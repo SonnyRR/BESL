@@ -2,7 +2,7 @@
 {
     using MediatR;
 
-    public class DeleteTournamentFormatCommand : IRequest
+    public class DeleteTournamentFormatCommand : IRequest<int>
     {
         public int Id { get; set; }
 

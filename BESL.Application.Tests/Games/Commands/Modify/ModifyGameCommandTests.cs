@@ -16,6 +16,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
+    using BESL.Application.Exceptions;
 
     public class ModifyGameCommandTests : BaseTest<Game>
     {
@@ -49,6 +50,32 @@
             game.ShouldNotBeNull();
             game.Description.ShouldBe("Changed description from test");
             game.GameImageUrl.ShouldBe("https://steamcdn-a.akamaihd.net/steam/apps/440/changed-picture.jpg");
+        }
+
+        [Trait(nameof(Game), "Game modify tests.")]
+        [Fact(DisplayName = "Handler given invalid request should throw NotFoundException.")]
+        public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
+        {
+            // Arrange
+            var cloudinaryHelperMock = new Mock<ICloudinaryHelper>();
+
+            cloudinaryHelperMock
+                .Setup(x => x.UploadImage(It.IsAny<IFormFile>(), It.IsAny<string>(), It.IsAny<Transformation>()))
+                .ReturnsAsync("https://steamcdn-a.akamaihd.net/steam/apps/440/changed-picture.jpg");
+
+            var sut = new ModifyGameCommandHandler(deletableEntityRepository, cloudinaryHelperMock.Object);
+
+            var gameId = 41241;
+            var command = new ModifyGameCommand()
+            {
+                Id = gameId,
+                Name = "Team Fortress 3",
+                Description = "Changed description from test",
+                GameImage = new FormFile(It.IsAny<Stream>(), It.IsAny<long>(), It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>())
+            };
+
+            // Assert
+            await Should.ThrowAsync<NotFoundException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
 
         [Trait(nameof(Game), "Game modify tests.")]

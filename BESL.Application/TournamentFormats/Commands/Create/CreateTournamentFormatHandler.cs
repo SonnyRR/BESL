@@ -1,63 +1,65 @@
 ﻿namespace BESL.Application.TournamentFormats.Commands.Create
 {
     using System;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class CreateTournamentFormatHandler : IRequestHandler<CreateTournamentFormatCommand, int>
     {
-        private readonly IDeletableEntityRepository<TournamentFormat> formatRepository;
-        private readonly IDeletableEntityRepository<Game> gameRepository;
+        private readonly IDeletableEntityRepository<TournamentFormat> formatsRepository;
+        private readonly IDeletableEntityRepository<Game> gamesRepository;
 
         public CreateTournamentFormatHandler(
-            IDeletableEntityRepository<TournamentFormat> formatRepository, 
-            IDeletableEntityRepository<Game> gameRepository)
+            IDeletableEntityRepository<TournamentFormat> formatsRepository, 
+            IDeletableEntityRepository<Game> gamesRepository)
         {
-            this.formatRepository = formatRepository;
-            this.gameRepository = gameRepository;
+            this.formatsRepository = formatsRepository;
+            this.gamesRepository = gamesRepository;
         }
 
         public async Task<int> Handle(CreateTournamentFormatCommand request, CancellationToken cancellationToken)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
+            request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (this.formatRepository.AllAsNoTrackingWithDeleted().Any(tf => tf.GameId == request.GameId && tf.Name == request.Name))
+            if (await this.CheckIfTournamentFormatAlreadyExists(request))
             {
                 throw new EntityAlreadyExistsException(nameof(TournamentFormat), $"{request.Name} - GameId:{request.GameId}");
             }
 
-            var game = await this.gameRepository
-                .GetByIdWithDeletedAsync(request.GameId);              
-
-            if (game == null)
-            {
-                throw new NotFoundException(nameof(Game), request.GameId);
-            }
+            var game = await this.gamesRepository
+                .AllAsNoTracking()
+                .SingleOrDefaultAsync(g => g.Id == request.GameId, cancellationToken)
+                ?? throw new NotFoundException(nameof(Game), request.GameId);
 
             var format = new TournamentFormat()
             {
                 Name = request.Name,
                 Description = request.Description,
                 TeamPlayersCount = request.TeamPlayersCount,
-                TotalPlayersCount = request.TeamPlayersCount * 2,
+                TotalPlayersCount = request.TeamPlayersCount * TOURNAMENT_FORMAT_PLAYERS_MULTIPLIER,
                 GameId = request.GameId,
                 CreatedOn = DateTime.UtcNow
             };
 
-            await this.formatRepository.AddAsync(format);
-            await this.formatRepository.SaveChangesAsync(cancellationToken);
+            await this.formatsRepository.AddAsync(format);
+            await this.formatsRepository.SaveChangesAsync(cancellationToken);
 
             return format.Id;
+        }
+
+        private async Task<bool> CheckIfTournamentFormatAlreadyExists(CreateTournamentFormatCommand request)
+        {
+            return await this.formatsRepository
+                .AllAsNoTrackingWithDeleted()
+                .AnyAsync(tf => tf.GameId == request.GameId && tf.Name == request.Name);
         }
     }
 }

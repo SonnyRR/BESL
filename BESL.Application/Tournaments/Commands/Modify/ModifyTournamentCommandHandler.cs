@@ -15,21 +15,20 @@
 
     public class ModifyTournamentCommandHandler : IRequestHandler<ModifyTournamentCommand, int>
     {
-        private readonly IDeletableEntityRepository<Tournament> tournamentRepository;
+        private readonly IDeletableEntityRepository<Tournament> tournamentsRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
 
-        public ModifyTournamentCommandHandler(IDeletableEntityRepository<Tournament> tournamentRepository, ICloudinaryHelper cloudinaryHelper)
+        public ModifyTournamentCommandHandler(IDeletableEntityRepository<Tournament> tournamentsRepository, ICloudinaryHelper cloudinaryHelper)
         {
-            this.tournamentRepository = tournamentRepository;
+            this.tournamentsRepository = tournamentsRepository;
             this.cloudinaryHelper = cloudinaryHelper;
         }
 
         public async Task<int> Handle(ModifyTournamentCommand request, CancellationToken cancellationToken)
         {
-
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredTournament = await this.tournamentRepository
+            var desiredTournament = await this.tournamentsRepository
                 .AllAsNoTracking()
                 .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Tournament), request.Id);
@@ -51,8 +50,8 @@
             desiredTournament.IsActive = request.IsActive;
             desiredTournament.AreSignupsOpen = request.AreSignupsOpen;
 
-            this.tournamentRepository.Update(desiredTournament);
-            return await this.tournamentRepository.SaveChangesAsync(cancellationToken);
+            this.tournamentsRepository.Update(desiredTournament);
+            return await this.tournamentsRepository.SaveChangesAsync(cancellationToken);
         }
 
         private async Task<string> UploadImage(ModifyTournamentCommand request)
@@ -65,7 +64,7 @@
 
         private async Task<bool> CheckIfTournamentWithTheSameNameExists(string name)
         {
-            return await this.tournamentRepository
+            return await this.tournamentsRepository
                 .AllAsNoTrackingWithDeleted()
                 .AnyAsync(t => t.Name == name);
         }

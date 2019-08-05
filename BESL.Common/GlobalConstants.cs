@@ -50,6 +50,10 @@
         #endregion
 
         #region Tournaments
+        public const int TOURNAMENT_FORMAT_PLAYERS_MULTIPLIER = 2;
+        #endregion
+
+        #region Tournaments
         public const int TOURNAMENT_IMAGE_HEIGHT = 215;
         public const int TOURNAMENT_IMAGE_WIDTH = 460;
         public const int OPEN_TABLE_MAX_TEAMS = 50;

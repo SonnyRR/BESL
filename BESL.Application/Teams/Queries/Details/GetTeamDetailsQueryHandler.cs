@@ -14,12 +14,12 @@
 
     public class GetTeamDetailsQueryHandler : IRequestHandler<GetTeamDetailsQuery, GetTeamDetailsViewModel>
     {
-        private readonly IDeletableEntityRepository<Team> teamRepository;
+        private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IMapper mapper;
 
-        public GetTeamDetailsQueryHandler(IDeletableEntityRepository<Team> teamRepository, IMapper mapper)
+        public GetTeamDetailsQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IMapper mapper)
         {
-            this.teamRepository = teamRepository;
+            this.teamsRepository = teamsRepository;
             this.mapper = mapper;
         }
 
@@ -27,16 +27,12 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredTeam = await this.teamRepository
+            var desiredTeam = await this.teamsRepository
                 .AllAsNoTracking()
                 .Include(t => t.TournamentFormat)
                     .ThenInclude(tf => tf.Game)
-                .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-            if (desiredTeam == null)
-            {
-                throw new NotFoundException(nameof(Team), request.Id);
-            }
+                .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
+                ?? throw new NotFoundException(nameof(Team), request.Id);
 
             return this.mapper.Map<GetTeamDetailsViewModel>(desiredTeam);
         }
