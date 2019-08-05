@@ -3,9 +3,11 @@
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
-    using BESL.Application.Interfaces;
+
     using MediatR;
     using Microsoft.Extensions.Logging;
+
+    using BESL.Application.Interfaces;
 
     public class RequestPerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

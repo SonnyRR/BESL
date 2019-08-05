@@ -34,6 +34,7 @@
         <div class="d-flex justify-content-center">
             <img src="@Model.TournamentImageUrl" class="img-fluid rounded-lg shadow border" alt="Responsive image">
         </div>
+        <div class="d-flex justify-content-center text-muted">Active from @Model.StartDate to @Model.EndDate</div>
     </div>
 </div>
 <vc:tournament-skill-tables tournament-id="@Model.Id"></vc:tournament-skill-tables>

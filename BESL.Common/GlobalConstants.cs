@@ -52,6 +52,12 @@
         #region Tournaments
         public const int TOURNAMENT_IMAGE_HEIGHT = 215;
         public const int TOURNAMENT_IMAGE_WIDTH = 460;
+        public const int OPEN_TABLE_MAX_TEAMS = 50;
+        public const int MID_TABLE_MAX_TEAMS = 50;
+        public const int PREM_TABLE_MAX_TEAMS = 20;
+        public const string OPEN_TABLE_NAME = "Open";
+        public const string MID_TABLE_NAME = "Mid";
+        public const string PREM_TABLE_NAME = "Premiership";
         #endregion
     }
 }

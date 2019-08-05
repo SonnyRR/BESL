@@ -45,7 +45,7 @@
                     TeamPlayersCount = 6,
                     TotalPlayersCount = 12,
                     GameId = 1,
-                    CreatedOn = DateTime.UtcNow
+                    CreatedOn = DateTime.UtcNow,
                 },
                 new TournamentFormat()
                 {
@@ -78,7 +78,9 @@
                         new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
                         new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
                         new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 }
-                    }
+                    },
+                    StartDate = DateTime.UtcNow.Date.AddDays(7),
+                    EndDate = DateTime.UtcNow.Date.AddMonths(1)                    
                 },
 
                 new Tournament()
@@ -93,7 +95,9 @@
                         new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
                         new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
                         new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 }
-                    }
+                    },
+                    StartDate = DateTime.UtcNow.Date.AddDays(7),
+                    EndDate = DateTime.UtcNow.Date.AddMonths(1)
                 }
             };
 
