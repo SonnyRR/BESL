@@ -34,6 +34,7 @@
                 .AllAsNoTracking()
                     .Include(t => t.Format)
                 .Where(t => !t.Format.IsDeleted && !t.Format.Game.IsDeleted)
+                .Where(t => t.IsActive != false || t.AreSignupsOpen != false)
                 .ProjectTo<TournamentLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
