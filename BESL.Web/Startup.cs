@@ -135,7 +135,6 @@
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
                 //if (env.IsDevelopment())
                 //{
                     #warning Note that this API is mutually exclusive with DbContext.Database.EnsureCreated(). EnsureCreated does not use migrations to create the database and therefore the database that is created cannot be later updated using migrations.

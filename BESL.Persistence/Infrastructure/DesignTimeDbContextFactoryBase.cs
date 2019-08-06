@@ -18,8 +18,8 @@
         public TContext CreateDbContext(string[] args)
         {
             var basePath = Path.Combine(Directory.GetCurrentDirectory(), $"..{Path.DirectorySeparatorChar}BESL.Web");
-
-            return this.Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment));
+            var environmentName = Environment.GetEnvironmentVariable(AspNetCoreEnvironment);
+            return this.Create(basePath, environmentName);
         }
 
         protected abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
@@ -30,6 +30,7 @@
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.Local.json", optional: true)
+                .AddJsonFile($"appsettings.Development.json", optional: true)
                 .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();

@@ -20,19 +20,22 @@
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<TournamentFormat> formatsRepository;
         private readonly IDeletableEntityRepository<PlayerTeam> playerTeamsRepository;
+        private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
         private readonly IMapper mapper;
 
         public CreateTeamCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<TournamentFormat> formatsRepository,
-            IDeletableEntityRepository<PlayerTeam> playersRepository,
+            IDeletableEntityRepository<PlayerTeam> playerTeamsRepository,
+            IDeletableEntityRepository<Player> playersRepository,
             ICloudinaryHelper cloudinaryHelper,
             IMapper mapper)
         {
             this.teamsRepository = teamsRepository;
             this.formatsRepository = formatsRepository;
-            this.playerTeamsRepository = playersRepository;
+            this.playerTeamsRepository = playerTeamsRepository;
+            this.playersRepository = playersRepository;
             this.cloudinaryHelper = cloudinaryHelper;
             this.mapper = mapper;
         }
@@ -41,9 +44,14 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (await this.CheckIfTeamWithTheSameNameExists(request))
+            if (!await this.CheckIfCreatorHasLinkedSteamAccount(request))
             {
-                throw new EntityAlreadyExistsException(nameof(Team), request.Name);
+                throw new PlayerDoesNotHaveALinkedSteamAccountException();
+            }
+
+            if (!await this.CheckIfTournamentFormatExists(request))
+            {
+                throw new NotFoundException(nameof(TournamentFormat), request.TournamentFormatId);
             }
 
             if (await this.CheckIfOwnerIsAlreadyInATeamWithTheSameFormat(request))
@@ -51,9 +59,9 @@
                 throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException();
             }
 
-            if (!await this.CheckIfTournamentFormatExists(request))
+            if (await this.CheckIfTeamWithTheSameNameExists(request))
             {
-                throw new NotFoundException(nameof(TournamentFormat), request.TournamentFormatId);
+                throw new EntityAlreadyExistsException(nameof(Team), request.Name);
             }
 
             var team = this.mapper.Map<Team>(request);
@@ -100,6 +108,15 @@
             return await this.formatsRepository
                 .AllAsNoTrackingWithDeleted()
                 .AnyAsync(f => f.Id == request.TournamentFormatId);
+        }
+
+        private async Task<bool> CheckIfCreatorHasLinkedSteamAccount(CreateTeamCommand request)
+        {
+            return await this.playersRepository
+                .AllAsNoTracking()
+                .Where(p => p.Id == request.OwnerId)
+                .Include(p => p.Claims)
+                .AnyAsync(p => p.Claims.Any(c => c.ClaimType == STEAM_ID_64_CLAIM_TYPE));
         }
     }
 }

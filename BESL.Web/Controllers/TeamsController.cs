@@ -66,7 +66,7 @@
             }
 
             var viewModel = await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(Details), new { Id = command.Id });
+            return this.RedirectToAction(nameof(Details), new { command.Id });
         }
     }
 }
