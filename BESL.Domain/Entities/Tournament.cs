@@ -6,12 +6,7 @@
     using BESL.Domain.Infrastructure;
 
     public class Tournament : BaseDeletableModel<int>
-    {
-        public Tournament()
-        {
-            this.IsActive = true;
-        }
-
+    { 
         public string Name { get; set; }
 
         public string Description { get; set; }

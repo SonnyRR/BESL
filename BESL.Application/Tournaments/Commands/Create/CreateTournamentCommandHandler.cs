@@ -3,7 +3,6 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Linq;
 
     using CloudinaryDotNet;
     using MediatR;
@@ -58,7 +57,7 @@
                 FormatId = request.FormatId,
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,
-                IsActive = true,
+                IsActive = false,
                 AreSignupsOpen = true
             };
 

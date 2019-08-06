@@ -33,7 +33,7 @@
             var tournamentsMapped = await this.tournamentsRepository
                 .AllAsNoTracking()
                     .Include(t => t.Format)
-                .Where(t => !t.Format.Game.IsDeleted && !t.IsDeleted)
+                .Where(t => !t.Format.IsDeleted && !t.Format.Game.IsDeleted)
                 .ProjectTo<TournamentLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

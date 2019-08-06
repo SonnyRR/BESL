@@ -20,6 +20,8 @@
 
         public bool IsActive { get; set; }
 
+        public bool AreSignupsOpen { get; set; }
+
         public string StartDate { get; set; }
 
         public string EndDate { get; set; }
