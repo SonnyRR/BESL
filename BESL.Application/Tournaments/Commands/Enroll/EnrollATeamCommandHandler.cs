@@ -61,7 +61,7 @@
             }
 
             var tableResult = new TeamTableResult() { TeamId = request.TeamId, TournamentTableId = desiredTable.Id, IsActive = true };
-
+            desiredTable.TeamTableResults.Add(tableResult);
             this.tournamentTablesRepository.Update(desiredTable);
             return await this.tournamentTablesRepository.SaveChangesAsync(cancellationToken);
         }
