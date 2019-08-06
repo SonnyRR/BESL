@@ -43,8 +43,8 @@
 
             command.UserId = this.userAcessor.UserId;
 
-            var viewModel = await this.Mediator.Send(command);
-            return this.View(viewModel);
+            await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Details), new GetTournamentDetailsQuery { Id = command.TournamentId });
         }
     }
 }
