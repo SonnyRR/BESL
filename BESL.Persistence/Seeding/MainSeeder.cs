@@ -7,6 +7,7 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class MainSeeder : IDbSeeder
     {
@@ -64,44 +65,101 @@
 
         public async Task SeedTournamentsAsync(IApplicationDbContext dbContext)
         {
+            DateTime startDate = new DateTime(2019, 08, 05);
+            
+
             var tournaments = new Tournament[]
             {
                 new Tournament
                 {
                     Name = "ThermalTake eSports 2019 6v6",
                     Description = "Play to win prizes by our sponsor Thermaltake including: keyboards, mices, gaming gear and PC components",
-                    CreatedOn = DateTime.UtcNow,
+                    CreatedOn = startDate.AddDays(-7),
                     FormatId = 1,
                     TournamentImageUrl = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,h_215,w_460/v1564073951/BESL/logo-tt-esports_xpuspv.jpg",
                     AreSignupsOpen = true,
                     IsActive = false,
                     Tables = new List<TournamentTable>()
                     {
-                        new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
-                        new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
-                        new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 }
+                        new TournamentTable
+                        {
+                            Name = OPEN_TABLE_NAME,
+                            CreatedOn = DateTime.UtcNow,
+                            MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
+                            PlayWeeks = new HashSet<PlayWeek>
+                            {
+                                new PlayWeek { StartDate = startDate }
+                            }
+                        },
+                        new TournamentTable
+                        {
+                            Name = MID_TABLE_NAME,
+                            CreatedOn = DateTime.UtcNow,
+                            MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
+                            PlayWeeks = new HashSet<PlayWeek>
+                            {
+                                new PlayWeek { StartDate = startDate }
+                            }
+                        },
+                        new TournamentTable
+                        {
+                            Name = PREM_TABLE_NAME,
+                            CreatedOn = DateTime.UtcNow,
+                            MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
+                            PlayWeeks = new HashSet<PlayWeek>
+                            {
+                                new PlayWeek { StartDate = startDate }
+                            }
+                        },
                     },
-                    StartDate = DateTime.UtcNow.Date.AddDays(7),
-                    EndDate = DateTime.UtcNow.Date.AddDays(7).AddMonths(1)
+                    StartDate = startDate,
+                    EndDate = startDate.AddMonths(1)
                 },
 
                 new Tournament
                 {
                     Name = "Corsair 9v9 Summer Highlander",
                     Description = "Corsair sponsors this round of summer 9v9 madness!. Prize pool includes a one-off custom gaming PC and many peripherals!",
-                    CreatedOn = DateTime.UtcNow,
+                    CreatedOn = startDate.AddDays(-7),
                     FormatId = 2,
                     TournamentImageUrl = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,h_215,w_460/v1564074113/BESL/blog_Introducing-The-New-Sails-Logo-Content-1_vbr56j.png",
                     AreSignupsOpen = true,
                     IsActive = false,
                     Tables = new List<TournamentTable>()
                     {
-                        new TournamentTable() { Name = "Open", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
-                        new TournamentTable() { Name = "Mid", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 50 },
-                        new TournamentTable() { Name = "Premiership", CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = 20 }
+                        new TournamentTable
+                        {
+                            Name = OPEN_TABLE_NAME,
+                            CreatedOn = DateTime.UtcNow,
+                            MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
+                            PlayWeeks = new HashSet<PlayWeek>
+                            {
+                                new PlayWeek { StartDate = startDate }
+                            }
+                        },
+                        new TournamentTable
+                        {
+                            Name = MID_TABLE_NAME,
+                            CreatedOn = DateTime.UtcNow,
+                            MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
+                            PlayWeeks = new HashSet<PlayWeek>
+                            {
+                                new PlayWeek { StartDate = startDate }
+                            }
+                        },
+                        new TournamentTable
+                        {
+                            Name = PREM_TABLE_NAME,
+                            CreatedOn = DateTime.UtcNow,
+                            MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
+                            PlayWeeks = new HashSet<PlayWeek>
+                            {
+                                new PlayWeek { StartDate = startDate }
+                            }
+                        },
                     },
-                    StartDate = DateTime.UtcNow.Date.AddDays(7),
-                    EndDate = DateTime.UtcNow.Date.AddDays(7).AddMonths(1)
+                    StartDate = startDate,
+                    EndDate = startDate.AddMonths(1)
                 }
             };
 

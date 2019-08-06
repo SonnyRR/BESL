@@ -18,6 +18,8 @@
 
         void Delete(TEntity entity);
 
+        void Detach(TEntity entity);
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -1,22 +1,22 @@
 ﻿namespace BESL.Application.Tournaments.Queries.Enroll
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
-    using MediatR;
-
-    using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
-    using Microsoft.EntityFrameworkCore;
-    using BESL.Application.Exceptions;
-    using System.Linq;
-    using BESL.Application.Tournaments.Commands.Enroll;
     using AutoMapper.QueryableExtensions;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+
     using BESL.Application.Common.Models.Lookups;
-    using System.Collections.Generic;
+    using BESL.Application.Exceptions;
     using BESL.Application.Infrastructure;
+    using BESL.Application.Interfaces;
+    using BESL.Application.Tournaments.Commands.Enroll;
+    using BESL.Domain.Entities;
 
     public class EnrollATeamQueryHandler : IRequestHandler<EnrollATeamQuery, EnrollATeamCommand>
     {
@@ -65,6 +65,11 @@
             }
 
             var skillTables = this.mapper.Map<IList<TournamentTableSelectItemLookupModel>>(desiredTournament.Tables.Where(t => t.TeamTableResults.Count < t.MaxNumberOfTeams));
+
+            if (skillTables.Count == 0)
+            {
+                throw new TournamentTablesAreFullException();
+            }
 
             return new EnrollATeamCommand
             {

@@ -39,6 +39,12 @@
             entry.State = EntityState.Modified;
         }
 
+        public virtual void Detach(TEntity entity)
+        {
+            var entry = this.Context.Entry(entity);
+            entry.State = EntityState.Detached;
+        }
+
         public virtual void Delete(TEntity entity) => this.DbSet.Remove(entity);
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => this.Context.SaveChangesAsync(cancellationToken);

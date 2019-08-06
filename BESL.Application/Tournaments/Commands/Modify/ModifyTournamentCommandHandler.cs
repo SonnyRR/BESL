@@ -33,7 +33,7 @@
                 .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Tournament), request.Id);
 
-            if (await this.CheckIfTournamentWithTheSameNameExists(request.Name))
+            if (request.Name != desiredTournament.Name && await this.CheckIfTournamentWithTheSameNameExists(request.Name))
             {
                 throw new EntityAlreadyExistsException(nameof(Tournament), request.Name);
             }

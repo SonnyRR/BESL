@@ -1,6 +1,7 @@
 ﻿namespace BESL.Application.TournamentTables.Commands.Create
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -30,9 +31,32 @@
                 .SingleOrDefaultAsync(t => t.Id == request.TournamentId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Tournament), request.TournamentId);
 
-            desiredTournament.Tables.Add(new TournamentTable() { Name = OPEN_TABLE_NAME, CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS });
-            desiredTournament.Tables.Add(new TournamentTable() { Name = MID_TABLE_NAME, CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = MID_TABLE_MAX_TEAMS });
-            desiredTournament.Tables.Add(new TournamentTable() { Name = PREM_TABLE_NAME, CreatedOn = DateTime.UtcNow, MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS });
+            desiredTournament.Tables.Add(
+                new TournamentTable
+                {
+                    Name = OPEN_TABLE_NAME,
+                    CreatedOn = DateTime.UtcNow,
+                    MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
+                    PlayWeeks = new HashSet<PlayWeek> { new PlayWeek { StartDate = desiredTournament.StartDate} }
+                });
+
+            desiredTournament.Tables.Add(
+                new TournamentTable
+                {
+                    Name = MID_TABLE_NAME,
+                    CreatedOn = DateTime.UtcNow,
+                    MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
+                    PlayWeeks = new HashSet<PlayWeek> { new PlayWeek { StartDate = desiredTournament.StartDate } }
+                });
+
+            desiredTournament.Tables.Add(
+                new TournamentTable
+                {
+                    Name = PREM_TABLE_NAME,
+                    CreatedOn = DateTime.UtcNow,
+                    MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
+                    PlayWeeks = new HashSet<PlayWeek> { new PlayWeek { StartDate = desiredTournament.StartDate } }
+                });
 
             this.tournamentsRepository.Update(desiredTournament);
             return await this.tournamentsRepository.SaveChangesAsync(cancellationToken);

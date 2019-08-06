@@ -29,7 +29,7 @@
 
             RuleFor(t => t.EndDate)
                 .NotEmpty()
-                .GreaterThanOrEqualTo(t => DateTime.UtcNow.Date.AddMonths(END_DATE_MIN_MONTH_LENGTH))
+                .GreaterThanOrEqualTo(t => t.StartDate.AddMonths(END_DATE_MIN_MONTH_LENGTH))
                 .WithMessage(string.Format(END_DATE_MSG, END_DATE_MIN_MONTH_LENGTH));
 
             RuleFor(t => t.TournamentImage)

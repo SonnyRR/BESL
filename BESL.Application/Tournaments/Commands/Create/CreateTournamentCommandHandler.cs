@@ -42,6 +42,11 @@
                 throw new EntityAlreadyExistsException(nameof(Tournament), request.Name);
             }
 
+            if (request.StartDate.DayOfWeek != DayOfWeek.Monday)
+            {
+                throw new TournamentActiveDateMustStartOnMondayException();
+            }
+
             var gameId = (await this.tournamentFormatsRepository
                 .AllAsNoTracking()
                 .SingleOrDefaultAsync(tf => tf.Id == request.FormatId, cancellationToken))
@@ -64,6 +69,7 @@
             await this.tournamentsRepository.AddAsync(tournament);
             await this.tournamentsRepository.SaveChangesAsync(cancellationToken);
 
+            this.tournamentsRepository.Detach(tournament);
             await this.mediator.Send(new CreateTablesForTournamentCommand { TournamentId = tournament.Id });
 
             return tournament.Id;
