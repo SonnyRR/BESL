@@ -33,7 +33,6 @@
     using BESL.Persistence.Seeding;
     using BESL.Persistence.Repositories;   
     using BESL.Application.Infrastructure;
-    using BESL.Web.Infrastructure;
     using BESL.Persistence.Infrastructure;
     using BESL.Infrastructure.Messaging;
     using CloudinaryDotNet;
