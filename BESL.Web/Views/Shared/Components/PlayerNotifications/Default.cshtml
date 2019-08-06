@@ -6,7 +6,7 @@
         }
         <i class="fas fa-bell text-white"></i>
     </a>
-    <div class="dropdown-menu mx-2">
+    <div class="dropdown-menu mx-2" id="notificationMenu">
         <h6 class="h5 mx-2 mt-2 text-muted">Notifications</h6>
         <hr />
         @if (Model.Notifications.Count() != 0)
@@ -20,11 +20,14 @@
                                 <div class="media-body">
                                     <div class="d-flex">
                                         <h5 class="text-break">@notification.Header</h5>
-                                        <div class="ml-auto"><button class="btn btn-sm btn-light"><i class="fas fa-times-circle"></i></button></div>
+                                        <div class="ml-auto">
+                                            <form>
+                                                <button class="btn btn-sm btn-light"><i class="fas fa-times-circle"></i></button>
+                                            </form>
+                                        </div>
                                     </div>
                                     <p class="text-break">@notification.Content</p>
-                                </div>
-                               
+                                </div>                              
                         </div>
                     </div>
                 </li>
