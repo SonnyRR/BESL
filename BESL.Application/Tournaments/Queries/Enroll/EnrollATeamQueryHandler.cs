@@ -15,6 +15,8 @@
     using BESL.Application.Tournaments.Commands.Enroll;
     using AutoMapper.QueryableExtensions;
     using BESL.Application.Common.Models.Lookups;
+    using System.Collections.Generic;
+    using BESL.Application.Infrastructure;
 
     public class EnrollATeamQueryHandler : IRequestHandler<EnrollATeamQuery, EnrollATeamCommand>
     {
@@ -39,18 +41,15 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (!await this.CheckIfUserExists(request))
+            if (!await CommonCheckHelper.CheckIfUserExists(request.UserId, playersRepository))
             {
                 throw new NotFoundException(nameof(Player), request.UserId);
             }
 
-            if (await this.CheckIfUserAlreadyHasAnEnrolledTeamInGivenTournament(request))
-            {
-                // TODO
-            }
-
             var desiredTournament = await this.tournamentsRepository
                 .AllAsNoTracking()
+                .Include(t => t.Tables)
+                    .ThenInclude(tt => tt.TeamTableResults)
                 .SingleOrDefaultAsync(t => t.Id == request.TournamentId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Tournament), request.UserId);
 
@@ -60,37 +59,21 @@
                 .ProjectTo<TeamsSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
+            if (eligibleTeams.Count == 0)
+            {
+                throw new PlayerHasNoEligibleTeamsToEnrollException();   
+            }
+
+            var skillTables = this.mapper.Map<IList<TournamentTableSelectItemLookupModel>>(desiredTournament.Tables.Where(t => t.TeamTableResults.Count < t.MaxNumberOfTeams));
+
             return new EnrollATeamCommand
             {
                 UserId = request.UserId,
-                TournamentId = request.TournamentId,
-                Teams = eligibleTeams
+                TournamentName = desiredTournament.Name,
+                TournamentId = desiredTournament.Id,
+                Teams = eligibleTeams,
+                Tables = skillTables
             };
-        }
-
-        private async Task<bool> CheckIfUserExists(EnrollATeamQuery request)
-        {
-            return await this.playersRepository
-                .AllAsNoTracking()
-                .AnyAsync(x => x.Id == request.UserId);
-        }
-
-        private async Task<bool> CheckIfUserAlreadyHasAnEnrolledTeamInGivenTournament(EnrollATeamQuery request)
-        {
-            return await this.teamsRepository
-                .AllAsNoTracking()
-                .Where(t => t.OwnerId == request.UserId)
-                .Include(t => t.CurrentActiveTeamTableResult)
-                    .ThenInclude(cattr => cattr.TournamentTable)
-                .AnyAsync(t => t.CurrentActiveTeamTableResult.TournamentTable.TournamentId == request.TournamentId);
-
-            //return await this.playersRepository
-            //    .AllAsNoTracking()
-            //    .Where(p => p.Id == request.UserId)
-            //    .Include(p => p.OwnedTeams)
-            //        .ThenInclude(t => t.CurrentActiveTeamTableResult)
-            //            .ThenInclude(attr => attr.TournamentTable)
-            //    .AnyAsync(p => p.OwnedTeams.Any(t => t.CurrentActiveTeamTableResult.TournamentTable.TournamentId == request.TournamentId));
         }
     }
 }

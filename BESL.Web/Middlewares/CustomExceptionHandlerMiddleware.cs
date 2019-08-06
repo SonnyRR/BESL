@@ -1,7 +1,6 @@
 ﻿namespace BESL.Web.Middlewares
 {
     using System.Threading.Tasks;
-    using System.Net.Http;
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -42,8 +41,9 @@
 
                 else
                 {
-                    context.Request.Method = HttpMethod.Get.Method;
-                    await this.next(context);
+                    context.Response.StatusCode = StatusCodes.Status204NoContent;
+                    //context.Request.Method = HttpMethod.Get.Method;
+                    //await this.next(context);
                 }
             }
         }
