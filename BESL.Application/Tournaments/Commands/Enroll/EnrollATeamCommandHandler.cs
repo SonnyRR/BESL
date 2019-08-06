@@ -4,12 +4,14 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+
     using BESL.Application.Exceptions;
     using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using MediatR;
-    using Microsoft.EntityFrameworkCore;
 
     public class EnrollATeamCommandHandler : IRequestHandler<EnrollATeamCommand, int>
     {
@@ -49,10 +51,16 @@
             var desiredTable = await this.tournamentTablesRepository
                 .AllAsNoTracking()
                 .Include(tt => tt.TeamTableResults)
+                .Include(tt => tt.Tournament)
                 .SingleOrDefaultAsync(tt => tt.Id == request.TableId, cancellationToken)
                 ?? throw new NotFoundException(nameof(TournamentTable), request.TableId);
 
-            desiredTable.TeamTableResults.Add(new TeamTableResult { TeamId = request.TeamId });
+            if (!await this.CheckIfTeamToEnrollHasTheCorrectFormat(request, desiredTable.Tournament.FormatId))
+            {
+                throw new TeamFormatDoesNotMatchTournamentFormatException();
+            }
+
+            var tableResult = new TeamTableResult() { TeamId = request.TeamId, TournamentTableId = desiredTable.Id, IsActive = true };
 
             this.tournamentTablesRepository.Update(desiredTable);
             return await this.tournamentTablesRepository.SaveChangesAsync(cancellationToken);
@@ -77,6 +85,15 @@
                 .FirstOrDefaultAsync(tt => tt.Id == request.TableId);
 
             return desiredTable.TablesCount > desiredTable.MaxNumberOfTeams;
+        }
+
+        private async Task<bool> CheckIfTeamToEnrollHasTheCorrectFormat(EnrollATeamCommand request, int formatId)
+        {
+            var desiredTeam = await this.teamsRepository
+                .AllAsNoTracking()
+                .SingleOrDefaultAsync(t => t.Id == request.TeamId);
+
+            return desiredTeam.TournamentFormatId == formatId;
         }
 
     }
