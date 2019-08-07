@@ -1,42 +1,87 @@
-﻿@model BESL.Application.Notifications.Queries.GetNotificationsForPlayer.PlayerNotificationsViewModel
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, BESL.Web
+@model BESL.Application.Notifications.Queries.GetNotificationsForPlayer.PlayerNotificationsViewModel
+@{
+    bool areThereAnyNotifications = Model.Notifications.Count() != 0;
+}
 <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        @if (Model.Notifications.Count() > 0)
+    @if (Model.Notifications.Count() > 0)
+    {
+        <span class="badge badge-danger" id="#notificationCounter">@Model.Notifications.Count()</span>@:&nbsp;
+    }
+    <i class="fas fa-bell text-white"></i>
+</a>
+<div class="dropdown-menu mx-2" id="notificationMenu">
+    <h6 class="h5 mx-2 mt-2 text-muted">Notifications</h6>
+    <hr />
+    <div id="notificationSpinner" class="mb-3" style="display:none">
+        <h5 class="display-4 d-flex flex-row justify-content-center">Loading</h5>
+        <span class="d-flex flex-row justify-content-center">
+            <i class="fas fa-sync-alt fa-spin fa-3x"></i>
+        </span>
+    </div>
+    <ul class="list-group" id="notificationList">
+    @if (areThereAnyNotifications)
+    {
+        @foreach (var notification in Model.Notifications)
         {
-            <span class="badge badge-danger">@Model.Notifications.Count()</span>@:&nbsp;
-        }
-        <i class="fas fa-bell text-white"></i>
-    </a>
-    <div class="dropdown-menu mx-2" id="notificationMenu">
-        <h6 class="h5 mx-2 mt-2 text-muted">Notifications</h6>
-        <hr />
-        @if (Model.Notifications.Count() != 0)
-        {
-            <ul class="list-group">
-            @foreach (var notification in Model.Notifications)
-            {
-                <li class="list-group-item mx-2 my-2 bg-light">
-                    <div class="container notification">
-                            <div class="media mx-n4">
-                                <div class="media-body">
-                                    <div class="d-flex">
-                                        <h5 class="text-break">@notification.Header</h5>
-                                        <div class="ml-auto">
-                                            <form>
-                                                <button class="btn btn-sm btn-light"><i class="fas fa-times-circle"></i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <p class="text-break">@notification.Content</p>
-                                </div>                              
+            <li class="list-group-item mx-2 my-2 bg-light" id="@notification.Id-notification">
+                <div class="container notification">
+                    <div class="media mx-n4">
+                        <div class="media-body">
+                            <div class="d-flex">
+                                <h5 class="text-break">@notification.Header</h5>
+                                <div class="ml-auto">
+                                    <form data-ajax="true" data-ajax-method="get" data-ajax-loading="#notificationSpinner" data-ajax-url="/" data-ajax-success="notificationDisableHelper('#@notification.Id-notification')">
+                                        <button class="btn btn-sm btn-light"><i class="fas fa-times-circle"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <p class="text-break">@notification.Content</p>
                         </div>
                     </div>
-                </li>
+                </div>
+            </li>
+        }
+            <li class="no-notification-container mx-2 my-2" id="#noNotificationsItem" style="display:none">
+                <div class="container notification">
+                    <div class="media mx-n4">
+                        <div class="media-body">
+                            <div class="d-flex justify-content-center">
+                                <h5 class="text-break">No notifications</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+    }
+    else
+    {
+        <li class="no-notification-container mx-2 my-2">
+            <div class="container notification">
+                <div class="media mx-n4">
+                    <div class="media-body">
+                        <div class="d-flex justify-content-center">
+                            <h5 class="text-break">No notifications</h5>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+
+
+    </ul>
+    @if (areThereAnyNotifications)
+    {
+    <script defer>
+    function notificationDisableHelper(notificationId) {
+            $(notificationId).remove();
+            if ($('#notificationList').children().length != 0) {
+                document.getElementById("#noNotificationsItem").style.display = 'block';
+                document.getElementById("#notificationCounter").remove();
             }
-            </ul>
         }
-        else
-        {
-            <a class="dropdown-item">No notifications.</a>
-        }
-    </div>
-  
+    </script>
+    }
+</div>
