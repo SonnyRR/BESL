@@ -15,10 +15,12 @@
     public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, int>
     {
         private readonly IDeletableEntityRepository<Game> gamesRepository;
+        private readonly IMediator mediator;
 
-        public DeleteGameCommandHandler(IDeletableEntityRepository<Game> gamesRepository)
+        public DeleteGameCommandHandler(IDeletableEntityRepository<Game> gamesRepository, IMediator mediator)
         {
             this.gamesRepository = gamesRepository;
+            this.mediator = mediator;
         }
 
         public async Task<int> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
@@ -36,7 +38,11 @@
             }
 
             this.gamesRepository.Delete(desiredGame);
-            return await this.gamesRepository.SaveChangesAsync(cancellationToken);
+
+            int rowsAffected = await this.gamesRepository.SaveChangesAsync(cancellationToken);
+            await this.mediator.Publish(new GameDeletedNotification() { GameName = desiredGame.Name });
+
+            return rowsAffected;
         }
     }
 }

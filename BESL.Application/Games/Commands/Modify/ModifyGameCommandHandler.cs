@@ -17,11 +17,13 @@
     {
         private readonly IDeletableEntityRepository<Game> gamesRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
+        private readonly IMediator mediator;
 
-        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> gamesRepository, ICloudinaryHelper cloudinaryHelper)
+        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> gamesRepository, ICloudinaryHelper cloudinaryHelper, IMediator mediator)
         {
             this.gamesRepository = gamesRepository;
             this.cloudinaryHelper = cloudinaryHelper;
+            this.mediator = mediator;
         }
 
         public async Task<int> Handle(ModifyGameCommand request, CancellationToken cancellationToken)
@@ -42,7 +44,10 @@
             }
 
             this.gamesRepository.Update(existingGame);
-            return await this.gamesRepository.SaveChangesAsync(cancellationToken);
+            var affectedRows = await this.gamesRepository.SaveChangesAsync(cancellationToken);
+
+            await this.mediator.Publish(new GameModifiedNotification() { Id = existingGame.Id });
+            return affectedRows;
         }
 
         private async Task<string> UploadGameImage(ModifyGameCommand request)

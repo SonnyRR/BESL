@@ -72,7 +72,7 @@
                 throw new TeamFormatDoesNotMatchTournamentFormatException();
             }
 
-            var tableResult = new TeamTableResult() { TeamId = request.TeamId, TournamentTableId = desiredTable.Id, IsActive = true };
+            var tableResult = new TeamTableResult() { TeamId = request.TeamId, TournamentTableId = desiredTable.Id };
             desiredTable.TeamTableResults.Add(tableResult);
 
             this.tournamentTablesRepository.Update(desiredTable);

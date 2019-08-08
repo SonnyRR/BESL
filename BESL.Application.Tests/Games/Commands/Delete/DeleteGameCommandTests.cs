@@ -12,6 +12,7 @@
     using BESL.Application.Games.Commands.Delete;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
+    using System.Linq;
 
     public class DeleteGameCommandTests : BaseTest<Game>
     {
@@ -29,14 +30,19 @@
                 GameName = It.IsAny<string>()
             };
 
-            var sut = new DeleteGameCommandHandler(deletableEntityRepository);
-            
+            var sut = new DeleteGameCommandHandler(deletableEntityRepository, this.mediatorMock.Object);
+
             // Act
-            await sut.Handle(deleteGameCommand, It.IsAny<CancellationToken>());
+            var affectedRows = await sut.Handle(deleteGameCommand, It.IsAny<CancellationToken>());
 
             // Assert
-            var deletedGameEntity = await deletableEntityRepository.GetByIdWithDeletedAsync(gameId);
+            var deletedGameEntity = deletableEntityRepository
+                .AllAsNoTrackingWithDeleted()
+                .SingleOrDefault(x => x.Id == gameId);
+
             deletedGameEntity.IsDeleted.ShouldBe(true);
+            affectedRows.ShouldBe(1);
+            this.mediatorMock.Verify(x => x.Publish(It.IsAny<GameDeletedNotification>(), It.IsAny<CancellationToken>()));
         }
 
         [Trait(nameof(Game), "Game deletion tests.")]
@@ -44,7 +50,7 @@
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
             // Arrange            
-            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository);
+            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository, this.mediatorMock.Object);
             var command = new DeleteGameCommand()
             {
                 Id = 90125,
@@ -60,13 +66,19 @@
         public async Task Handle_GivenValidRequest_ShouldThrowDeleteFailureException()
         {
             // Arrange
-            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository);
-            var desiredEntity = await this.deletableEntityRepository.GetByIdWithDeletedAsync(2);
+            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository, this.mediatorMock.Object);
+            var gameId = 2;
+
+            var desiredEntity = this.deletableEntityRepository
+                .AllAsNoTracking()
+                .SingleOrDefault(g => g.Id == gameId);
+
             this.deletableEntityRepository.Delete(desiredEntity);
             await this.deletableEntityRepository.SaveChangesAsync();
+
             var command = new DeleteGameCommand()
             {
-                Id = 2,
+                Id = gameId,
                 GameName = It.IsAny<string>()
             };
 
@@ -79,7 +91,7 @@
         public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository);
+            var sut = new DeleteGameCommandHandler(this.deletableEntityRepository, this.mediatorMock.Object);
 
             // Act & Assert
             Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));

@@ -22,7 +22,9 @@
 
         #region Notifications
         public const string CREATED_SUCCESSFULLY_MSG = "has been created successfully!";
-        public const string DELETED_SUCCESSFULLY_MSG = "has been deleted!";
+        public const string DELETED_SUCCESSFULLY_MSG = "has been deleted successfully!";
+        public const string MODIFIED_SUCCESSFULLY_MSG = "has been modified successfully!";
+        public const string NOTIFICATION_ENTITY_HEADER_TEMPLATE_MSG = "{0} [Id:{1}]";
         public const double REDIS_NOTIFICATION_EXPIRATION_MINUTES = 2;
         #endregion
 

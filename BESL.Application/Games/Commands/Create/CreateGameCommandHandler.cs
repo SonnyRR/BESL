@@ -10,6 +10,8 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
+    using Microsoft.EntityFrameworkCore;
+    using BESL.Application.Exceptions;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {
@@ -30,6 +32,11 @@
         public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
+
+            if (await this.CheckIfGameWithTheSameNameAlreadyExists(request))
+            {
+                throw new EntityAlreadyExistsException(nameof(Game), request.Name);
+            }
 
             Game game = new Game()
             {
@@ -52,6 +59,13 @@
                 request.GameImage,
                 name: $"{request.Name}-main-shot",
                 transformation: new Transformation().Width(GAME_IMAGE_WIDTH).Height(GAME_IMAGE_HEIGHT));
+        }
+
+        private async Task<bool> CheckIfGameWithTheSameNameAlreadyExists(CreateGameCommand request)
+        {
+            return await this.gamesRepository
+                .AllAsNoTrackingWithDeleted()
+                .AnyAsync(g => g.Name == request.Name);
         }
     }
 }

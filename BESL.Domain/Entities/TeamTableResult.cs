@@ -15,8 +15,6 @@
 
         public bool IsDropped { get; set; }
 
-        public bool IsActive { get; set; }
-
         public int MatchesPlayed => this.PlayedMatches
             .Count();
 
