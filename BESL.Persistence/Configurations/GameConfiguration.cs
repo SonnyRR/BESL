@@ -14,6 +14,9 @@
                 .IsUnicode()
                 .HasMaxLength(40);
 
+            builder.HasIndex(t => t.Name)
+                .IsUnique();
+
             builder.Property(g => g.Description)
                 .IsRequired()
                 .IsUnicode()

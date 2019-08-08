@@ -35,7 +35,7 @@
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Enroll(EnrollATeamCommand command)
-        {
+        {            
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction(nameof(Details));
