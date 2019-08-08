@@ -41,47 +41,42 @@
                 throw new NotFoundException(nameof(Player), request.UserId);
             }
 
-            if (await this.CheckIfUserAlreadyHasAnEnrolledTeamInGivenTournament(request))
-            {
-                throw new PlayerHasAlreadyEnrolledTeamException();
-            }
+            var desiredTable = await this.tournamentTablesRepository
+                .AllAsNoTracking()
+                .Include(tt => tt.TeamTableResults)
+                .Include(ttr => ttr.Tournament)
+                .SingleOrDefaultAsync(tt => tt.Id == request.TableId, cancellationToken)
+                ?? throw new NotFoundException(nameof(TournamentTable), request.TableId);
 
             if (await this.CheckIfTournamentTableIsFull(request))
             {
                 throw new TournamentTableIsFullException();
             }
 
-            var desiredTable = await this.tournamentTablesRepository
+            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(request.UserId, desiredTable.Tournament.FormatId, teamsRepository))
+            {
+                throw new PlayerHasAlreadyEnrolledTeamException();
+            }
+
+            var desiredTeam = await this.teamsRepository
                 .AllAsNoTracking()
-                .Include(tt => tt.TeamTableResults)
-                .Include(tt => tt.Tournament)
-                .SingleOrDefaultAsync(tt => tt.Id == request.TableId, cancellationToken)
-                ?? throw new NotFoundException(nameof(TournamentTable), request.TableId);
+                .Include(t => t.TeamTableResults)
+                    .ThenInclude(ttr => ttr.TournamentTable)
+                    .ThenInclude(tt => tt.Tournament)
+                .SingleAsync(t => t.Id == request.TeamId, cancellationToken)
+                ?? throw new NotFoundException(nameof(Team), request.TeamId);
+
 
             if (!await this.CheckIfTeamToEnrollHasTheCorrectFormat(request, desiredTable.Tournament.FormatId))
             {
                 throw new TeamFormatDoesNotMatchTournamentFormatException();
             }
 
-            var desiredTeam = await this.teamsRepository
-                .AllAsNoTracking()
-                .SingleAsync(t => t.Id == request.TeamId, cancellationToken)
-                ?? throw new NotFoundException(nameof(TournamentTable), request.TeamId);
-
-
             var tableResult = new TeamTableResult() { TeamId = request.TeamId, TournamentTableId = desiredTable.Id, IsActive = true };
             desiredTable.TeamTableResults.Add(tableResult);
 
             this.tournamentTablesRepository.Update(desiredTable);
             return await this.tournamentTablesRepository.SaveChangesAsync(cancellationToken);
-        }
-
-        private async Task<bool> CheckIfUserAlreadyHasAnEnrolledTeamInGivenTournament(EnrollATeamCommand request)
-        {
-            return await this.teamTableResultsRepository
-                .AllAsNoTracking()
-                .Where(x => x.TeamId == request.TeamId)
-                .AnyAsync(x => x.IsActive);
         }
 
         private async Task<bool> CheckIfTournamentTableIsFull(EnrollATeamCommand request)

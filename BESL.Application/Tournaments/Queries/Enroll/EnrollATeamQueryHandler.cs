@@ -53,6 +53,11 @@
                 .SingleOrDefaultAsync(t => t.Id == request.TournamentId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Tournament), request.UserId);
 
+            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(request.UserId, desiredTournament.FormatId, teamsRepository))
+            {
+                throw new PlayerHasAlreadyEnrolledTeamException();
+            }
+
             var eligibleTeams = await this.teamsRepository
                 .AllAsNoTracking()
                 .Where(t => t.OwnerId == request.UserId && t.TournamentFormatId == desiredTournament.FormatId)
@@ -61,8 +66,9 @@
 
             if (eligibleTeams.Count == 0)
             {
-                throw new PlayerHasNoEligibleTeamsToEnrollException();   
+                throw new PlayerHasNoEligibleTeamsToEnrollException();
             }
+
 
             var skillTables = this.mapper.Map<IList<TournamentTableSelectItemLookupModel>>(desiredTournament.Tables.Where(t => t.TeamTableResults.Count < t.MaxNumberOfTeams));
 
