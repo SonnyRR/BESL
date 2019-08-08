@@ -1,6 +1,4 @@
 ﻿@model BESL.Application.Teams.Queries.GetPlayersForTeam.GetPlayersForTeamViewModel
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@addTagHelper *, BESL.Web
 
 <div class="rounded border shadow container">
     @for (int i = 0; i < Model.Players.Count; i++)
@@ -10,7 +8,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="media border my-2">
-                        <img src="@Model.Players[i].AvatarSmall" class="mr-3" alt="...">
+                        <img src="@Model.Players[i].AvatarSmall" class="mr-3" alt="Avatar">
                         <div class="media-body">
                             <h5 class="mt-0"><a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players[i].Username">@Model.Players[i].Username</a></h5>
                             @Model.Players[i].SteamId64
@@ -19,7 +17,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="media border my-2">
-                        <img src="@Model.Players[i + 1].AvatarSmall" class="mr-3" alt="...">
+                        <img src="@Model.Players[i + 1].AvatarSmall" class="mr-3" alt="Avatar">
                         <div class="media-body">
                             <h5 class="mt-0"><a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players[i + 1].Username">@Model.Players[i + 1].Username</a></h5>
                             @Model.Players[i + 1].SteamId64
@@ -35,7 +33,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="media border my-2">
-                        <img src="@Model.Players[i].AvatarSmall" class="mr-3" alt="...">
+                        <img src="@Model.Players[i].AvatarSmall" class="mr-3" alt="Avatar">
                         <div class="media-body">
                             <h5 class="mt-0"><a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players[i].Username">@Model.Players[i].Username</a></h5>
                             @Model.Players[i].SteamId64

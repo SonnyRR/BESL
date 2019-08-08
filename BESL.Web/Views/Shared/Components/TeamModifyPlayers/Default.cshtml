@@ -1,0 +1,38 @@
+﻿@model BESL.Application.Teams.Queries.GetPlayersForTeam.GetPlayersForTeamViewModel
+@inject BESL.Application.Interfaces.IUserAcessor userAcessor;
+@{
+    int counter = 1;
+}
+
+<table class="table table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" class="text-center">Avatar</th>
+            <th scope="col">Username</th>
+            <th scope="col">Steam ID64</th>
+            <th scope="col" class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var player in Model.Players)
+        {
+            <tr>
+                <td class="text-center"><img src="@player.AvatarSmall" /></td>
+                <td class="align-middle"><a asp-controller="Players" asp-action="Details" asp-route-id="@player.Username"><strong>@player.Username</strong></a></td>
+                <td class="align-middle">@player.SteamId64</td>
+                <td class="align-middle text-center">
+                    @if (player.Id != this.userAcessor.UserId)
+                    {
+                        <form>
+                            <button class="btn btn-danger">Remove</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <button disabled class="btn btn-danger">Remove</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
