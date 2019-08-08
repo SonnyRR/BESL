@@ -17,7 +17,7 @@
         public const string VALIDATION_EXCEPTION_BASE_MSG = "One or more validation failures have occurred.";
         public const string ENTITY_ALREADY_DELETED_MSG = "Entity is already deleted.";
         public const string ERROR_OCCURED_MSG = "An error has occured!";
-        public const string PLAYER_ALREADY_PART_OF_A_TEAM_MSG = "You are already a member of a team with the same format!";
+        public const string PLAYER_CAN_ONLY_DELETE_HIS_OWN_NOTIFICATIONS_MSG = "You can delete only your own notifications!";
         #endregion
 
         #region Notifications

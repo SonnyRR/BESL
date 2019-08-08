@@ -28,7 +28,6 @@
     <Folder Include="Tournaments\Commands\Validation\" />
     <Folder Include="TournamentFormats\Commands\Validation\" />
     <Folder Include="Tournaments\Commands\Delete\" />
-    <Folder Include="Notifications\" />
     <Folder Include="Notifications\Queries\" />
     <Folder Include="Notifications\Queries\GetNotificationsForPlayer\" />
     <Folder Include="Teams\Queries\GetPlayersForTeam\" />

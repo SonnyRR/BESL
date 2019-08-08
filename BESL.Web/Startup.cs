@@ -118,7 +118,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISmsSender, NullMessageSender>();
 
-            services.AddTransient<IUserAcessor, UserAccessor>();
+            services.AddScoped<IUserAcessor, UserAccessor>();
 
             services.AddSingleton<Cloudinary>(x => CloudinaryFactory.GetInstance(this.Configuration));
             services.AddTransient<ICloudinaryHelper, CloudinaryHelper>();
@@ -136,7 +136,7 @@
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 //if (env.IsDevelopment())
                 //{
-                    #warning Note that this API is mutually exclusive with DbContext.Database.EnsureCreated(). EnsureCreated does not use migrations to create the database and therefore the database that is created cannot be later updated using migrations.
+                //    #warning Note that this API is mutually exclusive with DbContext.Database.EnsureCreated(). EnsureCreated does not use migrations to create the database and therefore the database that is created cannot be later updated using migrations.
                 //    dbContext.Database.Migrate();
                 //}
 

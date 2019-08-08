@@ -11,26 +11,24 @@
     public class NotificationHandlerMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly IUserAcessor userAcessor;
         private readonly IRedisService<Notification> redisNotificationService;
 
         public NotificationHandlerMiddleware(
             RequestDelegate next,
-            IUserAcessor userAcessor,
+  
             IRedisService<Notification> redisNotificationService)
         {
             this.next = next;
-            this.userAcessor = userAcessor;
             this.redisNotificationService = redisNotificationService;
         }
 
-        public async Task InvokeAsync(HttpContext context, INotifyService notifyService)
+        public async Task InvokeAsync(HttpContext context, IUserAcessor userAcessor, INotifyService notifyService)
         {
             await this.next(context);
 
             if (context.User.Identity.IsAuthenticated)
             {
-                var notification = await this.redisNotificationService.Get(this.userAcessor.UserId);
+                var notification = await this.redisNotificationService.Get(userAcessor.UserId);
 
                 if (notification != null)
                 {

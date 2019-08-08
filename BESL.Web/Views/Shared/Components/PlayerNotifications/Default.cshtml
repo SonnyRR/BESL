@@ -21,28 +21,29 @@
         </span>
     </div>
     <ul class="list-group" id="notificationList">
-    @if (areThereAnyNotifications)
-    {
-        @foreach (var notification in Model.Notifications)
+        @if (areThereAnyNotifications)
         {
-            <li class="list-group-item mx-2 my-2 bg-light" id="@notification.Id-notification">
-                <div class="container notification">
-                    <div class="media mx-n4">
-                        <div class="media-body">
-                            <div class="d-flex">
-                                <h5 class="text-break">@notification.Header</h5>
-                                <div class="ml-auto">
-                                    <form data-ajax="true" data-ajax-method="get" data-ajax-loading="#notificationSpinner" data-ajax-url="/" data-ajax-success="notificationDisableHelper('#@notification.Id-notification')">
-                                        <button class="btn btn-sm btn-light"><i class="fas fa-times-circle"></i></button>
-                                    </form>
+            @foreach (var notification in Model.Notifications)
+            {
+                <li class="list-group-item mx-2 my-2 bg-light" id="@notification.Id-notification">
+                    <div class="container notification">
+                        <div class="media mx-n4">
+                            <div class="media-body">
+                                <div class="d-flex">
+                                    <h5 class="text-break">@notification.Header</h5>
+                                    <div class="ml-auto">
+                                        <form data-ajax="true" data-ajax-method="post" data-ajax-loading="#notificationSpinner" data-ajax-url="/Notifications/Delete" data-ajax-success="notificationDisableHelper('#@notification.Id-notification')">
+                                            <input hidden value="@notification.Id" name="Id"/>
+                                            <button class="btn btn-sm btn-light"><i class="fas fa-times-circle"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
+                                <p class="text-break">@notification.Content</p>
                             </div>
-                            <p class="text-break">@notification.Content</p>
                         </div>
                     </div>
-                </div>
-            </li>
-        }
+                </li>
+            }
             <li class="no-notification-container mx-2 my-2" id="#noNotificationsItem" style="display:none">
                 <div class="container notification">
                     <div class="media mx-n4">
@@ -54,34 +55,34 @@
                     </div>
                 </div>
             </li>
-    }
-    else
-    {
-        <li class="no-notification-container mx-2 my-2">
-            <div class="container notification">
-                <div class="media mx-n4">
-                    <div class="media-body">
-                        <div class="d-flex justify-content-center">
-                            <h5 class="text-break">No notifications</h5>
+        }
+        else
+        {
+            <li class="no-notification-container mx-2 my-2">
+                <div class="container notification">
+                    <div class="media mx-n4">
+                        <div class="media-body">
+                            <div class="d-flex justify-content-center">
+                                <h5 class="text-break">No notifications</h5>
                             </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
-    }
+            </li>
+        }
 
 
     </ul>
     @if (areThereAnyNotifications)
     {
-    <script defer>
-    function notificationDisableHelper(notificationId) {
-            $(notificationId).remove();
-            if ($('#notificationList').children().length != 0) {
-                document.getElementById("#noNotificationsItem").style.display = 'block';
-                document.getElementById("#notificationCounter").remove();
+        <script defer>
+            function notificationDisableHelper(notificationId) {
+                $(notificationId).remove();
+                if ($('#notificationList').children().length != 0) {
+                    document.getElementById("#noNotificationsItem").style.display = 'block';
+                    document.getElementById("#notificationCounter").remove();
+                }
             }
-        }
-    </script>
+        </script>
     }
 </div>
