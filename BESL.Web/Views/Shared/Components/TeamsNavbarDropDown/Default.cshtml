@@ -1,0 +1,18 @@
+﻿@model BESL.Application.Teams.Queries.GetTeamsForPlayer.TeamsForPlayerViewModel
+
+<a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users text-white"></i>&nbsp;Teams</a>
+<div class="dropdown-menu">
+    <a class="dropdown-item" asp-controller="Teams" asp-action="Create">Create</a>
+    <div class="dropdown-divider"></div>
+    @if (this.Model.PlayerTeams.Count != 0)
+    {
+        foreach (var team in this.Model.PlayerTeams)
+        {
+            <a class="dropdown-item" asp-controller="Teams" asp-action="Details" asp-route-id="@team.TeamId">@team.TeamName</a>
+        }
+    }
+    else
+    {
+        <span class="dropdown-item">You are not member of any team.</span>
+    }
+</div>
