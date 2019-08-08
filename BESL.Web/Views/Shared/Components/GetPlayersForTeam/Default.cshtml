@@ -37,7 +37,7 @@
                     <div class="media border my-2">
                         <img src="@Model.Players[i].AvatarSmall" class="mr-3" alt="...">
                         <div class="media-body">
-                            <h5 class="mt-0">@Model.Players[i].Username</h5>
+                            <h5 class="mt-0"><a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players[i].Username">@Model.Players[i].Username</a></h5>
                             @Model.Players[i].SteamId64
                         </div>
                     </div>
