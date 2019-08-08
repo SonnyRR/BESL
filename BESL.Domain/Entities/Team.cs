@@ -17,12 +17,9 @@
         public Player Owner { get; set; }
 
         public int TournamentFormatId { get; set; }
-        public TournamentFormat TournamentFormat { get; set; }
-            
-        public int? CurrentActiveTeamTableResultId { get; set; }
-        public TeamTableResult CurrentActiveTeamTableResult { get; set; }
+        public TournamentFormat TournamentFormat { get; set; }           
 
         public virtual ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
-        public virtual ICollection<TeamTableResult> PreviousTeamTableResults { get; set; } = new HashSet<TeamTableResult>();        
+        public virtual ICollection<TeamTableResult> TeamTableResults { get; set; } = new HashSet<TeamTableResult>();        
     }
 }

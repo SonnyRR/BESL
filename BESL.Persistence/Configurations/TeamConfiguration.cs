@@ -18,7 +18,7 @@
             //builder.HasOne(t => t.CurrentActiveTeamTableResult)
             //    .WithOne();
 
-            builder.HasMany(t => t.PreviousTeamTableResults)
+            builder.HasMany(t => t.TeamTableResults)
                 .WithOne(tr => tr.Team)
                 .HasForeignKey(tr => tr.TeamId);
 

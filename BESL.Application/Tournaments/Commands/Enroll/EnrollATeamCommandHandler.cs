@@ -18,15 +18,18 @@
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly IDeletableEntityRepository<TournamentTable> tournamentTablesRepository;
+        private readonly IDeletableEntityRepository<TeamTableResult> teamTableResultsRepository;
 
         public EnrollATeamCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<Player> playersRepository,
-            IDeletableEntityRepository<TournamentTable> tournamentTablesRepository)
+            IDeletableEntityRepository<TournamentTable> tournamentTablesRepository,
+            IDeletableEntityRepository<TeamTableResult> teamTableResultsRepository)
         {
             this.teamsRepository = teamsRepository;
             this.playersRepository = playersRepository;
             this.tournamentTablesRepository = tournamentTablesRepository;
+            this.teamTableResultsRepository = teamTableResultsRepository;
         }
 
         public async Task<int> Handle(EnrollATeamCommand request, CancellationToken cancellationToken)
@@ -60,6 +63,12 @@
                 throw new TeamFormatDoesNotMatchTournamentFormatException();
             }
 
+            var desiredTeam = await this.teamsRepository
+                .AllAsNoTracking()
+                .SingleAsync(t => t.Id == request.TeamId, cancellationToken)
+                ?? throw new NotFoundException(nameof(TournamentTable), request.TeamId);
+
+
             var tableResult = new TeamTableResult() { TeamId = request.TeamId, TournamentTableId = desiredTable.Id, IsActive = true };
             desiredTable.TeamTableResults.Add(tableResult);
 
@@ -69,12 +78,10 @@
 
         private async Task<bool> CheckIfUserAlreadyHasAnEnrolledTeamInGivenTournament(EnrollATeamCommand request)
         {
-            return await this.teamsRepository
+            return await this.teamTableResultsRepository
                 .AllAsNoTracking()
-                .Where(t => t.OwnerId == request.UserId)
-                .Include(t => t.CurrentActiveTeamTableResult)
-                    .ThenInclude(cattr => cattr.TournamentTable)
-                .AnyAsync(t => t.CurrentActiveTeamTableResult.TournamentTable.TournamentId == request.TournamentId);
+                .Where(x => x.TeamId == request.TeamId)
+                .AnyAsync(x => x.IsActive);
         }
 
         private async Task<bool> CheckIfTournamentTableIsFull(EnrollATeamCommand request)
