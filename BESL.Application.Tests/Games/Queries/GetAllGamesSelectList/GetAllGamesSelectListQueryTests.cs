@@ -28,7 +28,7 @@
         }
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "GetAllGames handler given valid request should return valid GamesSelectList viewmodel.")]
+        [Fact(DisplayName = "GetAllGamesSelectListQuery handler given valid request should return valid GamesSelectList viewmodel.")]
         public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange           
@@ -79,6 +79,17 @@
             result.ShouldBeOfType<List<GameSelectItemLookupModel>>();
             result.Count().ShouldBe(3);
             result.SingleOrDefault(g => g.Id == 3).Name.ShouldBe("CS:GO");
+        }
+
+        [Trait(nameof(Game), "Game query tests.")]
+        [Fact(DisplayName = "GetAllGamesSelectListQuery handler given null request should return valid GamesSelectList viewmodel.")]
+        public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
+        {
+            // Act
+            var sut = new GetAllGamesSelectListQueryHandler(It.IsAny<IDeletableEntityRepository<Game>>(), It.IsAny<IMapper>());
+
+            // Act & Assert
+            await Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));
         }
     }
 }

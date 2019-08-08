@@ -88,13 +88,13 @@
 
         [Trait(nameof(Game), "Game deletion tests.")]
         [Fact(DisplayName = "Handler given null request should throw ArgumentNullException")]
-        public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
+        public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
             var sut = new DeleteGameCommandHandler(this.deletableEntityRepository, this.mediatorMock.Object);
 
             // Act & Assert
-            Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));
+            await Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));
         }
     }
 }

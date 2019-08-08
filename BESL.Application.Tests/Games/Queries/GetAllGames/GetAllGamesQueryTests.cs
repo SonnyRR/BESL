@@ -15,7 +15,7 @@
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
-    using BESL.Application.Interfaces;  
+    using BESL.Application.Interfaces;
 
     public class GetAllGamesQueryTests
     {
@@ -27,7 +27,7 @@
         }
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "GetAllGames handler given valid request should return valid GetAllGames viewmodel.")]
+        [Fact(DisplayName = "GetAllGamesQuery handler given valid request should return valid GetAllGames viewmodel.")]
         public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange
@@ -70,6 +70,17 @@
             // Assert
             result.Games.Count.ShouldBe(1);
             result.Games.Any(x => x.RegisteredTeams == 1).ShouldBeTrue();
+        }
+
+        [Trait(nameof(Game), "Game query tests.")]
+        [Fact(DisplayName = "GetAllGamesQuery handler given null request should return valid GetAllGames viewmodel.")]
+        public async Task Handle_GivenNullRequest_ShouldReturnValidViewModel()
+        {
+            // Act
+            var sut = new GetAllGamesQueryHandler(It.IsAny<IDeletableEntityRepository<Game>>(), It.IsAny<IMapper>());
+
+            // Act & Assert
+            await Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.Games.Queries.GetAllGames
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -24,6 +25,8 @@
 
         public async Task<GamesListViewModel> Handle(GetAllGamesQuery request, CancellationToken cancellationToken)
         {
+            request = request ?? throw new ArgumentNullException(nameof(request));
+
             GamesListViewModel viewModel = new GamesListViewModel();
 
             viewModel.Games = await this.gamesRepository

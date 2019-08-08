@@ -57,27 +57,27 @@
         }
 
         [Trait(nameof(Game), "Game creation tests.")]
-        [Fact(DisplayName ="Handle when request is null should throw ArgumentNullException.")]
-        public void Handle_GivenNullRequest_ShouldThrowArgumentNullException()
+        [Fact(DisplayName ="Handle given null request should throw ArgumentNullException.")]
+        public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
             var sut = new CreateGameCommandHandler(It.IsAny<IDeletableEntityRepository<Game>>(), It.IsAny<ICloudinaryHelper>(), this.mediatorMock.Object);
             CreateGameCommand command = null;
 
-            // Assert
-            Should.Throw<ArgumentNullException>(sut.Handle(command, It.IsAny<CancellationToken>()));
+            // Act & Assert
+            await Should.ThrowAsync<ArgumentNullException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
 
         [Trait(nameof(Game), "Game creation tests.")]
-        [Fact(DisplayName = "Handle when given invalid request should throw EntityAlreadyExistsException.")]
-        public void Handle_GivenInvalidRequest_ShouldThrowEntityAlreadyExistsException()
+        [Fact(DisplayName = "Handle given invalid request should throw EntityAlreadyExistsException.")]
+        public async Task Handle_GivenInvalidRequest_ShouldThrowEntityAlreadyExistsException()
         {
             // Arrange
             var sut = new CreateGameCommandHandler(this.deletableEntityRepository, It.IsAny<ICloudinaryHelper>(), this.mediatorMock.Object);
             CreateGameCommand command = new CreateGameCommand { Name = "SampleGame1" };
 
-            // Assert
-            Should.Throw<EntityAlreadyExistsException>(sut.Handle(command, It.IsAny<CancellationToken>()));
+            // Act & Assert
+            await Should.ThrowAsync<EntityAlreadyExistsException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
     }
 }

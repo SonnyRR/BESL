@@ -17,6 +17,8 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
+    using MediatR;
+    using System;
 
     public class ModifyGameCommandTests : BaseTest<Game>
     {
@@ -84,6 +86,17 @@
 
             // Assert
             await Should.ThrowAsync<NotFoundException>(sut.Handle(command, It.IsAny<CancellationToken>()));
+        }
+
+        [Trait(nameof(Game), "Game modify tests.")]
+        [Fact(DisplayName = "Handler given null request should throw ArgumentNullException.")]
+        public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
+        {
+            // Act
+            var sut = new ModifyGameCommandHandler(It.IsAny<IDeletableEntityRepository<Game>>(), It.IsAny<ICloudinaryHelper>(), It.IsAny<IMediator>());
+
+            // Act
+            await Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));
         }
     }
 }

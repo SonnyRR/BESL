@@ -1,10 +1,13 @@
 ﻿namespace BESL.Application.Tests.Games.Queries.ModifyGame
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Moq;
+    using MockQueryable.Moq;
     using Shouldly;
     using Xunit;
 
@@ -13,9 +16,6 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Games.Commands.Modify;
     using BESL.Domain.Entities;
-    using System.Collections.Generic;
-    using System.Linq;
-    using MockQueryable.Moq;
 
     public class ModifyGameQueryTests
     {
@@ -80,7 +80,8 @@
 
             var dataSetMock = dataSet.BuildMock();
 
-            repositoryMock.Setup(e => e.AllAsNoTracking())
+            repositoryMock
+                .Setup(e => e.AllAsNoTracking())
                 .Returns(dataSetMock.Object);
 
             var sut = new ModifyGameQueryHandler(repositoryMock.Object);

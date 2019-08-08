@@ -14,8 +14,7 @@
         private readonly IRedisService<Notification> redisNotificationService;
 
         public NotificationHandlerMiddleware(
-            RequestDelegate next,
-  
+            RequestDelegate next,  
             IRedisService<Notification> redisNotificationService)
         {
             this.next = next;

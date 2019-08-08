@@ -8,9 +8,9 @@
 
     using AutoMapper;
     using Moq;
+    using MockQueryable.Moq;
     using Shouldly;
     using Xunit;
-    using MockQueryable.Moq;
 
     using BESL.Application.Exceptions;
     using BESL.Application.Games.Queries.Details;
@@ -69,8 +69,8 @@
 
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "GetGameDetails query handler given invalid request should throw NotFoundException.")]
-        public void Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
+        [Fact(DisplayName = "GetGameDetailsQuery handler given invalid request should throw NotFoundException.")]
+        public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
             // Arrange
             var query = new GetGameDetailsQuery() { Id = 90125 };
@@ -88,22 +88,20 @@
 
             var sut = new GetGameDetailsQueryHandler(gameRepositoryMock.Object, this.mapper);
 
-            // Act
-            var result = sut.Handle(query, CancellationToken.None);
-            Should.Throw<NotFoundException>(result);
+            // Act & Assert
+            await Should.ThrowAsync<NotFoundException>(sut.Handle(query, CancellationToken.None));
         }
 
         [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "GetGameDetails query handler given invalid request should throw ArgumentNullException.")]
-        public void Handle_GivenInvalidRequest_ShouldThrowArgumentNullException()
+        [Fact(DisplayName = "GetGameDetailsQuery handler given null request should throw ArgumentNullException.")]
+        public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
             var repositoryMock = new Mock<IDeletableEntityRepository<Game>>();
             var sut = new GetGameDetailsQueryHandler(repositoryMock.Object, this.mapper);
 
-            // Act
-            var result = sut.Handle(null, CancellationToken.None);
-            Should.Throw<ArgumentNullException>(result);
+            // Act & Assert
+            await Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, CancellationToken.None));
         }
     }
 }
