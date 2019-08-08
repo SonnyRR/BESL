@@ -6,6 +6,8 @@
 
     public class TeamTableResultLookupModel : IHaveCustomMapping
     {
+        public int Id { get; set; }
+
         public int TeamId { get; set; }
 
         public string Team { get; set; }
