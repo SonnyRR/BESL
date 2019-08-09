@@ -3,6 +3,7 @@
     using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
     using BESL.Web.Models;
+    using System.Threading.Tasks;
 
     public class HomeController : BaseController
     {
@@ -12,6 +13,11 @@
         }
 
         public IActionResult Privacy()
+        {
+            return this.View();
+        }
+
+        public Task<IActionResult> Search()
         {
             return this.View();
         }
