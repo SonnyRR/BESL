@@ -18,6 +18,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" asp-controller="Players" asp-action="Details" asp-route-id="@User.Identity.Name" title="Manage"><i class="fas fa-id-badge"></i>&nbsp;Profile</a>
                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fas fa-cogs"></i>&nbsp;Settings</a>
+                <a class="dropdown-item" asp-controller="Players" asp-action="Invites"><i class="fas fa-envelope"></i>&nbsp;Invites</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item">
                     <form class="form-inline text-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

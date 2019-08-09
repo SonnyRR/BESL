@@ -1,0 +1,51 @@
+﻿@model BESL.Application.Players.Queries.Invites.InvitesViewModel
+@{
+    ViewData["Title"] = "My invites";
+}
+
+<div class="row mx-3 mb-3">
+    <div class="col-md-12">
+        <h4 class="display-4">Pending invites:</h4>
+        <hr />
+
+        <table class="table table-hover rounded shadow">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="text-center">Team</th>
+                    <th scope="col" class="text-center">Sender</th>
+                    <th scope="col" class="text-center">Accept</th>
+                    <th scope="col" class="text-center">Decline</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(Model.Invites.Count() != 0)
+                {
+                    @foreach (var invite in Model.Invites)
+                    {
+                    <tr>
+                        <th scope="row" class="text-center align-middle"><a asp-controller="Teams" asp-action="Details" asp-route-id="@invite.TeamId">@invite.TeamName</a></th>
+                        <td class="text-center align-middle"><a asp-controller="Players" asp-action="Details" asp-route-id="@invite.SenderUsername">@invite.SenderUsername</a></td>
+                        <td class="text-center align-middle">
+                        <form>
+                            <button class="btn btn-success">Accept</button>
+                        </form>
+                        </td>
+                        <td class="text-center align-middle">
+                            <form>
+                                <button class="btn btn-danger">Decline</button>
+                            </form>
+                        </td>
+                    </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-danger text-center"><strong>You have no pending invites.</strong></td>                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</div>
