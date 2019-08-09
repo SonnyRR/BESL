@@ -60,5 +60,6 @@
     <Folder Include="Views\Shared\Components\TournamentSkillTables\" />
     <Folder Include="Views\Shared\Components\PlayerNotifications\" />
     <Folder Include="Views\Shared\Components\GetPlayersForTeam\" />
+    <Folder Include="Views\Search\" />
   </ItemGroup>
 </Project>

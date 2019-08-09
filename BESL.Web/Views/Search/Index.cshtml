@@ -1,0 +1,59 @@
+﻿@model BESL.Application.Search.Queries.SearchQueryViewModel
+@{
+    ViewData["Title"] = $"{Model.SearchQuery} - Search";
+}
+
+<div class="row mx-3 mb-3">
+    <div class="col-md-12">
+        <h4 class="display-4">Results for: "@Model.SearchQuery"</h4>
+        <hr />
+        <div class="mb-3">
+            <h4 class="lead">Players:</h4>
+            <ul>
+                @if(Model.Players.Count() != 0)
+                {
+                    @foreach(var player in Model.Players)
+                    {
+                        <li><a asp-controller="Players" asp-action="Details" asp-route-id="@player.UserName"><h4>@player.UserName</h4></a></li>
+                    }
+                }
+                else
+                {
+                    <li>No players found matching the criteria.</li>
+                }
+            </ul>
+        </div>
+        <div class="mb-3">
+            <h4 class="lead">Teams:</h4>
+            <ul>
+                @if(Model.Teams.Count() != 0)
+                {
+                    @foreach(var team in Model.Teams)
+                    {
+                        <li><a asp-controller="Teams" asp-action="Details" asp-route-id="@team.Id"><h4>@team.Name</h4></a></li>
+                    }
+                }
+                else
+                {
+                    <li>No teams found matching the criteria.</li>
+                }
+            </ul>
+        </div>
+        <div class="mb-3">
+            <h4 class="lead">Tournaments:</h4>
+            <ul>
+                @if(Model.Tournaments.Count() != 0)
+                {
+                    @foreach(var tournament in Model.Tournaments)
+                    {
+                        <li><a asp-controller="Tournaments" asp-action="Details" asp-route-id="@tournament.Id"><h4>@tournament.Name</h4></a></li>
+                    }
+                }
+                else
+                {
+                    <li>No tournaments found matching the criteria.</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
