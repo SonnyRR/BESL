@@ -32,6 +32,7 @@
                 throw new InvalidOperationException($"No result executor for '{typeof(TResult).FullName}' has been registered.");
             }
 
+            context.Response.Clear();
             var routeData = context.GetRouteData() ?? EmptyRouteData;
 
             var actionContext = new ActionContext(context, routeData, EmptyActionDescriptor);

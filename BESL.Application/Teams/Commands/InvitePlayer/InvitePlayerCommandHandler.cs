@@ -12,21 +12,25 @@
     using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class InvitePlayerCommandHandler : IRequestHandler<InvitePlayerCommand, int>
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly IDeletableEntityRepository<TeamInvite> teamInvitesRepository;
+        private readonly IMediator mediator;
 
         public InvitePlayerCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<Player> playersRepository,
-            IDeletableEntityRepository<TeamInvite> teamInvitesRepository)
+            IDeletableEntityRepository<TeamInvite> teamInvitesRepository,
+            IMediator mediator)
         {
             this.teamsRepository = teamsRepository;
             this.playersRepository = playersRepository;
             this.teamInvitesRepository = teamInvitesRepository;
+            this.mediator = mediator;
         }
 
         public async Task<int> Handle(InvitePlayerCommand request, CancellationToken cancellationToken)
@@ -66,7 +70,7 @@
                 throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException(request.UserName);
             }
 
-            if (desiredTeam.PlayerTeams.Count >= desiredTeam.TournamentFormat.TeamPlayersCount + 4)
+            if (desiredTeam.PlayerTeams.Count >= desiredTeam.TournamentFormat.TeamPlayersCount + TEAM_MAX_BACKUP_PLAYERS_COUNT)
             {
                 throw new TeamIsFullException(desiredTeam.Name);
             }
@@ -86,7 +90,11 @@
             };
 
             await this.teamInvitesRepository.AddAsync(invite);
-            return await this.teamInvitesRepository.SaveChangesAsync(cancellationToken);
+            var rowsAffected = await this.teamInvitesRepository.SaveChangesAsync(cancellationToken);
+
+            await this.mediator.Publish(new PlayerInvitedNotification { SenderName = request.SenderUsername, ReceiverId = desiredPlayer.Id, TeamName = desiredTeam.Name});
+
+            return rowsAffected;
         }
 
         private async Task<bool> CheckIfUserAlreadyHasAnInviteForGivenTeam(InvitePlayerCommand request)

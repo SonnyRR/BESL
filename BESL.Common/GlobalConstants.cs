@@ -26,6 +26,9 @@
         public const string MODIFIED_SUCCESSFULLY_MSG = "has been modified successfully!";
         public const string NOTIFICATION_ENTITY_HEADER_TEMPLATE_MSG = "{0} [Id:{1}]";
         public const double REDIS_NOTIFICATION_EXPIRATION_MINUTES = 2;
+        public const string TEAM_INVITE_TEMPLATE_MSG = "{0} has invited you to join {1}!";
+        public const string TEAM_INVITE_HEADER_MSG = "Pending team invite";
+
         #endregion
 
         #region Steam
@@ -44,6 +47,7 @@
         #region Teams
         public const int TEAM_AVATAR_HEIGHT = 184; 
         public const int TEAM_AVATAR_WIDTH = 184;
+        public const int TEAM_MAX_BACKUP_PLAYERS_COUNT = 4;
         #endregion
 
         #region Games
