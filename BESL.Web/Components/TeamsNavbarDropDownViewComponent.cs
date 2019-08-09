@@ -21,8 +21,13 @@
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var viewModel = await this.mediator.Send(new GetTeamsForPlayerQuery { UserId = this.userAcessor.UserId });
-            return this.View(viewModel);
+            if (this.User.Identity.IsAuthenticated)
+            {
+                var viewModel = await this.mediator.Send(new GetTeamsForPlayerQuery { UserId = this.userAcessor.UserId });
+                return this.View(viewModel);
+            }
+
+            return this.View(new TeamsForPlayerViewModel());
         }
     }
 }

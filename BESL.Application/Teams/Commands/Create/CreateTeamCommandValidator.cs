@@ -19,7 +19,7 @@
                 .Length(DESC_MIN_LENGTH, DESC_MAX_LENGTH)
                 .WithMessage(string.Format(DESC_LENGTH_MSG, DESC_MIN_LENGTH, DESC_MAX_LENGTH));
 
-            RuleFor(x => x.HomepageUrl)
+            RuleFor(x => x.HomepageUrl)               
                 .Matches(URL_EXPRESSION)
                 .WithMessage(URL_EXPRESSION_MSG);
 
