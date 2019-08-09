@@ -11,6 +11,7 @@
     using BESL.Application.Teams.Queries.Details;
     using BESL.Application.Teams.Queries.Modify;
     using BESL.Application.Teams.Commands.Modify;
+    using BESL.Application.Teams.Commands.InvitePlayer;
 
     public class TeamsController : BaseController
     {
@@ -52,6 +53,7 @@
         [Authorize]
         public async Task<IActionResult> Modify(ModifyTeamQuery query)
         {
+            query.CurrentLoggedInUserId = this.userAcessor.UserId;
             var viewModel = await this.Mediator.Send(query);
             return this.View(viewModel);
         }
@@ -66,7 +68,16 @@
             }
 
             var viewModel = await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(Details), new { command.Id });
-        }        
+            return this.RedirectToAction(nameof(Modify), new GetTeamDetailsQuery { Id = command.Id });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Invite(InvitePlayerCommand command)
+        {
+            command.SenderUsername = this.userAcessor.User.Identity.Name;
+            await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Modify), new GetTeamDetailsQuery { Id = command.TeamId });
+        }
     }
 }

@@ -57,6 +57,9 @@
                     <img src="@Model.TeamImage" class="img img-thumbnail ml-6" alt="...">
                 </picture>
                 <span class="text-muted d-flex justify-content-center">184x184</span>
+
+                <vc:invite-player-modal team-id="@Model.Id"></vc:invite-player-modal>
+
             </div>
         </div>
     </div>
@@ -65,5 +68,10 @@
 </div>
 
 @section Scripts{
+<script>
+    $('#sendInviteBtn').click(function () {
+    $('#InvitePlayerModal').modal('hide');
+    });
+        </script>
     <partial name="~/Views/Shared/Partials/_FileUploadScript.cshtml"></partial>
 }

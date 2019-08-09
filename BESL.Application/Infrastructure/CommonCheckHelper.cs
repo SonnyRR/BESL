@@ -7,6 +7,7 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     internal static class CommonCheckHelper
     {
@@ -27,6 +28,15 @@
                     .ThenInclude(tt => tt.Tournament)
                 .SelectMany(x => x.TeamTableResults.Select(y => y.TournamentTable.Tournament))
                 .AnyAsync(x => x.AreSignupsOpen || x.IsActive);
+        }
+
+        internal static async Task<bool> CheckIfUserHasLinkedSteamAccount(string id, IDeletableEntityRepository<Player> playersRepository)
+        {
+            return await playersRepository
+                .AllAsNoTracking()
+                .Where(p => p.Id == id)
+                .Include(p => p.Claims)
+                .AnyAsync(p => p.Claims.Any(c => c.ClaimType == STEAM_ID_64_CLAIM_TYPE));
         }
     }
 }

@@ -6,7 +6,6 @@ function alertFadeFunc() {
     window.setTimeout(function () {
         $("#alertDiv").fadeTo(500, 0).slideUp(500, function () {
             $(this).remove();
-            element.style.display = "hidden";
         });
     }, 7000);
 

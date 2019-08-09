@@ -12,6 +12,7 @@
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
+    using BESL.Application.Infrastructure;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
 
@@ -44,7 +45,7 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (!await this.CheckIfCreatorHasLinkedSteamAccount(request))
+            if (!await CommonCheckHelper.CheckIfUserHasLinkedSteamAccount(request.OwnerId, this.playersRepository))
             {
                 throw new PlayerDoesNotHaveALinkedSteamAccountException();
             }
@@ -108,15 +109,6 @@
             return await this.formatsRepository
                 .AllAsNoTrackingWithDeleted()
                 .AnyAsync(f => f.Id == request.TournamentFormatId);
-        }
-
-        private async Task<bool> CheckIfCreatorHasLinkedSteamAccount(CreateTeamCommand request)
-        {
-            return await this.playersRepository
-                .AllAsNoTracking()
-                .Where(p => p.Id == request.OwnerId)
-                .Include(p => p.Claims)
-                .AnyAsync(p => p.Claims.Any(c => c.ClaimType == STEAM_ID_64_CLAIM_TYPE));
         }
     }
 }

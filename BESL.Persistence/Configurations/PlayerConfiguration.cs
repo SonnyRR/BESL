@@ -12,6 +12,10 @@
             builder.HasMany(p => p.OwnedTeams)
                 .WithOne(t => t.Owner)
                 .HasForeignKey(t => t.OwnerId);
+
+            builder.HasMany(p => p.Invites)
+                .WithOne(i => i.Player)
+                .HasForeignKey(i => i.PlayerId);
         }
     }
 }

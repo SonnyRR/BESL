@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Web;
 
     using MediatR;
     using Microsoft.Extensions.Logging;
@@ -10,9 +11,8 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using static BESL.Common.GlobalConstants;
     using BESL.Domain.Entities.Enums;
-    using System.Web;
+    using static BESL.Common.GlobalConstants;
 
     public class CustomExceptionNotificationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
@@ -43,7 +43,7 @@
             {
                 this.logger.LogError("BESL Request: {Name}-[UserId: {userId}] {@Request}, {@exception}", typeof(TRequest).Name, this.userAcessor.UserId, request, exception);
 
-                if (this.userAcessor.UserId != null && !(exception is NotFoundException))
+                if (this.userAcessor.UserId != null && !(exception is NotFoundException) && !(exception is ForbiddenException))
                 {
                     var notification = new Notification()
                     {

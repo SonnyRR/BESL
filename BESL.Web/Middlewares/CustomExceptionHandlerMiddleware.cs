@@ -39,6 +39,20 @@
                     }
                 }
 
+                else if (ex is ForbiddenException)
+                {
+                    var result = new ViewResult
+                    {
+                        ViewName = "~/Views/Shared/Forbidden.cshtml",
+                    };
+
+                    if (!context.Response.HasStarted)
+                    {
+                        context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                        await context.WriteResultAsync(result);
+                    }
+                }
+
                 else
                 {
                     context.Response.StatusCode = StatusCodes.Status204NoContent;

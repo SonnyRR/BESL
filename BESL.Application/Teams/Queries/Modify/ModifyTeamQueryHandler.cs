@@ -16,11 +16,13 @@
     public class ModifyTeamQueryHandler : IRequestHandler<ModifyTeamQuery, ModifyTeamCommand>
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
+        private readonly IUserAcessor userAcessor;
         private readonly IMapper mapper;
 
-        public ModifyTeamQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IMapper mapper)
+        public ModifyTeamQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IUserAcessor userAcessor, IMapper mapper)
         {
             this.teamsRepository = teamsRepository;
+            this.userAcessor = userAcessor;
             this.mapper = mapper;
         }
 
@@ -34,6 +36,11 @@
                     .ThenInclude(tf => tf.Game)
                 .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.Id);
+
+            if (desiredTeam.OwnerId != this.userAcessor.UserId)
+            {
+                throw new ForbiddenException();
+            }
 
             var command = this.mapper.Map<ModifyTeamCommand>(desiredTeam);
             return command;

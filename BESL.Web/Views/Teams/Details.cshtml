@@ -1,9 +1,10 @@
 ﻿@model BESL.Application.Teams.Queries.Details.GetTeamDetailsViewModel
 @using BESL.Domain.Entities
 @using System.Security.Claims
-@inject BESL.Application.Interfaces.IDeletableEntityRepository<Team> teamRepository
+@inject BESL.Application.Interfaces.IDeletableEntityRepository<Team> teamsRepository
 @{
     ViewData["Title"] = Model.Name;
+    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
 
 <div class="row mx-3 mb-3">
@@ -24,7 +25,7 @@
             <h6 class="lead">Created on: @Model.CreatedOn</h6>
         </div>
     </div>
-    @if (this.teamRepository.AllAsNoTracking().SingleOrDefault(x => x.Id == Model.Id).OwnerId == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
+    @if (this.teamsRepository.AllAsNoTracking().SingleOrDefault(x => x.Id == Model.Id).OwnerId == userId)
     {
         <div class="col-sm-3">
             <a class="btn btn-primary text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id">Manage</a>

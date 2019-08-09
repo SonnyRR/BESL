@@ -6,5 +6,7 @@
     public class ModifyTeamQuery : IRequest<ModifyTeamCommand>
     {
         public int Id { get; set; }
+
+        public string CurrentLoggedInUserId { get; set; }
     }
 }

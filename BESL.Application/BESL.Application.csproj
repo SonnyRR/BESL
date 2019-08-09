@@ -37,5 +37,6 @@
     <Folder Include="TournamentTables\Commands\Create\" />
     <Folder Include="Tournaments\Commands\Enroll\" />
     <Folder Include="Tournaments\Queries\Enroll\" />
+    <Folder Include="Teams\Commands\InvitePlayer\" />
   </ItemGroup>
 </Project>

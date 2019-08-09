@@ -34,5 +34,6 @@
         public virtual ICollection<PlayerTeam> PlayerTeams { get; set; } = new HashSet<PlayerTeam>();
         public virtual ICollection<PlayerMatch> PlayerMatches { get; set; } = new HashSet<PlayerMatch>();
         public virtual ICollection<Notification> Notifications { get; set; } = new HashSet<Notification>();
+        public virtual ICollection<TeamInvite> Invites { get; set; } = new HashSet<TeamInvite>();
     }
 }
