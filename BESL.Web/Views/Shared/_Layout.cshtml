@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
 <html>
 <head>
     <partial name="~/Views/Shared/Partials/_HeadImportsPartial.cshtml" />
+    @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
     <header>

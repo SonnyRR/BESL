@@ -5,6 +5,8 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <UserSecretsId>39537b44-0d91-4b5f-9e4c-623c1b4983be</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/c423efad-61a1-4b3f-a1dc-6208534fa56a/resourcegroups/besl/providers/microsoft.insights/components/besl</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/c423efad-61a1-4b3f-a1dc-6208534fa56a/resourcegroups/besl/providers/microsoft.insights/components/besl</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +30,7 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.App">
       <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
       <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
@@ -62,5 +65,10 @@
     <Folder Include="Views\Shared\Components\PlayerNotifications\" />
     <Folder Include="Views\Shared\Components\GetPlayersForTeam\" />
     <Folder Include="Views\Search\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 </Project>
