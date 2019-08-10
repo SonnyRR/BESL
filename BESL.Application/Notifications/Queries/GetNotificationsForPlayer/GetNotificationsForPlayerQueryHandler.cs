@@ -31,6 +31,7 @@
             var notificationLookups = await this.notificationRepository
                 .AllAsNoTracking()
                 .Where(n => n.PlayerId == request.UserId)
+                .OrderByDescending(n => n.CreatedOn)
                 .ProjectTo<PlayerNotificationLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

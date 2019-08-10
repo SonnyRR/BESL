@@ -17,15 +17,18 @@
         private readonly IDeletableEntityRepository<TeamInvite> teamInvitesRepository;
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Player> playersRepository;
+        private readonly IMediator mediator;
 
         public AcceptInviteCommandHandler(
             IDeletableEntityRepository<TeamInvite> teamInvitesRepository,
             IDeletableEntityRepository<Team> teamsRepository,
-            IDeletableEntityRepository<Player> playersRepository)
+            IDeletableEntityRepository<Player> playersRepository,
+            IMediator mediator)
         {
             this.teamInvitesRepository = teamInvitesRepository;
             this.teamsRepository = teamsRepository;
             this.playersRepository = playersRepository;
+            this.mediator = mediator;
         }
 
         public async Task<int> Handle(AcceptInviteCommand request, CancellationToken cancellationToken)
@@ -56,7 +59,11 @@
             desiredTeam.PlayerTeams.Add(new PlayerTeam { PlayerId = desiredPlayer.Id, TeamId = desiredTeam.Id });
             this.teamsRepository.Update(desiredTeam);
             this.teamInvitesRepository.Delete(desiredInvite);
-            return await this.teamsRepository.SaveChangesAsync(cancellationToken);
+            var affectedRows = await this.teamsRepository.SaveChangesAsync(cancellationToken);
+
+            await this.mediator.Publish(new AcceptedInviteNotification() { PlayerId = desiredPlayer.Id, TeamName = desiredTeam.Name });
+
+            return affectedRows;
         }
     }
 }
