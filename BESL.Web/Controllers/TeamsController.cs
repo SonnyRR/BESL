@@ -12,6 +12,7 @@
     using BESL.Application.Teams.Queries.Modify;
     using BESL.Application.Teams.Commands.Modify;
     using BESL.Application.Teams.Commands.InvitePlayer;
+    using BESL.Application.Teams.Commands.RemovePlayer;
 
     public class TeamsController : BaseController
     {
@@ -77,7 +78,17 @@
         {
             command.SenderUsername = this.userAcessor.User.Identity.Name;
             await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(Modify), new GetTeamDetailsQuery { Id = command.TeamId });
+            return this.RedirectToAction(nameof(Modify), new ModifyTeamQuery { Id = command.TeamId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RemovePlayer(RemovePlayerCommand command)
+        {
+            command.CurrentUserId = this.userAcessor.UserId;
+            await this.Mediator.Send(command);
+
+            return this.RedirectToAction(nameof(Details), new GetTeamDetailsQuery { Id = command.TeamId });
         }
     }
 }

@@ -62,10 +62,9 @@
 
             var playerTeams = desiredPlayer
                 .PlayerTeams
-                .Select(x => x.Team)
                 .ToList();
 
-            if (playerTeams.Any(x => x.TournamentFormatId == desiredTeam.TournamentFormatId))
+            if (this.CheckIfUserIsPartOfATeamWithTheSameFormat(desiredPlayer, desiredTeam.TournamentFormatId))
             {
                 throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException(request.UserName);
             }
@@ -79,7 +78,6 @@
             {
                 throw new PlayerAlreadyHasPendingInvite(request.UserName);
             }
-
 
             var invite = new TeamInvite
             {
@@ -105,5 +103,11 @@
                 .SelectMany(p => p.Invites.Where(i => i.IsDeleted == false))
                 .AnyAsync(i => i.TeamId == request.TeamId);
         }
+
+        private bool CheckIfUserIsPartOfATeamWithTheSameFormat(Player player, int formatId)
+        {
+            return player.PlayerTeams.Any(x => x.Team.TournamentFormatId == formatId && !x.IsDeleted);
+        }
+
     }
 }

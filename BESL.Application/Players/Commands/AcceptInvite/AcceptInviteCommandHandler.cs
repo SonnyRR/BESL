@@ -11,23 +11,24 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
+    using System.Linq;
 
     public class AcceptInviteCommandHandler : IRequestHandler<AcceptInviteCommand, int>
     {
         private readonly IDeletableEntityRepository<TeamInvite> teamInvitesRepository;
         private readonly IDeletableEntityRepository<Team> teamsRepository;
-        private readonly IDeletableEntityRepository<Player> playersRepository;
+        private readonly IDeletableEntityRepository<PlayerTeam> playerTeamsRepository;
         private readonly IMediator mediator;
 
         public AcceptInviteCommandHandler(
             IDeletableEntityRepository<TeamInvite> teamInvitesRepository,
             IDeletableEntityRepository<Team> teamsRepository,
-            IDeletableEntityRepository<Player> playersRepository,
+            IDeletableEntityRepository<PlayerTeam> playerTeamsRepository,
             IMediator mediator)
         {
             this.teamInvitesRepository = teamInvitesRepository;
             this.teamsRepository = teamsRepository;
-            this.playersRepository = playersRepository;
+            this.playerTeamsRepository = playerTeamsRepository;
             this.mediator = mediator;
         }
 
@@ -56,14 +57,29 @@
                 throw new TeamIsFullException(desiredTeam.Name);
             }
 
-            desiredTeam.PlayerTeams.Add(new PlayerTeam { PlayerId = request.UserId, TeamId = desiredTeam.Id });
-            this.teamsRepository.Update(desiredTeam);
-            this.teamInvitesRepository.Delete(desiredInvite);
+            if (this.CheckIfPlayerParticipatesInATeamWithTheSameFormat(desiredTeam.TournamentFormatId, request.UserId))
+            {
+                throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException();
+            }
+
+            desiredTeam.PlayerTeams.Add(new PlayerTeam { PlayerId = request.UserId });
             var affectedRows = await this.teamsRepository.SaveChangesAsync(cancellationToken);
+
+            await this.teamInvitesRepository.SaveChangesAsync(cancellationToken);
+            this.teamInvitesRepository.Delete(desiredInvite);
 
             await this.mediator.Publish(new AcceptedInviteNotification() { PlayerId = request.UserId, TeamName = desiredTeam.Name });
 
             return affectedRows;
+        }
+
+        private bool CheckIfPlayerParticipatesInATeamWithTheSameFormat(int formatId, string playerId)
+        {
+            return this.playerTeamsRepository
+                .AllAsNoTracking()
+                .Where(pt => pt.PlayerId == playerId)
+                .Include(pt => pt.Team)
+                .Any(pt => pt.Team.TournamentFormatId == formatId);
         }
     }
 }

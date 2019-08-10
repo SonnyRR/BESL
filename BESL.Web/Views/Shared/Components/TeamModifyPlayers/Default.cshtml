@@ -19,7 +19,7 @@
                 <td class="align-middle text-center">
                     @if (player.Id != this.userAcessor.UserId)
                     {
-                        <form>
+                        <form asp-controller="Teams" asp-action="RemovePlayer" asp-route-playerId="@player.Id" asp-route-teamId="@player.TeamId">
                             <button class="btn btn-danger">Remove</button>
                         </form>
                     }

@@ -17,12 +17,15 @@
                 .UseApplicationInsights()
                 .ConfigureAppConfiguration((context, config) =>
                 {
-                    var builtConfig = config.Build();
-                    config.AddAzureKeyVault(
-                        $"https://{builtConfig["KeyVault:Vault"]}.vault.azure.net/",
-                        builtConfig["KeyVault:ClientId"],
-                        builtConfig["KeyVault:ClientSecret"],
-                        new DefaultKeyVaultSecretManager());
+                    if (context.HostingEnvironment.IsProduction())
+                    {
+                        var builtConfig = config.Build();
+                        config.AddAzureKeyVault(
+                            $"https://{builtConfig["KeyVault:Vault"]}.vault.azure.net/",
+                            builtConfig["KeyVault:ClientId"],
+                            builtConfig["KeyVault:ClientSecret"],
+                            new DefaultKeyVaultSecretManager());
+                    }
                 })
                 .UseStartup<Startup>();
     }

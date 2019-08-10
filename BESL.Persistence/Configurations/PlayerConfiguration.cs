@@ -11,11 +11,13 @@
         {
             builder.HasMany(p => p.OwnedTeams)
                 .WithOne(t => t.Owner)
-                .HasForeignKey(t => t.OwnerId);
+                .HasForeignKey(t => t.OwnerId)
+                .IsRequired();
 
             builder.HasMany(p => p.Invites)
                 .WithOne(i => i.Player)
-                .HasForeignKey(i => i.PlayerId);
+                .HasForeignKey(i => i.PlayerId)
+                .IsRequired();
         }
     }
 }

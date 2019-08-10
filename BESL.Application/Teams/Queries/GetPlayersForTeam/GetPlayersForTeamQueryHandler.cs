@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
@@ -13,48 +14,34 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
-    using System.Collections.Generic;
 
     public class GetPlayersForTeamQueryHandler : IRequestHandler<GetPlayersForTeamQuery, GetPlayersForTeamViewModel>
     {
         private readonly IMapper mapper;
-        private readonly IDeletableEntityRepository<Team> teamsRepository;
+        private readonly IDeletableEntityRepository<PlayerTeam> playerTeamsRepository;
 
-        public GetPlayersForTeamQueryHandler(IMapper mapper, IDeletableEntityRepository<Team> teamRepository)
+        public GetPlayersForTeamQueryHandler(IMapper mapper, IDeletableEntityRepository<PlayerTeam> playerTeamsRepository)
         {
             this.mapper = mapper;
-            this.teamsRepository = teamRepository;
+            this.playerTeamsRepository = playerTeamsRepository;
         }
 
         public async Task<GetPlayersForTeamViewModel> Handle(GetPlayersForTeamQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (!await this.DoesTeamExist(request))
-            {
-                throw new NotFoundException(nameof(Team), request.TeamId);
-            }
-
-            var teamPlayers = await this.teamsRepository
-                .AllAsNoTracking()
-                .Include(t => t.PlayerTeams)
-                    .ThenInclude(pt => pt.Player)
-                    .ThenInclude(p => p.Claims)
-                .Where(t => t.Id == request.TeamId)
-                .SelectMany(x => x.PlayerTeams.Select(y => y.Player))
+            var teamPlayers = await this.playerTeamsRepository
+                .AllAsNoTracking()               
+                .Where(pt => pt.TeamId == request.TeamId)
+                    .Include(pt => pt.Player)
+                    .Include(pt => pt.Team)
+                .Select(x => x.Player)
                 .ProjectTo<PlayerLookup>(this.mapper.ConfigurationProvider, new Dictionary<string, object>(1) { { "teamId", request.TeamId } })
                 .OrderByDescending(p => p.isOwner)
                 .ToListAsync(cancellationToken);
 
             var viewModel = new GetPlayersForTeamViewModel { Players = teamPlayers };
             return viewModel;
-        }
-
-        private async Task<bool> DoesTeamExist(GetPlayersForTeamQuery request)
-        {
-            return await this.teamsRepository
-                .AllAsNoTracking()
-                .AnyAsync(x => x.Id == request.TeamId);
         }
     }
 }

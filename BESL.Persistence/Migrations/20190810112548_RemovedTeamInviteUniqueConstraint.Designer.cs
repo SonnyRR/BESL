@@ -4,14 +4,16 @@ using BESL.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BESL.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190810112548_RemovedTeamInviteUniqueConstraint")]
+    partial class RemovedTeamInviteUniqueConstraint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,8 +271,9 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("BESL.Domain.Entities.PlayerTeam", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("PlayerId");
+
+                    b.Property<int>("TeamId");
 
                     b.Property<DateTime>("CreatedOn");
 
@@ -280,13 +283,7 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime?>("ModifiedOn");
 
-                    b.Property<string>("PlayerId");
-
-                    b.Property<int>("TeamId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlayerId");
+                    b.HasKey("PlayerId", "TeamId");
 
                     b.HasIndex("TeamId");
 
@@ -343,8 +340,7 @@ namespace BESL.Persistence.Migrations
                         .HasMaxLength(35)
                         .IsUnicode(true);
 
-                    b.Property<string>("OwnerId")
-                        .IsRequired();
+                    b.Property<string>("OwnerId");
 
                     b.Property<int>("TournamentFormatId");
 
@@ -373,8 +369,7 @@ namespace BESL.Persistence.Migrations
 
                     b.Property<DateTime?>("ModifiedOn");
 
-                    b.Property<string>("PlayerId")
-                        .IsRequired();
+                    b.Property<string>("PlayerId");
 
                     b.Property<string>("SenderUsername");
 
@@ -698,8 +693,7 @@ namespace BESL.Persistence.Migrations
                 {
                     b.HasOne("BESL.Domain.Entities.Player", "Owner")
                         .WithMany("OwnedTeams")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("OwnerId");
 
                     b.HasOne("BESL.Domain.Entities.TournamentFormat", "TournamentFormat")
                         .WithMany("Teams")
@@ -711,8 +705,7 @@ namespace BESL.Persistence.Migrations
                 {
                     b.HasOne("BESL.Domain.Entities.Player", "Player")
                         .WithMany("Invites")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("PlayerId");
                 });
 
             modelBuilder.Entity("BESL.Domain.Entities.TeamTableResult", b =>

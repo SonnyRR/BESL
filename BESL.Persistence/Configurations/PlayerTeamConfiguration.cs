@@ -9,7 +9,7 @@
     {
         public void Configure(EntityTypeBuilder<PlayerTeam> builder)
         {
-            builder.HasKey(pt => new { pt.PlayerId, pt.TeamId });
+            builder.HasKey(x => x.Id);
 
             builder.HasOne(pt => pt.Player)
                 .WithMany(p => p.PlayerTeams)

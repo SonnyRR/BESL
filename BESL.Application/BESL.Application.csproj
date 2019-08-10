@@ -42,5 +42,6 @@
     <Folder Include="Players\Commands\" />
     <Folder Include="Players\Commands\AcceptInvite\" />
     <Folder Include="Players\Commands\DeclineInvite\" />
+    <Folder Include="Teams\Commands\RemovePlayer\" />
   </ItemGroup>
 </Project>

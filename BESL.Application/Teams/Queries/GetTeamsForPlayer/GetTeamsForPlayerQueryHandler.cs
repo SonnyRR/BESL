@@ -39,9 +39,10 @@
             }
 
             var teams = await this.playerTeamsRepository
-                .AllAsNoTracking()
+                .AllAsNoTrackingWithDeleted()
                     .Include(x => x.Team)
                 .Where(x => x.PlayerId == request.UserId)
+                .OrderByDescending(x => x.IsDeleted)
                 .ToListAsync(cancellationToken);
 
             var mapped = this.mapper.Map<TeamForPlayerLookupModel[]>(teams);
