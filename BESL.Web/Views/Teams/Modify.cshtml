@@ -19,7 +19,7 @@
                         <label asp-for="Description">Description</label>
                         <textarea class="form-control" maxlength="1000" asp-for="Description" rows="5" placeholder="Enter description..."></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
-                        <small id="gameDescHelp" class="form-text text-muted">Description of the tournament.</small>
+                        <small id="gameDescHelp" class="form-text text-muted">Optional</small>
                     </div>
                     <div class="form-group">
                         <label>Format</label>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="HomepageUrl">Homepage</label>
-                        <small class="text-muted">Required</small>
+                        <small class="text-muted">Optional</small>
                         <input type="text" class="form-control" asp-for="HomepageUrl" placeholder="https://foo.bar">
                         <span asp-validation-for="HomepageUrl" class="text-danger"></span>
                     </div>
@@ -57,7 +57,11 @@
                     <img src="@Model.TeamImage" class="img img-thumbnail ml-6" alt="...">
                 </picture>
                 <span class="text-muted d-flex justify-content-center">184x184</span>
-
+                <hr />
+                <h4>Other:</h4>
+                <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#InvitePlayerModal">
+                    <i class="fas fa-plus-circle"></i>&nbsp;Add player
+                </button>
                 <vc:invite-player-modal team-id="@Model.Id"></vc:invite-player-modal>
 
             </div>

@@ -13,7 +13,7 @@
         @foreach (var player in Model.Players)
         {
             <tr>
-                <td class="text-center"><img src="@player.AvatarSmall" /></td>
+                <td class="text-center align-middle"><img src="@player.AvatarSmall" /></td>
                 <td class="align-middle"><a asp-controller="Players" asp-action="Details" asp-route-id="@player.Username"><strong>@player.Username</strong></a></td>
                 <td class="align-middle">@player.SteamId64</td>
                 <td class="align-middle text-center">

@@ -28,7 +28,7 @@
     @if (this.teamsRepository.AllAsNoTracking().SingleOrDefault(x => x.Id == Model.Id).OwnerId == userId)
     {
         <div class="col-sm-3">
-            <a class="btn btn-primary text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id">Manage</a>
+            <a class="btn btn-primary text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id"><i class="fas fa-cog"></i>&nbsp;Modify</a>
         </div>
     }
 </div>

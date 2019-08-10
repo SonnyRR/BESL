@@ -13,6 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
+    using System.Collections.Generic;
 
     public class GetPlayersForTeamQueryHandler : IRequestHandler<GetPlayersForTeamQuery, GetPlayersForTeamViewModel>
     {
@@ -41,7 +42,8 @@
                     .ThenInclude(p => p.Claims)
                 .Where(t => t.Id == request.TeamId)
                 .SelectMany(x => x.PlayerTeams.Select(y => y.Player))
-                .ProjectTo<PlayerLookup>(this.mapper.ConfigurationProvider)
+                .ProjectTo<PlayerLookup>(this.mapper.ConfigurationProvider, new Dictionary<string, object>(1) { { "teamId", request.TeamId } })
+                .OrderByDescending(p => p.isOwner)
                 .ToListAsync(cancellationToken);
 
             var viewModel = new GetPlayersForTeamViewModel { Players = teamPlayers };
