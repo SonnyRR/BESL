@@ -31,7 +31,7 @@
                         </form>
                         </td>
                         <td class="text-center align-middle">
-                            <form>
+                            <form asp-controller="Players" asp-action="DeclineInvite" asp-route-id="@invite.Id">
                                 <button class="btn btn-danger">Decline</button>
                             </form>
                         </td>

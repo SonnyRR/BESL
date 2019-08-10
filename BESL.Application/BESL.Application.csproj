@@ -41,5 +41,6 @@
     <Folder Include="Players\Queries\Invites\" />
     <Folder Include="Players\Commands\" />
     <Folder Include="Players\Commands\AcceptInvite\" />
+    <Folder Include="Players\Commands\DeclineInvite\" />
   </ItemGroup>
 </Project>

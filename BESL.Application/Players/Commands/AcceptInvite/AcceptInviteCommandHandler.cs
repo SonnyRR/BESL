@@ -35,15 +35,15 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredPlayer = await this.playersRepository
-                .AllAsNoTracking()
-                .SingleOrDefaultAsync(p => p.Id == request.UserId)
-                ?? throw new NotFoundException(nameof(Player), request.UserId);
-
             var desiredInvite = await this.teamInvitesRepository
                 .All()
                 .SingleOrDefaultAsync(ti => ti.Id == request.InviteId, cancellationToken)
                 ?? throw new NotFoundException(nameof(TeamInvite), request.InviteId);
+
+            if (desiredInvite.PlayerId != request.UserId)
+            {
+                throw new ForbiddenException();
+            }
 
             var desiredTeam = await this.teamsRepository
                 .All()
@@ -56,12 +56,12 @@
                 throw new TeamIsFullException(desiredTeam.Name);
             }
 
-            desiredTeam.PlayerTeams.Add(new PlayerTeam { PlayerId = desiredPlayer.Id, TeamId = desiredTeam.Id });
+            desiredTeam.PlayerTeams.Add(new PlayerTeam { PlayerId = request.UserId, TeamId = desiredTeam.Id });
             this.teamsRepository.Update(desiredTeam);
             this.teamInvitesRepository.Delete(desiredInvite);
             var affectedRows = await this.teamsRepository.SaveChangesAsync(cancellationToken);
 
-            await this.mediator.Publish(new AcceptedInviteNotification() { PlayerId = desiredPlayer.Id, TeamName = desiredTeam.Name });
+            await this.mediator.Publish(new AcceptedInviteNotification() { PlayerId = request.UserId, TeamName = desiredTeam.Name });
 
             return affectedRows;
         }

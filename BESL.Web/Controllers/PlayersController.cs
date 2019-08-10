@@ -3,12 +3,13 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     using BESL.Application.Interfaces;
     using BESL.Application.Players.Queries.Details;
     using BESL.Application.Players.Queries.Invites;
-    using Microsoft.AspNetCore.Authorization;
     using BESL.Application.Players.Commands.AcceptInvite;
+    using BESL.Application.Players.Commands.DeclineInvite;
 
     public class PlayersController : BaseController
     {
@@ -37,6 +38,14 @@
         public async Task<IActionResult> AcceptInvite(string id)
         {
             await this.Mediator.Send(new AcceptInviteCommand { InviteId = id, UserId = this.userAcessor.UserId });
+            return this.RedirectToAction(nameof(Invites));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> DeclineInvite(string id)
+        {
+            await this.Mediator.Send(new DeclineInviteCommand { InviteId = id, UserId = this.userAcessor.UserId });
             return this.RedirectToAction(nameof(Invites));
         }
     }
