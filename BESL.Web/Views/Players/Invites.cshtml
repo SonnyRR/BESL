@@ -26,7 +26,7 @@
                         <th scope="row" class="text-center align-middle"><a asp-controller="Teams" asp-action="Details" asp-route-id="@invite.TeamId">@invite.TeamName</a></th>
                         <td class="text-center align-middle"><a asp-controller="Players" asp-action="Details" asp-route-id="@invite.SenderUsername">@invite.SenderUsername</a></td>
                         <td class="text-center align-middle">
-                        <form>
+                        <form asp-controller="Players" asp-action="AcceptInvite" asp-route-id="@invite.Id">
                             <button class="btn btn-success">Accept</button>
                         </form>
                         </td>

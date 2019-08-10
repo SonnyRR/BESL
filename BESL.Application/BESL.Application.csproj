@@ -39,5 +39,7 @@
     <Folder Include="Tournaments\Queries\Enroll\" />
     <Folder Include="Teams\Commands\InvitePlayer\" />
     <Folder Include="Players\Queries\Invites\" />
+    <Folder Include="Players\Commands\" />
+    <Folder Include="Players\Commands\AcceptInvite\" />
   </ItemGroup>
 </Project>

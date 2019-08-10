@@ -5,6 +5,8 @@
 
     public class InviteLookupModel : IMapFrom<TeamInvite>
     {
+        public string Id { get; set; }
+
         public int TeamId { get; set; }
 
         public string TeamName { get; set; }
