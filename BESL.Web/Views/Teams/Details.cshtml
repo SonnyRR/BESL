@@ -1,10 +1,6 @@
 ﻿@model BESL.Application.Teams.Queries.Details.GetTeamDetailsViewModel
-@using BESL.Domain.Entities
-@using System.Security.Claims
-@inject BESL.Application.Interfaces.IDeletableEntityRepository<Team> teamsRepository
 @{
     ViewData["Title"] = Model.Name;
-    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
 
 <div class="row mx-3 mb-3">
@@ -16,8 +12,9 @@
         <div class="mt-2">
             <h6 class="lead">
                 Homepage:&nbsp;@if (!string.IsNullOrWhiteSpace(Model.HomepageUrl))
-                { <a href="@Model.HomepageUrl">@Model.HomepageUrl</a> }
-                else { <span>None</span>}
+                {<a href="@Model.HomepageUrl">@Model.HomepageUrl</a> }
+            else
+            { <span>None</span>}
             </h6>
             <h6 class="lead">
                 Format:&nbsp;@Model.TournamentFormat
@@ -25,10 +22,18 @@
             <h6 class="lead">Created on: @Model.CreatedOn</h6>
         </div>
     </div>
-    @if (this.teamsRepository.AllAsNoTracking().SingleOrDefault(x => x.Id == Model.Id).OwnerId == userId)
+    @if (Model.IsOwner || Model.IsOwner)
     {
         <div class="col-sm-3">
-            <a class="btn btn-primary text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id"><i class="fas fa-cog"></i>&nbsp;Modify</a>
+            @if (Model.IsOwner)
+            {
+                <a class="btn btn-primary text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id"><i class="fas fa-cog"></i>&nbsp;Modify</a>
+            }
+
+            @if (Model.IsMember)
+            {
+                <a class="btn btn-danger text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id"><i class="fas fa-door-open"></i>&nbsp;Leave</a>
+            }
         </div>
     }
 </div>

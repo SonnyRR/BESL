@@ -16,11 +16,13 @@
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IMapper mapper;
+        private readonly IUserAcessor userAcessor;
 
-        public GetTeamDetailsQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IMapper mapper)
+        public GetTeamDetailsQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IMapper mapper, IUserAcessor userAcessor)
         {
             this.teamsRepository = teamsRepository;
             this.mapper = mapper;
+            this.userAcessor = userAcessor;
         }
 
         public async Task<GetTeamDetailsViewModel> Handle(GetTeamDetailsQuery request, CancellationToken cancellationToken)
@@ -31,10 +33,13 @@
                 .AllAsNoTracking()
                 .Include(t => t.TournamentFormat)
                     .ThenInclude(tf => tf.Game)
+                .Include(t => t.PlayerTeams)
+                    .ThenInclude(pt => pt.Player)
                 .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.Id);
 
-            return this.mapper.Map<GetTeamDetailsViewModel>(desiredTeam);
+            var viewModel = this.mapper.Map<GetTeamDetailsViewModel>(desiredTeam, opts => opts.Items["CurrentUserId"] = this.userAcessor.UserId);
+            return viewModel;
         }
     }
 }
