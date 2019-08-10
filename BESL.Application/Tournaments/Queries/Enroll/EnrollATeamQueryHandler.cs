@@ -24,26 +24,35 @@
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Tournament> tournamentsRepository;
         private readonly IMapper mapper;
+        private readonly IUserAcessor userAcessor;
 
         public EnrollATeamQueryHandler(
             IDeletableEntityRepository<Player> playersRepository,
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<Tournament> tournamentsRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IUserAcessor userAcessor)
         {
             this.playersRepository = playersRepository;
             this.teamsRepository = teamsRepository;
             this.tournamentsRepository = tournamentsRepository;
             this.mapper = mapper;
+            this.userAcessor = userAcessor;
         }
 
         public async Task<EnrollATeamCommand> Handle(EnrollATeamQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
+            var currentUserId = this.userAcessor.UserId;
 
-            if (!await CommonCheckHelper.CheckIfUserExists(request.UserId, playersRepository))
+            if (!await CommonCheckHelper.CheckIfPlayerExists(currentUserId , playersRepository))
             {
-                throw new NotFoundException(nameof(Player), request.UserId);
+                throw new NotFoundException(nameof(Player), currentUserId);
+            }
+
+            if (await CommonCheckHelper.CheckIfPlayerIsVACBanned(currentUserId, playersRepository))
+            {
+                throw new PlayerIsVacBannedException();
             }
 
             var desiredTournament = await this.tournamentsRepository
@@ -51,16 +60,16 @@
                 .Include(t => t.Tables)
                     .ThenInclude(tt => tt.TeamTableResults)
                 .SingleOrDefaultAsync(t => t.Id == request.TournamentId, cancellationToken)
-                ?? throw new NotFoundException(nameof(Tournament), request.UserId);
+                ?? throw new NotFoundException(nameof(Tournament), currentUserId );
 
-            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(request.UserId, desiredTournament.FormatId, teamsRepository))
+            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(currentUserId , desiredTournament.FormatId, teamsRepository))
             {
                 throw new PlayerHasAlreadyEnrolledTeamException();
             }
 
             var eligibleTeams = await this.teamsRepository
                 .AllAsNoTracking()
-                .Where(t => t.OwnerId == request.UserId && t.TournamentFormatId == desiredTournament.FormatId)
+                .Where(t => t.OwnerId == currentUserId && t.TournamentFormatId == desiredTournament.FormatId)
                 .ProjectTo<TeamsSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
@@ -68,7 +77,6 @@
             {
                 throw new PlayerHasNoEligibleTeamsToEnrollException();
             }
-
 
             var skillTables = this.mapper.Map<IList<TournamentTableSelectItemLookupModel>>(desiredTournament.Tables.Where(t => t.TeamTableResults.Count < t.MaxNumberOfTeams));
 
@@ -78,8 +86,7 @@
             }
 
             return new EnrollATeamCommand
-            {
-                UserId = request.UserId,
+            { 
                 TournamentName = desiredTournament.Name,
                 TournamentId = desiredTournament.Id,
                 Teams = eligibleTeams,

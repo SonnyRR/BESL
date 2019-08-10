@@ -5,7 +5,5 @@
     public class AcceptInviteCommand : IRequest<int>
     {
         public string InviteId { get; set; }
-
-        public string UserId { get; set; }
     }
 }

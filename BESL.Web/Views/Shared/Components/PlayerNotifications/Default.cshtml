@@ -25,9 +25,9 @@
         {
             @foreach (var notification in Model.Notifications)
             {
-                <li class="list-group-item mx-2 my-2 bg-light" id="@notification.Id-notification">
+                <li class="list-group-item bg-light" id="@notification.Id-notification">
                     <div class="container notification">
-                        <div class="media mx-n4">
+                        <div class="media">
                             <div class="media-body">
                                 <div class="d-flex">
                                     <h5 class="text-break">@notification.Header</h5>

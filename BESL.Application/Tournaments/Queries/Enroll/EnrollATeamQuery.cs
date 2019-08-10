@@ -5,8 +5,6 @@
 
     public class EnrollATeamQuery : IRequest<EnrollATeamCommand>
     {
-        public string UserId { get; set; }
-
         public int TournamentId { get; set; }
     }
 }

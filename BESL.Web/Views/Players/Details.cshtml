@@ -4,7 +4,7 @@
     bool hasUserLinkedSteamAccount = !string.IsNullOrWhiteSpace(Model.SteamId64);
 }
 <div class="row mx-3 mb-3">
-    <img class="img-thumbnail ml-3" src="@Model.AvatarFullUrl" />
+    <img class="img-thumbnail ml-3 shadow" src="@Model.AvatarFullUrl" />
     <div class="col-md-6">
         <h1>
             @Model.Username@if (Model.IsVACBanned)

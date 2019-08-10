@@ -64,11 +64,11 @@ body {
 
 /* Custom */
 div.notification{
-    width:300px;
+    width:340px;
 }
 
 #NotificationMenu ul {
-    max-height: 250px; /* you can change as you need it */
+    max-height: 280px; /* you can change as you need it */
     overflow: auto; /* to get scroll */
 }
 

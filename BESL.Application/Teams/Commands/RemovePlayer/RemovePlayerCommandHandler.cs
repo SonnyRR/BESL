@@ -14,10 +14,12 @@
     public class RemovePlayerCommandHandler : IRequestHandler<RemovePlayerCommand, int>
     {
         private readonly IDeletableEntityRepository<PlayerTeam> playerTeamsRepository;
+        private readonly IUserAcessor userAcessor;
 
-        public RemovePlayerCommandHandler(IDeletableEntityRepository<PlayerTeam> playerTeamsRepository)
+        public RemovePlayerCommandHandler(IDeletableEntityRepository<PlayerTeam> playerTeamsRepository, IUserAcessor userAcessor)
         {
             this.playerTeamsRepository = playerTeamsRepository;
+            this.userAcessor = userAcessor;
         }
 
         public async Task<int> Handle(RemovePlayerCommand request, CancellationToken cancellationToken)
@@ -30,7 +32,7 @@
                 .FirstOrDefaultAsync(pt => pt.PlayerId == request.PlayerId && pt.TeamId == request.TeamId, cancellationToken)
                 ?? throw new NotFoundException(nameof(PlayerTeam), null);
 
-            if (desiredPlayerTeamEntity.Team.OwnerId != request.CurrentUserId)
+            if (desiredPlayerTeamEntity.Team.OwnerId != this.userAcessor.UserId)
             {
                 throw new ForbiddenException();
             }

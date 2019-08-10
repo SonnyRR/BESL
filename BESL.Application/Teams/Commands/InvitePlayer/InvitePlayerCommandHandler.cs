@@ -13,6 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
+    using System.Security.Claims;
 
     public class InvitePlayerCommandHandler : IRequestHandler<InvitePlayerCommand, int>
     {
@@ -20,17 +21,20 @@
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly IDeletableEntityRepository<TeamInvite> teamInvitesRepository;
         private readonly IMediator mediator;
+        private readonly IUserAcessor userAcessor;
 
         public InvitePlayerCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<Player> playersRepository,
             IDeletableEntityRepository<TeamInvite> teamInvitesRepository,
-            IMediator mediator)
+            IMediator mediator,
+            IUserAcessor userAcessor)
         {
             this.teamsRepository = teamsRepository;
             this.playersRepository = playersRepository;
             this.teamInvitesRepository = teamInvitesRepository;
             this.mediator = mediator;
+            this.userAcessor = userAcessor;
         }
 
         public async Task<int> Handle(InvitePlayerCommand request, CancellationToken cancellationToken)
@@ -49,7 +53,7 @@
                 .SingleOrDefaultAsync(p => p.UserName == request.UserName, cancellationToken)
                 ?? throw new PlayerDoesNotExistException(request.UserName);
 
-            if (!await CommonCheckHelper.CheckIfUserHasLinkedSteamAccount(desiredPlayer.Id, this.playersRepository))
+            if (!await CommonCheckHelper.CheckIfPlayerHasLinkedSteamAccount(desiredPlayer.Id, this.playersRepository))
             {
                 throw new PlayerDoesNotHaveALinkedSteamAccountException(desiredPlayer.UserName);
             }
@@ -84,13 +88,13 @@
                 PlayerId = desiredPlayer.Id,
                 TeamId = desiredTeam.Id,
                 TeamName = desiredTeam.Name,
-                SenderUsername = request.SenderUsername
+                SenderUsername = this.userAcessor.Username
             };
 
             await this.teamInvitesRepository.AddAsync(invite);
             var rowsAffected = await this.teamInvitesRepository.SaveChangesAsync(cancellationToken);
 
-            await this.mediator.Publish(new PlayerInvitedNotification { SenderName = request.SenderUsername, ReceiverId = desiredPlayer.Id, TeamName = desiredTeam.Name});
+            await this.mediator.Publish(new PlayerInvitedNotification { SenderName = invite.SenderUsername, ReceiverId = desiredPlayer.Id, TeamName = desiredTeam.Name});
 
             return rowsAffected;
         }

@@ -7,5 +7,7 @@
         ClaimsPrincipal User { get; }
 
         string UserId { get; }
+
+        string Username { get; }
     }
 }

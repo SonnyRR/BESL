@@ -17,8 +17,6 @@
 
         public string HomepageUrl { get; set; }
 
-        public string OwnerId { get; set; }
-
         public int TournamentFormatId { get; set; }
         public IEnumerable<TournamentFormatSelectItemLookupModel> Formats { get; set; }
 

@@ -9,9 +9,8 @@
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
+    using BESL.Application.Teams.Commands.AddPlayer;
     using BESL.Domain.Entities;
-    using static BESL.Common.GlobalConstants;
-    using System.Linq;
 
     public class AcceptInviteCommandHandler : IRequestHandler<AcceptInviteCommand, int>
     {
@@ -19,67 +18,45 @@
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<PlayerTeam> playerTeamsRepository;
         private readonly IMediator mediator;
+        private readonly IUserAcessor userAcessor;
 
         public AcceptInviteCommandHandler(
             IDeletableEntityRepository<TeamInvite> teamInvitesRepository,
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<PlayerTeam> playerTeamsRepository,
-            IMediator mediator)
+            IMediator mediator,
+            IUserAcessor userAcessor)
         {
             this.teamInvitesRepository = teamInvitesRepository;
             this.teamsRepository = teamsRepository;
             this.playerTeamsRepository = playerTeamsRepository;
             this.mediator = mediator;
+            this.userAcessor = userAcessor;
         }
 
         public async Task<int> Handle(AcceptInviteCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
+            var currentUserId = this.userAcessor.UserId;
 
             var desiredInvite = await this.teamInvitesRepository
                 .All()
                 .SingleOrDefaultAsync(ti => ti.Id == request.InviteId, cancellationToken)
                 ?? throw new NotFoundException(nameof(TeamInvite), request.InviteId);
 
-            if (desiredInvite.PlayerId != request.UserId)
+            if (desiredInvite.PlayerId != currentUserId)
             {
                 throw new ForbiddenException();
             }
 
-            var desiredTeam = await this.teamsRepository
-                .All()
-                .Include(t => t.PlayerTeams)
-                .SingleOrDefaultAsync(t => t.Id == desiredInvite.TeamId, cancellationToken)
-                ?? throw new NotFoundException(nameof(Team), desiredInvite.TeamId);
+            await this.mediator.Send(new AddPlayerCommand { PlayerId = desiredInvite.PlayerId, TeamId = desiredInvite.TeamId });
 
-            if (desiredTeam.PlayerTeams.Count >= TEAM_MAX_BACKUP_PLAYERS_COUNT)
-            {
-                throw new TeamIsFullException(desiredTeam.Name);
-            }
-
-            if (this.CheckIfPlayerParticipatesInATeamWithTheSameFormat(desiredTeam.TournamentFormatId, request.UserId))
-            {
-                throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException();
-            }
-
-            desiredTeam.PlayerTeams.Add(new PlayerTeam { PlayerId = request.UserId });
-            var affectedRows = await this.teamsRepository.SaveChangesAsync(cancellationToken);
-
-            await this.teamInvitesRepository.SaveChangesAsync(cancellationToken);
             this.teamInvitesRepository.Delete(desiredInvite);
+            var affectedRows = await this.teamInvitesRepository.SaveChangesAsync(cancellationToken);
 
-            await this.mediator.Publish(new AcceptedInviteNotification() { PlayerId = request.UserId, TeamName = desiredTeam.Name });
+            await this.mediator.Publish(new AcceptedInviteNotification() { PlayerId = currentUserId, TeamName = desiredInvite.TeamName });
 
             return affectedRows;
-        }
-
-        private bool CheckIfPlayerParticipatesInATeamWithTheSameFormat(int formatId, string playerId)
-        {
-            return this.playerTeamsRepository
-                .AllAsNoTracking()
-                .Where(pt => pt.PlayerId == playerId)
-                .Include(pt => pt.Team)
-                .Any(pt => pt.Team.TournamentFormatId == formatId);
         }
     }
 }

@@ -5,7 +5,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.Create;
     using BESL.Application.Teams.Queries.Create;
     using BESL.Application.Teams.Queries.Details;
@@ -16,13 +15,6 @@
 
     public class TeamsController : BaseController
     {
-        private readonly IUserAcessor userAcessor;
-
-        public TeamsController(IUserAcessor userAcessor)
-        {
-            this.userAcessor = userAcessor;
-        }
-
         [Authorize]
         public async Task<IActionResult> Create()
         {
@@ -40,7 +32,6 @@
                 return this.View(command);
             }
 
-            command.OwnerId = this.userAcessor.UserId;
             var teamId = await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Details), new { Id = teamId });
         }
@@ -54,7 +45,6 @@
         [Authorize]
         public async Task<IActionResult> Modify(ModifyTeamQuery query)
         {
-            query.CurrentLoggedInUserId = this.userAcessor.UserId;
             var viewModel = await this.Mediator.Send(query);
             return this.View(viewModel);
         }
@@ -76,7 +66,6 @@
         [HttpPost]
         public async Task<IActionResult> Invite(InvitePlayerCommand command)
         {
-            command.SenderUsername = this.userAcessor.User.Identity.Name;
             await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Modify), new ModifyTeamQuery { Id = command.TeamId });
         }
@@ -85,9 +74,7 @@
         [HttpPost]
         public async Task<IActionResult> RemovePlayer(RemovePlayerCommand command)
         {
-            command.CurrentUserId = this.userAcessor.UserId;
             await this.Mediator.Send(command);
-
             return this.RedirectToAction(nameof(Details), new GetTeamDetailsQuery { Id = command.TeamId });
         }
     }

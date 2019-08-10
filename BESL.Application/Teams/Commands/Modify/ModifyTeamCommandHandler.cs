@@ -17,10 +17,12 @@
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
+        private readonly IUserAcessor userAcessor;
 
-        public ModifyTeamCommandHandler(IDeletableEntityRepository<Team> teamsRepository, ICloudinaryHelper cloudinaryHelper)
+        public ModifyTeamCommandHandler(IDeletableEntityRepository<Team> teamsRepository, ICloudinaryHelper cloudinaryHelper, IUserAcessor userAcessor)
         {
             this.teamsRepository = teamsRepository;
+            this.userAcessor = userAcessor;
             this.cloudinaryHelper = cloudinaryHelper;
         }
 
@@ -32,6 +34,11 @@
                 .AllAsNoTracking()
                 .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.Id);
+
+            if (desiredTeam.OwnerId != this.userAcessor.UserId)
+            {
+                throw new ForbiddenException();
+            }
 
             if (request.Name != desiredTeam.Name)
             {
@@ -50,7 +57,6 @@
             {
                 desiredTeam.ImageUrl = await this.UploadImage(request);
             }
-
 
             this.teamsRepository.Update(desiredTeam);
             return await this.teamsRepository.SaveChangesAsync(cancellationToken);

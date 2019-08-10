@@ -11,11 +11,21 @@
 
     internal static class CommonCheckHelper
     {
-        internal static async Task<bool> CheckIfUserExists(string userId, IDeletableEntityRepository<Player> playersRepository)
+        internal static async Task<bool> CheckIfPlayerExists(string userId, IDeletableEntityRepository<Player> playersRepository)
         {
             return await playersRepository
                 .AllAsNoTracking()
                 .AnyAsync(x => x.Id == userId);
+        }
+
+        internal static async Task<bool> CheckIfPlayerIsVACBanned(string userId, IDeletableEntityRepository<Player> playersRepository)
+        {
+            return await playersRepository
+                .AllAsNoTracking()
+                .Where(p => p.Id == userId)
+                .Include(p => p.Claims)
+                .SelectMany(x => x.Claims)
+                .AnyAsync(x => x.ClaimType == IS_VAC_BANNED_CLAIM_TYPE);
         }
 
         internal static async Task<bool> CheckIfPlayerHasAlreadyEnrolledATeam(string userId, int tournamentFormatId, IDeletableEntityRepository<Team> teamsRepository)
@@ -30,11 +40,20 @@
                 .AnyAsync(x => x.AreSignupsOpen || x.IsActive);
         }
 
-        internal static async Task<bool> CheckIfUserHasLinkedSteamAccount(string id, IDeletableEntityRepository<Player> playersRepository)
+        internal static async Task<bool> CheckIfPlayerIsAlreadyInATeamWithTheSameFormat(string playerId, int formatId, IDeletableEntityRepository<PlayerTeam> playerTeamsRepository)
+        {
+            return await playerTeamsRepository
+                   .AllAsNoTrackingWithDeleted()
+                   .Include(pt => pt.Team)
+                   .Where(pt => pt.PlayerId == playerId && !pt.IsDeleted)
+                   .AnyAsync(pt => pt.Team.TournamentFormatId == formatId);
+        }
+
+        internal static async Task<bool> CheckIfPlayerHasLinkedSteamAccount(string userId, IDeletableEntityRepository<Player> playersRepository)
         {
             return await playersRepository
                 .AllAsNoTracking()
-                .Where(p => p.Id == id)
+                .Where(p => p.Id == userId)
                 .Include(p => p.Claims)
                 .AnyAsync(p => p.Claims.Any(c => c.ClaimType == STEAM_ID_64_CLAIM_TYPE));
         }

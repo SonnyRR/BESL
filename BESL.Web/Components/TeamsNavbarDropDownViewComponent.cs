@@ -23,7 +23,7 @@
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                var viewModel = await this.mediator.Send(new GetTeamsForPlayerQuery { UserId = this.userAcessor.UserId });
+                var viewModel = await this.mediator.Send(new GetTeamsForPlayerQuery { UserId = this.userAcessor.UserId, WithDeleted = false});
                 return this.View(viewModel);
             }
 

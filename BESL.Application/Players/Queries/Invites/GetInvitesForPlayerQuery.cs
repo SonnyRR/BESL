@@ -4,6 +4,5 @@
 
     public class GetInvitesForPlayerQuery : IRequest<InvitesViewModel>
     {
-        public string UserId { get; set; }
     }
 }

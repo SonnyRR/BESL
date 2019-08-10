@@ -5,7 +5,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
 
-    using BESL.Application.Interfaces;
     using BESL.Application.Players.Queries.Details;
     using BESL.Application.Players.Queries.Invites;
     using BESL.Application.Players.Commands.AcceptInvite;
@@ -13,13 +12,6 @@
 
     public class PlayersController : BaseController
     {
-        private readonly IUserAcessor userAcessor;
-
-        public PlayersController(IUserAcessor userAcessor)
-        {
-            this.userAcessor = userAcessor;
-        }
-
         public async Task<IActionResult> Details(string id)
         {
             var viewModel = await this.Mediator.Send(new GetPlayerDetailsQuery() { Username = id });
@@ -29,23 +21,23 @@
         [Authorize]
         public async Task<IActionResult> Invites()
         {
-            var viewModel = await this.Mediator.Send(new GetInvitesForPlayerQuery {  UserId = this.userAcessor.UserId });
+            var viewModel = await this.Mediator.Send(new GetInvitesForPlayerQuery());
             return this.View(viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AcceptInvite(string id)
+        public async Task<IActionResult> AcceptInvite(AcceptInviteCommand command)
         {
-            await this.Mediator.Send(new AcceptInviteCommand { InviteId = id, UserId = this.userAcessor.UserId });
+            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Invites));
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> DeclineInvite(string id)
+        public async Task<IActionResult> DeclineInvite(DeclineInviteCommand command)
         {
-            await this.Mediator.Send(new DeclineInviteCommand { InviteId = id, UserId = this.userAcessor.UserId });
+            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Invites));
         }
     }

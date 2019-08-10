@@ -19,26 +19,29 @@
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly IDeletableEntityRepository<TournamentTable> tournamentTablesRepository;
         private readonly IDeletableEntityRepository<TeamTableResult> teamTableResultsRepository;
+        private readonly IUserAcessor userAcessor;
 
         public EnrollATeamCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<Player> playersRepository,
             IDeletableEntityRepository<TournamentTable> tournamentTablesRepository,
-            IDeletableEntityRepository<TeamTableResult> teamTableResultsRepository)
+            IDeletableEntityRepository<TeamTableResult> teamTableResultsRepository,
+            IUserAcessor userAcessor)
         {
             this.teamsRepository = teamsRepository;
             this.playersRepository = playersRepository;
             this.tournamentTablesRepository = tournamentTablesRepository;
             this.teamTableResultsRepository = teamTableResultsRepository;
+            this.userAcessor = userAcessor;
         }
 
         public async Task<int> Handle(EnrollATeamCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (!await CommonCheckHelper.CheckIfUserExists(request.UserId, playersRepository))
+            if (!await CommonCheckHelper.CheckIfPlayerExists(this.userAcessor.UserId, playersRepository))
             {
-                throw new NotFoundException(nameof(Player), request.UserId);
+                throw new NotFoundException(nameof(Player), this.userAcessor.UserId);
             }
 
             var desiredTable = await this.tournamentTablesRepository
@@ -48,15 +51,16 @@
                 .SingleOrDefaultAsync(tt => tt.Id == request.TableId, cancellationToken)
                 ?? throw new NotFoundException(nameof(TournamentTable), request.TableId);
 
-            if (await this.CheckIfTournamentTableIsFull(request))
+            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(this.userAcessor.UserId, desiredTable.Tournament.FormatId, teamsRepository))
+            {
+                throw new PlayerHasAlreadyEnrolledTeamException();
+            }
+
+            if (await this.CheckIfTournamentTableIsFull(request.TableId, cancellationToken))
             {
                 throw new TournamentTableIsFullException();
             }
 
-            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(request.UserId, desiredTable.Tournament.FormatId, teamsRepository))
-            {
-                throw new PlayerHasAlreadyEnrolledTeamException();
-            }
 
             var desiredTeam = await this.teamsRepository
                 .AllAsNoTracking()
@@ -66,8 +70,7 @@
                 .SingleAsync(t => t.Id == request.TeamId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.TeamId);
 
-
-            if (!await this.CheckIfTeamToEnrollHasTheCorrectFormat(request, desiredTable.Tournament.FormatId))
+            if (!await this.CheckIfTeamToEnrollHasTheCorrectFormat(request.TeamId, desiredTable.Tournament.FormatId, cancellationToken))
             {
                 throw new TeamFormatDoesNotMatchTournamentFormatException();
             }
@@ -79,24 +82,25 @@
             return await this.tournamentTablesRepository.SaveChangesAsync(cancellationToken);
         }
 
-        private async Task<bool> CheckIfTournamentTableIsFull(EnrollATeamCommand request)
+        private async Task<bool> CheckIfTournamentTableIsFull(int tableId, CancellationToken cancellationToken)
         {
             var desiredTable = await this.tournamentTablesRepository
                 .AllWithDeleted()
                 .Include(tt => tt.TeamTableResults)
                 .Select(x => new { Id = x.Id, TablesCount = x.TeamTableResults.Count, MaxNumberOfTeams = x.MaxNumberOfTeams })
-                .FirstOrDefaultAsync(tt => tt.Id == request.TableId);
+                .FirstOrDefaultAsync(tt => tt.Id == tableId, cancellationToken);
 
             return desiredTable.TablesCount > desiredTable.MaxNumberOfTeams;
         }
 
-        private async Task<bool> CheckIfTeamToEnrollHasTheCorrectFormat(EnrollATeamCommand request, int formatId)
+        private async Task<bool> CheckIfTeamToEnrollHasTheCorrectFormat(int teamId, int formatId, CancellationToken cancellationToken)
         {
-            var desiredTeam = await this.teamsRepository
+           return await this.teamsRepository
                 .AllAsNoTracking()
-                .SingleOrDefaultAsync(t => t.Id == request.TeamId);
-
-            return desiredTeam.TournamentFormatId == formatId;
+                .Where(t => t.Id == teamId)
+                .Select(t => t.TournamentFormatId)
+                .SingleOrDefaultAsync(cancellationToken)
+                == formatId;
         }
     }
 }

@@ -5,5 +5,7 @@
     public class GetTeamsForPlayerQuery : IRequest<TeamsForPlayerViewModel>
     {
         public string UserId { get; set; }
+
+        public bool WithDeleted { get; set; }
     }
 }

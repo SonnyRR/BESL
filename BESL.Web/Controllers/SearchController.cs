@@ -1,8 +1,8 @@
 ﻿namespace BESL.Web.Controllers
 {
     using System.Threading.Tasks;
-    using BESL.Application.Search.Queries;
     using Microsoft.AspNetCore.Mvc;
+    using BESL.Application.Search.Queries;
 
     public class SearchController : BaseController
     {

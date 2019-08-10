@@ -24,6 +24,7 @@
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
         private readonly IMapper mapper;
+        private readonly IUserAcessor userAcessor;
 
         public CreateTeamCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
@@ -31,7 +32,8 @@
             IDeletableEntityRepository<PlayerTeam> playerTeamsRepository,
             IDeletableEntityRepository<Player> playersRepository,
             ICloudinaryHelper cloudinaryHelper,
-            IMapper mapper)
+            IMapper mapper,
+            IUserAcessor userAcessor)
         {
             this.teamsRepository = teamsRepository;
             this.formatsRepository = formatsRepository;
@@ -39,13 +41,16 @@
             this.playersRepository = playersRepository;
             this.cloudinaryHelper = cloudinaryHelper;
             this.mapper = mapper;
+            this.userAcessor = userAcessor;
         }
 
         public async Task<int> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (!await CommonCheckHelper.CheckIfUserHasLinkedSteamAccount(request.OwnerId, this.playersRepository))
+            var currentUserId = this.userAcessor.UserId;
+
+            if (!await CommonCheckHelper.CheckIfPlayerHasLinkedSteamAccount(currentUserId, this.playersRepository))
             {
                 throw new PlayerDoesNotHaveALinkedSteamAccountException();
             }
@@ -55,7 +60,7 @@
                 throw new NotFoundException(nameof(TournamentFormat), request.TournamentFormatId);
             }
 
-            if (await this.CheckIfOwnerIsAlreadyInATeamWithTheSameFormat(request))
+            if (await CommonCheckHelper.CheckIfPlayerIsAlreadyInATeamWithTheSameFormat(currentUserId, request.TournamentFormatId, this.playerTeamsRepository))
             {
                 throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException();
             }
@@ -66,13 +71,14 @@
             }
 
             var team = this.mapper.Map<Team>(request);
+            team.OwnerId = currentUserId;
 
             if (request.TeamImage != null)
             {
                 team.ImageUrl = await this.UploadTeamImage(request);
             }
 
-            team.PlayerTeams.Add(new PlayerTeam() { Team = team, PlayerId = request.OwnerId });
+            team.PlayerTeams.Add(new PlayerTeam() { Team = team, PlayerId = currentUserId });
 
             await this.teamsRepository.AddAsync(team);
             await this.teamsRepository.SaveChangesAsync(cancellationToken);
@@ -88,14 +94,6 @@
                     transformation: new Transformation().Width(TEAM_AVATAR_WIDTH).Height(TEAM_AVATAR_HEIGHT));
         }
 
-        private async Task<bool> CheckIfOwnerIsAlreadyInATeamWithTheSameFormat(CreateTeamCommand request)
-        {
-            return await this.playerTeamsRepository
-                   .AllAsNoTrackingWithDeleted()
-                   .Include(pt => pt.Team)
-                   .Where(pt => pt.PlayerId == request.OwnerId)
-                   .AnyAsync(pt => pt.Team.TournamentFormatId == request.TournamentFormatId);
-        }
 
         private async Task<bool> CheckIfTeamWithTheSameNameExists(CreateTeamCommand request)
         {
