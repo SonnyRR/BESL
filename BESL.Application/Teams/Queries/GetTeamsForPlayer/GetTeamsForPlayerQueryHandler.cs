@@ -42,7 +42,7 @@
                 .AllAsNoTrackingWithDeleted()
                     .Include(x => x.Team)
                 .Where(x => x.PlayerId == request.UserId)
-                .OrderByDescending(x => x.IsDeleted)
+                .OrderByDescending(x => x.CreatedOn)
                 .ToListAsync(cancellationToken);
 
             var mapped = this.mapper.Map<TeamForPlayerLookupModel[]>(teams);

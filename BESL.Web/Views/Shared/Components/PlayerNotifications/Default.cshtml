@@ -7,11 +7,11 @@
 <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
     @if (Model.Notifications.Count() > 0)
     {
-        <span class="badge badge-danger" id="#notificationCounter">@Model.Notifications.Count()</span>@:&nbsp;
+        <span class="badge badge-danger" id="NotificationCounter">@Model.Notifications.Count()</span>@:&nbsp;
     }
     <i class="fas fa-bell text-white"></i>
 </a>
-<div class="dropdown-menu mx-2" id="notificationMenu">
+<div class="dropdown-menu mx-2" id="NotificationMenu">
     <h6 class="h5 mx-2 mt-2 text-muted">Notifications</h6>
     <hr />
     <div id="notificationSpinner" class="mb-3" style="display:none">
@@ -44,7 +44,7 @@
                     </div>
                 </li>
             }
-            <li class="no-notification-container mx-2 my-2" id="#noNotificationsItem" style="display:none">
+            <li class="no-notification-container mx-2 my-2" id="NotificationsItem" style="display:none">
                 <div class="container notification">
                     <div class="media mx-n4">
                         <div class="media-body">
@@ -78,9 +78,15 @@
         <script defer>
             function notificationDisableHelper(notificationId) {
                 $(notificationId).remove();
-                if ($('#notificationList').children().length != 0) {
-                    document.getElementById("#noNotificationsItem").style.display = 'block';
-                    document.getElementById("#notificationCounter").remove();
+                let badgeCounter = Number(document.getElementById('NotificationCounter').textContent);
+                badgeCounter--;
+                if (/*$('#notificationList').children().length == 0*/badgeCounter <= 0) {
+                    document.getElementById("NotificationsItem").style.display = 'block';
+                    document.getElementById("NotificationCounter").remove();
+                }
+                else
+                {
+                    document.getElementById('NotificationCounter').textContent = badgeCounter;
                 }
             }
         </script>

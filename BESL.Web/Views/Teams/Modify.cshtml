@@ -72,10 +72,15 @@
 </div>
 
 @section Scripts{
-<script>
-    $('#sendInviteBtn').click(function () {
-    $('#InvitePlayerModal').modal('hide');
-    });
-        </script>
+    <script>
+        $('#sendInviteBtn').click(function () {
+            $('#InvitePlayerModal').modal('hide');
+        });
+    </script>
+    <script>
+        function submitForm(a, b) {
+            return confirm(`Do you really want to remove ${b} ?`);
+        }
+    </script>
     <partial name="~/Views/Shared/Partials/_FileUploadScript.cshtml"></partial>
 }

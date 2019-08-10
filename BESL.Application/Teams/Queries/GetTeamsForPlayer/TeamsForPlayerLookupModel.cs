@@ -4,6 +4,7 @@
 
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class TeamForPlayerLookupModel : IHaveCustomMapping
     {
@@ -18,8 +19,8 @@
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<PlayerTeam, TeamForPlayerLookupModel>()
-                .ForMember(lm => lm.JoinedDate, o => o.MapFrom(pt => pt.CreatedOn.ToString()))
-                .ForMember(lm => lm.LeftDate, o => o.MapFrom(pt => pt.DeletedOn.HasValue ? pt.DeletedOn.Value.ToString() : "N/A"));
+                .ForMember(lm => lm.JoinedDate, o => o.MapFrom(pt => pt.CreatedOn.ToString(DATE_FORMAT)))
+                .ForMember(lm => lm.LeftDate, o => o.MapFrom(pt => pt.DeletedOn.HasValue ? pt.DeletedOn.Value.ToString(DATE_FORMAT) : "N/A"));
         }
     }
 }

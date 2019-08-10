@@ -67,7 +67,7 @@ div.notification{
     width:300px;
 }
 
-#notificationMenu ul {
+#NotificationMenu ul {
     max-height: 250px; /* you can change as you need it */
     overflow: auto; /* to get scroll */
 }
