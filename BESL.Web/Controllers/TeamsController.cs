@@ -12,6 +12,7 @@
     using BESL.Application.Teams.Commands.Modify;
     using BESL.Application.Teams.Commands.InvitePlayer;
     using BESL.Application.Teams.Commands.RemovePlayer;
+    using BESL.Application.Teams.Commands.TransferOwnership;
 
     public class TeamsController : BaseController
     {
@@ -75,7 +76,15 @@
         public async Task<IActionResult> RemovePlayer(RemovePlayerCommand command)
         {
             await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(Details), new GetTeamDetailsQuery { Id = command.TeamId });
+            return this.RedirectToAction(nameof(Details), new ModifyTeamQuery { Id = command.TeamId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> TransferOwnership(TransferTeamOwnershipCommand command)
+        {
+            await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Details), new ModifyTeamQuery { Id = command.TeamId });
         }
     }
 }

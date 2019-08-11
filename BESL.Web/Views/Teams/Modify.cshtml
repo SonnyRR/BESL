@@ -59,10 +59,19 @@
                 <span class="text-muted d-flex justify-content-center">184x184</span>
                 <hr />
                 <h4>Other:</h4>
-                <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#InvitePlayerModal">
-                    <i class="fas fa-plus-circle"></i>&nbsp;Add player
-                </button>
-                <vc:invite-player-modal team-id="@Model.Id"></vc:invite-player-modal>
+
+                <div class="mb-2">
+                    <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#InvitePlayerModal">
+                        <i class="fas fa-plus-circle"></i>&nbsp;Add player
+                    </button>
+                    <vc:invite-player-modal team-id="@Model.Id"></vc:invite-player-modal>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#TransferOwnershipModal">
+                        <i class="fas fa-exchange-alt"></i>&nbsp;Transfer ownership
+                    </button>
+                    <vc:transfer-team-ownership team-id="@Model.Id"></vc:transfer-team-ownership>
+                </div>
 
             </div>
         </div>
@@ -73,8 +82,13 @@
 
 @section Scripts{
     <script>
-        $('#sendInviteBtn').click(function () {
+        $('#SendInviteBtn').click(function () {
             $('#InvitePlayerModal').modal('hide');
+        });
+    </script>
+    <script>
+        $('#TransferOwnershipBtn').click(function () {
+            $('#TransferOwnershipModal').modal('hide');
         });
     </script>
     <script>
@@ -82,5 +96,5 @@
             return confirm(`Do you really want to remove ${b} ?`);
         }
     </script>
-    <partial name="~/Views/Shared/Partials/_FileUploadScript.cshtml"></partial>
+    <partial name="~/Views/Shared/Partials/_FileUploadScript.cshtml">
 }

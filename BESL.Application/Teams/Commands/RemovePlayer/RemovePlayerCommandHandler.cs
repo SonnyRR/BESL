@@ -37,6 +37,11 @@
                 throw new ForbiddenException();
             }
 
+            if (desiredPlayerTeamEntity.Team.OwnerId == request.PlayerId)
+            {
+                throw new OwnerOfAMustTransferOwnerShipBeforeLeavingTeamException();
+            }
+
             this.playerTeamsRepository.Delete(desiredPlayerTeamEntity);
             return await this.playerTeamsRepository.SaveChangesAsync(cancellationToken);
         }

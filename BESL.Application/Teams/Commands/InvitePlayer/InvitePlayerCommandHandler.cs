@@ -13,7 +13,6 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
-    using System.Security.Claims;
 
     public class InvitePlayerCommandHandler : IRequestHandler<InvitePlayerCommand, int>
     {
@@ -63,10 +62,6 @@
                 .Include(t => t.TournamentFormat)
                 .SingleOrDefaultAsync(t => t.Id == request.TeamId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.TeamId);
-
-            var playerTeams = desiredPlayer
-                .PlayerTeams
-                .ToList();
 
             if (this.CheckIfUserIsPartOfATeamWithTheSameFormat(desiredPlayer, desiredTeam.TournamentFormatId))
             {

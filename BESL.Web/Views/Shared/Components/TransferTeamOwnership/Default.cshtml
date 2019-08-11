@@ -1,0 +1,26 @@
+﻿@model BESL.Application.Teams.Commands.TransferOwnership.TransferTeamOwnershipCommand
+
+<div class="modal fade" id="TransferOwnershipModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Transfer ownership</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="TransferOwnershipForm" asp-controller="Teams" asp-action="TransferOwnership">
+                    <div class="input-group">
+                        <select class="custom-select" asp-for="PlayerId" asp-items="@Model.TeamPlayers.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.UserName }).ToList()"></select>
+                        <input type="hidden" class="form-control" asp-for="@Model.TeamId">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-danger" id="TransferOwnershipBtn" form="TransferOwnershipForm">Make owner</button>
+            </div>
+        </div>
+    </div>
+</div>

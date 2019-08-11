@@ -43,5 +43,7 @@
     <Folder Include="Players\Commands\AcceptInvite\" />
     <Folder Include="Players\Commands\DeclineInvite\" />
     <Folder Include="Teams\Commands\RemovePlayer\" />
+    <Folder Include="Teams\Queries\TransferOwnership\" />
+    <Folder Include="Teams\Commands\TransferOwnership\" />
   </ItemGroup>
 </Project>

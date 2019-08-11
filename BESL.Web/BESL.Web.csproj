@@ -67,6 +67,7 @@
     <Folder Include="Views\Shared\Components\GetPlayersForTeam\" />
     <Folder Include="Views\Search\" />
     <Folder Include="Views\Shared\Components\InvitePlayerModal\" />
+    <Folder Include="Views\Shared\Components\TransferTeamOwnership\" />
   </ItemGroup>
 
 
