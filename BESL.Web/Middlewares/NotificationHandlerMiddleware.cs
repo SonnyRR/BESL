@@ -25,7 +25,7 @@
         {
             await this.next(context);
 
-            if (context.User.Identity.IsAuthenticated)
+            if (context.User.Identity.IsAuthenticated && context.Response.StatusCode == StatusCodes.Status204NoContent)
             {
                 var notification = await this.redisNotificationService.Get(userAcessor.UserId);
 

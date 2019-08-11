@@ -56,8 +56,6 @@
                 else
                 {
                     context.Response.StatusCode = StatusCodes.Status204NoContent;
-                    //context.Request.Method = HttpMethod.Get.Method;
-                    //await this.next(context);
                 }
             }
         }
