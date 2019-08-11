@@ -1,4 +1,4 @@
-﻿namespace BESL.Web
+﻿    namespace BESL.Web
 {
     using System;
     using System.Collections.Generic;
@@ -188,6 +188,14 @@
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        public void ApplyMigrations(ApplicationDbContext context)
+        {
+            if (context.Database.GetPendingMigrations().Any())
+            {
+                context.Database.Migrate();
+            }
         }
     }
 }
