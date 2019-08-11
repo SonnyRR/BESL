@@ -15,4 +15,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BESL.Common\BESL.Common.csproj" />
+  </ItemGroup>
 </Project>

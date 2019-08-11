@@ -24,6 +24,8 @@
 
             RuleFor(t => t.StartDate)
                 .NotEmpty()
+                .Must(t=>t.DayOfWeek == DayOfWeek.Monday)
+                .WithMessage("Tournament must start on a monday!")
                 .GreaterThanOrEqualTo(t => DateTime.UtcNow.Date)
                 .WithMessage(START_DATE_MSG);
 

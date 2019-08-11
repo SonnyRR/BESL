@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+
     using BESL.Domain.Infrastructure;
+    using static BESL.Common.GlobalConstants;
 
     public class PlayWeek : BaseDeletableModel<int>
     {
@@ -11,7 +13,9 @@
 
         public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get => this.StartDate.AddDays(7); }
+        public DateTime EndDate { get => this.StartDate.AddDays(PLAYWEEK_DAYS); }
+
+        public bool IsActive { get; set; }
 
         public virtual ICollection<Match> MatchFixtures { get; set; } = new HashSet<Match>();
     }

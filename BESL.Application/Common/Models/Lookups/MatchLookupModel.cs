@@ -1,0 +1,27 @@
+﻿namespace BESL.Application.Common.Models.Lookups
+{
+    using System;
+    using BESL.Application.Interfaces.Mapping;
+    using BESL.Domain.Entities;
+
+    public class MatchLookupModel : IMapFrom<Match>
+    {
+        public int TeamTableResultId { get; set; }
+
+        public int PlayWeekId { get; set; }
+
+        public int HomeTeamId { get; set; }
+
+        public int AwayTeamId { get; set; }
+
+        public int HomeTeamScore { get; set; }
+
+        public int AwayTeamScore { get; set; }
+
+        public int WinnerTeamId { get; set; }
+
+        public bool IsDraw { get; set; }
+
+        public DateTime? ScheduledDate { get; set; }
+    }
+}

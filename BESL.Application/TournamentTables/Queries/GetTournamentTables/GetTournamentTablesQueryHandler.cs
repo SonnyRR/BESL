@@ -33,8 +33,9 @@
 
             var tables = await this.repository
                 .AllAsNoTracking()
-                    .Include(tt => tt.TeamTableResults)
-                        .ThenInclude(ttr => ttr.Team)
+                .Include(tt => tt.TeamTableResults)
+                    .ThenInclude(ttr => ttr.Team)
+                .Include(tt => tt.PlayWeeks)
                 .Where(tt => tt.TournamentId == request.Id)
                 .ProjectTo<TournamentTableLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();

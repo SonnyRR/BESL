@@ -49,12 +49,18 @@
                 .AllAsNoTracking()
                 .Include(p => p.PlayerTeams)
                     .ThenInclude(pt => pt.Team)
+                .Include(p => p.Claims)
                 .SingleOrDefaultAsync(p => p.UserName == request.UserName, cancellationToken)
                 ?? throw new PlayerDoesNotExistException(request.UserName);
 
             if (!await CommonCheckHelper.CheckIfPlayerHasLinkedSteamAccount(desiredPlayer.Id, this.playersRepository))
             {
                 throw new PlayerDoesNotHaveALinkedSteamAccountException(desiredPlayer.UserName);
+            }
+
+            if (desiredPlayer.Claims.Any(c => c.ClaimType == IS_VAC_BANNED_CLAIM_TYPE))
+            {
+                throw new PlayerIsVacBannedException(desiredPlayer.UserName);
             }
 
             var desiredTeam = await this.teamsRepository
@@ -89,7 +95,12 @@
             await this.teamInvitesRepository.AddAsync(invite);
             var rowsAffected = await this.teamInvitesRepository.SaveChangesAsync(cancellationToken);
 
-            await this.mediator.Publish(new PlayerInvitedNotification { SenderName = invite.SenderUsername, ReceiverId = desiredPlayer.Id, TeamName = desiredTeam.Name});
+            await this.mediator.Publish(new PlayerInvitedNotification
+            {
+                SenderName = invite.SenderUsername,
+                ReceiverId = desiredPlayer.Id,
+                TeamName = desiredTeam.Name
+            });
 
             return rowsAffected;
         }
