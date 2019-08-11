@@ -16,12 +16,12 @@ COPY ["BESL.Application.Tests/BESL.Application.Tests.csproj", "BESL.Application.
 COPY ["BESL.Domain/BESL.Domain.csproj", "BESL.Domain/"]
 COPY ["BESL.Infrastructure/BESL.Infrastructure.csproj", "BESL.Infrastructure/"]
 COPY ["BESL.Persistence/BESL.Persistence.csproj", "BESL.Persistence/"]
+COPY ["entrypoint.sh", "/app/entrypoint.sh"]
 
 RUN dotnet restore "BESL.Web/BESL.Web.csproj"
 COPY . .
 WORKDIR "/src/BESL.Web"
 RUN dotnet build "BESL.Web.csproj" -c Release -o /app
-RUN dotnet ef database update
 
 FROM build AS publish
 RUN dotnet publish "BESL.Web.csproj" -c Release -o /app
@@ -29,4 +29,5 @@ RUN dotnet publish "BESL.Web.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "BESL.Web.dll"]
+RUN ["chmod", "+x", "entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
