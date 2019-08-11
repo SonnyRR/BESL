@@ -61,14 +61,26 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public void OnGet(string returnUrl = null)
+        public IActionResult OnGet(string returnUrl = null)
         {
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
+
             ReturnUrl = returnUrl;
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
+
             if (ModelState.IsValid)
             {
                 var user = new Player { UserName = Input.Username, Email = Input.Email };

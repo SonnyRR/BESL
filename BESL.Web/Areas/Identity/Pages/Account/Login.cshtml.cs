@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using BESL.Application.Interfaces;
+using BESL.Application.Exceptions;
 
 namespace BESL.Web.Areas.Identity.Pages.Account
 {
@@ -47,16 +49,21 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
-
+            
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
-        {
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
+        {        
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
+            }
+
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
             }
 
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -65,10 +72,16 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ReturnUrl = returnUrl;
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
+
             returnUrl = returnUrl ?? Url.Content("~/");
 
             Player user = Input.Username
