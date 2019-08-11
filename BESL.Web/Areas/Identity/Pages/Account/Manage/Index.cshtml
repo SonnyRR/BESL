@@ -5,8 +5,6 @@
 @{
     ViewData["Title"] = "Profile settings";
     ViewData["ActivePage"] = ManageNavPages.Index;
-    var profileAvatar = User.Claims.FirstOrDefault(c => c.Type == PROFILE_AVATAR_CLAIM_TYPE)?.Value;
-    var isVACBanned = User.Claims.FirstOrDefault(c => c.Type == IS_VAC_BANNED_CLAIM_TYPE)?.Value;
 }
 
 <h4>@ViewData["Title"]</h4>
@@ -45,24 +43,9 @@
     </div>
     <div class="col-md-6">
         <h4>Current profile picture</h4>
-        <img src="@profileAvatar" class="rounded float-cleft">
+        <img src="@Model.SteamAvatarUrl" class="rounded img-thumbnail shadow float-cleft">
         <h5 class="mt-4">
-            VAC Status:
-            @if (isVACBanned != null)
-            {
-                <strong class="text-danger">Banned</strong>
-            }
-            else
-            {
-                @if (!User.Claims.Any(c => c.Type == STEAM_ID_64_CLAIM_TYPE))
-                {
-                    <strong class="text-warning">No linked steam account!</strong>
-                }
-                else
-                {
-                    <strong class="text-success">All's good!</strong>
-                }
-            }
+            VAC Status: @Model.VacStatus
         </h5>
     </div>
 </div>

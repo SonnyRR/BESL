@@ -37,6 +37,9 @@
         public const string IS_VAC_BANNED_CLAIM_TYPE = "IS_VAC_BANNED";
         public const string PROFILE_AVATAR_CLAIM_TYPE = "PROFILE_AVATAR_URL";
         public const string PROFILE_AVATAR_MEDIUM_CLAIM_TYPE = "PROFILE_AVATAR_MEDIUM_URL";
+        public const string VAC_STATUS_GOOD = "Good";
+        public const string VAC_STATUS_BAD = "BANNED";
+        public const string NO_LINKED_STEAM_ACC_MSG = "No linked Steam account!";
         #endregion
 
         #region BESL

@@ -93,6 +93,12 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             {
                 if (user != null)
                 {
+                    if (user.IsDeleted)
+                    {
+                        ModelState.AddModelError(string.Empty, "This account is deleted, contact an administrator for restore!");
+                        return Page();
+                    }
+                    
                     // This doesn't count login failures towards account lockout
                     // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                     var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: true);

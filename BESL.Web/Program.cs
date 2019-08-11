@@ -28,7 +28,5 @@
                     }
                 })
                 .UseStartup<Startup>();
-
-            
     }
 }

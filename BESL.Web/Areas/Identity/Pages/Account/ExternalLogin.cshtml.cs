@@ -16,33 +16,32 @@ using MediatR;
 using static BESL.Common.GlobalConstants;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using BESL.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BESL.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
-        private readonly IMediator _mediator;
+        private readonly IDeletableEntityRepository<Player> _playersRepository;
         private readonly IConfiguration _configuration;
         private readonly SignInManager<Player> _signInManager;
         private readonly UserManager<Player> _userManager;
-        private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
 
         public ExternalLoginModel(
-            IMediator mediator,
+            IDeletableEntityRepository<Player> playersRepository,
             IConfiguration configuration,
             SignInManager<Player> signInManager,
             UserManager<Player> userManager,
-            ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            ILogger<ExternalLoginModel> logger)
         {
-            _mediator = mediator;
+            _playersRepository = playersRepository;
             _configuration = configuration;
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
-            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -92,10 +91,32 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             {
                 ErrorMessage = "Error loading external login information.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
-            }           
+            }
 
             // Sign in the user with this external login provider if the user already has a login.
+#region Custom
+            var userLogin = this._playersRepository
+                .AllAsNoTrackingWithDeleted()
+                .Include(x => x.Logins)
+                .SelectMany(x => x.Logins)
+                .Where(x => x.ProviderKey == info.ProviderKey)
+                .SingleOrDefault();
+
+            if (userLogin != null)
+            {
+                var isPlayerDeleted = (await this._playersRepository
+                    .GetByIdWithDeletedAsync(userLogin.UserId))
+                    .IsDeleted;
+
+                if (isPlayerDeleted)
+                {
+                    ErrorMessage = $"Account associated with this steam account is deleted. Contact an administrator for restoring.";
+                    return RedirectToPage("./Login", new { ReturnUrl = returnUrl, ErrorMessage = ErrorMessage });
+                }
+            }
+#endregion
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
@@ -145,7 +166,6 @@ namespace BESL.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-
                 var user = new Player { UserName = Input.Username, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -154,7 +174,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                     if (result.Succeeded)
                     {
                         if (info.ProviderDisplayName == STEAM_PROVIDER_NAME)
-                        {                         
+                        {
                             var steamId64 = ulong.Parse(info.ProviderKey.Split('/').Last());
                             var steamUser = SteamApiHelper.GetSteamUserInstance(this._configuration);
                             var playerResult = await steamUser.GetCommunityProfileAsync(steamId64);
@@ -164,16 +184,6 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                             await this._userManager.AddClaimAsync(user, new Claim(PROFILE_AVATAR_MEDIUM_CLAIM_TYPE, playerResult.AvatarMedium.ToString()));
                         }
 
-                        //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        //var callbackUrl = Url.Page(
-                        //    "/Account/ConfirmEmail",
-                        //    pageHandler: null,
-                        //    values: new { userId = user.Id, code = code },
-                        //    protocol: Request.Scheme);
-
-                        //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-                        
                         await _signInManager.SignInAsync(user, isPersistent: true);
 
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
