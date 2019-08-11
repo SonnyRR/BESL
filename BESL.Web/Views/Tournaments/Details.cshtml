@@ -36,6 +36,8 @@
         </div>
         <div class="d-flex justify-content-center text-muted">Active from @Model.StartDate to @Model.EndDate</div>
         <div class="d-flex justify-content-center text-muted">
+            @if (this.User.Identity.IsAuthenticated)
+            {
             @if (Model.AreSignupsOpen)
             {
                 <a asp-controller="Tournaments" asp-action="Enroll" asp-route-tournamentId="@Model.Id" class="btn btn-primary">Enroll your team.</a>
@@ -43,6 +45,7 @@
             else
             {
                 <a asp-controller="Tournaments" asp-action="Matches" asp-route-tournamentId="@Model.Id" class="btn btn-primary">Matches.</a>                
+            }
             }
         </div>
     </div>
