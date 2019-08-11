@@ -76,7 +76,7 @@
         public async Task<IActionResult> RemovePlayer(RemovePlayerCommand command)
         {
             await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(Details), new ModifyTeamQuery { Id = command.TeamId });
+            return this.RedirectToAction(nameof(Modify), new ModifyTeamQuery { Id = command.TeamId });
         }
 
         [Authorize]
@@ -84,7 +84,7 @@
         public async Task<IActionResult> TransferOwnership(TransferTeamOwnershipCommand command)
         {
             await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(Details), new ModifyTeamQuery { Id = command.TeamId });
+            return this.RedirectToAction(nameof(Details), new GetTeamDetailsQuery { Id = command.TeamId });
         }
     }
 }

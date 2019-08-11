@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,6 @@
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
     using BESL.Application.Infrastructure;
-
     public class GetTeamsForPlayerQueryHandler : IRequestHandler<GetTeamsForPlayerQuery, TeamsForPlayerViewModel>
     {
         private readonly IDeletableEntityRepository<PlayerTeam> playerTeamsRepository;
@@ -39,16 +39,16 @@
                 throw new NotFoundException(nameof(Player), request.UserId);
             }
 
-            var teams = await this.playerTeamsRepository
-                .AllAsNoTrackingWithDeleted()
+            var teams = await (request.WithDeleted
+                ? this.playerTeamsRepository.AllAsNoTrackingWithDeleted()
+                : this.playerTeamsRepository.AllAsNoTracking())
                     .Include(x => x.Team)
-                .Where(x => x.PlayerId == request.UserId && x.IsDeleted == request.WithDeleted)
+                .Where(x => x.PlayerId == request.UserId)
                 .OrderByDescending(x => x.CreatedOn)
+                .ProjectTo<TeamForPlayerLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            var mapped = this.mapper.Map<TeamForPlayerLookupModel[]>(teams);
-
-            var viewModel = new TeamsForPlayerViewModel() { PlayerTeams = mapped };
+            var viewModel = new TeamsForPlayerViewModel { PlayerTeams = teams };
             return viewModel;
         }
     }    
