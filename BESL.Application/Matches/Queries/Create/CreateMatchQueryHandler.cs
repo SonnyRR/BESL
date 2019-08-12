@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.TournamentTables.Queries.GetTeamsForTournamentTable
+﻿namespace BESL.Application.Matches.Queries.Create
 {
     using System;
     using System.Linq;
@@ -12,20 +12,21 @@
 
     using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces;
+    using BESL.Application.Matches.Commands.Create;
     using BESL.Domain.Entities;
 
-    public class GetTeamsForTournamentTableQueryHandler : IRequestHandler<GetTeamsForTournamentTableQuery, TeamsForTournamentTableViewModel>
+    public class CreateMatchQueryHandler : IRequestHandler<CreateMatchQuery, CreateMatchCommand>
     {
         private readonly IDeletableEntityRepository<TournamentTable> tournamentTablesRepository;
         private readonly IMapper mapper;
 
-        public GetTeamsForTournamentTableQueryHandler(IDeletableEntityRepository<TournamentTable> tournamentTablesRepository, IMapper mapper)
+        public CreateMatchQueryHandler(IDeletableEntityRepository<TournamentTable> tournamentTablesRepository, IMapper mapper)
         {
             this.tournamentTablesRepository = tournamentTablesRepository;
             this.mapper = mapper;
         }
 
-        public async Task<TeamsForTournamentTableViewModel> Handle(GetTeamsForTournamentTableQuery request, CancellationToken cancellationToken)
+        public async Task<CreateMatchCommand> Handle(CreateMatchQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
@@ -38,7 +39,7 @@
                 .ProjectTo<TeamsSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            var viewModel = new TeamsForTournamentTableViewModel { Players = teams };
+            var viewModel = new CreateMatchCommand { Teams = teams, TournamentTableId = request.TournamentTableId, PlayWeekId = request.PlayWeekId };
             return viewModel;
         }
     }

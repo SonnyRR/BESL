@@ -7,9 +7,6 @@
 
     public class Match : BaseDeletableModel<int>
     {
-        public int TeamTableResultId { get; set; }
-        public TeamTableResult TeamTableResult { get; set; }
-
         public int PlayWeekId { get; set; }
         public PlayWeek PlayWeek { get; set; }
 
@@ -23,12 +20,12 @@
 
         public int AwayTeamScore { get; set; }
 
-        public int WinnerTeamId { get; set; }
+        public int? WinnerTeamId { get; set; }
         public Team WinnerTeam { get; set; }
 
         public bool IsDraw { get; set; }
 
-        public DateTime? ScheduledDate { get; set; }
+        public DateTime ScheduledDate { get; set; }
 
         public virtual ICollection<PlayerMatch> ParticipatedPlayers { get; set; } = new HashSet<PlayerMatch>();
     }

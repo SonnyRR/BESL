@@ -35,7 +35,7 @@
                 .ProjectTo<MatchLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            var viewModel = new MatchesForPlayWeekViewModel { Matches = matches };
+            var viewModel = new MatchesForPlayWeekViewModel { Matches = matches, PlayWeekId = request.PlayWeekId };
             return viewModel;
         }
     }

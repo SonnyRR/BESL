@@ -9,10 +9,6 @@
     {
         public void Configure(EntityTypeBuilder<Match> builder)
         {
-            builder.HasOne(m => m.TeamTableResult)
-                .WithMany(ttr => ttr.PlayedMatches)
-                .HasForeignKey(m => m.TeamTableResultId);
-
             builder.HasOne(m => m.PlayWeek)
                 .WithMany(pw => pw.MatchFixtures)
                 .HasForeignKey(m => m.PlayWeekId);

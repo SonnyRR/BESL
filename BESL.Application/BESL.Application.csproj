@@ -51,6 +51,9 @@
     <Folder Include="Matches\" />
     <Folder Include="Matches\Queries\" />
     <Folder Include="Matches\Queries\GetMatchesForPlayWeek\" />
-    <Folder Include="TournamentTables\Queries\GetTeamsForTournamentTable\" />
+    <Folder Include="Matches\Commands\" />
+    <Folder Include="Matches\Commands\Create\" />
+    <Folder Include="Matches\Queries\Create\" />
+    <Folder Include="Matches\Commands\Validation\" />
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
 
-    using BESL.Application.TournamentTables.Queries.GetTeamsForTournamentTable;
+    using BESL.Application.Matches.Queries.Create;
 
     public class AddMatchFixtureViewComponent : ViewComponent
     {
@@ -18,7 +18,7 @@
 
         public async Task<IViewComponentResult> InvokeAsync(int tournamentTableId)
         {
-            var viewModel = await this.mediator.Send(new GetTeamsForTournamentTableQuery { TournamentTableId = tournamentTableId });
+            var viewModel = await this.mediator.Send(new CreateMatchQuery { TournamentTableId = tournamentTableId });
             return this.View(viewModel);
         }
     }

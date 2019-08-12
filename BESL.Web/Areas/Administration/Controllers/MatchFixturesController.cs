@@ -2,6 +2,8 @@
 {
     using System;
     using System.Threading.Tasks;
+    using BESL.Application.Matches.Commands.Create;
+    using BESL.Application.Matches.Queries.Create;
     using BESL.Application.Matches.Queries.GetMatchesForPlayWeek;
     using Microsoft.AspNetCore.Mvc;
 
@@ -13,9 +15,16 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Create(GetMatchesForPlayWeekQuery query)
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateMatchCommand command)
         {
-            var viewModel = await this.Mediator.Send(query);
+            if (!this.ModelState.IsValid)
+            {
+                var notValidViewModel = await this.Mediator.Send(new GetMatchesForPlayWeekQuery { PlayWeekId = command.PlayWeekId });
+                return this.View("~/Areas/Administration/Views/MatchFixtures/Details.cshtml", notValidViewModel);
+            }
+
+            var viewModel = await this.Mediator.Send(command);
             return this.View(viewModel);
         }
     }

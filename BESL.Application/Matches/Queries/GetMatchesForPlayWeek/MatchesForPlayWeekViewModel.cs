@@ -5,6 +5,8 @@
 
     public class MatchesForPlayWeekViewModel
     {
+        public int PlayWeekId { get; set; }
+
         public IEnumerable<MatchLookupModel> Matches { get; set; }
     }
 }

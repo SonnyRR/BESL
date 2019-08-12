@@ -57,5 +57,12 @@
                 .Include(p => p.Claims)
                 .AnyAsync(p => p.Claims.Any(c => c.ClaimType == STEAM_ID_64_CLAIM_TYPE));
         }
+
+        internal static async Task<bool> CheckIfTeamExists(int teamId, IDeletableEntityRepository<Team> teamsRepository)
+        {
+            return await teamsRepository
+                .AllAsNoTracking()
+                .AnyAsync(t => t.Id == teamId);
+        }
     }
 }
