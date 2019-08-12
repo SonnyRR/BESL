@@ -1,11 +1,13 @@
 ﻿namespace BESL.Web.Areas.Administration.Controllers
 {
-    using System;
     using System.Threading.Tasks;
-    using BESL.Application.Matches.Commands.Create;
-    using BESL.Application.Matches.Queries.Create;
-    using BESL.Application.Matches.Queries.GetMatchesForPlayWeek;
+
     using Microsoft.AspNetCore.Mvc;
+
+    using BESL.Application.Matches.Commands.Create;
+    using BESL.Application.Matches.Queries.GetMatchesForPlayWeek;
+    using BESL.Application.Matches.Queries.Modify;
+    using BESL.Application.Matches.Commands.Modify;
 
     public class MatchFixturesController : AdminController
     {
@@ -25,6 +27,24 @@
             }
 
             var viewModel = await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Details), new GetMatchesForPlayWeekQuery { PlayWeekId = command.PlayWeekId });
+        }
+
+        public async Task<IActionResult> Modify(ModifyMatchQuery query)
+        {
+            var viewModel = await this.Mediator.Send(query);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Modify(ModifyMatchCommand command)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(command);
+            }
+
+            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Details), new GetMatchesForPlayWeekQuery { PlayWeekId = command.PlayWeekId });
         }
     }

@@ -13,15 +13,16 @@
     using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using BESL.Application.Exceptions;
 
     public class GetMatchesForPlayWeekQueryHandler : IRequestHandler<GetMatchesForPlayWeekQuery, MatchesForPlayWeekViewModel>
     {
-        private readonly IDeletableEntityRepository<Match> matchesRepository;
+        private readonly IDeletableEntityRepository<PlayWeek> playWeeksRepository;
         private readonly IMapper mapper;
 
-        public GetMatchesForPlayWeekQueryHandler(IDeletableEntityRepository<Match> matchesRepository, IMapper mapper)
+        public GetMatchesForPlayWeekQueryHandler(IDeletableEntityRepository<PlayWeek> playWeeksRepository, IMapper mapper)
         {
-            this.matchesRepository = matchesRepository;
+            this.playWeeksRepository = playWeeksRepository;
             this.mapper = mapper;
         }
 
@@ -29,14 +30,29 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var matches = await this.matchesRepository
+            if (!await this.CheckIfPlayWeekExists(request.PlayWeekId))
+            {
+                throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
+            }
+
+            var matches = await this.playWeeksRepository
                 .AllAsNoTracking()
-                .Where(m => m.PlayWeekId == request.PlayWeekId)
+                .Include(pw => pw.MatchFixtures)
+                .Where(pw => pw.Id == request.PlayWeekId)
+                .SelectMany(x => x.MatchFixtures)
                 .ProjectTo<MatchLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
+
             var viewModel = new MatchesForPlayWeekViewModel { Matches = matches, PlayWeekId = request.PlayWeekId };
             return viewModel;
+        }
+
+        private async Task<bool> CheckIfPlayWeekExists(int id)
+        {
+            return await this.playWeeksRepository
+                .AllAsNoTracking()
+                .AnyAsync(x => x.Id == id);
         }
     }
 }

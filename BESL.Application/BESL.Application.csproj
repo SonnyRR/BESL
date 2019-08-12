@@ -55,5 +55,10 @@
     <Folder Include="Matches\Commands\Create\" />
     <Folder Include="Matches\Queries\Create\" />
     <Folder Include="Matches\Commands\Validation\" />
+    <Folder Include="Matches\Queries\Modify\" />
+    <Folder Include="Matches\Commands\Modify\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Matches\Queries\Modify\ModifyMatchViewModel.cs" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
 ﻿namespace BESL.Application.Matches.Commands.Create
 {
-    using System.Collections.Generic;
-    using MediatR;
-    using BESL.Application.Common.Models.Lookups;
     using System;
+    using System.Collections.Generic;
+
+    using MediatR;
+
+    using BESL.Application.Common.Models.Lookups;
 
     public class CreateMatchCommand : IRequest<int>
     {

@@ -15,19 +15,8 @@
 
         public bool IsDropped { get; set; }
 
-        public int MatchesPlayed => this.PlayedMatches
-            .Count();
-
-        public int MatchesWon => this.PlayedMatches
-            .Count(m => m.WinnerTeamId == this.TeamId);
-
-        public int MatchesLost => this.PlayedMatches
-            .Count(m => m.WinnerTeamId != this.TeamId);
-
         public int TotalPoints { get; set; }
 
         public int PenaltyPoints { get; set; }
-
-        public virtual ICollection<Match> PlayedMatches { get; set; } = new HashSet<Match>();
     }
 }

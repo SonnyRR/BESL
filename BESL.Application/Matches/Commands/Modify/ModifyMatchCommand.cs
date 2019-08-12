@@ -1,14 +1,15 @@
-﻿namespace BESL.Application.Common.Models.Lookups
+﻿namespace BESL.Application.Matches.Commands.Modify
 {
     using System;
+
+    using MediatR;
+
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
 
-    public class MatchLookupModel : IMapFrom<Match>
+    public class ModifyMatchCommand : IMapFrom<Match>, IRequest<int>
     {
         public int Id { get; set; }
-
-        public int TeamTableResultId { get; set; }
 
         public int PlayWeekId { get; set; }
 
