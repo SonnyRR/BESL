@@ -54,6 +54,11 @@
         public async Task<IActionResult> Tables(GetTournamentTablesQuery query)
         {
             var viewModel = await this.Mediator.Send(query);
+
+            this.ViewData["ReturnUrl"] = this.RedirectToAction(nameof(Tables), new GetTournamentTablesQuery { Id = query.Id })
+                .UrlHelper
+                .Action();
+
             return this.View(viewModel);
         }
 

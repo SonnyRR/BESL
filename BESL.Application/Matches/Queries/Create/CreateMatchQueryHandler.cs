@@ -35,7 +35,7 @@
                 .Include(t => t.TeamTableResults)
                     .ThenInclude(t => t.Team)
                 .Where(t => t.Id == request.TournamentTableId)
-                .SelectMany(t => t.TeamTableResults.Select(ttr => ttr.Team))
+                .SelectMany(t => t.TeamTableResults.Where(ttr => !ttr.IsDropped).Select(ttr => ttr.Team))
                 .ProjectTo<TeamsSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

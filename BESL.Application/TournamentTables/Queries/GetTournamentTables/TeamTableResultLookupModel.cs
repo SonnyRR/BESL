@@ -29,8 +29,7 @@
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<TeamTableResult, TeamTableResultLookupModel>()
-                .ForMember(lm => lm.Team, o => o.MapFrom(ttr => ttr.Team.Name))
-                .ForMember(lm => lm.IsDropped, o => o.MapFrom(ttr => ttr.IsDeleted));
+                .ForMember(lm => lm.Team, o => o.MapFrom(ttr => ttr.Team.Name));
         }
     }
 }

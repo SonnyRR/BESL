@@ -6,6 +6,7 @@
     int navItemCounter = 0;
     int tabItemCounter = 0;
 }
+
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     @foreach (var table in Model.Tables)
     {
@@ -69,13 +70,13 @@
                                 <td class="text-center">
                                     @if (!tableResult.IsDropped)
                                     {
-                                        <form asp-area="Administration" asp-controller="TableResults" asp-action="Drop" asp-route-id="@tableResult.Id" onsubmit="return submitForm(this, 'Are you sure you want to drop','@tableResult.Team');">
+                                        <form asp-area="Administration" asp-controller="TableResults" asp-action="Drop" asp-route-TeamTableResultId="@tableResult.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]" onsubmit="return submitForm(this, 'Are you sure you want to drop','@tableResult.Team');">
                                             <button class="btn btn-sm btn-danger">Drop</button>
                                         </form>
                                     }
                                     else
                                     {
-                                        <form asp-area="Administration" asp-controller="TableResults" asp-action="Activate" asp-route-id="@tableResult.Id" onsubmit="return submitForm(this, 'Are you sure you want to undrop', '@tableResult.Team');">
+                                        <form asp-area="Administration" asp-controller="TableResults" asp-action="Activate" asp-route-TeamTableResultId="@tableResult.Id" asp-route-returnUrl="@ViewData["ReturnUrl"]" onsubmit="return submitForm(this, 'Are you sure you want to undrop', '@tableResult.Team');">
 
                                             <button class="btn btn-sm btn-info text-white">Undrop</button>
                                         </form>

@@ -10,6 +10,8 @@
     using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using System.Linq;
+    using Microsoft.EntityFrameworkCore;
 
     public class CreateMatchCommandHandler : IRequestHandler<CreateMatchCommand, int>
     {
@@ -31,6 +33,12 @@
                 throw new NotFoundException(nameof(Team), request.HomeTeamId);
             }
 
+            if (await this.CheckIfTeamIsDropped(request.HomeTeamId, request.TournamentTableId)
+                || await this.CheckIfTeamIsDropped(request.AwayTeamId, request.TournamentTableId))
+            {
+                throw new ForbiddenException();
+            }
+
             if (!await CommonCheckHelper.CheckIfTeamExists(request.AwayTeamId, teamsRepository))
             {
                 throw new NotFoundException(nameof(Team), request.AwayTeamId);
@@ -40,6 +48,18 @@
 
             await this.matchesRepository.AddAsync(match);
             return await this.matchesRepository.SaveChangesAsync(cancellationToken);
+        }
+
+        private async Task<bool> CheckIfTeamIsDropped(int teamId, int tournamentTableId)
+        {
+            return (await this.teamsRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == teamId)
+                .Include(x => x.TeamTableResults)
+                .SelectMany(x => x.TeamTableResults)
+                .Where(x => x.TournamentTableId == tournamentTableId)
+                .SingleOrDefaultAsync())
+                .IsDropped;
         }
     }
 }
