@@ -35,7 +35,7 @@ namespace BESL.Persistence.Seeding
                 new TournamentFormat
                 {
                     Name = "5v5",
-                    Description = "Unlike casual mode, competitive mode always pits two teams of 5 against each other in a 30 round match. The roundtime is 1 minute 55 seconds and the bomb timer is 40 seconds. It is not possible to switch sides during the game except at the halftime. After the first 15 rounds, the game reaches halftime and the two teams will switch sides. The first team to score 16 points wins the game. If both teams score a total of 15 points by the end of the 30th round, the match will end in a tie. Games can also end prematurely if one team surrenders to the other. A vote to surrender must be unanimously agreed upon, and the vote is locked until a team member abandons the match.",
+                    Description = "Unlike casual mode, competitive mode always pits two teams of 5 against each other in a 30 round match. The roundtime is 1 minute 55 seconds and the bomb timer is 40 seconds. It is not possible to switch sides during the game except at the halftime. After the first 15 rounds, the game reaches halftime and the two teams will switch sides.",
                     TeamPlayersCount = 5,
                     TotalPlayersCount = 10,
                     GameId = 2,

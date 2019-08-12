@@ -39,7 +39,7 @@
                           {
                               new RoleSeeder(),
                               new RootAdminSeeder(),
-                              new UsersSeeder(),
+                              //new UsersSeeder(),
                               new GamesSeeder(),
                               new TournamentFormatsSeeder(),
                               new TournamentsSeeder()
