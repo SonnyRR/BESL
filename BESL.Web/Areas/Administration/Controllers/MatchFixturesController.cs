@@ -25,7 +25,7 @@
             }
 
             var viewModel = await this.Mediator.Send(command);
-            return this.View(viewModel);
+            return this.RedirectToAction(nameof(Details), new GetMatchesForPlayWeekQuery { PlayWeekId = command.PlayWeekId });
         }
     }
 }

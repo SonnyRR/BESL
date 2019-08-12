@@ -22,7 +22,7 @@
             <tr>
                 <th scope="row">@match.HomeTeamName</th>
                 <td>@match.AwayTeamName</td>
-                <td>@match.ScheduledDate.HasValue ? @match.ScheduledDate.Value.ToString(DATE_HOUR_FORMAT) : "TBA"</td>
+                <td>@(match.ScheduledDate.HasValue ? @match.ScheduledDate.Value.ToString(DATE_HOUR_FORMAT) : "TBA")</td>
                 <td>Remove</td>
             </tr>
             }
