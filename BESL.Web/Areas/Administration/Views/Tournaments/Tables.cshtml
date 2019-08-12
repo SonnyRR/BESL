@@ -1,4 +1,5 @@
 ﻿@model BESL.Application.TournamentTables.Queries.GetTournamentTables.TournamentTablesViewModel
+@using static BESL.Common.GlobalConstants;
 @{
     ViewData["ActivePage"] = ManageAdminNavPages.Tournaments;
     ViewData["Title"] = "Tournaments";
@@ -6,7 +7,6 @@
     int tabItemCounter = 0;
 }
 <a class="btn btn-primary text-white mb-2">Play weeks</a>
-<h6>Current play week: @Model.</h6>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     @foreach (var table in Model.Tables)
     {
@@ -32,6 +32,7 @@
         var status = tabItemCounter == 0 ? "active" : string.Empty;
 
         <div class="tab-pane fade show mt-2 @(status)" id="@(table.Name)Pane" role="tabpanel">
+        <h6>Current play week: @table.CurrentPlayWeek.StartDate.ToString(DATE_FORMAT) - @table.CurrentPlayWeek.EndDate.ToString(DATE_FORMAT)</h6>
 
             <a class="btn btn-primary btn-sm mt-2 mb-2" href="#">Match fixtures</a>
             <table class="table table-sm table-bordered table-hover border rounded table-striped">

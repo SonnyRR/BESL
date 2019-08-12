@@ -53,12 +53,11 @@
                 ?.GameId
                 ?? throw new NotFoundException(nameof(TournamentFormat), request.FormatId);
 
-            Tournament tournament = new Tournament()
+            Tournament tournament = new Tournament
             {
                 Name = request.Name,
                 Description = request.Description,
                 TournamentImageUrl = await this.UploadImage(request),
-                CreatedOn = DateTime.UtcNow,
                 FormatId = request.FormatId,
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,

@@ -29,7 +29,7 @@
             request = request ?? throw new ArgumentNullException(nameof(request));
 
             var desiredTournament = await this.tournamentsRepository
-                .AllAsNoTrackingWithDeleted()
+                .AllAsNoTracking()
                 .Include(x => x.Format)
                     .ThenInclude(x => x.Game)
                 .FirstOrDefaultAsync(t => t.Id == request.Id)

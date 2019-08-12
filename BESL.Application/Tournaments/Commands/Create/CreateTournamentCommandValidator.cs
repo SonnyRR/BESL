@@ -24,15 +24,17 @@
 
             RuleFor(t => t.StartDate)
                 .NotEmpty()
-                .Must(t=>t.DayOfWeek == DayOfWeek.Monday)
-                .WithMessage("Tournament must start on a monday!")
+                .Must(t => t.DayOfWeek == DayOfWeek.Monday)
+                .WithMessage(START_DATE_MUST_BE_MONDAY_MSG)
                 .GreaterThanOrEqualTo(t => DateTime.UtcNow.Date)
                 .WithMessage(START_DATE_MSG);
 
             RuleFor(t => t.EndDate)
                 .NotEmpty()
-                .GreaterThanOrEqualTo(t => t.StartDate.AddMonths(END_DATE_MIN_MONTH_LENGTH))
-                .WithMessage(string.Format(END_DATE_MSG, END_DATE_MIN_MONTH_LENGTH));
+                .GreaterThanOrEqualTo(t => t.StartDate.AddMonths(END_DATE_MIN_MONTH_LENGTH).AddDays(END_DATE_MAX_DAYS_DIFF))
+                .WithMessage(string.Format(END_DATE_MSG, END_DATE_MIN_MONTH_LENGTH))
+                .Must(t => t.DayOfWeek == DayOfWeek.Sunday)
+                .WithMessage(END_DATE_MUST_BE_SUNDAY_MSG);
 
             RuleFor(t => t.TournamentImage)
                 .NotEmpty()
