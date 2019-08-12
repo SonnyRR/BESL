@@ -1,12 +1,10 @@
-﻿    namespace BESL.Web
+﻿namespace BESL.Web
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
     using System.Reflection;
 
     using AutoMapper;
+    using CloudinaryDotNet;
     using FluentValidation.AspNetCore;
     using Hangfire;
     using MediatR;
@@ -21,24 +19,24 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using BESL.Application;
+    using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Application.Infrastructure.AutoMapper;
     using BESL.Application.Infrastructure.Validators;
     using BESL.Common;
     using BESL.Domain.Entities;
-    using BESL.Persistence;
-    using BESL.Web.Middlewares;
-    using BESL.Web.Filters;
-    using BESL.Web.Infrastructure;
-    using BESL.Persistence.Seeding;
-    using BESL.Persistence.Repositories;   
-    using BESL.Application.Infrastructure;
-    using BESL.Persistence.Infrastructure;
+    using BESL.Infrastructure;
     using BESL.Infrastructure.Messaging;
-    using CloudinaryDotNet;
     using BESL.Infrastructure.Cloudinary;
     using BESL.Infrastructure.Hubs;
     using BESL.Infrastructure.CronJobs;
+    using BESL.Persistence;
+    using BESL.Persistence.Seeding;
+    using BESL.Persistence.Repositories;   
+    using BESL.Persistence.Infrastructure;
+    using BESL.Web.Filters;
+    using BESL.Web.Infrastructure;
+    using BESL.Web.Middlewares;
 
     public class Startup
     {

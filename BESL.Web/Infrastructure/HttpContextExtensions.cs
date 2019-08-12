@@ -1,12 +1,13 @@
 ﻿namespace BESL.Web.Infrastructure
 {
+    using System;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Abstractions;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.AspNetCore.Routing;
-    using System;
-    using System.Threading.Tasks;
 
     public static class HttpContextExtensions
     {

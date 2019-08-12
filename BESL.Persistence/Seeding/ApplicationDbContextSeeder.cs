@@ -39,7 +39,10 @@
                           {
                               new RoleSeeder(),
                               new RootAdminSeeder(),
-                              new MainSeeder()
+                              new UsersSeeder(),
+                              new GamesSeeder(),
+                              new TournamentFormatsSeeder(),
+                              new TournamentsSeeder()
                           };
 
             foreach (var seeder in seeders)

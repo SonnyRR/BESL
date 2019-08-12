@@ -7,9 +7,9 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
 
+    using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using BESL.Domain.Entities.Enums;
-    using BESL.Application.Interfaces;
 
     public class RoleSeeder : IDbSeeder
     {
