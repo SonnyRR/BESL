@@ -4,6 +4,7 @@
     {
         #region Culture
         public const string DATE_FORMAT = @"dd/MM/yyyy";
+        public const string DATE_HOUR_FORMAT = @"dd/MM/yyyy HH:mm";
         public const string DATEPICKER_DATE_FORMAT = "yyyy-MM-dd";
         #endregion
 

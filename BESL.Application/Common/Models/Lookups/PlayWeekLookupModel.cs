@@ -17,8 +17,5 @@
         public DateTime EndDate { get; set; }
 
         public int TournamentTableId { get; set; }
-
-        public ICollection<MatchLookupModel> MatchFixtures { get; set; }
-
     }
 }

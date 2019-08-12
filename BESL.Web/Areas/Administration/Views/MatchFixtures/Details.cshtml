@@ -1,0 +1,40 @@
+﻿@model BESL.Application.Matches.Queries.GetMatchesForPlayWeek.MatchesForPlayWeekViewModel
+@using static BESL.Common.GlobalConstants;
+@{
+    ViewData["ActivePage"] = ManageAdminNavPages.Tournaments;
+    ViewData["Title"] = "Match fixtures";
+}
+
+
+
+<table class="table table-sm shadow">
+    <thead>
+        <tr>
+            <th scope="col">Home Team</th>
+            <th scope="col">Away Team</th>
+            <th scope="col">Play Date</th>
+            <th scope="col">Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Matches.Count() != 0)
+        { 
+            @foreach (var match in Model.Matches)
+            {
+            <tr>
+                <th scope="row">@match.HomeTeamName</th>
+                <td>@match.AwayTeamName</td>
+                <td>@match.ScheduledDate.HasValue ? @match.ScheduledDate.Value.ToString(DATE_HOUR_FORMAT) : "TBA"</td>
+                <td>Remove</td>
+            </tr>
+            }
+        }
+        else
+        {
+             <tr>
+                    <td colspan="4" class="text-center"><h5 class="text-danger">No teams registered.</h5></td>
+             </tr>
+        }
+    </tbody>
+</table>
+

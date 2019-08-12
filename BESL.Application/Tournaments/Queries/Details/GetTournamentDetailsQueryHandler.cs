@@ -10,6 +10,7 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using BESL.Application.Exceptions;
 
     public class GetTournamentDetailsQueryHandler : IRequestHandler<GetTournamentDetailsQuery, GetTournamentDetailsViewModel>
     {
@@ -27,13 +28,14 @@
             request = request ?? throw new ArgumentNullException(nameof(request));
 
             var desiredTournament = await this.tournamentsRepository
-                .AllAsNoTrackingWithDeleted()
+                .AllAsNoTracking()
                 .Include(t => t.Format)
                     .ThenInclude(tf => tf.Game)
                 .Include(t => t.Tables)
                     .ThenInclude(tb => tb.TeamTableResults)
                         .ThenInclude(ttr => ttr.Team)
-                .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken);
+                .SingleOrDefaultAsync(t => t.Id == request.Id && !t.Format.IsDeleted && !t.Format.Game.IsDeleted, cancellationToken)
+                ?? throw new NotFoundException(nameof(Tournament), request.Id);
 
             var viewModel = this.mapper.Map<GetTournamentDetailsViewModel>(desiredTournament);
             return viewModel;

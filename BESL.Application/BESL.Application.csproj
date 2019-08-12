@@ -48,5 +48,9 @@
     <Folder Include="PlayWeeks\" />
     <Folder Include="PlayWeeks\Commands\" />
     <Folder Include="PlayWeeks\Commands\Advance\" />
+    <Folder Include="Matches\" />
+    <Folder Include="Matches\Queries\" />
+    <Folder Include="Matches\Queries\GetMatchesForPlayWeek\" />
+    <Folder Include="TournamentTables\Queries\GetTeamsForTournamentTable\" />
   </ItemGroup>
 </Project>

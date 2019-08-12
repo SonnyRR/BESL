@@ -1,7 +1,10 @@
 ﻿namespace BESL.Infrastructure.CronJobs
 {
+    using System;
     using System.Threading.Tasks;
+
     using MediatR;
+
     using BESL.Application.PlayWeeks.Commands.Advance;
 
     public class AdvancePlayWeeks
@@ -17,7 +20,15 @@
 
         public Task AdvanceActivePlayWeeks()
         {
-            return this.mediator.Send(new AdvanceActiveTournamentsPlayWeeksCommand());
+            var currentMachineTime = DateTime.UtcNow;
+
+            if (currentMachineTime.DayOfWeek == DayOfWeek.Sunday
+                && currentMachineTime.TimeOfDay <= new TimeSpan(3, 0, 0))
+            {
+                return this.mediator.Send(new AdvanceActiveTournamentsPlayWeeksCommand());
+            }
+
+            return Task.CompletedTask;
         }
     }
 }
