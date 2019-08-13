@@ -34,7 +34,7 @@
                 .ForMember(vm => vm.CreatedOn, o => o.MapFrom(src => src.CreatedOn.ToString(DATE_FORMAT)))
                 .ForMember(vm => vm.TournamentFormat, o => o.MapFrom(src => $"{src.TournamentFormat.Game.Name} - {src.TournamentFormat.Name}"))
                 .ForMember(vm => vm.IsOwner, o => o.MapFrom((src, opt, destMember, context) => src.OwnerId == (string)context.Items["CurrentUserId"]))
-                .ForMember(vm=>vm.IsMember, o=>o.MapFrom((src,opt,destMember,context) => src.PlayerTeams.Any(x=>x.PlayerId == (string)context.Items["CurrentUserId"])));
+                .ForMember(vm=>vm.IsMember, o=>o.MapFrom((src,opt,destMember,context) => src.PlayerTeams.Any(x=>x.PlayerId == (string)context.Items["CurrentUserId"] && x.IsDeleted == false)));
         }
     }
 }

@@ -14,10 +14,12 @@
     public class DeclineInviteCommandHandler : IRequestHandler<DeclineInviteCommand, int>
     {
         private readonly IDeletableEntityRepository<TeamInvite> teamInvitesRepository;
+        private readonly IUserAccessor userAcessor;
 
-        public DeclineInviteCommandHandler(IDeletableEntityRepository<TeamInvite> teamInvitesRepository)
+        public DeclineInviteCommandHandler(IDeletableEntityRepository<TeamInvite> teamInvitesRepository, IUserAccessor userAcessor)
         {
             this.teamInvitesRepository = teamInvitesRepository;
+            this.userAcessor = userAcessor;
         }
 
         public async Task<int> Handle(DeclineInviteCommand request, CancellationToken cancellationToken)
@@ -29,7 +31,7 @@
                 .SingleOrDefaultAsync(x => x.Id == request.InviteId, cancellationToken)
                 ?? throw new NotFoundException(nameof(TeamInvite), request.InviteId);
 
-            if (desiredInvite.PlayerId != request.UserId)
+            if (desiredInvite.PlayerId != this.userAcessor.UserId)
             {
                 throw new ForbiddenException();
             }

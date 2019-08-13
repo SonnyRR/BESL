@@ -64,5 +64,23 @@
                 .AllAsNoTracking()
                 .AnyAsync(t => t.Id == teamId);
         }
+
+        internal static async Task<bool> CheckIfTeamIsFull(int teamId, IDeletableEntityRepository<Team> teamsRepository)
+        {
+            var team = await teamsRepository
+                .AllAsNoTracking()
+                .Include(t => t.TournamentFormat)
+                .Include(t => t.PlayerTeams)
+                .SingleOrDefaultAsync(x => x.Id == teamId);
+
+            var playersCount = team
+                .PlayerTeams
+                .Count(x => x.IsDeleted == false);
+
+            var maxPlayers = team.TournamentFormat.TeamPlayersCount + TEAM_MAX_BACKUP_PLAYERS_COUNT;
+            bool isFull = playersCount >= maxPlayers;
+
+            return isFull;
+        }
     }
 }

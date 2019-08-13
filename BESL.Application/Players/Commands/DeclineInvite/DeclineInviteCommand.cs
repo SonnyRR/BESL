@@ -5,7 +5,5 @@
     public class DeclineInviteCommand : IRequest<int>
     {
         public string InviteId { get; set; }
-
-        public string UserId { get; set; }
     }
 }

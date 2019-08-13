@@ -12,6 +12,7 @@
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
     using System.Linq;
+    using BESL.Application.Infrastructure;
 
     public class AddPlayerCommandHandler : IRequestHandler<AddPlayerCommand, int>
     {
@@ -34,7 +35,7 @@
                 .SingleOrDefaultAsync(t => t.Id == request.TeamId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.TeamId);
 
-            if (desiredTeam.PlayerTeams.Count >= TEAM_MAX_BACKUP_PLAYERS_COUNT)
+            if (await CommonCheckHelper.CheckIfTeamIsFull(desiredTeam.Id, teamsRepository))
             {
                 throw new TeamIsFullException(desiredTeam.Name);
             }

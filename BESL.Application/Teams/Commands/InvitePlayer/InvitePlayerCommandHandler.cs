@@ -74,7 +74,7 @@
                 throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException(request.UserName);
             }
 
-            if (desiredTeam.PlayerTeams.Count >= desiredTeam.TournamentFormat.TeamPlayersCount + TEAM_MAX_BACKUP_PLAYERS_COUNT)
+            if (await CommonCheckHelper.CheckIfTeamIsFull(desiredTeam.Id, teamsRepository))
             {
                 throw new TeamIsFullException(desiredTeam.Name);
             }
