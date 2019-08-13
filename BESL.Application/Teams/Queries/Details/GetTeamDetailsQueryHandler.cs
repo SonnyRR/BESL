@@ -38,7 +38,9 @@
                 .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.Id);
 
-            var viewModel = this.mapper.Map<GetTeamDetailsViewModel>(desiredTeam, opts => opts.Items["CurrentUserId"] = this.userAccessor.UserId);
+            var lookupModel = this.mapper.Map<TeamDetailsLookupModel>(desiredTeam, opts => opts.Items["CurrentUserId"] = this.userAccessor.UserId);
+            var viewModel = this.mapper.Map<GetTeamDetailsViewModel>(lookupModel);
+
             return viewModel;
         }
     }
