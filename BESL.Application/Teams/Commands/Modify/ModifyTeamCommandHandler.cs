@@ -17,12 +17,12 @@
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
-        public ModifyTeamCommandHandler(IDeletableEntityRepository<Team> teamsRepository, ICloudinaryHelper cloudinaryHelper, IUserAcessor userAcessor)
+        public ModifyTeamCommandHandler(IDeletableEntityRepository<Team> teamsRepository, ICloudinaryHelper cloudinaryHelper, IUserAccessor userAccessor)
         {
             this.teamsRepository = teamsRepository;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
             this.cloudinaryHelper = cloudinaryHelper;
         }
 
@@ -35,7 +35,7 @@
                 .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.Id);
 
-            if (desiredTeam.OwnerId != this.userAcessor.UserId)
+            if (desiredTeam.OwnerId != this.userAccessor.UserId)
             {
                 throw new ForbiddenException();
             }

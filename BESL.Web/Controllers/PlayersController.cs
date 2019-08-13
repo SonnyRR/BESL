@@ -10,22 +10,22 @@
     using BESL.Application.Players.Commands.AcceptInvite;
     using BESL.Application.Players.Commands.DeclineInvite;
 
+    [Authorize]
     public class PlayersController : BaseController
     {
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             var viewModel = await this.Mediator.Send(new GetPlayerDetailsQuery() { Username = id });
             return this.View(viewModel);
         }
 
-        [Authorize]
         public async Task<IActionResult> Invites()
         {
             var viewModel = await this.Mediator.Send(new GetInvitesForPlayerQuery());
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AcceptInvite(AcceptInviteCommand command)
         {
@@ -33,7 +33,6 @@
             return this.RedirectToAction(nameof(Invites));
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> DeclineInvite(DeclineInviteCommand command)
         {

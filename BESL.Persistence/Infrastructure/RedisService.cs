@@ -7,14 +7,15 @@
 
     using BESL.Common;
     using BESL.Application.Interfaces;
+    using Microsoft.Extensions.Options;
 
     public class RedisService<T> : IRedisService<T>
     {
         public IDatabase Database { get; private set; }
 
-        public RedisService(IRedisConnectionFactory redisConnectionFactory)
+        public RedisService(IOptions<RedisConfiguration> redisConfig)
         {
-            this.Database = redisConnectionFactory.Connection().GetDatabase();
+            this.Database = ConnectionMultiplexer.Connect(redisConfig.Value.Host).GetDatabase();
         }
 
         public async Task Save(string key, T data, TimeSpan? expiration = null)
@@ -28,7 +29,7 @@
             try
             {
                 var res = await this.Database.StringGetAsync(key);
-
+                
                 if (res.IsNull)
                     return default;
 

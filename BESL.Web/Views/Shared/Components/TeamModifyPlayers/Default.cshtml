@@ -1,5 +1,5 @@
 ﻿@model BESL.Application.Teams.Queries.GetPlayersForTeam.GetPlayersForTeamViewModel
-@inject BESL.Application.Interfaces.IUserAcessor userAcessor;
+@inject BESL.Application.Interfaces.IUserAccessor userAccessor;
 <table class="table table-sm mb-1">
     <thead class="thead-dark">
         <tr>
@@ -17,7 +17,7 @@
                 <td class="align-middle"><a asp-controller="Players" asp-action="Details" asp-route-id="@player.Username"><strong>@player.Username</strong></a></td>
                 <td class="align-middle">@player.SteamId64</td>
                 <td class="align-middle text-center">
-                    @if (player.Id != this.userAcessor.UserId)
+                    @if (player.Id != this.userAccessor.UserId)
                     {
                         <form asp-controller="Teams" asp-action="RemovePlayer" asp-route-playerId="@player.Id" asp-route-teamId="@player.TeamId" onsubmit="return submitForm(this, '@player.Username');">
                             <button class="btn btn-danger">Remove</button>

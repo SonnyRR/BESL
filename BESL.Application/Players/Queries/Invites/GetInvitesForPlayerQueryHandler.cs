@@ -17,13 +17,13 @@
     {
         private readonly IDeletableEntityRepository<TeamInvite> teamInvitesRepository;
         private readonly IMapper mapper;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
-        public GetInvitesForPlayerQueryHandler(IDeletableEntityRepository<TeamInvite> teamInvitesRepository, IMapper mapper, IUserAcessor userAcessor)
+        public GetInvitesForPlayerQueryHandler(IDeletableEntityRepository<TeamInvite> teamInvitesRepository, IMapper mapper, IUserAccessor userAccessor)
         {
             this.teamInvitesRepository = teamInvitesRepository;
             this.mapper = mapper;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<InvitesViewModel> Handle(GetInvitesForPlayerQuery request, CancellationToken cancellationToken)
@@ -32,7 +32,7 @@
 
             var inviteLookups = await this.teamInvitesRepository
                 .AllAsNoTracking()
-                .Where(i => i.PlayerId == userAcessor.UserId)
+                .Where(i => i.PlayerId == userAccessor.UserId)
                 .ProjectTo<InviteLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

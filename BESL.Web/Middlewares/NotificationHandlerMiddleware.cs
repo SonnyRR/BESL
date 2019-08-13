@@ -21,20 +21,18 @@
             this.redisNotificationService = redisNotificationService;
         }
 
-        public async Task InvokeAsync(HttpContext context, IUserAcessor userAcessor, INotifyService notifyService)
+        public async Task InvokeAsync(HttpContext context, IUserAccessor userAccessor, INotifyService notifyService)
         {
+
             await this.next(context);
 
             if (context.User.Identity.IsAuthenticated && context.Response.StatusCode == StatusCodes.Status204NoContent)
             {
-                var notification = await this.redisNotificationService.Get(userAcessor.UserId);
+                var notification = await this.redisNotificationService.Get(userAccessor.UserId);
 
                 if (notification != null)
                 {
-                    // Artificial delay in order for the response to be fully sent to the client.
-                    Thread.Sleep(200);                    
                     await notifyService.SendUserPushNotification(notification.Header, notification.Content, notification.Type.ToString());
-                    await this.redisNotificationService.Delete(userAcessor.UserId);
                 }
             }
         }

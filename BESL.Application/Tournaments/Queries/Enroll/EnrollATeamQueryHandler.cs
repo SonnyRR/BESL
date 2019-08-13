@@ -24,26 +24,26 @@
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Tournament> tournamentsRepository;
         private readonly IMapper mapper;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
         public EnrollATeamQueryHandler(
             IDeletableEntityRepository<Player> playersRepository,
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<Tournament> tournamentsRepository,
             IMapper mapper,
-            IUserAcessor userAcessor)
+            IUserAccessor userAccessor)
         {
             this.playersRepository = playersRepository;
             this.teamsRepository = teamsRepository;
             this.tournamentsRepository = tournamentsRepository;
             this.mapper = mapper;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<EnrollATeamCommand> Handle(EnrollATeamQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
-            var currentUserId = this.userAcessor.UserId;
+            var currentUserId = this.userAccessor.UserId;
 
             if (!await CommonCheckHelper.CheckIfPlayerExists(currentUserId , playersRepository))
             {

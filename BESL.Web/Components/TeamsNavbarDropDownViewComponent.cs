@@ -11,19 +11,19 @@
     public class TeamsNavbarDropDownViewComponent : ViewComponent
     {
         private IMediator mediator;
-        private IUserAcessor userAcessor;
+        private IUserAccessor userAccessor;
 
-        public TeamsNavbarDropDownViewComponent(IMediator mediator, IUserAcessor userAcessor)
+        public TeamsNavbarDropDownViewComponent(IMediator mediator, IUserAccessor userAccessor)
         {
             this.mediator = mediator;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                var viewModel = await this.mediator.Send(new GetTeamsForPlayerQuery { UserId = this.userAcessor.UserId });
+                var viewModel = await this.mediator.Send(new GetTeamsForPlayerQuery { UserId = this.userAccessor.UserId });
                 return this.View(viewModel);
             }
 

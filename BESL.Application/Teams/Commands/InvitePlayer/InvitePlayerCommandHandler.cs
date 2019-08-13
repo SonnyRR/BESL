@@ -20,20 +20,20 @@
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly IDeletableEntityRepository<TeamInvite> teamInvitesRepository;
         private readonly IMediator mediator;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
         public InvitePlayerCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<Player> playersRepository,
             IDeletableEntityRepository<TeamInvite> teamInvitesRepository,
             IMediator mediator,
-            IUserAcessor userAcessor)
+            IUserAccessor userAccessor)
         {
             this.teamsRepository = teamsRepository;
             this.playersRepository = playersRepository;
             this.teamInvitesRepository = teamInvitesRepository;
             this.mediator = mediator;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<int> Handle(InvitePlayerCommand request, CancellationToken cancellationToken)
@@ -89,7 +89,7 @@
                 PlayerId = desiredPlayer.Id,
                 TeamId = desiredTeam.Id,
                 TeamName = desiredTeam.Name,
-                SenderUsername = this.userAcessor.Username
+                SenderUsername = this.userAccessor.Username
             };
 
             await this.teamInvitesRepository.AddAsync(invite);

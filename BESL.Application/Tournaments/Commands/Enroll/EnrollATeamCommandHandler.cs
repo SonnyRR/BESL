@@ -19,29 +19,29 @@
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly IDeletableEntityRepository<TournamentTable> tournamentTablesRepository;
         private readonly IDeletableEntityRepository<TeamTableResult> teamTableResultsRepository;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
         public EnrollATeamCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<Player> playersRepository,
             IDeletableEntityRepository<TournamentTable> tournamentTablesRepository,
             IDeletableEntityRepository<TeamTableResult> teamTableResultsRepository,
-            IUserAcessor userAcessor)
+            IUserAccessor userAccessor)
         {
             this.teamsRepository = teamsRepository;
             this.playersRepository = playersRepository;
             this.tournamentTablesRepository = tournamentTablesRepository;
             this.teamTableResultsRepository = teamTableResultsRepository;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<int> Handle(EnrollATeamCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (!await CommonCheckHelper.CheckIfPlayerExists(this.userAcessor.UserId, playersRepository))
+            if (!await CommonCheckHelper.CheckIfPlayerExists(this.userAccessor.UserId, playersRepository))
             {
-                throw new NotFoundException(nameof(Player), this.userAcessor.UserId);
+                throw new NotFoundException(nameof(Player), this.userAccessor.UserId);
             }
 
             var desiredTable = await this.tournamentTablesRepository
@@ -51,7 +51,7 @@
                 .SingleOrDefaultAsync(tt => tt.Id == request.TableId, cancellationToken)
                 ?? throw new NotFoundException(nameof(TournamentTable), request.TableId);
 
-            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(this.userAcessor.UserId, desiredTable.Tournament.FormatId, teamsRepository))
+            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(this.userAccessor.UserId, desiredTable.Tournament.FormatId, teamsRepository))
             {
                 throw new PlayerHasAlreadyEnrolledTeamException();
             }

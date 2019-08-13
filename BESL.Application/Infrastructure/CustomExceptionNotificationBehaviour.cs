@@ -18,16 +18,16 @@
         where TRequest : IRequest<TResponse>
     {
         private readonly ILogger logger;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
         private readonly IRedisService<Notification> redisService;
 
         public CustomExceptionNotificationBehaviour(
             ILogger<TRequest> logger,
-            IUserAcessor userAcessor,
+            IUserAccessor userAccessor,
             IRedisService<Notification> redisService)
         {
             this.logger = logger;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
             this.redisService = redisService;
         }
 
@@ -41,20 +41,20 @@
             }
             catch (BaseCustomException exception)
             {
-                this.logger.LogError("BESL Request: {Name}-[UserId: {userId}] {@Request}, {@exception}", typeof(TRequest).Name, this.userAcessor.UserId, request, exception);
+                this.logger.LogError("BESL Request: {Name}-[UserId: {userId}] {@Request}, {@exception}", typeof(TRequest).Name, this.userAccessor.UserId, request, exception);
 
-                if (this.userAcessor.UserId != null && !(exception is NotFoundException) && !(exception is ForbiddenException))
+                if (this.userAccessor.UserId != null && !(exception is NotFoundException) && !(exception is ForbiddenException))
                 {
                     var notification = new Notification()
                     {
                         Type = NotificationType.Error,
                         CreatedOn = DateTime.UtcNow,
                         Header = ERROR_OCCURED_MSG,
-                        PlayerId = this.userAcessor.UserId,
+                        PlayerId = this.userAccessor.UserId,
                         Content = HttpUtility.HtmlEncode(exception.Message)
                     };
 
-                    await this.redisService.Save(this.userAcessor.UserId, notification, TimeSpan.FromSeconds(REDIS_NOTIFICATION_EXPIRATION_MINUTES));
+                    await this.redisService.Save(this.userAccessor.UserId, notification, TimeSpan.FromMinutes(REDIS_NOTIFICATION_EXPIRATION_MINUTES));
                 }
 
                 throw exception;

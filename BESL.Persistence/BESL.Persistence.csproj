@@ -27,4 +27,10 @@
     <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
     <ProjectReference Include="..\BESL.Infrastructure\BESL.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Seeding\AspNetUsers.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

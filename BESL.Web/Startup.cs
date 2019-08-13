@@ -116,7 +116,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISmsSender, NullMessageSender>();
 
-            services.AddScoped<IUserAcessor, UserAccessor>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
 
             services.AddSingleton<Cloudinary>(x => CloudinaryFactory.GetInstance(this.Configuration));
             services.AddTransient<ICloudinaryHelper, CloudinaryHelper>();

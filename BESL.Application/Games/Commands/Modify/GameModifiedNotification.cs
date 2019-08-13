@@ -17,19 +17,19 @@
         public class Handler : INotificationHandler<GameModifiedNotification>
         {
             private readonly IDeletableEntityRepository<Notification> notificationRepository;
-            private readonly IUserAcessor userAcessor;
+            private readonly IUserAccessor userAccessor;
 
-            public Handler(IDeletableEntityRepository<Notification> notificationRepository, IUserAcessor userAcessor)
+            public Handler(IDeletableEntityRepository<Notification> notificationRepository, IUserAccessor userAccessor)
             {
                 this.notificationRepository = notificationRepository;
-                this.userAcessor = userAcessor;
+                this.userAccessor = userAccessor;
             }
 
             public async Task Handle(GameModifiedNotification notification, CancellationToken cancellationToken)
             {
                 var notificationEntity = new Notification()
                 {
-                    PlayerId = this.userAcessor.UserId,
+                    PlayerId = this.userAccessor.UserId,
                     Header = string.Format(NOTIFICATION_ENTITY_HEADER_TEMPLATE_MSG, nameof(Game), notification.Id),
                     Content = DELETED_SUCCESSFULLY_MSG,
                     Type = NotificationType.Success,

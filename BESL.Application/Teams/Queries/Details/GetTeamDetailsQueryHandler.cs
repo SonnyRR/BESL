@@ -16,13 +16,13 @@
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IMapper mapper;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
-        public GetTeamDetailsQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IMapper mapper, IUserAcessor userAcessor)
+        public GetTeamDetailsQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IMapper mapper, IUserAccessor userAccessor)
         {
             this.teamsRepository = teamsRepository;
             this.mapper = mapper;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<GetTeamDetailsViewModel> Handle(GetTeamDetailsQuery request, CancellationToken cancellationToken)
@@ -38,7 +38,7 @@
                 .SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.Id);
 
-            var viewModel = this.mapper.Map<GetTeamDetailsViewModel>(desiredTeam, opts => opts.Items["CurrentUserId"] = this.userAcessor.UserId);
+            var viewModel = this.mapper.Map<GetTeamDetailsViewModel>(desiredTeam, opts => opts.Items["CurrentUserId"] = this.userAccessor.UserId);
             return viewModel;
         }
     }

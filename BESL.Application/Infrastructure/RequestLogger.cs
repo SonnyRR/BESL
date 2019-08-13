@@ -11,19 +11,19 @@
     public class RequestLogger<TRequest> : IRequestPreProcessor<TRequest>
     {
         private readonly ILogger logger;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
-        public RequestLogger(ILogger<TRequest> logger, IUserAcessor userAcessor)
+        public RequestLogger(ILogger<TRequest> logger, IUserAccessor userAccessor)
         {
             this.logger = logger;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var name = typeof(TRequest).Name;
 
-            var userId = this.userAcessor.UserId;
+            var userId = this.userAccessor.UserId;
             this.logger.LogInformation("BESL Request: {Name}-{userId} {@Request}", name, userId, request);
 
             return Task.CompletedTask;

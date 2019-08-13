@@ -24,7 +24,7 @@
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly ICloudinaryHelper cloudinaryHelper;
         private readonly IMapper mapper;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
         public CreateTeamCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
@@ -33,7 +33,7 @@
             IDeletableEntityRepository<Player> playersRepository,
             ICloudinaryHelper cloudinaryHelper,
             IMapper mapper,
-            IUserAcessor userAcessor)
+            IUserAccessor userAccessor)
         {
             this.teamsRepository = teamsRepository;
             this.formatsRepository = formatsRepository;
@@ -41,14 +41,14 @@
             this.playersRepository = playersRepository;
             this.cloudinaryHelper = cloudinaryHelper;
             this.mapper = mapper;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<int> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var currentUserId = this.userAcessor.UserId;
+            var currentUserId = this.userAccessor.UserId;
 
             if (!await CommonCheckHelper.CheckIfPlayerHasLinkedSteamAccount(currentUserId, this.playersRepository))
             {

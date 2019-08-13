@@ -1,4 +1,6 @@
 ﻿@model BESL.Application.Teams.Queries.Details.GetTeamDetailsViewModel
+@using System.Security.Claims;
+
 @{
     ViewData["Title"] = Model.Name;
 }
@@ -32,7 +34,7 @@
 
             @if (Model.IsMember)
             {
-                <a class="btn btn-danger text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id"><i class="fas fa-door-open"></i>&nbsp;Leave</a>
+                <a class="btn btn-danger text-white btn-block" asp-controller="Teams" asp-action="Leave" asp-route-PlayerId="@this.User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-TeamId="@Model.Id"><i class="fas fa-door-open"></i>&nbsp;Leave</a>
             }
         </div>
     }

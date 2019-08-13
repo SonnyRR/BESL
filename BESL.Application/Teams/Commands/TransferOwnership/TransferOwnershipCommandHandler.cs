@@ -15,12 +15,12 @@
     public class TransferTeamOwnershipCommandHandler : IRequestHandler<TransferTeamOwnershipCommand, int>
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
-        public TransferTeamOwnershipCommandHandler(IDeletableEntityRepository<Team> teamsRepository, IUserAcessor userAcessor)
+        public TransferTeamOwnershipCommandHandler(IDeletableEntityRepository<Team> teamsRepository, IUserAccessor userAccessor)
         {
             this.teamsRepository = teamsRepository;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<int> Handle(TransferTeamOwnershipCommand request, CancellationToken cancellationToken)
@@ -34,7 +34,7 @@
                 .SingleOrDefaultAsync(t => t.Id == request.TeamId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.TeamId);
 
-            if (desiredTeam.OwnerId != this.userAcessor.UserId)
+            if (desiredTeam.OwnerId != this.userAccessor.UserId)
             {
                 throw new ForbiddenException();
             }

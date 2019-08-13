@@ -2,7 +2,7 @@
 {
     using System.Security.Claims;
 
-    public interface IUserAcessor
+    public interface IUserAccessor
     {
         ClaimsPrincipal User { get; }
 

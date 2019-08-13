@@ -7,6 +7,7 @@
 
     using BESL.Application.Exceptions;
     using BESL.Web.Infrastructure;
+    using Microsoft.Extensions.Primitives;
 
     public class CustomExceptionHandlerMiddleware
     {

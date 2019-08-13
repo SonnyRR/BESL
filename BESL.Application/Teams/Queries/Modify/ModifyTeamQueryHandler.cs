@@ -16,13 +16,13 @@
     public class ModifyTeamQueryHandler : IRequestHandler<ModifyTeamQuery, ModifyTeamCommand>
     {
         private readonly IDeletableEntityRepository<Team> teamsRepository;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
         private readonly IMapper mapper;
 
-        public ModifyTeamQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IUserAcessor userAcessor, IMapper mapper)
+        public ModifyTeamQueryHandler(IDeletableEntityRepository<Team> teamsRepository, IUserAccessor userAccessor, IMapper mapper)
         {
             this.teamsRepository = teamsRepository;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
             this.mapper = mapper;
         }
 
@@ -37,7 +37,7 @@
                 .SingleOrDefaultAsync(t => t.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.Id);
 
-            if (desiredTeam.OwnerId != this.userAcessor.UserId)
+            if (desiredTeam.OwnerId != this.userAccessor.UserId)
             {
                 throw new ForbiddenException();
             }

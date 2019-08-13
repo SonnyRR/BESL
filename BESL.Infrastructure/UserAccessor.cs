@@ -7,7 +7,7 @@
 
     using BESL.Application.Interfaces;
 
-    public class UserAccessor : IUserAcessor
+    public class UserAccessor : IUserAccessor
     {
         private readonly IHttpContextAccessor httpContextAccessor;
 

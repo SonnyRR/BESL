@@ -15,12 +15,12 @@
     public class DeleteNotificationCommandHandler : IRequestHandler<DeleteNotificationCommand, int>
     {
         private readonly IDeletableEntityRepository<Notification> notificationsRepository;
-        private readonly IUserAcessor userAcessor;
+        private readonly IUserAccessor userAccessor;
 
-        public DeleteNotificationCommandHandler(IDeletableEntityRepository<Notification> notificationsRepository, IUserAcessor userAcessor)
+        public DeleteNotificationCommandHandler(IDeletableEntityRepository<Notification> notificationsRepository, IUserAccessor userAccessor)
         {
             this.notificationsRepository = notificationsRepository;
-            this.userAcessor = userAcessor;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<int> Handle(DeleteNotificationCommand request, CancellationToken cancellationToken)
@@ -32,7 +32,7 @@
                 .SingleOrDefaultAsync(n => n.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Notification), request.Id);
 
-            if (desiredNotification.PlayerId != this.userAcessor.UserId)
+            if (desiredNotification.PlayerId != this.userAccessor.UserId)
             {
                 throw new DeleteFailureException(nameof(Notification), desiredNotification.Id, PLAYER_CAN_ONLY_DELETE_HIS_OWN_NOTIFICATIONS_MSG);
             }

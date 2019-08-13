@@ -14,9 +14,9 @@
     using BESL.Application.Teams.Commands.RemovePlayer;
     using BESL.Application.Teams.Commands.TransferOwnership;
 
+    [Authorize]
     public class TeamsController : BaseController
     {
-        [Authorize]
         public async Task<IActionResult> Create()
         {
             var viewModel = await this.Mediator.Send(new CreateTeamQuery());
@@ -24,7 +24,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create(CreateTeamCommand command)
         {
             if (!this.ModelState.IsValid)
@@ -37,6 +36,7 @@
             return this.RedirectToAction(nameof(Details), new { Id = teamId });
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(GetTeamDetailsQuery query)
         {
             var viewModel = await this.Mediator.Send(query);
@@ -50,7 +50,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Modify(ModifyTeamCommand command)
         {
@@ -60,10 +59,9 @@
             }
 
             var viewModel = await this.Mediator.Send(command);
-            return this.RedirectToAction(nameof(Modify), new GetTeamDetailsQuery { Id = command.Id });
+            return this.RedirectToAction(nameof(Details), new GetTeamDetailsQuery { Id = command.Id });
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Invite(InvitePlayerCommand command)
         {
@@ -71,7 +69,6 @@
             return this.RedirectToAction(nameof(Modify), new ModifyTeamQuery { Id = command.TeamId });
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> RemovePlayer(RemovePlayerCommand command)
         {
@@ -79,7 +76,12 @@
             return this.RedirectToAction(nameof(Modify), new ModifyTeamQuery { Id = command.TeamId });
         }
 
-        [Authorize]
+        public async Task<IActionResult> Leave(RemovePlayerCommand command)
+        {
+            await this.Mediator.Send(command);
+            return this.LocalRedirect("/");
+        }
+
         [HttpPost]
         public async Task<IActionResult> TransferOwnership(TransferTeamOwnershipCommand command)
         {
