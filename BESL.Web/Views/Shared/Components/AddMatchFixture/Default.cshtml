@@ -20,11 +20,15 @@
                 <form id="AddMatchForm" asp-controller="MatchFixtures" asp-action="Create">
                     <div class="form-group mb-2">
                         <label asp-for="HomeTeamId">Home team</label>
-                        <select class="form-control" asp-for="@Model.HomeTeamId" asp-items="@Model.Teams.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()"></select>
+                        <select class="form-control" asp-for="@Model.HomeTeamId" asp-items="@Model.Teams.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()">
+                            <option selected disabled>Choose...</option>
+                        </select>
                     </div>
                     <div class="form-group mb-2">
                         <label asp-for="HomeTeamId">Away team</label>
-                        <select class="form-control" asp-for="@Model.AwayTeamId" asp-items="@Model.Teams.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()"></select>
+                        <select class="form-control" asp-for="@Model.AwayTeamId" asp-items="@Model.Teams.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name }).ToList()">
+                            <option selected disabled>Choose...</option>
+                        </select>
                     </div>
                     <div class="form-group mb-2">
                         <label asp-for="PlayDate">Play date</label>

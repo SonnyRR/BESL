@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="TransferOwnershipForm" asp-controller="Teams" asp-action="TransferOwnership">
+                <form id="TransferOwnershipForm" asp-controller="Teams" asp-action="TransferOwnership" onsubmit="return submitForm('Do you want to transfer', 'ownership');">
                     <div class="input-group">
                         <select class="custom-select" asp-for="PlayerId" asp-items="@Model.TeamPlayers.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.UserName }).ToList()"></select>
                         <input type="hidden" class="form-control" asp-for="@Model.TeamId">

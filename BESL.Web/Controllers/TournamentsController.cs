@@ -9,25 +9,25 @@
     using BESL.Application.Tournaments.Queries.Details;
     using BESL.Application.Tournaments.Queries.Enroll;
 
+    [Authorize]
     public class TournamentsController : BaseController
     {
+        [AllowAnonymous]
         public async Task<IActionResult> Details(GetTournamentDetailsQuery query)
         {
             var viewModel = await this.Mediator.Send(query);
             return this.View(viewModel);
         }
 
-        [Authorize]
         public async Task<IActionResult> Enroll(EnrollATeamQuery query)
         {
             var viewModel = await this.Mediator.Send(query);
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Enroll(EnrollATeamCommand command)
-        {            
+        {
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction(nameof(Details));

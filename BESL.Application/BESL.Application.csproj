@@ -61,6 +61,7 @@
     <Folder Include="TeamTableResults\Commands\" />
     <Folder Include="TeamTableResults\Commands\Drop\" />
     <Folder Include="TeamTableResults\Commands\Activate\" />
+    <Folder Include="Matches\Queries\Details\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Matches\Queries\Modify\ModifyMatchViewModel.cs" />

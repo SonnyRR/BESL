@@ -8,10 +8,10 @@
     using BESL.Application.Notifications.Commands.Delete;
     using BESL.Web.Filters;
 
+    [Authorize]
     [AjaxOnlyFilter]
     public class NotificationsController : BaseController
     {
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete(DeleteNotificationCommand command)
         {

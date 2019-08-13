@@ -8,8 +8,6 @@
     {
         public int Id { get; set; }
 
-        public int TeamTableResultId { get; set; }
-
         public int PlayWeekId { get; set; }
 
         public int HomeTeamId { get; set; }
@@ -20,9 +18,9 @@
 
         public string AwayTeamName { get; set; }
 
-        public int HomeTeamScore { get; set; }
+        public int? HomeTeamScore { get; set; }
 
-        public int AwayTeamScore { get; set; }
+        public int? AwayTeamScore { get; set; }
 
         public int WinnerTeamId { get; set; }
 

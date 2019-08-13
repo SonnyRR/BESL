@@ -1,17 +1,17 @@
 ﻿namespace BESL.Application.Matches.Commands.Create
 {
     using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Exceptions;
     using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using System.Linq;
-    using Microsoft.EntityFrameworkCore;
 
     public class CreateMatchCommandHandler : IRequestHandler<CreateMatchCommand, int>
     {

@@ -8,19 +8,19 @@
     {
         public ModifyMatchCommandValidator()
         {
-            RuleFor(x => x.AwayTeamScore)
-                .GreaterThanOrEqualTo(MATCH_MIN_POINTS)
-                .LessThanOrEqualTo(MATCH_MAX_POINTS);
+            When(x => x.AwayTeamScore.HasValue, () => RuleFor(x => x.AwayTeamScore)
+                  .GreaterThanOrEqualTo(MATCH_MIN_POINTS)
+                  .LessThanOrEqualTo(MATCH_MAX_POINTS));
 
-            RuleFor(x => x.HomeTeamScore)
-                .GreaterThanOrEqualTo(MATCH_MIN_POINTS)
-                .LessThanOrEqualTo(MATCH_MAX_POINTS);
+            When(x => x.HomeTeamScore.HasValue, () => RuleFor(x => x.HomeTeamScore)
+                  .GreaterThanOrEqualTo(MATCH_MIN_POINTS)
+                  .LessThanOrEqualTo(MATCH_MAX_POINTS));
 
             RuleFor(x => x.ScheduledDate)
                 .NotEmpty()
                 .Must(x => x.DayOfWeek != DayOfWeek.Sunday)
                 .WithMessage(PLAY_DATE_CANNOT_BE_ON_SUNDAY)
-                .Must(x => x.Date >= DateTime.UtcNow)
+                .Must(x => x.Date.ToUniversalTime() < DateTime.UtcNow.AddMinutes(-10))
                 .WithMessage(PLAY_DATE_CANNOT_BE_IN_THE_PAST);
         }
     }

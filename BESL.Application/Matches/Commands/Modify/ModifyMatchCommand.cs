@@ -21,9 +21,9 @@
 
         public string AwayTeamName { get; set; }
 
-        public int HomeTeamScore { get; set; }
+        public int? HomeTeamScore { get; set; }
 
-        public int AwayTeamScore { get; set; }
+        public int? AwayTeamScore { get; set; }
 
         public int WinnerTeamId { get; set; }
 

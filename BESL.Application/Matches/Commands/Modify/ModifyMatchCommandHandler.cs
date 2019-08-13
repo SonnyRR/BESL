@@ -31,15 +31,21 @@
 
             desiredMatch.HomeTeamScore = request.HomeTeamScore;
             desiredMatch.AwayTeamScore = request.AwayTeamScore;
-            desiredMatch.IsDraw = request.HomeTeamScore == request.AwayTeamScore;
+
+            desiredMatch.IsDraw = request.AwayTeamScore.HasValue && request.HomeTeamScore.HasValue
+                ? request.HomeTeamScore == request.AwayTeamScore
+                : false;
+
             desiredMatch.ScheduledDate = request.ScheduledDate;
 
             desiredMatch.WinnerTeamId =
-                request.HomeTeamScore > request.AwayTeamScore
-                ? desiredMatch.HomeTeamId
-                : request.HomeTeamScore == request.AwayTeamScore
-                    ? (int?)null
-                    : request.AwayTeamId;
+                request.HomeTeamScore.HasValue && request.AwayTeamScore.HasValue ?
+                    request.HomeTeamScore > request.AwayTeamScore
+                    ? desiredMatch.HomeTeamId
+                    : request.HomeTeamScore == request.AwayTeamScore
+                        ? (int?)null
+                        : request.AwayTeamId
+                : null;
 
             this.matchesRepository.Update(desiredMatch);
             return await this.matchesRepository.SaveChangesAsync(cancellationToken);
