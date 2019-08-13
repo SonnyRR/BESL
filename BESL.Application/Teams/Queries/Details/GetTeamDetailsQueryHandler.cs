@@ -10,6 +10,7 @@
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
+    using BESL.Application.Common.Models.Lookups;
     using BESL.Domain.Entities;
 
     public class GetTeamDetailsQueryHandler : IRequestHandler<GetTeamDetailsQuery, GetTeamDetailsViewModel>

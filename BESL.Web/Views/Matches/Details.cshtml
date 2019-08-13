@@ -1,0 +1,39 @@
+﻿@model BESL.Application.Matches.Queries.Details.GetMatchDetailsViewModel
+@using static BESL.Common.GlobalConstants;
+@{
+    ViewData["Title"] = $"{@Model.HomeTeamName} vs {@Model.AwayTeamName}";
+}
+
+<div class="container shadow bordered">
+            <h4 class="display-4">Match Details</h4>
+<hr />
+<div class="my-4 mx-4">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4 text-center">
+            <img class="img-thumbnail shadow" src="@Model.HomeTeam.TeamImageUrl" />
+            <h4>@Model.HomeTeamName</h4>
+        </div>
+        <div class="col-sm-1 d-flex align-items-center text-center">
+            <h3 class="mx-auto lead">VS</h3>
+        </div>
+        <div class="col-md-4 text-center">
+            <img class="img-thumbnail shadow" src="@Model.AwayTeam.TeamImageUrl" />
+            <h4>@Model.AwayTeamName</h4>
+        </div>
+    </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12">
+                <h4 class="lead text-center">Scheduled date: @Model.ScheduledDate.ToString(DATE_HOUR_FORMAT)</h4>                
+                <h4 class="lead text-center">Match result:</h4>
+                @if (Model.HomeTeamScore != null && Model.AwayTeamScore != null)
+                {
+                    <h5 class="text-center>@Model.HomeTeamScore - @Model.AwayTeamScore</h5class="text-center></h5>
+                }
+                else
+                {
+                    <h5 class="text-center">To be played</h5>
+                }
+            </div>
+        </div>
+    </div>
+</div>

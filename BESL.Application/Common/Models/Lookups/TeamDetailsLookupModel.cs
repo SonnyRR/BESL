@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Teams.Queries.Details
+﻿namespace BESL.Application.Common.Models.Lookups
 {
     using System.Linq;
     using AutoMapper;

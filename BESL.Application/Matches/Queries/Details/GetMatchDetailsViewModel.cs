@@ -1,11 +1,11 @@
 ﻿namespace BESL.Application.Matches.Queries.Details
 {
-    using System;
+    using BESL.Application.Common.Models.Lookups;
 
-    public class GetMatchDetailsViewModel 
+    public class GetMatchDetailsViewModel : MatchLookupModel
     {
-        public GetMatchDetailsViewModel()
-        {
-        }
+        public TeamDetailsLookupModel HomeTeam { get; set; }
+
+        public TeamDetailsLookupModel AwayTeam { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.Teams.Queries.Details
 {
+    using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces.Mapping;
 
     public class GetTeamDetailsViewModel : IMapFrom<TeamDetailsLookupModel>

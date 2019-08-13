@@ -5,6 +5,5 @@
     public class GetTeamDetailsQuery : IRequest<GetTeamDetailsViewModel>
     {
         public int Id { get; set; }
-
     }
 }
