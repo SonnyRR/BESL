@@ -3,8 +3,6 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.SignalR;
     using BESL.Application.Interfaces;
-    using Microsoft.AspNetCore.SignalR.Client;
-    using System;
 
     public class UserNotificationHub : Hub, INotifyService
     {
@@ -23,17 +21,6 @@
              .Clients
              .User(userId ?? this.userAccessor.UserId)
              .SendAsync("ReceivePushNotification", header, message, type);
-        }
-
-        public Task Test()
-        {
-
-            var uri = new Uri("/userNotificationHub", UriKind.Absolute);
-            var signalRConnection = new HubConnectionBuilder()
-                 .WithUrl(uri)
-                 .Build();
-
-            return signalRConnection.StartAsync();
         }
     }
 }

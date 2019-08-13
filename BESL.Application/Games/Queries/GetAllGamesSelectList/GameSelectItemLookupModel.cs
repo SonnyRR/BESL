@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Common.Models.Lookups
+﻿namespace BESL.Application.Games.Queries.GetAllGamesSelectList
 { 
     using AutoMapper;
     using BESL.Application.Interfaces.Mapping;

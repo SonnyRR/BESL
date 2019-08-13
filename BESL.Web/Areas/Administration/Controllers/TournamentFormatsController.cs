@@ -7,22 +7,27 @@
     using BESL.Application.TournamentFormats.Commands.Create;
     using BESL.Application.TournamentFormats.Commands.Delete;
     using BESL.Application.TournamentFormats.Commands.Modify;
-    using BESL.Application.TournamentFormats.Queries.Create;
-    using BESL.Application.TournamentFormats.Queries.GetAll;
+    using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormats;
     using BESL.Application.TournamentFormats.Queries.Modify;
-    using static BESL.Common.GlobalConstants;
+    using BESL.Application.Games.Queries.GetAllGamesSelectList;
 
     public class TournamentFormatsController : AdminController
     {
         public async Task<IActionResult> Create()
         {
-            var viewModel = await this.Mediator.Send(new CreateTournamentFormatQuery());
+            var viewModel = new CreateTournamentFormatCommand { Games = await this.Mediator.Send(new GetAllGamesSelectListQuery()) };
             return this.View(viewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateTournamentFormatCommand command)
         {
+            if (!this.ModelState.IsValid)
+            {
+                command.Games = await this.Mediator.Send(new GetAllGamesSelectListQuery());
+                return this.View(command);
+            }
+
             await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Index));
         }

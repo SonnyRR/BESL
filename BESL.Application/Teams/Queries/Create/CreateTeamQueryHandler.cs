@@ -8,9 +8,9 @@
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
-    using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.Create;
+    using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
     using BESL.Domain.Entities;
 
     public class CreateTeamQueryHandler : IRequestHandler<CreateTeamQuery, CreateTeamCommand>

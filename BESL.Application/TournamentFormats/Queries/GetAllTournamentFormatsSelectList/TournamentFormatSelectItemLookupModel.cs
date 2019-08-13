@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Common.Models.Lookups
+﻿namespace BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList
 {
     using AutoMapper;
     using BESL.Application.Interfaces.Mapping;

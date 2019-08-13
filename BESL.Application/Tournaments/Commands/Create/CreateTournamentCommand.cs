@@ -6,7 +6,7 @@
     using MediatR;
     using Microsoft.AspNetCore.Http;
 
-    using BESL.Application.Tournaments.Models;
+    using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
 
     public class CreateTournamentCommand : IRequest<int>
     {
@@ -22,6 +22,6 @@
 
         public DateTime EndDate { get; set; }
 
-        public IEnumerable<TournamentFormatSelectListLookupModel> Formats { get; set; }
+        public IEnumerable<TournamentFormatSelectItemLookupModel> Formats { get; set; }
     }
 }

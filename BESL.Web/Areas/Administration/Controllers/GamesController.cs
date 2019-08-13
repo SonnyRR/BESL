@@ -46,8 +46,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var model = await this.Mediator.Send(new ModifyGameQuery() { Id = command.Id });
-                return this.View(model);
+                return this.View(command);
             }
 
             await this.Mediator.Send(command);

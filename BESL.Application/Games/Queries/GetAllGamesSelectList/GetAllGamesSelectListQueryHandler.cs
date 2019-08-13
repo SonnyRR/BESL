@@ -12,7 +12,6 @@
 
     using BESL.Application.Interfaces;   
     using BESL.Domain.Entities;
-    using BESL.Application.Common.Models.Lookups;
 
     public class GetAllGamesSelectListQueryHandler : IRequestHandler<GetAllGamesSelectListQuery, IEnumerable<GameSelectItemLookupModel>>
     {
@@ -30,12 +29,12 @@
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            var games = await this.gameRepository
+            var lookups = await this.gameRepository
                 .AllAsNoTracking()
                 .ProjectTo<GameSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return games;
+            return lookups;
         }
     }
 }

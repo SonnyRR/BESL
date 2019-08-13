@@ -5,18 +5,18 @@
     using Microsoft.AspNetCore.Mvc;
 
     using BESL.Application.Tournaments.Commands.Create;
-    using BESL.Application.Tournaments.Commands.Modify;
-    using BESL.Application.Tournaments.Queries.Create;
-    using BESL.Application.Tournaments.Queries.GetAllTournaments;
-    using BESL.Application.Tournaments.Queries.Modify;
-    using BESL.Application.TournamentTables.Queries.GetTournamentTables;
     using BESL.Application.Tournaments.Commands.Delete;
+    using BESL.Application.Tournaments.Commands.Modify;
+    using BESL.Application.Tournaments.Queries.Modify;
+    using BESL.Application.Tournaments.Queries.GetAllTournaments;
+    using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
+    using BESL.Application.TournamentTables.Queries.GetTournamentTables;
 
     public class TournamentsController : AdminController
     {
         public async Task<IActionResult> Create()
         {
-            var model = await this.Mediator.Send(new CreateTournamentQuery());
+            var model = new CreateTournamentCommand { Formats = await this.Mediator.Send(new GetAllTournamentFormatsSelectListQuery()) };
             return this.View(model);
         }
 
@@ -25,8 +25,8 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var model = await this.Mediator.Send(new CreateTournamentQuery());
-                return this.View(model);
+                command.Formats = await this.Mediator.Send(new GetAllTournamentFormatsSelectListQuery());
+                return this.View(command);
             }
 
             await this.Mediator.Send(command);
@@ -36,11 +36,6 @@
         [HttpPost]
         public async Task<IActionResult> Delete(DeleteTournamentCommand command)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.NotFound();
-            }
-
             await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Index));
         }

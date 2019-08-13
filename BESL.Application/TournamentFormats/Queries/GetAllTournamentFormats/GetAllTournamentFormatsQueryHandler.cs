@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.TournamentFormats.Queries.GetAll
+﻿namespace BESL.Application.TournamentFormats.Queries.GetAllTournamentFormats
 {
     using System.Linq;
     using System.Threading;

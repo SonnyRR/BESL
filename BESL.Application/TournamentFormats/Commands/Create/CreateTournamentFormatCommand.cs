@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using MediatR;
-    using BESL.Application.Common.Models.Lookups;
+    using BESL.Application.Games.Queries.GetAllGamesSelectList;
 
     public class CreateTournamentFormatCommand : IRequest<int>
     {

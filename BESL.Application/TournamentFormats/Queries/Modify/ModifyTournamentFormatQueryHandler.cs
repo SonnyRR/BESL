@@ -8,9 +8,9 @@
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
+    using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Application.TournamentFormats.Commands.Modify;
-    using BESL.Application.Exceptions;
     using BESL.Domain.Entities;   
 
     public class ModifyTournamentFormatQueryHandler : IRequestHandler<ModifyTournamentFormatQuery, ModifyTournamentFormatCommand>
@@ -30,7 +30,7 @@
 
             var desiredFormat = await this.tournamentFormatsRepository
                 .AllAsNoTrackingWithDeleted()
-                    .Include(tf => tf.Game)
+                .Include(tf => tf.Game)
                 .SingleOrDefaultAsync(f => f.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(TournamentFormat), request.Id);
 
