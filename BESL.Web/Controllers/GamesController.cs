@@ -16,14 +16,14 @@
 
         public async Task<IActionResult> All()
         {
-            var model = await this.Mediator.Send(new GetAllGamesQuery());
-            return this.View(model);
+            var viewModel = await this.Mediator.Send(new GetAllGamesQuery());
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Details(GetGameDetailsQuery query)
         {
-            var model = await this.Mediator.Send(query);
-            return this.View(model);
+            var viewModel = await this.Mediator.Send(query);
+            return this.View(viewModel);
         }
     }
 }

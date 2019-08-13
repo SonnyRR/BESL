@@ -16,8 +16,8 @@
     {
         public async Task<IActionResult> Create()
         {
-            var model = new CreateTournamentCommand { Formats = await this.Mediator.Send(new GetAllTournamentFormatsSelectListQuery()) };
-            return this.View(model);
+            var viewModel = new CreateTournamentCommand { Formats = await this.Mediator.Send(new GetAllTournamentFormatsSelectListQuery()) };
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -42,25 +42,20 @@
 
         public async Task<IActionResult> Index()
         {
-            var model = await this.Mediator.Send(new GetAllTournamentsQuery());
-            return this.View(model);
+            var viewModel = await this.Mediator.Send(new GetAllTournamentsQuery());
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Tables(GetTournamentTablesQuery query)
         {
             var viewModel = await this.Mediator.Send(query);
-
-            this.ViewData["ReturnUrl"] = this.RedirectToAction(nameof(Tables), new GetTournamentTablesQuery { Id = query.Id })
-                .UrlHelper
-                .Action();
-
             return this.View(viewModel);
         }
 
         public async Task<IActionResult> Modify(TournamentModifyQuery query)
         {
-            var model = await this.Mediator.Send(query);
-            return this.View(model);
+            var viewModel = await this.Mediator.Send(query);
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -71,7 +66,7 @@
                 return this.View(command);
             }
 
-            var model = await this.Mediator.Send(command);
+            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Index));
         }
     }

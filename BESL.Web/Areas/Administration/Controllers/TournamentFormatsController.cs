@@ -52,8 +52,8 @@
 
         public async Task<IActionResult> Index()
         {
-            var tournamentFormats = await this.Mediator.Send(new GetAllTournamentFormatsQuery()); 
-            return this.View(tournamentFormats);
+            var viewModel = await this.Mediator.Send(new GetAllTournamentFormatsQuery()); 
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Delete(DeleteTournamentFormatCommand command)

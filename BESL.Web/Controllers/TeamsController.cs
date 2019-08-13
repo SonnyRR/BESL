@@ -6,20 +6,20 @@
     using Microsoft.AspNetCore.Mvc;
 
     using BESL.Application.Teams.Commands.Create;
-    using BESL.Application.Teams.Queries.Create;
-    using BESL.Application.Teams.Queries.Details;
-    using BESL.Application.Teams.Queries.Modify;
     using BESL.Application.Teams.Commands.Modify;
     using BESL.Application.Teams.Commands.InvitePlayer;
     using BESL.Application.Teams.Commands.RemovePlayer;
     using BESL.Application.Teams.Commands.TransferOwnership;
+    using BESL.Application.Teams.Queries.Details;
+    using BESL.Application.Teams.Queries.Modify;
+    using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
 
     [Authorize]
     public class TeamsController : BaseController
     {
         public async Task<IActionResult> Create()
         {
-            var viewModel = await this.Mediator.Send(new CreateTeamQuery());
+            var viewModel = new CreateTeamCommand { Formats = await this.Mediator.Send(new GetAllTournamentFormatsSelectListQuery()) };
             return this.View(viewModel);
         }
 
@@ -28,7 +28,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                command.Formats = (await this.Mediator.Send(new CreateTeamQuery())).Formats;
+                command.Formats = await this.Mediator.Send(new GetAllTournamentFormatsSelectListQuery());
                 return this.View(command);
             }
 

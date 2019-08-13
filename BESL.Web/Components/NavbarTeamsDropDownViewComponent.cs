@@ -8,12 +8,12 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Queries.GetTeamsForPlayer;
 
-    public class TeamsNavbarDropDownViewComponent : ViewComponent
+    public class NavbarTeamsDropDownViewComponent : ViewComponent
     {
         private IMediator mediator;
         private IUserAccessor userAccessor;
 
-        public TeamsNavbarDropDownViewComponent(IMediator mediator, IUserAccessor userAccessor)
+        public NavbarTeamsDropDownViewComponent(IMediator mediator, IUserAccessor userAccessor)
         {
             this.mediator = mediator;
             this.userAccessor = userAccessor;

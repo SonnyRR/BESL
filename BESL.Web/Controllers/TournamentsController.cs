@@ -30,7 +30,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.RedirectToAction(nameof(Details));
+                return this.RedirectToAction(nameof(Details), new GetTournamentDetailsQuery { Id = command.TournamentId });
             }
 
             await this.Mediator.Send(command);

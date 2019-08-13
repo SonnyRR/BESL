@@ -7,11 +7,11 @@
 
     using BESL.Application.Teams.Queries.GetPlayersForTeam;
 
-    public class TeamModifyPlayersViewComponent : ViewComponent
+    public class ModifyTeamPlayersViewComponent : ViewComponent
     {
         public IMediator mediator;
 
-        public TeamModifyPlayersViewComponent(IMediator mediator)
+        public ModifyTeamPlayersViewComponent(IMediator mediator)
         {
             this.mediator = mediator;
         }
