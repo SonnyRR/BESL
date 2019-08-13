@@ -8,6 +8,7 @@
     using BESL.Application.Matches.Queries.GetMatchesForPlayWeek;
     using BESL.Application.Matches.Queries.Modify;
     using BESL.Application.Matches.Commands.Modify;
+    using BESL.Application.Matches.Commands.Delete;
 
     public class MatchFixturesController : AdminController
     {
@@ -46,6 +47,12 @@
 
             await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Details), new GetMatchesForPlayWeekQuery { PlayWeekId = command.PlayWeekId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(DeleteMatchCommand command, int playWeekId)
+        {
+            return this.RedirectToAction(nameof(Details), new GetMatchesForPlayWeekQuery { PlayWeekId = playWeekId });
         }
     }
 }
