@@ -11,14 +11,18 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-4 text-center">
             <img class="img-thumbnail shadow" src="@Model.HomeTeam.TeamImageUrl" />
-            <h4>@Model.HomeTeamName</h4>
+            <h4>
+               <a asp-action="Details" asp-controller="Teams" asp-route-id="@Model.HomeTeamId">@Model.HomeTeamName</a>
+            </h4>
         </div>
         <div class="col-sm-1 d-flex align-items-center text-center">
             <h3 class="mx-auto lead">VS</h3>
         </div>
         <div class="col-md-4 text-center">
             <img class="img-thumbnail shadow" src="@Model.AwayTeam.TeamImageUrl" />
-            <h4>@Model.AwayTeamName</h4>
+            <h4>
+                <a asp-action="Details" asp-controller="Teams" asp-route-id="@Model.AwayTeamId">@Model.AwayTeamName</a>
+            </h4>
         </div>
     </div>
         <div class="row d-flex justify-content-center">
@@ -34,6 +38,18 @@
                     <h5 class="text-center">To be played</h5>
                 }
             </div>
-        </div>
+        </div>      
     </div>
+<form>
+
+    <select class="custom-select" multiple="multiple">
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option selected value="CA">California</option>
+    </select>
+
+    </form>
+
 </div>

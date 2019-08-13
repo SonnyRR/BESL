@@ -31,6 +31,7 @@
 
             desiredMatch.HomeTeamScore = request.HomeTeamScore;
             desiredMatch.AwayTeamScore = request.AwayTeamScore;
+            desiredMatch.IsResultConfirmed = request.IsResultConfirmed;
 
             desiredMatch.IsDraw = request.AwayTeamScore.HasValue && request.HomeTeamScore.HasValue
                 ? request.HomeTeamScore == request.AwayTeamScore

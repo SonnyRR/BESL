@@ -31,6 +31,8 @@
 
         public bool IsDraw { get; set; }
 
+        public bool IsResultConfirmed { get; set; }
+
         public DateTime ScheduledDate { get; set; }
     }
 }
