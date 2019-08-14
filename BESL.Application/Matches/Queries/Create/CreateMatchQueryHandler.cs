@@ -18,11 +18,13 @@
     public class CreateMatchQueryHandler : IRequestHandler<CreateMatchQuery, CreateMatchCommand>
     {
         private readonly IDeletableEntityRepository<TournamentTable> tournamentTablesRepository;
+        private readonly IDeletableEntityRepository<PlayWeek> playweeksRepository;
         private readonly IMapper mapper;
 
-        public CreateMatchQueryHandler(IDeletableEntityRepository<TournamentTable> tournamentTablesRepository, IMapper mapper)
+        public CreateMatchQueryHandler(IDeletableEntityRepository<TournamentTable> tournamentTablesRepository, IDeletableEntityRepository<PlayWeek> playweeksRepository, IMapper mapper)
         {
             this.tournamentTablesRepository = tournamentTablesRepository;
+            this.playweeksRepository = playweeksRepository;
             this.mapper = mapper;
         }
 
@@ -30,12 +32,22 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var teams = await this.tournamentTablesRepository
+            //var teams = await this.tournamentTablesRepository
+            //    .AllAsNoTracking()
+            //    .Include(t => t.TeamTableResults)
+            //        .ThenInclude(t => t.Team)
+            //    .Where(t => t.Id == request.TournamentTableId)
+            //    .SelectMany(t => t.TeamTableResults.Where(ttr => !ttr.IsDropped).Select(ttr => ttr.Team))
+            //    .ProjectTo<TeamsSelectItemLookupModel>(this.mapper.ConfigurationProvider)
+            //    .ToListAsync(cancellationToken);
+
+            var teams = await this.playweeksRepository
                 .AllAsNoTracking()
-                .Include(t => t.TeamTableResults)
-                    .ThenInclude(t => t.Team)
-                .Where(t => t.Id == request.TournamentTableId)
-                .SelectMany(t => t.TeamTableResults.Where(ttr => !ttr.IsDropped).Select(ttr => ttr.Team))
+                .Include(pw => pw.TournamentTable)
+                    .ThenInclude(tt => tt.TeamTableResults)
+                    .ThenInclude(ttr => ttr.Team)
+                .Where(pw => pw.Id == request.PlayWeekId)
+                .SelectMany(x => x.TournamentTable.TeamTableResults.Where(ttr => !ttr.IsDropped).Select(e => e.Team))
                 .ProjectTo<TeamsSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

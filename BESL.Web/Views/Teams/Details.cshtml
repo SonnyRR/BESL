@@ -29,12 +29,16 @@
         <div class="col-sm-3">
             @if (Model.IsOwner)
             {
-                <a class="btn btn-primary text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id"><i class="fas fa-cog"></i>&nbsp;Modify</a>
+                <a class="mb-2 btn btn-primary text-white btn-block" asp-controller="Teams" asp-action="Modify" asp-route-id="@Model.Id"><i class="fas fa-cog"></i>&nbsp;Modify</a>
             }
 
             @if (Model.IsMember)
             {
-                <a class="btn btn-danger text-white btn-block" asp-controller="Teams" asp-action="Leave" asp-route-PlayerId="@this.User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-TeamId="@Model.Id"><i class="fas fa-door-open"></i>&nbsp;Leave</a>
+                <form asp-controller="Teams" asp-action="Leave" onsubmit="return submitForm('Do you want to leave:', '@Model.Name');">
+                    <input hidden name="PlayerId" value="@this.User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+                    <input hidden name="TeamId" value="@Model.Id" />
+                    <button class="btn btn-danger text-white btn-block"><i class="fas fa-door-open"></i>&nbsp;Leave</button>
+                </form>
             }
         </div>
     }
@@ -57,3 +61,11 @@
         <vc:get-players-for-team team-id="@Model.Id"></vc:get-players-for-team>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        function submitForm(a, b) {
+            return confirm(`${a} ${b} ?`);
+        }
+    </script>
+}

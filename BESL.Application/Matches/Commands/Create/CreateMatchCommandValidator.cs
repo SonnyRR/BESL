@@ -20,7 +20,7 @@
                 .NotEmpty()
                 .Must(x => x.DayOfWeek != DayOfWeek.Sunday)
                 .WithMessage(PLAY_DATE_CANNOT_BE_ON_SUNDAY)
-                .Must(x => x.Date >= DateTime.UtcNow)
+                .Must(x => x.ToUniversalTime().Date >= DateTime.UtcNow.AddMinutes(-10).Date)
                 .WithMessage(PLAY_DATE_CANNOT_BE_IN_THE_PAST);
         }
     }

@@ -40,7 +40,7 @@
                 .ProjectTo<TournamentTableLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            var viewModel = new TournamentTablesViewModel() { Tables = tables };
+            var viewModel = new TournamentTablesViewModel() { Tables = tables, TournamentId = request.Id };
             return viewModel;
         }
     }

@@ -10,17 +10,17 @@
     public class TableResultsController : AdminController
     {
         [HttpPost]
-        public async Task<IActionResult> Drop(DropTeamTableResultCommand command, string returnUrl)
+        public async Task<IActionResult> Drop(DropTeamTableResultCommand command, string tournamentId)
         {
             await this.Mediator.Send(command);
-            return this.LocalRedirect(returnUrl);
+            return this.RedirectToAction("Tables", "Tournaments", new { Id = tournamentId });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Activate(ActivateTeamTableResultCommand command, string returnUrl)
+        public async Task<IActionResult> Activate(ActivateTeamTableResultCommand command, string tournamentId)
         {
             await this.Mediator.Send(command);
-            return this.LocalRedirect(returnUrl);
+            return this.RedirectToAction("Tables", "Tournaments", new { Id = tournamentId });
         }
     }
 }

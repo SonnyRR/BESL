@@ -16,9 +16,9 @@
             this.mediator = mediator;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int tournamentTableId)
+        public async Task<IViewComponentResult> InvokeAsync(int playWeekId)
         {
-            var viewModel = await this.mediator.Send(new CreateMatchQuery { TournamentTableId = tournamentTableId });
+            var viewModel = await this.mediator.Send(new CreateMatchQuery { PlayWeekId = playWeekId });
             return this.View(viewModel);
         }
     }

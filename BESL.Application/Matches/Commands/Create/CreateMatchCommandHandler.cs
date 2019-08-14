@@ -17,11 +17,16 @@
     {
         private readonly IDeletableEntityRepository<Match> matchesRepository;
         private readonly IDeletableEntityRepository<Team> teamsRepository;
+        private readonly IDeletableEntityRepository<PlayWeek> playWeeksRepository;
 
-        public CreateMatchCommandHandler(IDeletableEntityRepository<Match> matchesRepository, IDeletableEntityRepository<Team> teamsRepository)
+        public CreateMatchCommandHandler(
+            IDeletableEntityRepository<Match> matchesRepository,
+            IDeletableEntityRepository<Team> teamsRepository,
+            IDeletableEntityRepository<PlayWeek> playWeeksRepository)
         {
             this.matchesRepository = matchesRepository;
             this.teamsRepository = teamsRepository;
+            this.playWeeksRepository = playWeeksRepository;
         }
 
         public async Task<int> Handle(CreateMatchCommand request, CancellationToken cancellationToken)
@@ -33,33 +38,40 @@
                 throw new NotFoundException(nameof(Team), request.HomeTeamId);
             }
 
-            if (await this.CheckIfTeamIsDropped(request.HomeTeamId, request.TournamentTableId)
-                || await this.CheckIfTeamIsDropped(request.AwayTeamId, request.TournamentTableId))
-            {
-                throw new ForbiddenException();
-            }
-
             if (!await CommonCheckHelper.CheckIfTeamExists(request.AwayTeamId, teamsRepository))
             {
                 throw new NotFoundException(nameof(Team), request.AwayTeamId);
             }
 
-            var match = new Match { HomeTeamId = request.HomeTeamId, AwayTeamId = request.AwayTeamId, ScheduledDate = request.PlayDate, PlayWeekId = request.PlayWeekId };
+            if (await this.CheckIfTeamIsDropped(request.HomeTeamId, request.PlayWeekId)
+                || await this.CheckIfTeamIsDropped(request.AwayTeamId, request.PlayWeekId))
+            {
+                throw new ForbiddenException();
+            }
+
+            var match = new Match
+            {
+                HomeTeamId = request.HomeTeamId,
+                AwayTeamId = request.AwayTeamId,
+                ScheduledDate = request.PlayDate,
+                PlayWeekId = request.PlayWeekId
+            };
 
             await this.matchesRepository.AddAsync(match);
             return await this.matchesRepository.SaveChangesAsync(cancellationToken);
         }
 
-        private async Task<bool> CheckIfTeamIsDropped(int teamId, int tournamentTableId)
+        private async Task<bool> CheckIfTeamIsDropped(int teamId, int playWeekId)
         {
-            return (await this.teamsRepository
+            var ttr = await this.playWeeksRepository
                 .AllAsNoTracking()
-                .Where(x => x.Id == teamId)
-                .Include(x => x.TeamTableResults)
-                .SelectMany(x => x.TeamTableResults)
-                .Where(x => x.TournamentTableId == tournamentTableId)
-                .SingleOrDefaultAsync())
-                .IsDropped;
+                .Where(x => x.Id == playWeekId)
+                .Include(x => x.TournamentTable)
+                    .ThenInclude(x => x.TeamTableResults)
+                .SelectMany(x => x.TournamentTable.TeamTableResults)
+                .SingleOrDefaultAsync(x => x.TeamId == teamId);
+
+            return ttr.IsDropped;
         }
     }
 }

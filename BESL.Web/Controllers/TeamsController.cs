@@ -43,7 +43,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         public async Task<IActionResult> Modify(ModifyTeamQuery query)
         {
             var viewModel = await this.Mediator.Send(query);
@@ -76,6 +75,7 @@
             return this.RedirectToAction(nameof(Modify), new ModifyTeamQuery { Id = command.TeamId });
         }
 
+        [HttpPost]
         public async Task<IActionResult> Leave(RemovePlayerCommand command)
         {
             await this.Mediator.Send(command);
