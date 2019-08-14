@@ -1,0 +1,8 @@
+﻿@model BESL.Application.PlayWeeks.Queries.PlayWeeksForTournamentTableViewModel
+
+@*<div class="d-flex justify-content-start">*@
+    @foreach (var week in Model.PlayWeeks)
+    {
+        <a class="btn btn-sm btn-primary text-white ml-1" asp-area="Administration" asp-controller="MatchFixtures" asp-action="Details" asp-route-PlayWeekId="@week.Id">@week.WeekAsString</a>
+    }
+@*</div>*@

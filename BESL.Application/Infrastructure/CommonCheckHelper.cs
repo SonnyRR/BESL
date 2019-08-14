@@ -82,5 +82,12 @@
 
             return isFull;
         }
+
+        internal static async Task<bool> CheckIfTournamentTableExists(int tournamentTableId, IDeletableEntityRepository<TournamentTable> tournamentTablesRepository)
+        {
+            return await tournamentTablesRepository
+                .AllAsNoTracking()
+                .AnyAsync(tt => tt.Id == tournamentTableId);
+        }
     }
 }

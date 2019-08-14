@@ -1,8 +1,5 @@
 ﻿namespace BESL.Domain.Entities
 {
-    using System.Linq;
-    using System.Collections.Generic;
-
     using BESL.Domain.Infrastructure;
 
     public class TeamTableResult : BaseDeletableModel<int>

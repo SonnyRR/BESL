@@ -13,6 +13,7 @@
             <th scope="col">Home Team</th>
             <th scope="col">Away Team</th>
             <th scope="col">Play Date</th>
+            <th scope="col" class="text-center">Details</th>
             <th scope="col" class="text-center">Modify</th>
             <th scope="col" class="text-center">Remove</th>
         </tr>
@@ -22,13 +23,14 @@
         { 
             @foreach (var match in Model.Matches)
             {
-                <tr>
-                    <td class="align-middle"><a asp-area="" asp-controller="Teams" asp-action="Details" asp-route-id="@match.HomeTeamId"><strong>@match.HomeTeamName</strong></a></td>
-                    <td class="align-middle"><a asp-area="" asp-controller="Teams" asp-action="Details" asp-route-id="@match.AwayTeamId"><strong>@match.AwayTeamName</strong></a></td>
-                    <td class="align-middle">@match.ScheduledDate.ToString(DATE_HOUR_FORMAT)</td>
-                    <td class="text-center"><a class="btn btn-sm btn-primary text-white" asp-controller="MatchFixtures" asp-action="Modify" asp-route-MatchId="@match.Id">Modify</a></td>
-                    <td class="text-center"><a class="btn btn-sm btn-danger text-white" asp-controller="MatchFixtures" asp-action="Delete" asp-route-MatchId="@match.Id">Remove</a></td>                
-                </tr>
+        <tr>
+            <td class="align-middle"><a asp-area="" asp-controller="Teams" asp-action="Details" asp-route-id="@match.HomeTeamId"><strong>@match.HomeTeamName</strong></a></td>
+            <td class="align-middle"><a asp-area="" asp-controller="Teams" asp-action="Details" asp-route-id="@match.AwayTeamId"><strong>@match.AwayTeamName</strong></a></td>
+            <td class="align-middle">@match.ScheduledDate.ToString(DATE_HOUR_FORMAT)</td>
+            <td class="text-center"><a class="btn btn-sm btn-primary text-white" asp-controller="Matches" asp-action="Details" asp-route-Id="@match.Id">Details</a></td>
+            <td class="text-center"><a class="btn btn-sm btn-primary text-white" asp-controller="MatchFixtures" asp-action="Modify" asp-route-MatchId="@match.Id">Modify</a></td>
+            <td class="text-center"><a class="btn btn-sm btn-danger text-white" asp-controller="MatchFixtures" asp-action="Delete" asp-route-MatchId="@match.Id">Remove</a></td>
+        </tr>
             }
         }
         else

@@ -15,10 +15,12 @@
     public class EditMatchResultCommandHandler : IRequestHandler<EditMatchResultCommand, int>
     {
         private readonly IDeletableEntityRepository<Match> matchesRepository;
+        private readonly IUserAccessor userAccessor;
 
-        public EditMatchResultCommandHandler(IDeletableEntityRepository<Match> matchesRepository)
+        public EditMatchResultCommandHandler(IDeletableEntityRepository<Match> matchesRepository, IUserAccessor userAccessor)
         {
             this.matchesRepository = matchesRepository;
+            this.userAccessor = userAccessor;
         }
 
         public async Task<int> Handle(EditMatchResultCommand request, CancellationToken cancellationToken)
@@ -38,6 +40,12 @@
                             .ThenInclude(pw => pw.Format)
                 .SingleOrDefaultAsync(m => m.Id == request.Id)
                 ?? throw new NotFoundException(nameof(Match), request.Id);
+
+            if (desiredMatch.HomeTeam.OwnerId != this.userAccessor.UserId
+                && desiredMatch.AwayTeam.OwnerId != this.userAccessor.UserId)
+            {
+                throw new ForbiddenException();
+            }
 
             desiredMatch.HomeTeamScore = request.HomeTeamScore;
             desiredMatch.AwayTeamScore = request.AwayTeamScore;

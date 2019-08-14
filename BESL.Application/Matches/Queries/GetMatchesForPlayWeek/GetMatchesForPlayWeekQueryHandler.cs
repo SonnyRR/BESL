@@ -38,6 +38,9 @@
             var playWeek = await this.playWeeksRepository
                 .AllAsNoTracking()
                 .Include(pw => pw.MatchFixtures)
+                    .ThenInclude(mf => mf.HomeTeam)
+                .Include(pw => pw.MatchFixtures)
+                    .ThenInclude(mf => mf.AwayTeam)
                 .SingleOrDefaultAsync(pw => pw.Id == request.PlayWeekId, cancellationToken)
                 ?? throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
 
