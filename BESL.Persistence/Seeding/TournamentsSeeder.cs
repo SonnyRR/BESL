@@ -34,7 +34,7 @@
                             MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate, IsActive = true}
+                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true}
                             }
                         },
                         new TournamentTable
@@ -43,7 +43,7 @@
                             MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate, IsActive = true }
+                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
                             }
                         },
                         new TournamentTable
@@ -52,7 +52,7 @@
                             MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate, IsActive = true }
+                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
                             }
                         },
                     },
@@ -76,7 +76,7 @@
                             MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate, IsActive = true }
+                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
                             }
                         },
                         new TournamentTable
@@ -85,7 +85,7 @@
                             MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate, IsActive = true }
+                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
                             }
                         },
                         new TournamentTable
@@ -94,7 +94,7 @@
                             MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate, IsActive = true }
+                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
                             }
                         },
                     },

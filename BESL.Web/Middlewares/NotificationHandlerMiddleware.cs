@@ -1,5 +1,6 @@
 ﻿namespace BESL.Web.Middlewares
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using BESL.Web.Infrastructure;
 
     public class NotificationHandlerMiddleware
     {
@@ -23,7 +25,6 @@
 
         public async Task InvokeAsync(HttpContext context, IUserAccessor userAccessor, INotifyService notifyService)
         {
-
             await this.next(context);
 
             if (context.User.Identity.IsAuthenticated && context.Response.StatusCode == StatusCodes.Status204NoContent)

@@ -22,13 +22,13 @@
         {
             var currentMachineTime = DateTime.UtcNow;
 
-            if (currentMachineTime.DayOfWeek == DayOfWeek.Sunday
-                && currentMachineTime.TimeOfDay <= new TimeSpan(3, 0, 0))
-            {
+            //if (currentMachineTime.DayOfWeek == DayOfWeek.Sunday
+            //    && currentMachineTime.TimeOfDay <= new TimeSpan(3, 0, 0))
+            //{
                 return this.mediator.Send(new AdvanceActiveTournamentsPlayWeeksCommand());
-            }
+            //}
 
-            return Task.CompletedTask;
+            //return Task.CompletedTask;
         }
     }
 }

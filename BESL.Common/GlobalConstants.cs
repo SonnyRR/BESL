@@ -50,7 +50,7 @@
         #endregion
 
         #region Teams
-        public const int TEAM_AVATAR_HEIGHT = 184; 
+        public const int TEAM_AVATAR_HEIGHT = 184;
         public const int TEAM_AVATAR_WIDTH = 184;
         public const int TEAM_MAX_BACKUP_PLAYERS_COUNT = 4;
         #endregion
@@ -73,7 +73,7 @@
         #endregion
 
         #region PlayWeeks
-        public const int PLAYWEEK_DAYS = 6;
+        public const int PLAYWEEK_DAYS = 7;
         #endregion
     }
 }

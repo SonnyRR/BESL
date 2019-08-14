@@ -51,6 +51,7 @@
             desiredTournament.AreSignupsOpen = request.AreSignupsOpen;
 
             this.tournamentsRepository.Update(desiredTournament);
+
             return await this.tournamentsRepository.SaveChangesAsync(cancellationToken);
         }
 

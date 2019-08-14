@@ -25,7 +25,7 @@
             request = request ?? throw new ArgumentNullException(nameof(request));
 
             var activeWeeks = await this.playWeeksRepository
-                .AllWithDeleted()
+                .AllAsNoTracking()
                 .Include(w => w.TournamentTable)
                     .ThenInclude(tt => tt.Tournament)
                 .Where(x => x.IsActive && x.TournamentTable.Tournament.IsActive)
@@ -34,7 +34,7 @@
             foreach (var week in activeWeeks)
             {
                 week.IsActive = false;
-                var nextWeek = new PlayWeek { StartDate = week.EndDate.AddDays(1), IsActive = true, TournamentTableId = week.TournamentTableId };
+                var nextWeek = new PlayWeek { StartDate = week.EndDate.Date, IsActive = true, TournamentTableId = week.TournamentTableId };
                 this.playWeeksRepository.Update(week);
                 await this.playWeeksRepository.AddAsync(nextWeek);
             }

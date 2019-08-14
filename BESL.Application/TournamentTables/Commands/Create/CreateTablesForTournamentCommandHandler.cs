@@ -31,31 +31,30 @@
                 .SingleOrDefaultAsync(t => t.Id == request.TournamentId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Tournament), request.TournamentId);
 
+            var firstPlayWeekStartDate = desiredTournament.StartDate.AddDays(-1).Date;
+
             desiredTournament.Tables.Add(
                 new TournamentTable
                 {
                     Name = OPEN_TABLE_NAME,
-                    CreatedOn = DateTime.UtcNow,
                     MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
-                    PlayWeeks = new HashSet<PlayWeek> { new PlayWeek { StartDate = desiredTournament.StartDate} }
+                    PlayWeeks = new HashSet<PlayWeek> { new PlayWeek { StartDate = firstPlayWeekStartDate, IsActive = true } }
                 });
 
             desiredTournament.Tables.Add(
                 new TournamentTable
                 {
                     Name = MID_TABLE_NAME,
-                    CreatedOn = DateTime.UtcNow,
                     MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
-                    PlayWeeks = new HashSet<PlayWeek> { new PlayWeek { StartDate = desiredTournament.StartDate } }
+                    PlayWeeks = new HashSet<PlayWeek> { new PlayWeek { StartDate = firstPlayWeekStartDate, IsActive = true } }
                 });
 
             desiredTournament.Tables.Add(
                 new TournamentTable
                 {
                     Name = PREM_TABLE_NAME,
-                    CreatedOn = DateTime.UtcNow,
                     MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
-                    PlayWeeks = new HashSet<PlayWeek> { new PlayWeek { StartDate = desiredTournament.StartDate } }
+                    PlayWeeks = new HashSet<PlayWeek> { new PlayWeek { StartDate = firstPlayWeekStartDate, IsActive = true } }
                 });
 
             this.tournamentsRepository.Update(desiredTournament);
