@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Infrastructure\Validators\" />
     <Folder Include="Games\Commands\Delete\" />
+    <Folder Include="Matches\Commands\EditMatchResult\" />
     <Folder Include="Tournaments\Queries\GetAllTournaments\" />
     <Folder Include="TournamentFormats\Queries\Modify\" />
     <Folder Include="Tournaments\Commands\Modify\" />
@@ -48,10 +49,7 @@
     <Folder Include="PlayWeeks\" />
     <Folder Include="PlayWeeks\Commands\" />
     <Folder Include="PlayWeeks\Commands\Advance\" />
-    <Folder Include="Matches\" />
-    <Folder Include="Matches\Queries\" />
     <Folder Include="Matches\Queries\GetMatchesForPlayWeek\" />
-    <Folder Include="Matches\Commands\" />
     <Folder Include="Matches\Commands\Create\" />
     <Folder Include="Matches\Queries\Create\" />
     <Folder Include="Matches\Commands\Validation\" />

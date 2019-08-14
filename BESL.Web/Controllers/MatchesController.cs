@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using BESL.Application.Matches.Queries.Details;
+    using BESL.Application.Matches.Queries.EditMatchResult;
 
     [Authorize]
     public class MatchesController : BaseController
@@ -16,6 +17,12 @@
         {
             var viewModel = await this.Mediator.Send(query);
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> EditResults(EditMatchResultQuery query)
+        {
+            var result = await this.Mediator.Send(query);
+            return this.View();
         }
     }
 }

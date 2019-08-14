@@ -71,7 +71,6 @@
     <Folder Include="Views\Shared\Components\TransferTeamOwnership\" />
     <Folder Include="Areas\Administration\Views\MatchFixtures\" />
     <Folder Include="Views\Shared\Components\AddMatchFixture\" />
-    <Folder Include="Views\Matches\" />
   </ItemGroup>
 
 

@@ -9,5 +9,7 @@
         public TeamDetailsLookupModel AwayTeam { get; set; }
 
         public string Week { get; set; }
+
+        public bool IsResultConfirmed { get; set; }
     }
 }

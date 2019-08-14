@@ -1,0 +1,63 @@
+﻿@model BESL.Application.Matches.Queries.EditMatchResult.EditMatchResultQueryViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = $"Edit match result: {Model.HomeTeamName} - {Model.AwayTeamName}";
+}
+
+<div class="col-md-7">
+    <div class="border rounded">
+        <h4 class="display-4 mt-2 mx-3">Edit match result (Id: @Model.Id)</h4>
+        <h4 class="ml-3">@Model.HomeTeamName vs @Model.AwayTeamName</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <form class="mx-3 my-2" method="post" enctype="multipart/form-data">
+                    <div class="form-group mb-2">
+                        <label asp-for="@Model.HomeTeamScore">Home Team score</label>
+                        <select asp-for="@Model.HomeTeamScore" class="form-control form-control-sm">
+                            <option selected disabled>Choose...</option>
+                            <option value="">N/A</option>
+                            <option value="1">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <span asp-validation-for="@Model.HomeTeamScore" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="@Model.AwayTeamScore">Away Team score</label>
+                        <select asp-for="@Model.AwayTeamScore" class="form-control form-control-sm">
+                            <option selected disabled>Choose...</option>
+                            <option value="">N/A</option>
+                            <option value="1">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <span asp-validation-for="@Model.AwayTeamScore" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">)
+                    </div>
+                    <input hidden asp-for="@Model.Id" />
+                    <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

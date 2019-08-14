@@ -5,51 +5,52 @@
 }
 
 <div class="container shadow bordered">
-            <h4 class="display-4">Match Details</h4>
-<hr />
-<div class="my-4 mx-4">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-4 text-center">
-            <img class="img-thumbnail shadow" src="@Model.HomeTeam.TeamImageUrl" />
-            <h4>
-               <a asp-action="Details" asp-controller="Teams" asp-route-id="@Model.HomeTeamId">@Model.HomeTeamName</a>
-            </h4>
+    <h4 class="display-4">Match Details</h4>
+    <hr />
+    <div class="my-4 mx-4">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4 text-center">
+                <img class="img-thumbnail shadow" src="@Model.HomeTeam.TeamImageUrl" />
+                <h4>
+                    <a asp-action="Details" asp-controller="Teams" asp-route-id="@Model.HomeTeamId">@Model.HomeTeamName</a>
+                </h4>
+            </div>
+            <div class="col-sm-1 d-flex align-items-center text-center">
+                <h3 class="mx-auto lead">VS</h3>
+            </div>
+            <div class="col-md-4 text-center">
+                <img class="img-thumbnail shadow" src="@Model.AwayTeam.TeamImageUrl" />
+                <h4>
+                    <a asp-action="Details" asp-controller="Teams" asp-route-id="@Model.AwayTeamId">@Model.AwayTeamName</a>
+                </h4>
+            </div>
         </div>
-        <div class="col-sm-1 d-flex align-items-center text-center">
-            <h3 class="mx-auto lead">VS</h3>
-        </div>
-        <div class="col-md-4 text-center">
-            <img class="img-thumbnail shadow" src="@Model.AwayTeam.TeamImageUrl" />
-            <h4>
-                <a asp-action="Details" asp-controller="Teams" asp-route-id="@Model.AwayTeamId">@Model.AwayTeamName</a>
-            </h4>
-        </div>
-    </div>
         <div class="row d-flex justify-content-center">
             <div class="col-md-12">
-                <h4 class="lead text-center">Scheduled date: @Model.ScheduledDate.ToString(DATE_HOUR_FORMAT)</h4>                
+                <h4 class="lead text-center">Scheduled date: @Model.ScheduledDate.ToString(DATE_HOUR_FORMAT)</h4>
                 <h4 class="lead text-center">Match result:</h4>
                 @if (Model.HomeTeamScore != null && Model.AwayTeamScore != null)
                 {
-                    <h5 class="text-center>@Model.HomeTeamScore - @Model.AwayTeamScore</h5class="text-center></h5>
+                    <h5 class="text-center display-4">@Model.HomeTeamScore - @Model.AwayTeamScore</h5>
                 }
                 else
                 {
-                    <h5 class="text-center">To be played</h5>
+                    <h5 class="text-center display-4">To be played</h5>
+                }
+
+                @if (Model.IsDraw)
+                {
+                    <h5 class="text-center display-4">Draw</h5>
+                }
+
+                @if (Model.AwayTeam.IsOwner || Model.HomeTeam.IsOwner)
+                {
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-danger text-white" asp-controller="Matches" asp-action="EditResults" asp-route-id="@Model.Id"><i class="far fa-edit"></i>&nbsp;Edit result</a>
+                    </div>
                 }
             </div>
-        </div>      
+        </div>
+        <hr />
     </div>
-<form>
-
-    <select class="custom-select" multiple="multiple">
-        <option value="AL">Alabama</option>
-        <option value="AK">Alaska</option>
-        <option value="AZ">Arizona</option>
-        <option value="AR">Arkansas</option>
-        <option selected value="CA">California</option>
-    </select>
-
-    </form>
-
 </div>
