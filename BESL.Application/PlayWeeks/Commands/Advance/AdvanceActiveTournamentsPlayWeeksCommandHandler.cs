@@ -11,7 +11,7 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     
-    public class AdvanceActiveTournamentsPlayWeeksCommandHandler : IRequestHandler<AdvanceActiveTournamentsPlayWeeksCommand>
+    public class AdvanceActiveTournamentsPlayWeeksCommandHandler : IRequestHandler<AdvanceActiveTournamentsPlayWeeksCommand,int>
     {
         private readonly IDeletableEntityRepository<PlayWeek> playWeeksRepository;
 
@@ -20,7 +20,7 @@
             this.playWeeksRepository = playWeeksRepository;
         }
 
-        public async Task<Unit> Handle(AdvanceActiveTournamentsPlayWeeksCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(AdvanceActiveTournamentsPlayWeeksCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
@@ -39,8 +39,7 @@
                 await this.playWeeksRepository.AddAsync(nextWeek);
             }
 
-            await this.playWeeksRepository.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
+            return await this.playWeeksRepository.SaveChangesAsync(cancellationToken);
         }
     }
 }

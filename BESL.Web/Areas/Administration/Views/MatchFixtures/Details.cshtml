@@ -4,7 +4,9 @@
     ViewData["ActivePage"] = ManageAdminNavPages.Tournaments;
     ViewData["Title"] = "Match fixtures";
 }
+
 <vc:add-match-fixture play-week-id="@Model.PlayWeekId"></vc:add-match-fixture>
+<h5>Week: @Model.WeekAsString</h5>
 <table class="table table-sm shadow mt-2">
     <thead>
         <tr>

@@ -41,7 +41,7 @@
 
             if (!desiredTeam.PlayerTeams.Any(p => p.PlayerId == request.PlayerId))
             {
-                throw new PlayerIsNotAMemberOfTheTeamException();
+                throw new PlayerIsNotAMemberOfTeam();
             }
 
             desiredTeam.OwnerId = request.PlayerId;

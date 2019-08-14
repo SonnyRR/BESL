@@ -7,6 +7,8 @@
     {
         public int PlayWeekId { get; set; }
 
+        public string WeekAsString { get; set; }
+
         public IEnumerable<MatchLookupModel> Matches { get; set; }
     }
 }

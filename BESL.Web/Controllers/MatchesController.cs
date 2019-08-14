@@ -1,6 +1,5 @@
 ﻿namespace BESL.Web.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -8,6 +7,7 @@
 
     using BESL.Application.Matches.Queries.Details;
     using BESL.Application.Matches.Queries.EditMatchResult;
+    using BESL.Application.Matches.Commands.EditMatchResult;
 
     [Authorize]
     public class MatchesController : BaseController
@@ -19,10 +19,17 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> EditResults(EditMatchResultQuery query)
+        public async Task<IActionResult> EditResult(EditMatchResultQuery query)
         {
             var result = await this.Mediator.Send(query);
-            return this.View();
+            return this.View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditResult(EditMatchResultCommand command)
+        {
+            var result = await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Details), new GetMatchDetailsQuery { Id = command.Id });
         }
     }
 }

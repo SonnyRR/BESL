@@ -11,8 +11,9 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using BESL.Application.Matches.Commands.EditMatchResult;
 
-    public class EditMatchResultsQueryHandler : IRequestHandler<EditMatchResultQuery, EditMatchResultQueryViewModel>
+    public class EditMatchResultsQueryHandler : IRequestHandler<EditMatchResultQuery, EditMatchResultCommand>
     {
         private readonly IDeletableEntityRepository<Match> matchesRepository;
         private readonly IUserAccessor userAccessor;
@@ -25,7 +26,7 @@
             this.mapper = mapper;
         }
 
-        public async Task<EditMatchResultQueryViewModel> Handle(EditMatchResultQuery request, CancellationToken cancellationToken)
+        public async Task<EditMatchResultCommand> Handle(EditMatchResultQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
@@ -46,7 +47,7 @@
                 throw new ForbiddenException();
             }
 
-            var viewModel = this.mapper.Map<EditMatchResultQueryViewModel>(desiredMatch);
+            var viewModel = this.mapper.Map<EditMatchResultCommand>(desiredMatch);
 
             return viewModel;
         }

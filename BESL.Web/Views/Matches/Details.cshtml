@@ -46,7 +46,7 @@
                 @if (Model.AwayTeam.IsOwner || Model.HomeTeam.IsOwner)
                 {
                     <div class="d-flex justify-content-center">
-                        <a class="btn btn-danger text-white" asp-controller="Matches" asp-action="EditResults" asp-route-id="@Model.Id"><i class="far fa-edit"></i>&nbsp;Edit result</a>
+                        <a class="btn btn-danger text-white" asp-controller="Matches" asp-action="EditResult" asp-route-id="@Model.Id"><i class="far fa-edit"></i>&nbsp;Edit result</a>
                     </div>
                 }
             </div>

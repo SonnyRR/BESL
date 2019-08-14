@@ -1,4 +1,4 @@
-﻿@model BESL.Application.Matches.Queries.EditMatchResult.EditMatchResultQueryViewModel
+﻿@model BESL.Application.Matches.Commands.EditMatchResult.EditMatchResultCommand
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -52,7 +52,9 @@
                         </select>
                         <span asp-validation-for="@Model.AwayTeamScore" class="text-danger"></span>
                     </div>
-                    <div class="form-group mb-2">)
+                    <div class="form-group mb-2">
+                        <label asp-for="@Model.ParticipatedPlayersIds">Participated players:</label>
+                        <select class="custom-select" size="15" asp-for="@Model.ParticipatedPlayersIds" asp-items="@Model.TeamPlayers.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.UserName }).ToList()" multiple></select>
                     </div>
                     <input hidden asp-for="@Model.Id" />
                     <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-plus-circle"></i>&nbsp;Submit</button>

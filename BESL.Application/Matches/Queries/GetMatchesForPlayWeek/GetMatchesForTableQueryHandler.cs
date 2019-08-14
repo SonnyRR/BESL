@@ -1,12 +1,11 @@
 ﻿namespace BESL.Application.Matches.Queries.GetMatchesForPlayWeek
 {
     using System;
-    using System.Linq;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
+    using static BESL.Common.GlobalConstants;
 
     public class GetMatchesForPlayWeekQueryHandler : IRequestHandler<GetMatchesForPlayWeekQuery, MatchesForPlayWeekViewModel>
     {
@@ -35,16 +35,21 @@
                 throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
             }
 
-            var matches = await this.playWeeksRepository
+            var playWeek = await this.playWeeksRepository
                 .AllAsNoTracking()
                 .Include(pw => pw.MatchFixtures)
-                .Where(pw => pw.Id == request.PlayWeekId)
-                .SelectMany(x => x.MatchFixtures)
-                .ProjectTo<MatchLookupModel>(this.mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken);
+                .SingleOrDefaultAsync(pw => pw.Id == request.PlayWeekId, cancellationToken)
+                ?? throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
 
+            var matches = this.mapper.Map<IEnumerable<MatchLookupModel>>(playWeek.MatchFixtures);
 
-            var viewModel = new MatchesForPlayWeekViewModel { Matches = matches, PlayWeekId = request.PlayWeekId };
+            var viewModel = new MatchesForPlayWeekViewModel
+            {
+                Matches = matches,
+                PlayWeekId = request.PlayWeekId,
+                WeekAsString = $"{playWeek.StartDate.ToString(DATE_FORMAT)} - {playWeek.EndDate.ToString(DATE_FORMAT)}"
+            };
+
             return viewModel;
         }
 

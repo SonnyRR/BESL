@@ -2,7 +2,7 @@
 {
     using MediatR;
 
-    public class AdvanceActiveTournamentsPlayWeeksCommand : IRequest
+    public class AdvanceActiveTournamentsPlayWeeksCommand : IRequest<int>
     {
     }
 }
