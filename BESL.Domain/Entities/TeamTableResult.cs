@@ -12,7 +12,9 @@
 
         public bool IsDropped { get; set; }
 
-        public int TotalPoints { get; set; }
+        public int Points { get; set; }
+
+        public int TotalPoints => this.Points - this.PenaltyPoints;
 
         public int PenaltyPoints { get; set; }
     }

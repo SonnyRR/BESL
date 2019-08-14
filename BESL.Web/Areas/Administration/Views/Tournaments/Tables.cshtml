@@ -42,8 +42,8 @@
                         <th scope="col">Name</th>
                         <th scope="col">Total points</th>
                         <th scope="col">Penalty points</th>
-                        <th scope="col">Matches played</th>
-                        <th scope="col">Matches won</th>
+                        <th scope="col">Points</th>
+                        <th scope="col" class="text-center">Add penalty points</th>
                         <th scope="col" class="text-center">Drop/Undrop</th>
                     </tr>
                 </thead>
@@ -51,7 +51,7 @@
                     @if (table.TableResults.Count() == 0)
                     {
                         <tr>
-                            <td colspan="7" class="text-center"><h5 class="text-danger">No teams registered.</h5></td>
+                            <td colspan="6" class="text-center"><h5 class="text-danger">No teams registered.</h5></td>
                         </tr>
                     }
                     else
@@ -59,29 +59,29 @@
                         int rowCounter = 1;
                         @foreach (var tableResult in table.TableResults)
                         {
-                            <tr>
-                                <th scope="row">@(rowCounter++)</th>
-                                <td>@tableResult.Team</td>
-                                <td>@tableResult.TotalPoints</td>
-                                <td>@tableResult.PenaltyPoints</td>
-                                <td>@tableResult.MatchesPlayed</td>
-                                <td>@tableResult.MatchesWon</td>
-                                <td class="text-center">
-                                    @if (!tableResult.IsDropped)
-                                    {
-                                        <form asp-area="Administration" asp-controller="TableResults" asp-action="Drop" asp-route-TeamTableResultId="@tableResult.Id" asp-route-tournamentId="@Model.TournamentId" onsubmit="return submitForm(this, 'Are you sure you want to drop','@tableResult.Team');">
-                                            <button class="btn btn-sm btn-danger">Drop</button>
-                                        </form>
-                                    }
-                                    else
-                                    {
-                                        <form asp-area="Administration" asp-controller="TableResults" asp-action="Activate" asp-route-TeamTableResultId="@tableResult.Id" asp-route-tournamentId="@Model.TournamentId" onsubmit="return submitForm(this, 'Are you sure you want to undrop', '@tableResult.Team');">
+                        <tr>
+                            <th class="align-middle" scope="row">@(rowCounter++)</th>
+                            <td class="align-middle">@tableResult.Team</td>
+                            <td class="align-middle">@tableResult.TotalPoints</td>
+                            <td class="align-middle">@tableResult.PenaltyPoints</td>
+                            <td class="align-middle">@tableResult.Points</td>
+                            <td class="text-center"><a class="btn btn-sm btn-warning text-white" asp-area="Administration" asp-controller="TeamTableResults" asp-action="AddPenaltyPoints" asp-route-teamTableResultId="@tableResult.Id">Add penalty points</a></td>
+                            <td class="text-center">
+                                @if (!tableResult.IsDropped)
+        {
+                        <form asp-area="Administration" asp-controller="TeamTableResults" asp-action="Drop" asp-route-TeamTableResultId="@tableResult.Id" asp-route-tournamentId="@Model.TournamentId" onsubmit="return submitForm(this, 'Are you sure you want to drop','@tableResult.Team');">
+                            <button class="btn btn-sm btn-danger">Drop</button>
+                        </form>
+}
+else
+{
+                        <form asp-area="Administration" asp-controller="TeamTableResults" asp-action="Activate" asp-route-TeamTableResultId="@tableResult.Id" asp-route-tournamentId="@Model.TournamentId" onsubmit="return submitForm(this, 'Are you sure you want to undrop', '@tableResult.Team');">
 
-                                            <button class="btn btn-sm btn-info text-white">Undrop</button>
-                                        </form>
-                                    }
-                                </td>
-                            </tr>
+                            <button class="btn btn-sm btn-info text-white">Undrop</button>
+                        </form>
+}
+                            </td>
+                        </tr>
                         }
                     }
                 </tbody>

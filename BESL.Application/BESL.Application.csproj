@@ -62,6 +62,9 @@
     <Folder Include="Matches\Queries\Details\" />
     <Folder Include="Matches\Commands\Delete\" />
     <Folder Include="PlayWeeks\Queries\" />
+    <Folder Include="TeamTableResults\Commands\AddPenaltyPoints\" />
+    <Folder Include="TeamTableResults\Queries\" />
+    <Folder Include="TeamTableResults\Queries\AddPenaltyPoints\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Matches\Queries\Modify\ModifyMatchViewModel.cs" />

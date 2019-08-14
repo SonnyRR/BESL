@@ -75,5 +75,10 @@
         #region PlayWeeks
         public const int PLAYWEEK_DAYS = 7;
         #endregion
+
+        #region TeamTableResults
+        public const int MIN_PENALTY_POINTS = 1;
+        public const int MAX_PENALTY_POINTS = 10;
+        #endregion
     }
 }

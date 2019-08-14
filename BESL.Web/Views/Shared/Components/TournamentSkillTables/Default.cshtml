@@ -35,15 +35,14 @@
                         <th scope="col">Name</th>
                         <th scope="col">Total points</th>
                         <th scope="col">Penalty points</th>
-                        <th scope="col">Matches played</th>
-                        <th scope="col">Matches won</th>
+                        <th scope="col">Points</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (table.TableResults.Count() == 0)
                     {
                         <tr>
-                            <td colspan="7" class="text-center"><h5 class="text-danger">No teams registered.</h5></td>
+                            <td colspan="4" class="text-center"><h5 class="text-danger">No teams registered.</h5></td>
                         </tr>
                     }
                     else
@@ -51,14 +50,13 @@
                         int rowCounter = 1;
                         @foreach (var tableResult in table.TableResults)
                         {
-                            <tr>
-                                <th scope="row">@(rowCounter++)</th>
-                                <td>@tableResult.Team</td>
-                                <td>@tableResult.TotalPoints</td>
-                                <td>@tableResult.PenaltyPoints</td>
-                                <td>@tableResult.MatchesPlayed</td>
-                                <td>@tableResult.MatchesWon</td>
-                            </tr>
+                        <tr>
+                            <th scope="row">@(rowCounter++)</th>
+                            <td><a asp-controller="Teams" asp-action="Details" asp-route-Id="@tableResult.TeamId">@tableResult.Team</a></td>
+                            <td>@tableResult.TotalPoints</td>
+                            <td>@tableResult.PenaltyPoints</td>
+                            <td>@tableResult.Points</td>
+                        </tr>
                         }
                     }
                 </tbody>

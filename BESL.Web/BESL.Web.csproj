@@ -72,6 +72,7 @@
     <Folder Include="Areas\Administration\Views\MatchFixtures\" />
     <Folder Include="Views\Shared\Components\AddMatchFixture\" />
     <Folder Include="Views\Shared\Components\TableWeeksNavigation\" />
+    <Folder Include="Areas\Administration\Views\TeamTableResults\" />
   </ItemGroup>
 
 
