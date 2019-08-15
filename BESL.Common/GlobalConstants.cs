@@ -40,8 +40,11 @@
         public const string PROFILE_AVATAR_CLAIM_TYPE = "PROFILE_AVATAR_URL";
         public const string PROFILE_AVATAR_MEDIUM_CLAIM_TYPE = "PROFILE_AVATAR_MEDIUM_URL";
         public const string VAC_STATUS_GOOD = "Good";
-        public const string VAC_STATUS_BAD = "BANNED";
+        public const string VAC_STATUS_BAD = "Banned";
         public const string NO_LINKED_STEAM_ACC_MSG = "No linked Steam account!";
+        public const string STEAM_DEFAULT_AVATAR_FULL = "https://res.cloudinary.com/vasil-kotsev/image/upload/v1565877827/BESL/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full_ira8py.jpg";
+        public const string STEAM_DEFAULT_AVATAR_MEDIUM = "https://res.cloudinary.com/vasil-kotsev/image/upload/v1565877887/BESL/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium_e3tvp0.jpg";
+
         #endregion
 
         #region BESL

@@ -31,7 +31,7 @@
                     HomepageUrl = "https://vidin-drinking-team.bg",
                     Description = $"Hello, we are FooTeam{i + 1}",
                     OwnerId = members[0].Id,
-                    ImageUrl = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/1a/1af324bc3472b7df04e7f81afcd8c36f322d1880_full.jpg"
+                    ImageUrl = STEAM_DEFAULT_AVATAR_FULL
                 };
 
                 foreach (var member in members)
@@ -43,6 +43,32 @@
 
                 databaseContext.Teams.Add(currentTeam);
             }
+
+
+            var demoTeamMembers = await databaseContext
+                    .Players
+                    .Where(x => x.UserName != ADMIN_USERNAME)
+                    .OrderBy(x => x.CreatedOn)
+                    .Take(7)
+                    .ToListAsync();
+
+            var demoTeam = new Team
+            {
+                Name = $"FooTeamHighlander",
+                TournamentFormatId = 2,
+                HomepageUrl = "https://vidin-drinking-team.bg",
+                Description = $"Hello, we are FooTeamHighlander",
+                OwnerId = demoTeamMembers[0].Id,
+                ImageUrl = STEAM_DEFAULT_AVATAR_FULL
+            };
+
+            foreach (var member in demoTeamMembers)
+            {
+                demoTeam.PlayerTeams.Add(new PlayerTeam { Team = demoTeam, PlayerId = member.Id });
+            }
+
+            databaseContext.Teams.Add(demoTeam);
+
         }
     }
 }

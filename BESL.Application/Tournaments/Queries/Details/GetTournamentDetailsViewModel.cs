@@ -30,6 +30,8 @@
 
         public string Game { get; set; }
 
+        public bool IsCurrentUserInAnEnrolledTeam { get; set; }
+
         public ICollection<TournamentTable> TournamentTables { get; set; }
 
         public void CreateMappings(Profile configuration)
@@ -38,8 +40,10 @@
                 .ForMember(vm => vm.StartDate, o => o.MapFrom(src => src.StartDate.ToString(DATE_FORMAT)))
                 .ForMember(vm => vm.EndDate, o => o.MapFrom(src => src.EndDate.ToString(DATE_FORMAT)))
                 .ForMember(vm => vm.Format, o => o.MapFrom(src => $"{src.Format.Name}"))
-                .ForMember(vm => vm.Game, o => o.MapFrom(src=>src.Format.Game.Name))
-                .ForMember(vm => vm.TournamentTables, o => o.MapFrom(src=> src.Tables.ToList()));
+                .ForMember(vm => vm.Game, o => o.MapFrom(src => src.Format.Game.Name))
+                .ForMember(vm => vm.TournamentTables, o => o.MapFrom(src => src.Tables.ToList()))
+                .ForMember(vm => vm.IsCurrentUserInAnEnrolledTeam,
+                    o => o.MapFrom((src, opt, destMember, context) => src.Tables.SelectMany(y => y.TeamTableResults.SelectMany(w => w.Team.PlayerTeams)).Any(i => i.PlayerId == (string)context.Items["CurrentUserId"])));
         }
     }
 }

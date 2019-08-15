@@ -43,6 +43,7 @@
             var weeksForTournamentTableLookups = await this.playWeeksRepository
                 .AllAsNoTracking()
                 .Where(pw => pw.TournamentTableId == request.TournamentTableId)
+                .OrderByDescending(pw => pw.StartDate)
                 .ProjectTo<PlayWeekLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

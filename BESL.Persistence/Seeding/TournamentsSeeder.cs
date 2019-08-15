@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading;
     using System.Threading.Tasks;
 
     using BESL.Application.Interfaces;
@@ -13,8 +12,10 @@
     {
         public async Task SeedAsync(IApplicationDbContext databaseContext, IServiceProvider serviceProvider)
         {
-            DateTime startDate = new DateTime(2019, 08, 12);
-            DateTime endDate = new DateTime(2019, 09, 08);
+            DateTime activeTournamentStartDate = new DateTime(2019, 08, 12);
+            DateTime activeTournamentEndDate = new DateTime(2019, 09, 08);
+            DateTime corsairTournamentStartDate = new DateTime(2019, 09, 09);
+            DateTime corsairTournamentEndDate = new DateTime(2019, 06, 10);
 
             var tournaments = new Tournament[]
             {
@@ -24,8 +25,8 @@
                     Description = "Play to win prizes by our sponsor Thermaltake including: keyboards, mices, gaming gear and PC components",
                     FormatId = 1,
                     TournamentImageUrl = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,h_215,w_460/v1564073951/BESL/logo-tt-esports_xpuspv.jpg",
-                    AreSignupsOpen = true,
-                    IsActive = false,
+                    AreSignupsOpen = false,
+                    IsActive = true,
                     Tables = new List<TournamentTable>()
                     {
                         new TournamentTable
@@ -34,7 +35,9 @@
                             MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true}
+                                new PlayWeek { StartDate = activeTournamentStartDate.AddDays(-1), IsActive = false},
+                                new PlayWeek { StartDate = activeTournamentStartDate.AddDays(6), IsActive = false},
+                                new PlayWeek { StartDate = activeTournamentStartDate.AddDays(13), IsActive = true},
                             }
                         },
                         new TournamentTable
@@ -43,7 +46,9 @@
                             MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
+                                new PlayWeek { StartDate = activeTournamentStartDate.AddDays(-1), IsActive = false},
+                                new PlayWeek { StartDate = activeTournamentStartDate.AddDays(6), IsActive = false},
+                                new PlayWeek { StartDate = activeTournamentStartDate.AddDays(13), IsActive = true},
                             }
                         },
                         new TournamentTable
@@ -52,15 +57,18 @@
                             MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
+                                new PlayWeek { StartDate = activeTournamentStartDate.AddDays(-1), IsActive = false},
+                                new PlayWeek { StartDate = activeTournamentStartDate.AddDays(6), IsActive = false},
+                                new PlayWeek { StartDate = activeTournamentStartDate.AddDays(13), IsActive = true},
                             }
                         },
                     },
-                    StartDate = startDate,
-                    EndDate = endDate
+                    StartDate = activeTournamentStartDate,
+                    EndDate = activeTournamentEndDate
                 },
 
-                new Tournament
+
+            new Tournament
                 {
                     Name = "Corsair 9v9 Summer Highlander",
                     Description = "Corsair sponsors this round of summer 9v9 madness!. Prize pool includes a one-off custom gaming PC and many peripherals!",
@@ -76,7 +84,7 @@
                             MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
+                                new PlayWeek { StartDate = corsairTournamentStartDate.AddDays(-1), IsActive = true},
                             }
                         },
                         new TournamentTable
@@ -85,7 +93,7 @@
                             MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
+                                new PlayWeek { StartDate = corsairTournamentStartDate.AddDays(-1), IsActive = true},
                             }
                         },
                         new TournamentTable
@@ -94,12 +102,12 @@
                             MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
                             {
-                                new PlayWeek { StartDate = startDate.AddDays(-1), IsActive = true }
+                                new PlayWeek { StartDate = corsairTournamentStartDate.AddDays(-1), IsActive = true},
                             }
                         },
                     },
-                    StartDate = startDate,
-                    EndDate = endDate
+                    StartDate = corsairTournamentStartDate,
+                    EndDate = corsairTournamentEndDate
                 }
             };
 

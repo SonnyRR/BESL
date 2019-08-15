@@ -38,10 +38,10 @@
         <div class="d-flex justify-content-center text-muted">
             @if (this.User.Identity.IsAuthenticated)
             {
-            @if (Model.AreSignupsOpen)
-            {
-                <a asp-controller="Tournaments" asp-action="Enroll" asp-route-tournamentId="@Model.Id" class="btn btn-primary">Enroll your team.</a>
-            }
+                @if (Model.AreSignupsOpen && !Model.IsCurrentUserInAnEnrolledTeam)
+                {
+                    <a asp-controller="Tournaments" asp-action="Enroll" asp-route-tournamentId="@Model.Id" class="btn btn-primary">Enroll your team.</a>
+                }
             }
         </div>
     </div>

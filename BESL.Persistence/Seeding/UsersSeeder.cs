@@ -34,10 +34,10 @@
 
                 var createdUser = await userManager.FindByNameAsync($"FooPlayer{i}");
 
-                createdUser.Claims.Add(new IdentityUserClaim<string> { ClaimType = PROFILE_AVATAR_CLAIM_TYPE, ClaimValue = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg", UserId = createdUser.Id });
-                createdUser.Claims.Add(new IdentityUserClaim<string> { ClaimType = PROFILE_AVATAR_MEDIUM_CLAIM_TYPE, ClaimValue = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg", UserId = createdUser.Id });
+                createdUser.Claims.Add(new IdentityUserClaim<string> { ClaimType = PROFILE_AVATAR_CLAIM_TYPE, ClaimValue = STEAM_DEFAULT_AVATAR_FULL, UserId = createdUser.Id });
+                createdUser.Claims.Add(new IdentityUserClaim<string> { ClaimType = PROFILE_AVATAR_MEDIUM_CLAIM_TYPE, ClaimValue = STEAM_DEFAULT_AVATAR_MEDIUM, UserId = createdUser.Id });
                 createdUser.Claims.Add(new IdentityUserClaim<string> { ClaimType = STEAM_ID_64_CLAIM_TYPE, ClaimValue = "76561197960435530", UserId = createdUser.Id });
-            }
+            }     
         }
     }
 }
