@@ -12,6 +12,7 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using BESL.Application.Exceptions;
 
     public class GetTournamentTablesQueryHandler : IRequestHandler<GetTournamentTablesQuery, TournamentTablesViewModel>
     {
@@ -39,6 +40,11 @@
                 .Where(tt => tt.TournamentId == request.Id)
                 .ProjectTo<TournamentTableLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
+
+            if (tables.Count == 0)
+            {
+                throw new NotFoundException(nameof(Tournament), request.Id);
+            }
 
             var viewModel = new TournamentTablesViewModel() { Tables = tables, TournamentId = request.Id };
             return viewModel;

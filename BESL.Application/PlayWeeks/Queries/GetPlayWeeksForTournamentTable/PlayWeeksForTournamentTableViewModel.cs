@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.PlayWeeks.Queries
+﻿namespace BESL.Application.PlayWeeks.Queries.GetPlayWeeksForTournamentTable
 {
     using System.Collections.Generic;
 

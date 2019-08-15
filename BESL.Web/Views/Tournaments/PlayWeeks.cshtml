@@ -1,0 +1,28 @@
+﻿@model BESL.Application.PlayWeeks.Queries.GetPlayWeeksForTournamentTable.PlayWeeksForTournamentTableViewModel
+@{
+    ViewData["Title"] = "Play Weeks";
+    int counter = 1;
+}
+<h4 class="display-4">Play Weeks</h4>
+<hr />
+<div class="accordion" id="weeksAccordion">
+    @foreach (var week in Model.PlayWeeks)
+    {
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#weekItem-@counter" aria-expanded="false" aria-controls="collapseOne">
+                    Play week: @week.WeekAsString
+                </button>
+            </h2>
+        </div>
+
+        <div id="weekItem-@counter" class="collapse" aria-labelledby="headingOne" data-parent="#weeksAccordion">
+            <div class="card-body">
+                <vc:get-matches-for-play-week play-week-id="@week.Id"></vc:get-matches-for-play-week>
+            </div>
+        </div>
+    </div>
+        counter++;
+    }
+</div>

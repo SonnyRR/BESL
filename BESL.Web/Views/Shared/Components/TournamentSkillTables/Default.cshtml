@@ -28,6 +28,7 @@
         var status = tabItemCounter == 0 ? "active" : string.Empty;
 
         <div class="tab-pane fade show mt-2 @(status)" id="@(table.Name)Pane" role="tabpanel">
+            <a class="btn btn-sm btn-primary text-white mb-1" asp-controller="Tournaments" asp-action="PlayWeeks" asp-route-TournamentTableId="@table.Id">Play weeks</a>
             <table class="table table-sm table-bordered table-hover border rounded table-striped">
                 <thead>
                     <tr>
@@ -42,7 +43,7 @@
                     @if (table.TableResults.Count() == 0)
                     {
                         <tr>
-                            <td colspan="4" class="text-center"><h5 class="text-danger">No teams registered.</h5></td>
+                            <td colspan="5" class="text-center"><h5 class="text-danger">No teams registered.</h5></td>
                         </tr>
                     }
                     else

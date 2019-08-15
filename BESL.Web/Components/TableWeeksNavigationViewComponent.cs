@@ -1,9 +1,11 @@
 ﻿namespace BESL.Web.Components
 {
     using System.Threading.Tasks;
-    using BESL.Application.PlayWeeks.Queries;
+
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
+
+    using BESL.Application.PlayWeeks.Queries.GetPlayWeeksForTournamentTable;
 
     public class TableWeeksNavigationViewComponent : ViewComponent
     {

@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.PlayWeeks.Queries
+﻿namespace BESL.Application.PlayWeeks.Queries.GetPlayWeeksForTournamentTable
 {
     using AutoMapper;
 
@@ -12,10 +12,15 @@
 
         public string WeekAsString { get; set; }
 
+        public string TournamentTableName { get; set; }
+
+        public string TournamentName { get; set; }
+
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<PlayWeek, PlayWeekLookupModel>()
-                .ForMember(lm => lm.WeekAsString, o => o.MapFrom(src => $"{src.StartDate.ToString(DATE_FORMAT)} - {src.EndDate.ToString(DATE_FORMAT)}"));
+                .ForMember(lm => lm.WeekAsString, o => o.MapFrom(src => $"{src.StartDate.ToString(DATE_FORMAT)} - {src.EndDate.ToString(DATE_FORMAT)}"))
+                .ForMember(lm => lm.TournamentName, o => o.MapFrom(src=>src.TournamentTable.Name));
         }
     }
 }
