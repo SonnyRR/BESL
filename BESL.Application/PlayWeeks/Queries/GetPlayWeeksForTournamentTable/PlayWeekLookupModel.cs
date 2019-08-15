@@ -20,7 +20,8 @@
         {
             configuration.CreateMap<PlayWeek, PlayWeekLookupModel>()
                 .ForMember(lm => lm.WeekAsString, o => o.MapFrom(src => $"{src.StartDate.ToString(DATE_FORMAT)} - {src.EndDate.ToString(DATE_FORMAT)}"))
-                .ForMember(lm => lm.TournamentName, o => o.MapFrom(src=>src.TournamentTable.Name));
+                .ForMember(lm => lm.TournamentTableName, o => o.MapFrom(src=>src.TournamentTable.Name))
+                .ForMember(lm=>lm.TournamentName, o => o.MapFrom(src=>src.TournamentTable.Tournament.Name));
         }
     }
 }
