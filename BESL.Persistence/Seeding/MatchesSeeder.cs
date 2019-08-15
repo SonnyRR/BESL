@@ -55,6 +55,20 @@
                     }
 
                     databaseContext.Matches.Add(match);
+
+                    var homeTeamResultTable = databaseContext.TeamTableResults
+                        .Where(x => x.TeamId == homeTeam.Id && x.TournamentTableId == 1)
+                        .SingleOrDefault();
+
+                    var awayTeamResultTable = databaseContext.TeamTableResults
+                        .Where(x => x.TeamId == awayTeam.Id && x.TournamentTableId == 1)
+                        .SingleOrDefault();
+
+                    homeTeamResultTable.Points += match.HomeTeamScore.Value;
+                    awayTeamResultTable.Points += match.AwayTeamScore.Value;
+
+                    homeTeamResultTable.PenaltyPoints += random.Next(0, 3);
+                    awayTeamResultTable.PenaltyPoints += random.Next(0, 3);
                 }
             }
         }
