@@ -28,7 +28,7 @@
         var status = tabItemCounter == 0 ? "active" : string.Empty;
 
         <div class="tab-pane fade show mt-2 @(status)" id="@(table.Name)Pane" role="tabpanel">
-            <a class="btn btn-sm btn-primary text-white mb-1" asp-controller="Tournaments" asp-action="PlayWeeks" asp-route-TournamentTableId="@table.Id">Play weeks</a>
+            <a class="btn btn-sm btn-primary text-white mb-2" asp-controller="Tournaments" asp-action="PlayWeeks" asp-route-TournamentTableId="@table.Id"><i class="fas fa-calendar-week"></i>&nbsp;Play weeks</a>
             <table class="table table-sm table-bordered table-hover border rounded table-striped">
                 <thead>
                     <tr>

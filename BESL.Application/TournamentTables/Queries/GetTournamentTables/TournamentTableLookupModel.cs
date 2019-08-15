@@ -23,7 +23,7 @@
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<TournamentTable, TournamentTableLookupModel>()
-                .ForMember(lm => lm.TableResults, o => o.MapFrom(tt => tt.TeamTableResults.OrderBy(ttr => ttr.IsDeleted)))
+                .ForMember(lm => lm.TableResults, o => o.MapFrom(tt => tt.TeamTableResults.OrderByDescending(ttr => ttr.IsDeleted).ThenByDescending(ttr=>ttr.TotalPoints).ThenBy(ttr=>ttr.Team.Name)))
                 .ForMember(lm => lm.CurrentPlayWeek, o => o.MapFrom(tt => tt.PlayWeeks.SingleOrDefault(pw => pw.IsActive)));
         }
     }

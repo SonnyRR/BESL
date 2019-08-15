@@ -31,13 +31,14 @@
             request = request ?? throw new ArgumentNullException(nameof(request));
 
             var teamPlayers = await this.playerTeamsRepository
-                .AllAsNoTracking()               
+                .AllAsNoTracking()
                 .Where(pt => pt.TeamId == request.TeamId)
                     .Include(pt => pt.Player)
                     .Include(pt => pt.Team)
                 .Select(x => x.Player)
                 .ProjectTo<PlayerLookup>(this.mapper.ConfigurationProvider, new Dictionary<string, object>(1) { { "teamId", request.TeamId } })
                 .OrderByDescending(p => p.isOwner)
+                .ThenBy(p => p.Username)
                 .ToListAsync(cancellationToken);
 
             var viewModel = new GetPlayersForTeamViewModel { Players = teamPlayers };
