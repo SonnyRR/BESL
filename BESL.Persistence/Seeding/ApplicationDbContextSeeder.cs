@@ -43,7 +43,8 @@
                               new GamesSeeder(),
                               new TournamentFormatsSeeder(),
                               new TournamentsSeeder(),
-                              new TeamsSeeder()
+                              new TeamsSeeder(),
+                              new MatchesSeeder()
                           };
 
             foreach (var seeder in seeders)

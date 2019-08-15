@@ -15,7 +15,7 @@
             DateTime activeTournamentStartDate = new DateTime(2019, 08, 12);
             DateTime activeTournamentEndDate = new DateTime(2019, 09, 08);
             DateTime corsairTournamentStartDate = new DateTime(2019, 09, 09);
-            DateTime corsairTournamentEndDate = new DateTime(2019, 06, 10);
+            DateTime corsairTournamentEndDate = new DateTime(2019, 10, 06);
 
             var tournaments = new Tournament[]
             {

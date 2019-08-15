@@ -12,7 +12,13 @@
     {
         DbSet<Setting> Settings { get; set; }
 
+        DbSet<PlayWeek> PlayWeeks { get; set; }
+
+        DbSet<TeamInvite> TeamInvites { get; set; }
+
         DbSet<Player> Players { get; set; }
+
+        DbSet<PlayerRole> PlayerRoles { get; set; }
 
         DbSet<Game> Games { get; set; }
 

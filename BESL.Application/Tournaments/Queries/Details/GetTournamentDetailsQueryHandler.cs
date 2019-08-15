@@ -8,10 +8,9 @@
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
+    using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using BESL.Application.Exceptions;
-    using System.Linq;
 
     public class GetTournamentDetailsQueryHandler : IRequestHandler<GetTournamentDetailsQuery, GetTournamentDetailsViewModel>
     {

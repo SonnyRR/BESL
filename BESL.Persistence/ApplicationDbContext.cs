@@ -11,8 +11,6 @@
     using BESL.Domain.Entities;
     using BESL.Application.Interfaces;
     using BESL.Domain.Infrastructure;
-    using System.Collections.Generic;
-
     public class ApplicationDbContext : IdentityDbContext<Player, PlayerRole, string>, IApplicationDbContext
     {       
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -43,6 +41,12 @@
         public DbSet<TournamentTable> TournamentTables { get; set; }
 
         public DbSet<Notification> Notifications { get; set; }
+
+        public DbSet<PlayWeek> PlayWeeks { get; set; }
+
+        public DbSet<TeamInvite> TeamInvites { get; set; }
+
+        public DbSet<PlayerRole> PlayerRoles { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
