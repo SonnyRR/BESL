@@ -74,6 +74,7 @@
     <Folder Include="Views\Shared\Components\TableWeeksNavigation\" />
     <Folder Include="Areas\Administration\Views\TeamTableResults\" />
     <Folder Include="Views\Shared\Components\GetMatchesForPlayWeek\" />
+    <Folder Include="Views\Shared\Components\GetTeamTournamentsMatches\" />
   </ItemGroup>
 
 

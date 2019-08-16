@@ -1,11 +1,19 @@
-﻿@{
+﻿@using static BESL.Common.GlobalConstants;
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-</div>
+@if (!this.User.Identity.IsAuthenticated)
+{
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to BESL!</h1>
+        <p class="lead">Bulgaria's leading platform for eSports!</p>
+        <hr class="my-4">
+        <p>Get your friends, create a team and join the upcoming tournaments! Play and reach the top of the tournament tables and get the chance to win some peripherall gear by our sponsors ThermalTake and Corsair!</p>
+        <a class="btn btn-primary btn-lg" asp-page="/Account/Login" asp-area="Identity" role="button"><i class="fas fa-sign-in-alt"></i>&nbsp;Sign-in</a>
+    </div>
+}
+
+<h4 class="display-4">This week's matches</h4>
+<hr />
+<h6>@DateTime.Now.Date.ToString(DATE_FORMAT)</h6>
