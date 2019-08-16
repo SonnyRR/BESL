@@ -47,13 +47,18 @@
                 {
                     @if (!Model.IsResultConfirmed)
                     {
-                    <div class="d-flex justify-content-center">
-                        <a class="btn btn-danger text-white" asp-controller="Matches" asp-action="EditResult" asp-route-id="@Model.Id"><i class="far fa-edit"></i>&nbsp;Edit result</a>
-                    </div>
+                        <div class="d-flex justify-content-center">
+                            <a class="btn btn-danger text-white" asp-controller="Matches" asp-action="EditResult" asp-route-id="@Model.Id"><i class="far fa-edit"></i>&nbsp;Edit result</a>
+                        </div>
                     }
                 }
             </div>
         </div>
         <hr />
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <vc:get-participated-players-for-match match-id="@Model.Id"></vc:get-participated-players-for-match>
+            </div>
+        </div>
     </div>
 </div>

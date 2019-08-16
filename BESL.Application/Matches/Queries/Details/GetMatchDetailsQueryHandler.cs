@@ -32,11 +32,12 @@
             var desiredMatch = await this.matchesRepository
                 .AllAsNoTracking()
                 .Include(m => m.HomeTeam)
-                    .ThenInclude(t=>t.TournamentFormat)
+                    .ThenInclude(t => t.TournamentFormat)
                     .Include(x => x.ParticipatedPlayers)
                 .Include(m => m.AwayTeam)
                     .ThenInclude(t => t.TournamentFormat)
                     .Include(x => x.ParticipatedPlayers)
+                .Include(m => m.PlayWeek)
                 .SingleOrDefaultAsync(m => m.Id == request.Id)
                 ?? throw new NotFoundException(nameof(Match), request.Id);
 

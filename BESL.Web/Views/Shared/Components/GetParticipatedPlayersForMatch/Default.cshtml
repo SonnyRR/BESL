@@ -1,0 +1,22 @@
+﻿@using BESL.Application.Common.Models.Lookups;
+@model IEnumerable<PlayerSelectItemLookupModel>
+
+<div>
+    <h4 class="display-4">Participated players:</h4>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" )>
+            @if (Model.Count() != 0)
+            {
+                @foreach (var player in @Model)
+                {
+                    <li class="breadcrumb-item" aria-current="page"><a asp-controller="Players" asp-action="Details" asp-route-id="@player.UserName">@player.UserName</a></li>
+
+                }
+            }
+            else
+            {
+                <li class="breadcrumb-item active">None</li>
+            }
+        </ol>
+    </nav>
+</div>
