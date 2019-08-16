@@ -10,7 +10,6 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using BESL.Application.TeamTableResults.Commands.AddPoints;
 
     public class ModifyMatchCommandHandler : IRequestHandler<ModifyMatchCommand, int>
     {
@@ -49,12 +48,6 @@
                         ? (int?)null
                         : request.AwayTeamId
                 : null;
-
-            //if (!desiredMatch.IsResultConfirmed)
-            //{
-            //    desiredMatch.IsResultConfirmed = request.IsResultConfirmed;
-            //    await this.mediator.Send(new AddPointsCommand { Points = desiredMatch.HomeTeamScore, TeamId = desiredMatch.HomeTeamId, TournamentId = desiredMatch})
-            //}
 
             this.matchesRepository.Update(desiredMatch);
             return await this.matchesRepository.SaveChangesAsync(cancellationToken);

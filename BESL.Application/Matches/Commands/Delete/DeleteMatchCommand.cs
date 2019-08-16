@@ -2,8 +2,8 @@
 {
     using MediatR;
 
-    public class DeleteMatchCommand
+    public class DeleteMatchCommand : IRequest<int>
     {
-        public int MatchId { get; set; }
+        public int Id { get; set; }
     }
 }

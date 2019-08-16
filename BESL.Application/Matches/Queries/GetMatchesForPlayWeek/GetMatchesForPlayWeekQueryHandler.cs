@@ -14,15 +14,22 @@
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
     using static BESL.Common.GlobalConstants;
+    using System.Linq;
+    using AutoMapper.QueryableExtensions;
 
     public class GetMatchesForPlayWeekQueryHandler : IRequestHandler<GetMatchesForPlayWeekQuery, MatchesForPlayWeekViewModel>
     {
         private readonly IDeletableEntityRepository<PlayWeek> playWeeksRepository;
+        private readonly IDeletableEntityRepository<Match> matchesRepository;
         private readonly IMapper mapper;
 
-        public GetMatchesForPlayWeekQueryHandler(IDeletableEntityRepository<PlayWeek> playWeeksRepository, IMapper mapper)
+        public GetMatchesForPlayWeekQueryHandler(
+            IDeletableEntityRepository<PlayWeek> playWeeksRepository,
+            IDeletableEntityRepository<Match> matchesRepository,
+            IMapper mapper)
         {
             this.playWeeksRepository = playWeeksRepository;
+            this.matchesRepository = matchesRepository;
             this.mapper = mapper;
         }
 
@@ -35,22 +42,36 @@
                 throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
             }
 
-            var playWeek = await this.playWeeksRepository
+            //var playWeek = await this.playWeeksRepository
+            //    .AllAsNoTracking()
+            //    .Include(pw => pw.MatchFixtures)
+            //        .ThenInclude(mf => mf.HomeTeam)
+            //    .Include(pw => pw.MatchFixtures)
+            //        .ThenInclude(mf => mf.AwayTeam)
+            //    .SingleOrDefaultAsync(pw => pw.Id == request.PlayWeekId, cancellationToken)
+            //    ?? throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
+
+            var desiredPlayWeek = await this.playWeeksRepository
                 .AllAsNoTracking()
-                .Include(pw => pw.MatchFixtures)
-                    .ThenInclude(mf => mf.HomeTeam)
-                .Include(pw => pw.MatchFixtures)
-                    .ThenInclude(mf => mf.AwayTeam)
-                .SingleOrDefaultAsync(pw => pw.Id == request.PlayWeekId, cancellationToken)
+                .Select(x => new { x.Id, x.StartDate, x.EndDate })
+                .SingleOrDefaultAsync(pw => pw.Id == request.PlayWeekId)
                 ?? throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
 
-            var matches = this.mapper.Map<IEnumerable<MatchLookupModel>>(playWeek.MatchFixtures);
+
+            var matches = await this.matchesRepository
+                .AllAsNoTracking()
+                .Include(m => m.HomeTeam)
+                .Include(m => m.AwayTeam)
+                .Where(m => m.PlayWeekId == request.PlayWeekId)
+                .OrderByDescending(m => m.CreatedOn)
+                .ProjectTo<MatchLookupModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
 
             var viewModel = new MatchesForPlayWeekViewModel
             {
                 Matches = matches,
                 PlayWeekId = request.PlayWeekId,
-                WeekAsString = $"{playWeek.StartDate.ToString(DATE_FORMAT)} - {playWeek.EndDate.ToString(DATE_FORMAT)}"
+                WeekAsString = $"{desiredPlayWeek.StartDate.ToString(DATE_FORMAT)} - {desiredPlayWeek.EndDate.ToString(DATE_FORMAT)}"
             };
 
             return viewModel;

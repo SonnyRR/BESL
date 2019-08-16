@@ -58,7 +58,6 @@
     <Folder Include="TeamTableResults\Commands\Drop\" />
     <Folder Include="TeamTableResults\Commands\Activate\" />
     <Folder Include="Matches\Queries\Details\" />
-    <Folder Include="Matches\Commands\Delete\" />
     <Folder Include="PlayWeeks\Queries\" />
     <Folder Include="TeamTableResults\Commands\AddPenaltyPoints\" />
     <Folder Include="TeamTableResults\Queries\" />

@@ -25,14 +25,6 @@
 
         public int? AwayTeamScore { get; set; }
 
-        public int WinnerTeamId { get; set; }
-
-        public string WinnerTeamName { get; set; }
-
-        public bool IsDraw { get; set; }
-
-        public bool IsResultConfirmed { get; set; }
-
         public DateTime ScheduledDate { get; set; }
     }
 }

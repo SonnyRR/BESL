@@ -5,10 +5,11 @@
     using Microsoft.AspNetCore.Mvc;
 
     using BESL.Application.Matches.Commands.Create;
-    using BESL.Application.Matches.Queries.GetMatchesForPlayWeek;
-    using BESL.Application.Matches.Queries.Modify;
     using BESL.Application.Matches.Commands.Modify;
     using BESL.Application.Matches.Commands.Delete;
+    using BESL.Application.Matches.Queries.GetMatchesForPlayWeek;
+    using BESL.Application.Matches.Queries.Modify;
+    using BESL.Application.Matches.Commands.AcceptResult;
 
     public class MatchFixturesController : AdminController
     {
@@ -52,6 +53,14 @@
         [HttpPost]
         public async Task<IActionResult> Delete(DeleteMatchCommand command, int playWeekId)
         {
+            await this.Mediator.Send(command);
+            return this.RedirectToAction(nameof(Details), new GetMatchesForPlayWeekQuery { PlayWeekId = playWeekId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AcceptResult(AcceptMatchResultCommand command, int playWeekId)
+        {
+            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Details), new GetMatchesForPlayWeekQuery { PlayWeekId = playWeekId });
         }
     }
