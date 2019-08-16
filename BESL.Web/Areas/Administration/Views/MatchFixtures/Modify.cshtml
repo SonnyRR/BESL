@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group mb-2">
                         <label asp-for="@Model.ScheduledDate">Play date</label>
-                        <input type="datetime-local" class="form-control" asp-for="@Model.ScheduledDate" min="@DateTime.Now.ToString(DATETIME_PICKER_FORMAT)" value="@Model.ScheduledDate.ToString(DATETIME_PICKER_FORMAT)">
+                        <input type="datetime-local" class="form-control" asp-for="@Model.ScheduledDate" value="@Model.ScheduledDate.ToString(DATETIME_PICKER_FORMAT)">
                         <span asp-validation-for="@Model.ScheduledDate" class="text-danger"></span>
                     </div>
                     <input hidden asp-for="@Model.AwayTeamName" />
