@@ -76,7 +76,7 @@
             // Assert
             result.ShouldNotBeNull();
             result.ShouldNotBeEmpty();
-            result.ShouldBeOfType<IEnumerable<GameSelectItemLookupModel>>();
+            result.ShouldBeAssignableTo<IEnumerable<GameSelectItemLookupModel>>();
             result.Count().ShouldBe(3);
             result.SingleOrDefault(g => g.Id == 3).Name.ShouldBe("CS:GO");
         }

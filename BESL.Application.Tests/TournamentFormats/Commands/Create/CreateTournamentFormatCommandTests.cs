@@ -84,7 +84,7 @@
             }.AsQueryable();
 
             var dataSetMock = dataSet.BuildMock();
-            tournamentFormatsRepositoryMock.Setup(m => m.AllAsNoTracking()).Returns(dataSetMock.Object);
+            tournamentFormatsRepositoryMock.Setup(m => m.AllAsNoTrackingWithDeleted()).Returns(dataSetMock.Object);
 
             var request = new CreateTournamentFormatCommand { Name = "5v5", GameId = 123 };
             var sut = new CreateTournamentFormatHandler(tournamentFormatsRepositoryMock.Object, It.IsAny<IDeletableEntityRepository<Game>>());
