@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Http;
 
     using BESL.Application.Interfaces.Mapping;
-    using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
+    using BESL.Application.Common.Models.Lookups;
     using BESL.Domain.Entities;
 
     public class CreateTeamCommand : IRequest<int>, IMapTo<Team>

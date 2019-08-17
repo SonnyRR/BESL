@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Tournaments.Queries.GetAllTournamentsSelectList
+﻿namespace BESL.Application.Common.Models.Lookups
 {
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;

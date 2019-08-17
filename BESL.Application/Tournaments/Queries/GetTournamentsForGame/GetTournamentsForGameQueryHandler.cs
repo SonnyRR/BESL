@@ -10,10 +10,9 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using BESL.Application.Tournaments.Queries.Common;
     using BESL.Domain.Entities;
 
-    public class GetTournamentsForGameQueryHandler : IRequestHandler<GetTournamentsForGameQuery, AllTournamentsViewModel>
+    public class GetTournamentsForGameQueryHandler : IRequestHandler<GetTournamentsForGameQuery, GameTournamentsViewModel>
     {
         private readonly IDeletableEntityRepository<Tournament> tournamentsRepository;
         private readonly IMapper mapper;
@@ -24,7 +23,7 @@
             this.mapper = mapper;
         }
 
-        public async Task<AllTournamentsViewModel> Handle(GetTournamentsForGameQuery request, CancellationToken cancellationToken)
+        public async Task<GameTournamentsViewModel> Handle(GetTournamentsForGameQuery request, CancellationToken cancellationToken)
         {
             var lookupModels = await this.tournamentsRepository
                 .AllAsNoTracking()
@@ -36,7 +35,7 @@
                 .ProjectTo<TournamentLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            var viewModel = new AllTournamentsViewModel { Tournaments = lookupModels };
+            var viewModel = new GameTournamentsViewModel { Tournaments = lookupModels };
             return viewModel;
         }
     }

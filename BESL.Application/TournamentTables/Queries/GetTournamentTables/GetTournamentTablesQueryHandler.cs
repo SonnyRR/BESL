@@ -27,10 +27,7 @@
 
         public async Task<TournamentTablesViewModel> Handle(GetTournamentTablesQuery request, CancellationToken cancellationToken)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
+            request = request ?? throw new ArgumentNullException(nameof(request));
 
             var tables = await this.repository
                 .AllAsNoTracking()

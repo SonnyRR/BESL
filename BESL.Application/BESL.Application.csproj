@@ -22,7 +22,6 @@
     <Folder Include="Infrastructure\Validators\" />
     <Folder Include="Games\Commands\Delete\" />
     <Folder Include="Matches\Commands\EditMatchResult\" />
-    <Folder Include="Tournaments\Queries\GetAllTournaments\" />
     <Folder Include="TournamentFormats\Queries\Modify\" />
     <Folder Include="Tournaments\Commands\Modify\" />
     <Folder Include="Games\Commands\Validation\" />

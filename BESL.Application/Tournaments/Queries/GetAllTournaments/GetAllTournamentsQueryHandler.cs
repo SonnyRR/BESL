@@ -10,8 +10,7 @@
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
-    using BESL.Application.Interfaces;
-    using BESL.Application.Tournaments.Queries.Common;
+    using BESL.Application.Interfaces;    
     using BESL.Domain.Entities;
 
     public class GetAllTournamentsQueryHandler : IRequestHandler<GetAllTournamentsQuery, AllTournamentsViewModel>

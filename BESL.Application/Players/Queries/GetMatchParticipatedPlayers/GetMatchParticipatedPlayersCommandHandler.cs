@@ -1,11 +1,13 @@
 ﻿namespace BESL.Application.Players.Queries.GetMatchParticipatedPlayers
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +15,8 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using System.Linq;
-    using AutoMapper.QueryableExtensions;
 
-    public class GetMatchParticipatedPlayersCommandHandler : IRequestHandler<GetMatchParticipatedPlayersCommand, IEnumerable<PlayerSelectItemLookupModel>>
+    public class GetMatchParticipatedPlayersCommandHandler : IRequestHandler<GetMatchParticipatedPlayersCommand, MatchParticipatedPlayersViewModel>
     {
         private readonly IDeletableEntityRepository<Match> matchesRepository;
         private readonly IMapper mapper;
@@ -27,20 +27,21 @@
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<PlayerSelectItemLookupModel>> Handle(GetMatchParticipatedPlayersCommand request, CancellationToken cancellationToken)
+        public async Task<MatchParticipatedPlayersViewModel> Handle(GetMatchParticipatedPlayersCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
             var participatedPlayersLookups = await this.matchesRepository
                 .AllAsNoTracking()
                 .Include(m => m.ParticipatedPlayers)
-                .ThenInclude(pp => pp.Player)
+                    .ThenInclude(pp => pp.Player)
                 .Where(m => m.Id == request.MatchId)
                 .SelectMany(m => m.ParticipatedPlayers.Select(pm => pm.Player))
                 .ProjectTo<PlayerSelectItemLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return participatedPlayersLookups;
+            var viewModel = new MatchParticipatedPlayersViewModel { Players = participatedPlayersLookups }; 
+            return viewModel;
         }
     }
 }

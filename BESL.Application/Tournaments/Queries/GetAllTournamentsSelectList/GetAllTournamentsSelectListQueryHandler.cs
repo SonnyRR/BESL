@@ -12,6 +12,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
+    using BESL.Application.Common.Models.Lookups;
     using BESL.Domain.Entities;
 
     public class GetAllTournamentsSelectListQueryHandler : IRequestHandler<GetAllTournamentsSelectListQuery, IEnumerable<TournamentSelectItemLookupModel>>

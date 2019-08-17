@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Tournaments.Queries.Common
+﻿namespace BESL.Application.Tournaments.Queries.GetTournamentsForGame
 {
     using AutoMapper;
     using BESL.Application.Interfaces.Mapping;

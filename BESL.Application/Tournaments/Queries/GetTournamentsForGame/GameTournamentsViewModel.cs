@@ -1,8 +1,8 @@
-﻿namespace BESL.Application.Tournaments.Queries.Common
+﻿namespace BESL.Application.Tournaments.Queries.GetTournamentsForGame
 {
     using System.Collections.Generic;
 
-    public class AllTournamentsViewModel
+    public class GameTournamentsViewModel
     {
         public IEnumerable<TournamentLookupModel> Tournaments { get; set; }
     }

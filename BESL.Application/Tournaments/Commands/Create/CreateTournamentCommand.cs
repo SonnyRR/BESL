@@ -6,7 +6,7 @@
     using MediatR;
     using Microsoft.AspNetCore.Http;
 
-    using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
+    using BESL.Application.Common.Models.Lookups;
 
     public class CreateTournamentCommand : IRequest<int>
     {
