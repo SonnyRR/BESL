@@ -10,6 +10,7 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class ModifyTournamentFormatCommandHandler : IRequestHandler<ModifyTournamentFormatCommand, int>
     {
@@ -33,6 +34,7 @@
             desiredFormat.Name = request.Name;
             desiredFormat.Description = request.Description;
             desiredFormat.TeamPlayersCount = request.TeamPlayersCount;
+            desiredFormat.TotalPlayersCount = desiredFormat.TeamPlayersCount * TOURNAMENT_FORMAT_PLAYERS_MULTIPLIER;
 
             this.tournamentFormatsRepository.Update(desiredFormat);
             return await this.tournamentFormatsRepository.SaveChangesAsync(cancellationToken);

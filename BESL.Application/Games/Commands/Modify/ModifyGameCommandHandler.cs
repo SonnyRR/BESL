@@ -46,7 +46,7 @@
             this.gamesRepository.Update(existingGame);
             var affectedRows = await this.gamesRepository.SaveChangesAsync(cancellationToken);
 
-            await this.mediator.Publish(new GameModifiedNotification() { Id = existingGame.Id });
+            await this.mediator.Publish(new GameModifiedNotification() { GameName = existingGame.Name });
             return affectedRows;
         }
 

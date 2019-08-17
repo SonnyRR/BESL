@@ -31,7 +31,7 @@
 
             var matchLookups = await matchesRepository
                 .AllAsNoTracking()
-                .Where(x => x.PlayWeek.IsActive)
+                .Where(x => x.PlayWeek.IsActive && x.PlayWeek.TournamentTable.Tournament.IsActive)
                 .OrderBy(x => x.ScheduledDate)
                 .ProjectTo<MatchLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);

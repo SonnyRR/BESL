@@ -22,7 +22,8 @@
         {
             configuration.CreateMap<Tournament, TournamentLookupModel>()
                 .ForMember(tlm => tlm.Game, o => o.MapFrom(t => t.Format.Game.Name))
-                .ForMember(tlm => tlm.Format, o => o.MapFrom(t => t.Format.Name));
+                .ForMember(tlm => tlm.Format, o => o.MapFrom(t => t.Format.Name))
+                .ForMember(tlm => tlm.Description, o => o.MapFrom(t => string.Format("{0}", t.Description.Length > 140 ? $"{t.Description.Substring(0, t.Description.IndexOf('.', 140) == -1 ? 140 : t.Description.IndexOf('.', 140))}..." : t.Description)));
         }
     }
 }

@@ -12,7 +12,7 @@
 
     public class GameModifiedNotification : INotification
     {
-        public int Id { get; set; }
+        public string GameName { get; set; }
 
         public class Handler : INotificationHandler<GameModifiedNotification>
         {
@@ -30,8 +30,8 @@
                 var notificationEntity = new Notification()
                 {
                     PlayerId = this.userAccessor.UserId,
-                    Header = string.Format(NOTIFICATION_ENTITY_HEADER_TEMPLATE_MSG, nameof(Game), notification.Id),
-                    Content = DELETED_SUCCESSFULLY_MSG,
+                    Header = string.Format(NOTIFICATION_ENTITY_HEADER_TEMPLATE_MSG, nameof(Game), notification.GameName),
+                    Content = MODIFIED_SUCCESSFULLY_MSG,
                     Type = NotificationType.Success,
                 };
 
