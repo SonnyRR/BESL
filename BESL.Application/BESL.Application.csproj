@@ -49,7 +49,6 @@
     <Folder Include="PlayWeeks\" />
     <Folder Include="PlayWeeks\Commands\" />
     <Folder Include="PlayWeeks\Commands\Advance\" />
-    <Folder Include="Matches\Queries\GetMatchesForPlayWeek\" />
     <Folder Include="Matches\Commands\Create\" />
     <Folder Include="Matches\Queries\Create\" />
     <Folder Include="Matches\Commands\Validation\" />
@@ -62,6 +61,10 @@
     <Folder Include="TeamTableResults\Commands\AddPenaltyPoints\" />
     <Folder Include="PlayWeeks\Queries\GetPlayWeeksForTournamentTable\" />
     <Folder Include="Teams\Queries\GetTeamTournamentsMatches\" />
+    <Folder Include="Matches\Queries\GetMatchesForCurrentPlayWeeks\" />
+    <Folder Include="Matches\Queries\GetMatchesForPlayWeek\" />
+    <Folder Include="Tournaments\Queries\GetAllTournamentsSelectList\" />
+    <Folder Include="Tournaments\Queries\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Matches\Queries\Modify\ModifyMatchViewModel.cs" />

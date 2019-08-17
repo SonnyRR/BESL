@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
+    using BESL.Application.Tournaments.Queries.GetAllTournamentsSelectList;
 
     public class ActiveTournamentsDropDownViewComponent : ViewComponent
     {
@@ -18,7 +19,7 @@
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var currentActiveTournamentsViewModel = await this.mediator.Send(new GetAllTournamentsQuery());
+            var currentActiveTournamentsViewModel = await this.mediator.Send(new GetAllTournamentsSelectListQuery());
             return this.View(currentActiveTournamentsViewModel);
         }
     }

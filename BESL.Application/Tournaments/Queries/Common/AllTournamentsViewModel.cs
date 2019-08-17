@@ -1,7 +1,6 @@
-﻿namespace BESL.Application.Common.Models.View
+﻿namespace BESL.Application.Tournaments.Queries.Common
 {
     using System.Collections.Generic;
-    using BESL.Application.Common.Models.Lookups;
 
     public class AllTournamentsViewModel
     {

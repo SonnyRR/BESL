@@ -1,11 +1,11 @@
-﻿@model BESL.Application.Common.Models.View.AllTournamentsViewModel
+﻿@model IEnumerable<BESL.Application.Tournaments.Queries.GetAllTournamentsSelectList.TournamentSelectItemLookupModel>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-trophy text-white"></i>&nbsp;Tournaments</a>
 <div class="dropdown-menu">
-    @if (Model.Tournaments.Count() != 0)
+    @if (Model.Count() != 0)
     {
-        @foreach (var tournament in Model.Tournaments)
+        @foreach (var tournament in Model)
         {
             <a class="dropdown-item" asp-controller="Tournaments" asp-action="Details" asp-route-id="@tournament.Id">@tournament.Name</a>
         }

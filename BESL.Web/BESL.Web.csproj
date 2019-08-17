@@ -75,6 +75,8 @@
     <Folder Include="Areas\Administration\Views\TeamTableResults\" />
     <Folder Include="Views\Shared\Components\GetMatchesForPlayWeek\" />
     <Folder Include="Views\Shared\Components\GetTeamTournamentsMatches\" />
+    <Folder Include="Views\Shared\Components\GetCurrentWeekMatches\" />
+    <Folder Include="Views\Shared\Components\FrontPageActiveTournaments\" />
   </ItemGroup>
 
 

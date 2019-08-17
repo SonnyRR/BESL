@@ -1,4 +1,4 @@
-﻿@model BESL.Application.Common.Models.View.AllTournamentsViewModel
+﻿@model BESL.Application.Tournaments.Queries.Common.AllTournamentsViewModel
 @{
     ViewData["ActivePage"] = ManageAdminNavPages.Tournaments;
     ViewData["Title"] = "Tournaments";
@@ -21,32 +21,32 @@
             <tbody>
                 @if (Model.Tournaments.Count() > 0)
                 {
-                    @foreach (var tournament in Model.Tournaments)
+                @foreach (var tournament in Model.Tournaments)
                     {
-                        <tr>
-                            <th scope="row" class="align-middle">@tournament.Id</th>
-                            <td class="align-middle">@tournament.Name</td>
-                            <td class="align-middle">@tournament.Game</td>
-                            <td class="align-middle">@tournament.Format</td>
-                            <td class="text-center">
-                                <a class="btn btn-primary" asp-area="Administration" asp-controller="Tournaments" asp-action="Tables" asp-route-id="@tournament.Id" align-center"><i class="fas fa-list"></i>&nbsp;Table list</a>
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-info align-center" asp-area="Administration" asp-controller="Tournaments" asp-action="Modify" asp-route-id="@tournament.Id"><i class="fas fa-wrench"></i>&nbsp;Modify</a>
-                            </td>
-                            <td class="text-center">
-                                <form asp-area="Administration" asp-controller="Tournaments" asp-action="Delete" asp-route-id="@tournament.Id" onsubmit="return submitForm(this, '@tournament.Name');">
-                                    <button class="btn btn-danger"><i class="fas fa-times-circle"></i>&nbsp;Delete</button>
-                                </form>
-                            </td>
-                        </tr>
+                <tr>
+                    <th scope="row" class="align-middle">@tournament.Id</th>
+                    <td class="align-middle">@tournament.Name</td>
+                    <td class="align-middle">@tournament.Game</td>
+                    <td class="align-middle">@tournament.Format</td>
+                    <td class="text-center">
+                        <a class="btn btn-primary" asp-area="Administration" asp-controller="Tournaments" asp-action="Tables" asp-route-id="@tournament.Id" align-center"><i class="fas fa-list"></i>&nbsp;Table list</a>
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-info align-center" asp-area="Administration" asp-controller="Tournaments" asp-action="Modify" asp-route-id="@tournament.Id"><i class="fas fa-wrench"></i>&nbsp;Modify</a>
+                    </td>
+                    <td class="text-center">
+                        <form asp-area="Administration" asp-controller="Tournaments" asp-action="Delete" asp-route-id="@tournament.Id" onsubmit="return submitForm(this, '@tournament.Name');">
+                            <button class="btn btn-danger"><i class="fas fa-times-circle"></i>&nbsp;Delete</button>
+                        </form>
+                    </td>
+                </tr>
                     }
                 }
                 else
                 {
-                    <tr>
-                        <td colspan="6" class="text-center"><h5>No tournaments registered.</h5></td>
-                    </tr>
+                <tr>
+                    <td colspan="6" class="text-center"><h5>No tournaments registered.</h5></td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -54,9 +54,9 @@
 </div>
 
 @section Scripts{
-<script>
+    <script>
     function submitForm(a, b) {
         return confirm(`Do you really want to delete ${b} ?`);
     }
-</script>
+    </script>
 }

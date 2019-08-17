@@ -1,11 +1,12 @@
 ﻿namespace BESL.Application.Matches.Queries.GetMatchesForPlayWeek
 {
     using System;
-    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
@@ -14,8 +15,6 @@
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
     using static BESL.Common.GlobalConstants;
-    using System.Linq;
-    using AutoMapper.QueryableExtensions;
 
     public class GetMatchesForPlayWeekQueryHandler : IRequestHandler<GetMatchesForPlayWeekQuery, MatchesForPlayWeekViewModel>
     {
@@ -41,15 +40,6 @@
             {
                 throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
             }
-
-            //var playWeek = await this.playWeeksRepository
-            //    .AllAsNoTracking()
-            //    .Include(pw => pw.MatchFixtures)
-            //        .ThenInclude(mf => mf.HomeTeam)
-            //    .Include(pw => pw.MatchFixtures)
-            //        .ThenInclude(mf => mf.AwayTeam)
-            //    .SingleOrDefaultAsync(pw => pw.Id == request.PlayWeekId, cancellationToken)
-            //    ?? throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
 
             var desiredPlayWeek = await this.playWeeksRepository
                 .AllAsNoTracking()

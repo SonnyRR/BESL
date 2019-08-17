@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Common.Models.Lookups
+﻿namespace BESL.Application.Tournaments.Queries.Common
 {
     using AutoMapper;
     using BESL.Application.Interfaces.Mapping;
@@ -13,6 +13,10 @@
         public string Game { get; set; }
 
         public string Format { get; set; }
+
+        public string TournamentImageUrl { get; set; }
+
+        public string Description { get; set; }
 
         public void CreateMappings(Profile configuration)
         {

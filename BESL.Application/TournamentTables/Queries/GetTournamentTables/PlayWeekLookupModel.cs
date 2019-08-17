@@ -1,7 +1,6 @@
-﻿namespace BESL.Application.Common.Models.Lookups
+﻿namespace BESL.Application.TournamentTables.Queries.GetTournamentTables
 {
     using System;
-    using System.Collections.Generic;
 
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
