@@ -46,7 +46,6 @@
                 TeamPlayersCount = request.TeamPlayersCount,
                 TotalPlayersCount = request.TeamPlayersCount * TOURNAMENT_FORMAT_PLAYERS_MULTIPLIER,
                 GameId = request.GameId,
-                CreatedOn = DateTime.UtcNow
             };
 
             await this.formatsRepository.AddAsync(format);

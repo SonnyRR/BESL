@@ -48,7 +48,6 @@
                     var notification = new Notification()
                     {
                         Type = NotificationType.Error,
-                        CreatedOn = DateTime.UtcNow,
                         Header = ERROR_OCCURED_MSG,
                         PlayerId = this.userAccessor.UserId,
                         Content = HttpUtility.HtmlEncode(exception.Message)

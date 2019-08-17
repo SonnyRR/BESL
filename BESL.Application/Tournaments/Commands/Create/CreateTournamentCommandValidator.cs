@@ -10,7 +10,7 @@
 
     public class CreateTournamentCommandValidator : AbstractValidator<CreateTournamentCommand>
     {
-        public CreateTournamentCommandValidator(IFileValidate fileValidate)
+        public CreateTournamentCommandValidator(IFileValidate fileValidate, IDateTime machineTime)
         {
             RuleFor(t => t.Name)
                 .NotEmpty()
@@ -26,7 +26,7 @@
                 .NotEmpty()
                 .Must(t => t.DayOfWeek == DayOfWeek.Monday)
                 .WithMessage(START_DATE_MUST_BE_MONDAY_MSG)
-                .GreaterThanOrEqualTo(t => DateTime.UtcNow.Date)
+                .GreaterThanOrEqualTo(t => machineTime.UtcNow.Date)
                 .WithMessage(START_DATE_MSG);
 
             RuleFor(t => t.EndDate)

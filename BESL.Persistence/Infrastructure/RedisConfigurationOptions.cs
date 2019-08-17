@@ -1,6 +1,6 @@
-﻿namespace BESL.Persistence
+﻿namespace BESL.Persistence.Infrastructure
 {
-    public class RedisConfiguration
+    public class RedisConfigurationOptions
     {
         public string Host { get; set; }
 

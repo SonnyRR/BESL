@@ -94,6 +94,8 @@
 
             services.AddMediatR(typeof(ApplicationDependencyInjectionHelper).Assembly);
 
+            services.AddTransient<IDateTime, MachineDateTime>();
+
             // MediatR pipeline behaviour call order is determined by the order they are registered.
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CustomExceptionNotificationBehaviour<,>));
@@ -121,8 +123,7 @@
             services.AddSingleton<Cloudinary>(x => CloudinaryFactory.GetInstance(this.Configuration));
             services.AddTransient<ICloudinaryHelper, CloudinaryHelper>();
 
-            services.Configure<RedisConfiguration>(Configuration.GetSection("Redis"));
-            services.AddSingleton<IRedisConnectionFactory, RedisConnectionFactory>();
+            services.Configure<RedisConfigurationOptions>(Configuration.GetSection("Redis"));
             services.AddTransient(typeof(IRedisService<>), typeof(RedisService<>));
         }
 

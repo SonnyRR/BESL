@@ -13,7 +13,7 @@
     {
         public IDatabase Database { get; private set; }
 
-        public RedisService(IOptions<RedisConfiguration> redisConfig)
+        public RedisService(IOptions<RedisConfigurationOptions> redisConfig)
         {
             this.Database = ConnectionMultiplexer.Connect(redisConfig.Value.Host).GetDatabase();
         }
