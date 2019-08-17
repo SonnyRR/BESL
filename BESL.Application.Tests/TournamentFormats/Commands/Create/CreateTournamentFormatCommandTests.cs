@@ -12,6 +12,10 @@
     using BESL.Application.TournamentFormats.Commands.Create;
     using BESL.Domain.Entities;
     using BESL.Persistence.Repositories;
+    using System.Collections.Generic;
+    using Moq;
+    using System.Linq;
+    using MockQueryable.Moq;
 
     public class CreateTournamentFormatCommandTests : BaseTest<TournamentFormat>
     {
@@ -39,8 +43,8 @@
         }
 
         [Trait(nameof(TournamentFormat), "TournamentFormat creation tests.")]
-        [Fact(DisplayName = "Handle given Invalid request should throw NotFoundException.")]
-        public void Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
+        [Fact(DisplayName = "Handle given invalid request should throw NotFoundException.")]
+        public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
             // Arrange
             var request = new CreateTournamentFormatCommand()
@@ -52,33 +56,41 @@
             };
 
             IDeletableEntityRepository<Game> gameRepo = new EfDeletableEntityRepository<Game>(this.dbContext);
-            var sut = new CreateTournamentFormatHandler(deletableEntityRepository,gameRepo);
+            var sut = new CreateTournamentFormatHandler(deletableEntityRepository, gameRepo);
 
-            // Assert
-            Should.Throw<NotFoundException>(sut.Handle(request, CancellationToken.None));
+            // Act & Assert
+            await Should.ThrowAsync<NotFoundException>(sut.Handle(request, CancellationToken.None));
         }
 
         [Trait(nameof(TournamentFormat), "TournamentFormat creation tests.")]
-        [Fact(DisplayName = "Validator given invalid request should not validate entity.")]
-        public void Validator_GivenInvalidRequest_ShouldNotValidateEntity()
+        [Fact(DisplayName = "Handle given invalid request should throw EntityAlreadyExistsException.")]
+        public async Task Handle_GivenInvalidRequest_ShouldThrowEntityAlreadyExistsException()
         {
             // Arrange
-            var request = new CreateTournamentFormatCommand()
+            var tournamentFormatsRepositoryMock = new Mock<IDeletableEntityRepository<TournamentFormat>>();
+
+            var dataSet = new List<TournamentFormat>
             {
-                GameId = 2,
-                Name = "6v",
-                Description = "NotLongEnough",
-                TeamPlayersCount = -33
-            };
+                new TournamentFormat
+                {
+                     Name = "5v5",
+                     GameId = 123,
+                     Id = It.IsAny<int>(),
+                     TeamPlayersCount = 5,
+                     TotalPlayersCount = 10,
+                     Description = It.IsAny<string>()
+                }
 
-            var sut = new CreateTournamentFormatValidator();
+            }.AsQueryable();
 
-            // Act
-            var validationResult = sut.Validate(request);
+            var dataSetMock = dataSet.BuildMock();
+            tournamentFormatsRepositoryMock.Setup(m => m.AllAsNoTracking()).Returns(dataSetMock.Object);
 
-            // Assert
-            validationResult.IsValid.ShouldBe(false);
-            validationResult.Errors.Count.ShouldBe(3);
+            var request = new CreateTournamentFormatCommand { Name = "5v5", GameId = 123 };
+            var sut = new CreateTournamentFormatHandler(tournamentFormatsRepositoryMock.Object, It.IsAny<IDeletableEntityRepository<Game>>());
+
+            // Act & Assert
+            await Should.ThrowAsync<EntityAlreadyExistsException>(sut.Handle(request, CancellationToken.None));
         }
     }
 }

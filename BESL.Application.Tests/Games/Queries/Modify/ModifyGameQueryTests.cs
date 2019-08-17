@@ -17,7 +17,7 @@
     using BESL.Application.Games.Commands.Modify;
     using BESL.Domain.Entities;
 
-    public class ModifyGameQueryTests
+    public class Modify
     {
         [Trait(nameof(Game), "Game query tests.")]
         [Fact(DisplayName = "ModifyGameQuery handler given valid request should return valid GameDetails viewmodel.")]
