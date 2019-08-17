@@ -49,6 +49,14 @@
 
             desiredMatch.HomeTeamScore = request.HomeTeamScore;
             desiredMatch.AwayTeamScore = request.AwayTeamScore;
+            desiredMatch.WinnerTeamId = desiredMatch.HomeTeamScore > desiredMatch.AwayTeamScore
+                ? desiredMatch.HomeTeamId
+                : desiredMatch.AwayTeamId;
+
+            if (desiredMatch.HomeTeamScore == desiredMatch.AwayTeamScore)
+            {
+                desiredMatch.IsDraw = true;
+            }
 
             if (request.ParticipatedPlayersIds != null)
             {
