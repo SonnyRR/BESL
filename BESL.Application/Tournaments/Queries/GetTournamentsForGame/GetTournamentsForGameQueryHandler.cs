@@ -30,6 +30,9 @@
                 .AllAsNoTracking()
                     .Include(t => t.Format)
                 .Where(t => t.Format.GameId == request.GameId)
+                .OrderByDescending(t => t.IsActive)
+                .ThenBy(t => t.AreSignupsOpen)
+                .ThenByDescending(t => t.CreatedOn)
                 .ProjectTo<TournamentLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

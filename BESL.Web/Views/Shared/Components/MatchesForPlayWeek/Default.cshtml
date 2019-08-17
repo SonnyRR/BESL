@@ -1,0 +1,43 @@
+﻿@model BESL.Application.Matches.Queries.GetMatchesForPlayWeek.MatchesForPlayWeekViewModel
+@using static BESL.Common.GlobalConstants;
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Home Team</th>
+            <th scope="col">Away Team</th>
+            <th scope="col">Score</th>
+            <th scope="col">Date</th>
+            <th scope="col" class="text-center">Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Matches.Count() != 0)
+        {
+            @foreach (var match in Model.Matches)
+            {
+                <tr>
+                    <th class="align-middle"><a asp-controller="Teams" asp-action="Details" asp-route-Id="@match.HomeTeamId">@match.HomeTeamName</a></th>
+                    <th class="align-middle"><a asp-controller="Teams" asp-action="Details" asp-route-Id="@match.AwayTeamId">@match.AwayTeamName</a></th>
+                    <td class="align-middle">
+                        @if(match.HomeTeamScore.HasValue && match.AwayTeamScore.HasValue)
+                        {
+                            @($"{match.HomeTeamScore} - {match.AwayTeamScore}");
+                        }
+                        else
+                        {
+                            @("TBA");
+                        }
+                    </td>
+                    <td class="align-middle">@match.ScheduledDate.ToString(DATE_HOUR_FORMAT)</td>
+                    <td class="align-middle text-center"><a class="btn btn-sm btn-primary text-white" asp-controller="Matches" asp-action="Details" asp-route-Id="@match.Id">Details</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+                <tr>
+                    <td colspan="5" class="text-center text-danger">No matches.</td>
+                </tr>
+        }
+    </tbody>
+</table>

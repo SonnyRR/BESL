@@ -1,15 +1,17 @@
 ﻿namespace BESL.Web.Components
 {
     using System.Threading.Tasks;
-    using BESL.Application.Players.Queries.GetMatchParticipatedPlayers;
-    using MediatR;
-    using Microsoft.AspNetCore.Mvc;   
 
-    public class GetParticipatedPlayersForMatchViewComponent : ViewComponent
+    using MediatR;
+    using Microsoft.AspNetCore.Mvc;
+
+    using BESL.Application.Players.Queries.GetMatchParticipatedPlayers;
+
+    public class ParticipatedPlayersForMatchViewComponent : ViewComponent
     {
         private readonly IMediator mediator;
 
-        public GetParticipatedPlayersForMatchViewComponent(IMediator mediator)
+        public ParticipatedPlayersForMatchViewComponent(IMediator mediator)
         {
             this.mediator = mediator;
         }

@@ -16,12 +16,12 @@
 
     public class GetMatchesForCurrentPlayWeeksQueryHandler : IRequestHandler<GetMatchesForCurrentPlayWeeksQuery, MatchesForCurrentPlayWeeksViewModel>
     {
-        private readonly IDeletableEntityRepository<PlayWeek> playWeeksRepository;
+        private readonly IDeletableEntityRepository<Match> matchesRepository;
         private readonly IMapper mapper;
 
-        public GetMatchesForCurrentPlayWeeksQueryHandler(IDeletableEntityRepository<PlayWeek> playWeeksRepository, IMapper mapper)
+        public GetMatchesForCurrentPlayWeeksQueryHandler(IDeletableEntityRepository<Match> matchesRepository, IMapper mapper)
         {
-            this.playWeeksRepository = playWeeksRepository;
+            this.matchesRepository = matchesRepository;
             this.mapper = mapper;
         }
 
@@ -29,13 +29,10 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var currentMachineTime = DateTime.UtcNow.Date;
-
-            var matchLookups = await this.playWeeksRepository
+            var matchLookups = await matchesRepository
                 .AllAsNoTracking()
-                .Where(pw => pw.IsActive && pw.TournamentTable.Tournament.IsActive)
-                .SelectMany(pw => pw.MatchFixtures)
-                .OrderBy(m => m.ScheduledDate)
+                .Where(x => x.PlayWeek.IsActive)
+                .OrderBy(x => x.ScheduledDate)
                 .ProjectTo<MatchLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

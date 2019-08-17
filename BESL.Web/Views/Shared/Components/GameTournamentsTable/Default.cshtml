@@ -1,0 +1,35 @@
+﻿@model BESL.Application.Tournaments.Queries.Common.AllTournamentsViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="row">
+    <div class="col-sm-12 border shadow rounded">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Game</th>
+                    <th scope="col">Format</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Tournaments.Count() != 0)
+                {
+                    @foreach (var tournament in Model.Tournaments)
+                    {
+                        <tr>
+                            <td><a asp-controller="Tournaments" asp-action="Details" asp-route-id="@tournament.Id">@tournament.Name</a></td>
+                            <td>@tournament.Game</td>
+                            <td>@tournament.Format</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center"><h5 class="text-danger">No past or active tournaments.</h5></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

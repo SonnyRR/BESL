@@ -62,10 +62,10 @@
 
 
   <ItemGroup>
-    <Folder Include="Views\Shared\Components\ActiveTournamentsTable\" />
+    <Folder Include="Views\Shared\Components\GameTournamentsTable\" />
     <Folder Include="Views\Shared\Components\TournamentSkillTables\" />
     <Folder Include="Views\Shared\Components\PlayerNotifications\" />
-    <Folder Include="Views\Shared\Components\GetPlayersForTeam\" />
+    <Folder Include="Views\Shared\Components\PlayersForTeam\" />
     <Folder Include="Views\Search\" />
     <Folder Include="Views\Shared\Components\InvitePlayerModal\" />
     <Folder Include="Views\Shared\Components\TransferTeamOwnership\" />
@@ -73,9 +73,9 @@
     <Folder Include="Views\Shared\Components\AddMatchFixture\" />
     <Folder Include="Views\Shared\Components\TableWeeksNavigation\" />
     <Folder Include="Areas\Administration\Views\TeamTableResults\" />
-    <Folder Include="Views\Shared\Components\GetMatchesForPlayWeek\" />
-    <Folder Include="Views\Shared\Components\GetTeamTournamentsMatches\" />
-    <Folder Include="Views\Shared\Components\GetCurrentWeekMatches\" />
+    <Folder Include="Views\Shared\Components\MatchesForPlayWeek\" />
+    <Folder Include="Views\Shared\Components\TeamTournamentsMatches\" />
+    <Folder Include="Views\Shared\Components\CurrentWeekMatches\" />
     <Folder Include="Views\Shared\Components\FrontPageActiveTournaments\" />
   </ItemGroup>
 

@@ -14,6 +14,7 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     using System.Linq;
+    using AutoMapper.QueryableExtensions;
 
     public class GetMatchParticipatedPlayersCommandHandler : IRequestHandler<GetMatchParticipatedPlayersCommand, IEnumerable<PlayerSelectItemLookupModel>>
     {
@@ -30,15 +31,16 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var desiredMatch = await this.matchesRepository
+            var participatedPlayersLookups = await this.matchesRepository
                 .AllAsNoTracking()
                 .Include(m => m.ParticipatedPlayers)
                 .ThenInclude(pp => pp.Player)
-                .SingleOrDefaultAsync(m => m.Id == request.MatchId)
-                ?? throw new NotFoundException(nameof(Match), request.MatchId);
+                .Where(m => m.Id == request.MatchId)
+                .SelectMany(m => m.ParticipatedPlayers.Select(pm => pm.Player))
+                .ProjectTo<PlayerSelectItemLookupModel>(this.mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
 
-            var mapped = this.mapper.Map<IEnumerable<PlayerSelectItemLookupModel>>(desiredMatch.ParticipatedPlayers.Select(x => x.Player));
-            return mapped;
+            return participatedPlayersLookups;
         }
     }
 }

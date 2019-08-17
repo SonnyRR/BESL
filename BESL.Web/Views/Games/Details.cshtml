@@ -40,11 +40,12 @@
         </div>
     </div>
 </div>
-<h4>Current active tournamets:</h4>
-<vc:active-tournaments-table game-id="@Model.Id"></vc:active-tournaments-table>
+<h4>All tournaments:</h4>
+<vc:game-tournaments-table game-id="@Model.Id"></vc:game-tournaments-table>
 
 @section Scripts{
-    <script>$(document).ready(function () {
+    <script>
+    $(document).ready(function () {
             $('.nav-toggle').click(function () {
                 var collapse_content_selector = $(this).attr('href');
                 var toggle_switch = $(this);
@@ -56,5 +57,6 @@
                     }
                 });
             });
-        });</script>
+        });
+    </script>
 }
