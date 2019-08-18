@@ -1,0 +1,6 @@
+ignore:
+  - "Common/**/*"
+  - "Exceptions/**/*"
+  - "Infrastructure/**/*"
+  - "Interfaces/**/*"
+  - "*Validator.cs"
