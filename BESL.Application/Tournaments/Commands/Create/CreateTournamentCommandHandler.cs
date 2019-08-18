@@ -37,15 +37,16 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
+            if (request.StartDate.DayOfWeek != DayOfWeek.Monday)
+            {
+                throw new TournamentActiveDateMustStartOnMondayException();
+            }
+
             if (await this.CheckIfTournamentWithGivenNameAlreadyExists(request))
             {
                 throw new EntityAlreadyExistsException(nameof(Tournament), request.Name);
             }
 
-            if (request.StartDate.DayOfWeek != DayOfWeek.Monday)
-            {
-                throw new TournamentActiveDateMustStartOnMondayException();
-            }
 
             var gameId = (await this.tournamentFormatsRepository
                 .AllAsNoTracking()

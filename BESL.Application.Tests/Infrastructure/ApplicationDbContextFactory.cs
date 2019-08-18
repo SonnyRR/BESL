@@ -69,6 +69,7 @@
             dbContext.AddRange(new[]
             {
                 new Tournament { Id = 2, Name = "TestTournament1", FormatId = 2, Description = "Test", StartDate = new DateTime(2019, 08, 12), EndDate = new DateTime(2019, 09, 08), IsActive = true },
+                new Tournament { Id = 3, Name = "TestTournament2", FormatId = 2, Description = "Test", StartDate = new DateTime(2019, 08, 12), EndDate = new DateTime(2019, 09, 08), IsActive = true },
             });
             dbContext.SaveChanges();
 
