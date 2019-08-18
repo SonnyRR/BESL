@@ -26,7 +26,7 @@
             request = request ?? throw new ArgumentNullException(nameof(request));
 
             var desiredFormat = await this.tournamentFormatsRepository
-                .AllAsNoTracking()
+                .All()
                 .SingleOrDefaultAsync(t => t.Id == request.Id)
                 ?? throw new NotFoundException(nameof(TournamentFormat), request.Id);
 

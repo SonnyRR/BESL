@@ -12,12 +12,12 @@
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
 
-    public class CreateTournamentFormatHandler : IRequestHandler<CreateTournamentFormatCommand, int>
+    public class CreateTournamentFormatCommandHandler : IRequestHandler<CreateTournamentFormatCommand, int>
     {
         private readonly IDeletableEntityRepository<TournamentFormat> formatsRepository;
         private readonly IDeletableEntityRepository<Game> gamesRepository;
 
-        public CreateTournamentFormatHandler(
+        public CreateTournamentFormatCommandHandler(
             IDeletableEntityRepository<TournamentFormat> formatsRepository, 
             IDeletableEntityRepository<Game> gamesRepository)
         {
@@ -45,7 +45,7 @@
                 Description = request.Description,
                 TeamPlayersCount = request.TeamPlayersCount,
                 TotalPlayersCount = request.TeamPlayersCount * TOURNAMENT_FORMAT_PLAYERS_MULTIPLIER,
-                GameId = request.GameId,
+                GameId = game.Id,
             };
 
             await this.formatsRepository.AddAsync(format);

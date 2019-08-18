@@ -33,7 +33,7 @@
             };
 
             IDeletableEntityRepository<Game> gameRepo = new EfDeletableEntityRepository<Game>(this.dbContext);
-            var sut = new CreateTournamentFormatHandler(base.deletableEntityRepository, gameRepo);
+            var sut = new CreateTournamentFormatCommandHandler(base.deletableEntityRepository, gameRepo);
 
             // Act
             var result = await sut.Handle(request, CancellationToken.None);
@@ -56,7 +56,7 @@
             };
 
             IDeletableEntityRepository<Game> gameRepo = new EfDeletableEntityRepository<Game>(this.dbContext);
-            var sut = new CreateTournamentFormatHandler(deletableEntityRepository, gameRepo);
+            var sut = new CreateTournamentFormatCommandHandler(deletableEntityRepository, gameRepo);
 
             // Act & Assert
             await Should.ThrowAsync<NotFoundException>(sut.Handle(request, CancellationToken.None));
@@ -87,7 +87,7 @@
             tournamentFormatsRepositoryMock.Setup(m => m.AllAsNoTrackingWithDeleted()).Returns(dataSetMock.Object);
 
             var request = new CreateTournamentFormatCommand { Name = "5v5", GameId = 123 };
-            var sut = new CreateTournamentFormatHandler(tournamentFormatsRepositoryMock.Object, It.IsAny<IDeletableEntityRepository<Game>>());
+            var sut = new CreateTournamentFormatCommandHandler(tournamentFormatsRepositoryMock.Object, It.IsAny<IDeletableEntityRepository<Game>>());
 
             // Act & Assert
             await Should.ThrowAsync<EntityAlreadyExistsException>(sut.Handle(request, CancellationToken.None));

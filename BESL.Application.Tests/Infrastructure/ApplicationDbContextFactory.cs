@@ -53,9 +53,14 @@
 
             dbContext.Games.AddRange(new[]
             {
-                new Game(){ Name = "SampleGame1", Description = "SampleDescription1", CreatedOn = DateTime.UtcNow, GameImageUrl = Guid.NewGuid().ToString()},
-                new Game(){ Name = "SampleGame2", Description = "SampleDescription2", CreatedOn = DateTime.UtcNow, GameImageUrl = Guid.NewGuid().ToString()},
-                new Game(){ Name = "SampleGame3", Description = "SampleDescription3", CreatedOn = DateTime.UtcNow, GameImageUrl = Guid.NewGuid().ToString()},
+                new Game(){ Name = "SampleGame1", Description = "SampleDescription1", GameImageUrl = Guid.NewGuid().ToString()},
+                new Game(){ Name = "SampleGame2", Description = "SampleDescription2", GameImageUrl = Guid.NewGuid().ToString()},
+                new Game(){ Name = "SampleGame3", Description = "SampleDescription3", GameImageUrl = Guid.NewGuid().ToString()},
+            });
+
+            dbContext.AddRange(new[]
+            {
+                new TournamentFormat { Name = "6v6", GameId = 1, TeamPlayersCount = 6 , TotalPlayersCount = 12,  Description = "Test" }
             });
 
             await dbContext.SaveChangesAsync();
