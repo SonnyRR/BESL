@@ -1,11 +1,13 @@
 ﻿namespace BESL.Application.Tests.Games.Commands.Modify
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
+    using MediatR;
     using Moq;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
@@ -17,14 +19,12 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
-    using MediatR;
-    using System;
 
     public class ModifyGameCommandTests : BaseTest<Game>
     {
         private string imagePlaceholderUrl = "https://steamcdn-a.akamaihd.net/steam/apps/440/changed-picture.jpg";
 
-        [Trait(nameof(Game), "Game modify tests.")]
+        [Trait(nameof(Game), "ModifyGame command tests.")]
         [Fact(DisplayName = "Handler given valid request should modify entity.")]
         public async Task Handle_GivenValidRequest_ShouldModifyEntity()
         {
@@ -62,7 +62,7 @@
             game.GameImageUrl.ShouldBe(imagePlaceholderUrl);
         }
 
-        [Trait(nameof(Game), "Game modify tests.")]
+        [Trait(nameof(Game), "ModifyGame command tests.")]
         [Fact(DisplayName = "Handler given invalid request should throw NotFoundException.")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
@@ -88,7 +88,7 @@
             await Should.ThrowAsync<NotFoundException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
 
-        [Trait(nameof(Game), "Game modify tests.")]
+        [Trait(nameof(Game), "ModifyGame command tests.")]
         [Fact(DisplayName = "Handler given null request should throw ArgumentNullException.")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {

@@ -7,7 +7,6 @@
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
-    using MediatR;
     using Moq;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
@@ -22,7 +21,7 @@
 
     public class CreateGameCommandTests : BaseTest<Game>
     {
-        [Trait(nameof(Game), "Game creation tests.")]
+        [Trait(nameof(Game), "CreateGame command tests.")]
         [Fact(DisplayName ="Handle given valid request should create valid entity.")]
         public async Task Handle_GivenValidRequest_ShouldCreateValidEntity()
         {
@@ -56,7 +55,7 @@
             game.Description.ShouldBe(command.Description);
         }
 
-        [Trait(nameof(Game), "Game creation tests.")]
+        [Trait(nameof(Game), "CreateGame command tests.")]
         [Fact(DisplayName ="Handle given null request should throw ArgumentNullException.")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
@@ -68,7 +67,7 @@
             await Should.ThrowAsync<ArgumentNullException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
 
-        [Trait(nameof(Game), "Game creation tests.")]
+        [Trait(nameof(Game), "CreateGame command tests.")]
         [Fact(DisplayName = "Handle given invalid request should throw EntityAlreadyExistsException.")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowEntityAlreadyExistsException()
         {

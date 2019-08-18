@@ -17,7 +17,7 @@
     public class DeleteGameCommandTests : BaseTest<Game>
     {
 
-        [Trait(nameof(Game), "Game deletion tests.")]
+        [Trait(nameof(Game), "DeleteGame command tests.")]
         [Fact(DisplayName = "Handler given valid request should mark entity as deleted.")]
 
         public async Task Handle_GivenValidRequest_ShouldMarkEntityAsDeleted()
@@ -45,7 +45,7 @@
             this.mediatorMock.Verify(x => x.Publish(It.IsAny<GameDeletedNotification>(), It.IsAny<CancellationToken>()));
         }
 
-        [Trait(nameof(Game), "Game deletion tests.")]
+        [Trait(nameof(Game), "DeleteGame command tests.")]
         [Fact(DisplayName = "Handler given invalid request should throw NotFoundException.")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
@@ -61,7 +61,7 @@
             await Should.ThrowAsync<NotFoundException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
 
-        [Trait(nameof(Game), "Game deletion tests.")]
+        [Trait(nameof(Game), "DeleteGame command tests.")]
         [Fact(DisplayName = "Handler given valid request should throw ArgumentNullException")]
         public async Task Handle_GivenValidRequest_ShouldThrowDeleteFailureException()
         {
@@ -86,7 +86,7 @@
             await Should.ThrowAsync<DeleteFailureException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
 
-        [Trait(nameof(Game), "Game deletion tests.")]
+        [Trait(nameof(Game), "DeleteGame command tests.")]
         [Fact(DisplayName = "Handler given null request should throw ArgumentNullException")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {

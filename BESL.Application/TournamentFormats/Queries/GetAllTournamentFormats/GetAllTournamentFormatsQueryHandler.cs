@@ -11,6 +11,7 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
+    using System;
 
     public class GetAllTournamentFormatsQueryHandler : IRequestHandler<GetAllTournamentFormatsQuery, GetAllTournamentFormatsQueryViewModel>
     {
@@ -25,6 +26,8 @@
 
         public async Task<GetAllTournamentFormatsQueryViewModel> Handle(GetAllTournamentFormatsQuery request, CancellationToken cancellationToken)
         {
+            request = request ?? throw new ArgumentNullException(nameof(request));
+
             var tournamentFormatsLookups = await this.tournamentFormatsRepository
                 .AllAsNoTracking()
                 .Where(e => !e.Game.IsDeleted)

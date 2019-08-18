@@ -19,7 +19,7 @@
 
     public class CreateTournamentFormatCommandTests : BaseTest<TournamentFormat>
     {
-        [Trait(nameof(TournamentFormat), "TournamentFormat creation tests.")]
+        [Trait(nameof(TournamentFormat), "CreateTournamentFormat command tests.")]
         [Fact(DisplayName = "Handle given valid request should create valid entity.")]
         public async Task Handle_GivenValidRequest_ShouldCreateValidEntity()
         {
@@ -42,7 +42,7 @@
             result.ShouldBe(1);
         }
 
-        [Trait(nameof(TournamentFormat), "TournamentFormat creation tests.")]
+        [Trait(nameof(TournamentFormat), "CreateTournamentFormat command tests.")]
         [Fact(DisplayName = "Handle given invalid request should throw NotFoundException.")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
@@ -62,7 +62,7 @@
             await Should.ThrowAsync<NotFoundException>(sut.Handle(request, CancellationToken.None));
         }
 
-        [Trait(nameof(TournamentFormat), "TournamentFormat creation tests.")]
+        [Trait(nameof(TournamentFormat), "CreateTournamentFormat command tests.")]
         [Fact(DisplayName = "Handle given invalid request should throw EntityAlreadyExistsException.")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowEntityAlreadyExistsException()
         {

@@ -31,7 +31,7 @@
             this.gameRepository = new EfDeletableEntityRepository<Game>(fixture.Context);
         }
 
-        [Trait(nameof(Game), "Game query tests.")]
+        [Trait(nameof(Game), "GetGameDetails query tests.")]
         [Fact(DisplayName = "GetGameDetails query handler given valid request should return valid GameDetails viewmodel.")]
         public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
@@ -68,7 +68,7 @@
         }
 
 
-        [Trait(nameof(Game), "Game query tests.")]
+        [Trait(nameof(Game), "GetGameDetails query tests.")]
         [Fact(DisplayName = "GetGameDetailsQuery handler given invalid request should throw NotFoundException.")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
@@ -92,7 +92,7 @@
             await Should.ThrowAsync<NotFoundException>(sut.Handle(query, CancellationToken.None));
         }
 
-        [Trait(nameof(Game), "Game query tests.")]
+        [Trait(nameof(Game), "GetGameDetails query tests.")]
         [Fact(DisplayName = "GetGameDetailsQuery handler given null request should throw ArgumentNullException.")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {

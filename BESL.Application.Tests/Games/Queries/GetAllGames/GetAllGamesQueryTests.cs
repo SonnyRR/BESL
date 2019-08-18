@@ -26,7 +26,7 @@
             this.mapper = AutoMapperFactory.Create();
         }
 
-        [Trait(nameof(Game), "Game query tests.")]
+        [Trait(nameof(Game), "GetAllGames query tests.")]
         [Fact(DisplayName = "GetAllGamesQuery handler given valid request should return valid GetAllGames viewmodel.")]
         public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
@@ -72,7 +72,7 @@
             result.Games.Any(x => x.RegisteredTeams == 1).ShouldBeTrue();
         }
 
-        [Trait(nameof(Game), "Game query tests.")]
+        [Trait(nameof(Game), "GetAllGames query tests.")]
         [Fact(DisplayName = "GetAllGamesQuery handler given null request should return valid GetAllGames viewmodel.")]
         public async Task Handle_GivenNullRequest_ShouldReturnValidViewModel()
         {

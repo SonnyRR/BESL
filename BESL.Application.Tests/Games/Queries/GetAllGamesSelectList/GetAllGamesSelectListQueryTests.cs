@@ -27,7 +27,7 @@
             this.mapper = AutoMapperFactory.Create();
         }
 
-        [Trait(nameof(Game), "Game query tests.")]
+        [Trait(nameof(Game), "GetAllGamesSelectList query tests.")]
         [Fact(DisplayName = "GetAllGamesSelectListQuery handler given valid request should return valid GamesSelectList viewmodel.")]
         public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
@@ -81,7 +81,7 @@
             result.SingleOrDefault(g => g.Id == 3).Name.ShouldBe("CS:GO");
         }
 
-        [Trait(nameof(Game), "Game query tests.")]
+        [Trait(nameof(Game), "GetAllGamesSelectList query tests.")]
         [Fact(DisplayName = "GetAllGamesSelectListQuery handler given null request should return valid GamesSelectList viewmodel.")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {

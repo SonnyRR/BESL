@@ -19,8 +19,8 @@
 
     public class Modify
     {
-        [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "ModifyGameQuery handler given valid request should return valid GameDetails viewmodel.")]
+        [Trait(nameof(Game), "ModifyGame query tests.")]
+        [Fact(DisplayName = "Handle given valid request should return valid GameDetails viewmodel.")]
         public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange
@@ -56,8 +56,8 @@
             result.GameImageUrl.ShouldBe("http://vidindrinkingteam.bg/gomotarzi_everything_alcoholic.jpg");
         }
 
-        [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "ModifyGameQuery handler given invalid request should throw NotFoundException")]
+        [Trait(nameof(Game), "ModifyGame query tests.")]
+        [Fact(DisplayName = "Handle given invalid request should throw NotFoundException")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
             // Arrange
@@ -90,8 +90,8 @@
             await Should.ThrowAsync<NotFoundException>(sut.Handle(request, CancellationToken.None));
         }
 
-        [Trait(nameof(Game), "Game query tests.")]
-        [Fact(DisplayName = "ModifyGameQuery handler given invalid request should throw NotFoundException")]
+        [Trait(nameof(Game), "ModifyGame query tests.")]
+        [Fact(DisplayName = "Handle given invalid request should throw NotFoundException")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowArgumentNullException()
         {
             // Arrange

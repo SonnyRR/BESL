@@ -4,18 +4,18 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
     using System.Threading;
     using System.Threading.Tasks;
 
+    using Moq;
     using Shouldly;
     using Xunit;
 
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.TournamentFormats.Commands.Delete;
     using BESL.Domain.Entities;
-    using Moq;
     using BESL.Application.Exceptions;
 
     public class DeleteTournamentFormatCommandTests : BaseTest<TournamentFormat>
     {
-        [Trait(nameof(TournamentFormat), "TournamentFormat deletion tests.")]
+        [Trait(nameof(TournamentFormat), "DeleteTournamentFormat command tests.")]
         [Fact(DisplayName = "Handle given valid request should delete valid entity.")]
         public async Task Handle_GivenValidRequest_ShouldCreateValidEntity()
         {
@@ -34,9 +34,9 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
             result.ShouldBe(2);
         }
 
-        [Trait(nameof(TournamentFormat), "TournamentFormat deletion tests.")]
+        [Trait(nameof(TournamentFormat), "DeleteTournamentFormat command tests.")]
         [Fact(DisplayName = "Handle given invalid request should throw DeleteFailureException.")]
-        public async Task Handle_GivenInvalidRequest_ShouldThroDeleteFailureException()
+        public async Task Handle_GivenInvalidRequest_ShouldThrowDeleteFailureException()
         {
             // Arrange
             var request = new DeleteTournamentFormatCommand
@@ -48,6 +48,22 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
 
             // Act & Assert
             await Should.ThrowAsync<DeleteFailureException>(sut.Handle(request, CancellationToken.None));
+        }
+
+        [Trait(nameof(TournamentFormat), "DeleteTournamentFormat command tests.")]
+        [Fact(DisplayName = "Handle given invalid request should throw NotFoundException.")]
+        public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
+        {
+            // Arrange
+            var request = new DeleteTournamentFormatCommand
+            {
+                Id = 300
+            };
+
+            var sut = new DeleteTournamentFormatCommandHandler(base.deletableEntityRepository);
+
+            // Act & Assert
+            await Should.ThrowAsync<NotFoundException>(sut.Handle(request, CancellationToken.None));
         }
     }
 }
