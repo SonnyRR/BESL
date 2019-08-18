@@ -35,6 +35,8 @@
     <Folder Include="Games\Commands\Modify\" />
     <Folder Include="Games\Queries\GetAllGames\" />
     <Folder Include="Games\Queries\GetAllGamesSelectList\" />
+    <Folder Include="Tournaments\Commands\Modify\" />
+    <Folder Include="Tournaments\Commands\Enroll\" />
   </ItemGroup>
 
   <ItemGroup>
