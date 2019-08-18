@@ -30,7 +30,9 @@
                 ?? throw new NotFoundException(nameof(Tournament), request.Id);
 
             this.tournamentsRepository.Delete(desiredTournament);
-            return await this.tournamentsRepository.SaveChangesAsync(cancellationToken);
+
+            await this.tournamentsRepository.SaveChangesAsync(cancellationToken);
+            return desiredTournament.Id;
         }
     }
 }

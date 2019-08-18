@@ -6,12 +6,12 @@
 
     using CloudinaryDotNet;
     using MediatR;
+    using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
+    using BESL.Application.Exceptions;
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
-    using Microsoft.EntityFrameworkCore;
-    using BESL.Application.Exceptions;
 
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, int>
     {

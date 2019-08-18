@@ -1,8 +1,12 @@
 ﻿namespace BESL.Application.Tests.TournamentFormats.Commands.Create
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
+    using Moq;
+    using MockQueryable.Moq;
     using Shouldly;
     using Xunit;
 
@@ -12,10 +16,6 @@
     using BESL.Application.TournamentFormats.Commands.Create;
     using BESL.Domain.Entities;
     using BESL.Persistence.Repositories;
-    using System.Collections.Generic;
-    using Moq;
-    using System.Linq;
-    using MockQueryable.Moq;
 
     public class CreateTournamentFormatCommandTests : BaseTest<TournamentFormat>
     {

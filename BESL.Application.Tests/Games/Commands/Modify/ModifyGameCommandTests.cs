@@ -47,14 +47,14 @@
             };
 
             // Act
-            var rowsAffected = await sut.Handle(command, CancellationToken.None);
+            var id = await sut.Handle(command, CancellationToken.None);
 
             // Assert
             var game = this.deletableEntityRepository
                 .AllAsNoTrackingWithDeleted()
                 .SingleOrDefault(x => x.Id == gameId);
 
-            rowsAffected.ShouldBe(1);
+            id.ShouldBe(2);
             this.mediatorMock.Verify(x => x.Publish(It.IsAny<GameModifiedNotification>(), It.IsAny<CancellationToken>()));
             game.ShouldNotBeNull();
             game.Name.ShouldBe(command.Name);

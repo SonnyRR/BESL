@@ -42,7 +42,7 @@
             int rowsAffected = await this.gamesRepository.SaveChangesAsync(cancellationToken);
             await this.mediator.Publish(new GameDeletedNotification() { GameName = desiredGame.Name });
 
-            return rowsAffected;
+            return desiredGame.Id;
         }
     }
 }

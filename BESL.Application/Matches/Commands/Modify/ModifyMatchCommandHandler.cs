@@ -50,7 +50,9 @@
                 : null;
 
             this.matchesRepository.Update(desiredMatch);
-            return await this.matchesRepository.SaveChangesAsync(cancellationToken);
+            await this.matchesRepository.SaveChangesAsync(cancellationToken);
+
+            return desiredMatch.Id;
         }
     }
 }

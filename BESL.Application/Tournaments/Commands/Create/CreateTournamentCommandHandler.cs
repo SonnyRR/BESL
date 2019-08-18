@@ -9,10 +9,10 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;    
-    using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
-    using static BESL.Common.GlobalConstants;
     using BESL.Application.TournamentTables.Commands.Create;
+    using BESL.Domain.Entities;
+    using static BESL.Common.GlobalConstants;
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>
     {

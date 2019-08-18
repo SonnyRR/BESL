@@ -31,7 +31,7 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
             var result = await sut.Handle(request, CancellationToken.None);
 
             // Assert
-            result.ShouldBe(1);
+            result.ShouldBe(2);
         }
 
         [Trait(nameof(TournamentFormat), "TournamentFormat deletion tests.")]

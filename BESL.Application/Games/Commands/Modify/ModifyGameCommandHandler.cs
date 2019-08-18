@@ -30,24 +30,24 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var existingGame = await this.gamesRepository
+            var desiredGame = await this.gamesRepository
                 .AllAsNoTracking()
                 .SingleOrDefaultAsync(g => g.Id == request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Game), request.Id);
 
-            existingGame.Name = request.Name;
-            existingGame.Description = request.Description;
+            desiredGame.Name = request.Name;
+            desiredGame.Description = request.Description;
 
             if (request.GameImage != null)
             { 
-                existingGame.GameImageUrl = await this.UploadGameImage(request);
+                desiredGame.GameImageUrl = await this.UploadGameImage(request);
             }
 
-            this.gamesRepository.Update(existingGame);
+            this.gamesRepository.Update(desiredGame);
             var affectedRows = await this.gamesRepository.SaveChangesAsync(cancellationToken);
 
-            await this.mediator.Publish(new GameModifiedNotification() { GameName = existingGame.Name });
-            return affectedRows;
+            await this.mediator.Publish(new GameModifiedNotification() { GameName = desiredGame.Name });
+            return desiredGame.Id;
         }
 
         private async Task<string> UploadGameImage(ModifyGameCommand request)

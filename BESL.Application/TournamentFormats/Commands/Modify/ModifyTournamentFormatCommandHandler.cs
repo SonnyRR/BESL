@@ -37,7 +37,9 @@
             desiredFormat.TotalPlayersCount = desiredFormat.TeamPlayersCount * TOURNAMENT_FORMAT_PLAYERS_MULTIPLIER;
 
             this.tournamentFormatsRepository.Update(desiredFormat);
-            return await this.tournamentFormatsRepository.SaveChangesAsync(cancellationToken);
+            await this.tournamentFormatsRepository.SaveChangesAsync(cancellationToken);
+
+            return desiredFormat.Id;
         }
     }
 }

@@ -36,7 +36,9 @@
             }
 
             this.tournamentFormatsRepository.Delete(desiredFormat);
-            return await this.tournamentFormatsRepository.SaveChangesAsync(cancellationToken);
+            await this.tournamentFormatsRepository.SaveChangesAsync(cancellationToken);
+
+            return desiredFormat.Id;
         }
     }
 }

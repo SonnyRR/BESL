@@ -33,7 +33,7 @@
             var sut = new DeleteGameCommandHandler(deletableEntityRepository, this.mediatorMock.Object);
 
             // Act
-            var affectedRows = await sut.Handle(deleteGameCommand, It.IsAny<CancellationToken>());
+            var id = await sut.Handle(deleteGameCommand, It.IsAny<CancellationToken>());
 
             // Assert
             var deletedGameEntity = deletableEntityRepository
@@ -41,7 +41,7 @@
                 .SingleOrDefault(x => x.Id == gameId);
 
             deletedGameEntity.IsDeleted.ShouldBe(true);
-            affectedRows.ShouldBe(1);
+            id.ShouldBe(gameId);
             this.mediatorMock.Verify(x => x.Publish(It.IsAny<GameDeletedNotification>(), It.IsAny<CancellationToken>()));
         }
 

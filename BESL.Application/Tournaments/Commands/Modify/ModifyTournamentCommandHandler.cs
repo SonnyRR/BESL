@@ -52,7 +52,8 @@
 
             this.tournamentsRepository.Update(desiredTournament);
 
-            return await this.tournamentsRepository.SaveChangesAsync(cancellationToken);
+            await this.tournamentsRepository.SaveChangesAsync(cancellationToken);
+            return desiredTournament.Id;
         }
 
         private async Task<string> UploadImage(ModifyTournamentCommand request)

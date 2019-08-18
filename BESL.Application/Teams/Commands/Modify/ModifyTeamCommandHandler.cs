@@ -9,8 +9,8 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
+    using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
 
     public class ModifyTeamCommandHandler : IRequestHandler<ModifyTeamCommand, int>
@@ -59,7 +59,9 @@
             }
 
             this.teamsRepository.Update(desiredTeam);
-            return await this.teamsRepository.SaveChangesAsync(cancellationToken);
+            await this.teamsRepository.SaveChangesAsync(cancellationToken);
+
+            return desiredTeam.Id;
         }
 
         private async Task<string> UploadImage(ModifyTeamCommand request)

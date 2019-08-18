@@ -43,7 +43,7 @@
                                             <td class="align-middle"><a asp-controller="Teams" asp-action="Details" asp-route-id="@match.AwayTeamId"><strong>@match.AwayTeamName</strong></a></td>
                                             <td class="align-middle">@match.HomeTeamScore - @match.AwayTeamScore</td>
                                             <td class="align-middle">@match.ScheduledDate.ToString(DATE_HOUR_FORMAT)</td>
-                                            <td class="align-middle"><a asp-controller="Matches" asp-action="Details" asp-route-id="@match.Id" class="btn btn-sm btn-primary">Details</a></td>
+                                            <td class="align-middle text-center"><a asp-controller="Matches" asp-action="Details" asp-route-id="@match.Id" class="btn btn-sm btn-primary">Details</a></td>
                                         </tr>
                                     }
                                 }

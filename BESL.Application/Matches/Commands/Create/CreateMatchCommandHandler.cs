@@ -58,7 +58,9 @@
             };
 
             await this.matchesRepository.AddAsync(match);
-            return await this.matchesRepository.SaveChangesAsync(cancellationToken);
+            await this.matchesRepository.SaveChangesAsync(cancellationToken);
+
+            return match.Id;
         }
 
         private async Task<bool> CheckIfTeamIsDropped(int teamId, int playWeekId)

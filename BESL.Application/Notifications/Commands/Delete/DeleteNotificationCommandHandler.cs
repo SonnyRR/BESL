@@ -12,7 +12,7 @@
     using BESL.Domain.Entities;
     using static BESL.Common.GlobalConstants;
 
-    public class DeleteNotificationCommandHandler : IRequestHandler<DeleteNotificationCommand, int>
+    public class DeleteNotificationCommandHandler : IRequestHandler<DeleteNotificationCommand, string>
     {
         private readonly IDeletableEntityRepository<Notification> notificationsRepository;
         private readonly IUserAccessor userAccessor;
@@ -23,7 +23,7 @@
             this.userAccessor = userAccessor;
         }
 
-        public async Task<int> Handle(DeleteNotificationCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(DeleteNotificationCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
@@ -38,7 +38,9 @@
             }
 
             this.notificationsRepository.Delete(desiredNotification);
-            return await this.notificationsRepository.SaveChangesAsync(cancellationToken);
+            await this.notificationsRepository.SaveChangesAsync(cancellationToken);
+
+            return desiredNotification.Id;
         }
     }
 }
