@@ -37,7 +37,7 @@
 
             var sut = new ModifyGameCommandHandler(deletableEntityRepository, cloudinaryHelperMock.Object, this.mediatorMock.Object);
 
-            var gameId = 1;
+            var gameId = 2;
             var command = new ModifyGameCommand()
             {
                 Id = gameId,

@@ -11,7 +11,7 @@
     using BESL.Persistence;
     using BESL.Persistence.Repositories;
 
-    public class BaseTest<T> : IDisposable
+    public abstract class BaseTest<T> : IDisposable
         where T : class, IDeletableEntity, new()
     { 
         protected readonly ApplicationDbContext dbContext;
@@ -21,7 +21,7 @@
 
         public BaseTest()
         {
-            this.dbContext = ApplicationDbContextFactory.Create().GetAwaiter().GetResult();
+            this.dbContext = ApplicationDbContextFactory.Create();
             this.mapper = AutoMapperFactory.Create();
             this.deletableEntityRepository = new EfDeletableEntityRepository<T>(this.dbContext);
             this.mediatorMock = new Mock<IMediator>();
@@ -29,7 +29,8 @@
 
         public void Dispose()
         {
-            this.deletableEntityRepository.Dispose(); 
+            ApplicationDbContextFactory.Destroy(dbContext);
+            this.deletableEntityRepository.Dispose();
         }
     }
 }

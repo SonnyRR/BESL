@@ -2,33 +2,32 @@
 {
     using System;
 
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Infrastructure;
 
-    using BESL.Persistence;
     using BESL.Domain.Entities;
-    using Microsoft.Extensions.DependencyInjection;
-    using System.ComponentModel;
+    using BESL.Persistence;
     using System.Linq;
-    using Microsoft.EntityFrameworkCore.ValueGeneration;
-    using System.Threading.Tasks;
 
     public class ApplicationDbContextFactory
     {
-
-        public static async Task<ApplicationDbContext> Create()
+        public static ApplicationDbContext Create()
         {
 
-            //var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-            //    .UseInMemoryDatabase(databaseName:Guid.NewGuid().ToString())
-            //    .Options;
+            var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(DateTime.Now.ToString() + Guid.NewGuid().ToString())
+                .ReplaceService<IModelCacheKeyFactory, CustomDynamicModelCacheKeyFactory>() // maika mu deaba na toq caching
+                .Options;
 
-            ServiceCollection services = new ServiceCollection();
-            services.AddDbContext<ApplicationDbContext>(x => x.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()),
-                ServiceLifetime.Transient);
-            var provider = services.BuildServiceProvider();
+            var dbContext = new ApplicationDbContext(dbContextOptions);
 
-            var dbContext = provider.GetService<ApplicationDbContext>();
+            //ServiceCollection services = new ServiceCollection();
+            //services.AddDbContext<ApplicationDbContext>(x => x.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()),
+            //    ServiceLifetime.Transient);
+            //var provider = services.BuildServiceProvider();
+
+            //var dbContext = provider.GetService<ApplicationDbContext>();
             dbContext.Database.EnsureCreated();
 
             var adminRole = new PlayerRole("Administrator");
@@ -53,25 +52,43 @@
 
             dbContext.Games.AddRange(new[]
             {
-                new Game(){ Name = "SampleGame1", Description = "SampleDescription1", GameImageUrl = Guid.NewGuid().ToString()},
-                new Game(){ Name = "SampleGame2", Description = "SampleDescription2", GameImageUrl = Guid.NewGuid().ToString()},
-                new Game(){ Name = "SampleGame3", Description = "SampleDescription3", GameImageUrl = Guid.NewGuid().ToString()},
+                new Game(){ Id = 2, Name = "SampleGame1", Description = "SampleDescription1", GameImageUrl = Guid.NewGuid().ToString() },
+                new Game(){ Id = 3, Name = "SampleGame2", Description = "SampleDescription2", GameImageUrl = Guid.NewGuid().ToString() },
+                new Game(){ Id = 4, Name = "SampleGame3", Description = "SampleDescription3", GameImageUrl = Guid.NewGuid().ToString() },
             });
+
+            dbContext.SaveChanges();
 
             dbContext.AddRange(new[]
             {
-                new TournamentFormat { Name = "6v6", GameId = 1, TeamPlayersCount = 6 , TotalPlayersCount = 12,  Description = "Test" }
-            });
+                new TournamentFormat { Id = 2, Name = "6v6", GameId = 1, TeamPlayersCount = 6 , TotalPlayersCount = 12,  Description = "Test" },
+                new TournamentFormat { Id = 3, Name = "Deleted", GameId = 1, TeamPlayersCount = 6 , TotalPlayersCount = 12,  Description = "Test", IsDeleted = true }
+            }) ;
 
-            await dbContext.SaveChangesAsync();
-            dbContext.ChangeTracker.Entries<Game>().ToList().ForEach(x => x.State = EntityState.Detached);
+            dbContext.SaveChanges();
+
+            //dbContext.ChangeTracker.Entries<Game>().ToList().ForEach(x => x.State = EntityState.Detached);
+            DetachAllEntities(dbContext);
             return dbContext;
         }
 
         public static void Destroy(ApplicationDbContext context)
         {
-            context?.Database.EnsureDeleted();
-            context?.Dispose();
+            context.Database.EnsureDeleted();
+            context.Dispose();
+        }
+
+        private static void DetachAllEntities(ApplicationDbContext context)
+        {
+            var changedEntriesCopy = context.ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Added ||
+                            e.State == EntityState.Modified ||
+                            e.State == EntityState.Deleted ||
+                            e.State == EntityState.Unchanged)
+                .ToList();
+
+            foreach (var entry in changedEntriesCopy)
+                entry.State = EntityState.Detached;
         }
     }
 }

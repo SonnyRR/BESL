@@ -14,7 +14,7 @@
 
         public QueryTestFixture()
         {
-            this.Context = ApplicationDbContextFactory.Create().GetAwaiter().GetResult();
+            this.Context = ApplicationDbContextFactory.Create();
             this.Mapper = AutoMapperFactory.Create();
         }
 

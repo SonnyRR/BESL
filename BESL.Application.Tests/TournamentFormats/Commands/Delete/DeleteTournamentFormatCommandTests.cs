@@ -10,8 +10,6 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.TournamentFormats.Commands.Delete;
     using BESL.Domain.Entities;
-    using System.Collections.Generic;
-    using BESL.Application.Interfaces;
     using Moq;
     using BESL.Application.Exceptions;
 
@@ -24,7 +22,7 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
             // Arrange
             var request = new DeleteTournamentFormatCommand
             {
-                Id = 1
+                Id = 2
             };
 
             var sut = new DeleteTournamentFormatCommandHandler(base.deletableEntityRepository);
@@ -43,15 +41,12 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
             // Arrange
             var request = new DeleteTournamentFormatCommand
             {
-                Id = 1
+                Id = 3
             };
 
             var sut = new DeleteTournamentFormatCommandHandler(base.deletableEntityRepository);
 
-            // Act
-            await sut.Handle(request, It.IsAny<CancellationToken>());
-
-            // Assert
+            // Act & Assert
             await Should.ThrowAsync<DeleteFailureException>(sut.Handle(request, CancellationToken.None));
         }
     }

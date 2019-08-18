@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Linq;
 
     using Moq;
     using Shouldly;
@@ -12,7 +13,6 @@
     using BESL.Application.Games.Commands.Delete;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
-    using System.Linq;
 
     public class DeleteGameCommandTests : BaseTest<Game>
     {
@@ -23,7 +23,7 @@
         public async Task Handle_GivenValidRequest_ShouldMarkEntityAsDeleted()
         {
             // Arrange
-            var gameId = 1;
+            var gameId = 2;
             var deleteGameCommand = new DeleteGameCommand()
             {
                 Id = gameId,
