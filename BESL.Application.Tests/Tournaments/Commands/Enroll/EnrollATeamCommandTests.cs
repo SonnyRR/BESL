@@ -140,7 +140,7 @@
             var playersRepository = new EfDeletableEntityRepository<Player>(this.dbContext);
             var teamsRepository = new EfDeletableEntityRepository<Team>(this.dbContext);
             var tournamentTablesRepositoryMock = new Mock<IDeletableEntityRepository<TournamentTable>>();
-            tournamentTablesRepositoryMock.Setup(x => x.AllWithDeleted()).Returns(dataSetMock.Object);
+            tournamentTablesRepositoryMock.Setup(x => x.AllAsNoTracking()).Returns(dataSetMock.Object);
 
             var sut = new EnrollATeamCommandHandler(
                 teamsRepository,
@@ -168,9 +168,9 @@
             var tournamentTablesRepository = new EfDeletableEntityRepository<TournamentTable>(this.dbContext);
 
             var sut = new EnrollATeamCommandHandler(
-                teamsRepository,
-                playersRepository,
-                tournamentTablesRepository,
+                teamsRepository, 
+                playersRepository, 
+                tournamentTablesRepository, 
                 It.IsAny<IDeletableEntityRepository<TeamTableResult>>(),
                 userAccessorMock.Object);
 

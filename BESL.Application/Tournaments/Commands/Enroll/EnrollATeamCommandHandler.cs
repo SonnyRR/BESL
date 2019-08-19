@@ -67,7 +67,7 @@
                     .ThenInclude(ttr => ttr.TournamentTable)
                     .ThenInclude(tt => tt.Tournament)
                 .Include(t => t.PlayerTeams)
-                .SingleAsync(t => t.Id == request.TeamId, cancellationToken)
+                .SingleOrDefaultAsync(t => t.Id == request.TeamId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.TeamId);
 
             if (!await this.CheckIfTeamToEnrollHasTheCorrectFormat(desiredTeam.Id, desiredTable.Tournament.FormatId, cancellationToken))
@@ -92,10 +92,10 @@
         private async Task<bool> CheckIfTournamentTableIsFull(int tableId, CancellationToken cancellationToken)
         {
             var desiredTable = await this.tournamentTablesRepository
-                .AllWithDeleted()
+                .AllAsNoTracking()
                 .Include(tt => tt.TeamTableResults)
                 .Select(x => new { Id = x.Id, TablesCount = x.TeamTableResults.Count, MaxNumberOfTeams = x.MaxNumberOfTeams })
-                .FirstOrDefaultAsync(tt => tt.Id == tableId, cancellationToken);
+                .SingleOrDefaultAsync(tt => tt.Id == tableId, cancellationToken);
 
             return desiredTable.TablesCount == desiredTable.MaxNumberOfTeams;
         }
