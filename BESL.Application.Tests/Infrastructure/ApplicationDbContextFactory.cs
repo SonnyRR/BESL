@@ -71,8 +71,24 @@
 
             dbContext.AddRange(new[]
             {
-                new TournamentFormat { Id = 2, Name = "6v6", GameId = 2, TeamPlayersCount = 6 , TotalPlayersCount = 12,  Description = "Test" },
-                new TournamentFormat { Id = 3, Name = "Deleted", GameId = 2, TeamPlayersCount = 6 , TotalPlayersCount = 12,  Description = "Test", IsDeleted = true }
+                new TournamentFormat
+                {
+                    Id = 2,
+                    Name = "6v6",
+                    GameId = 2,
+                    TeamPlayersCount = 6,
+                    TotalPlayersCount = 12,
+                    Description = "Test"
+                },
+                new TournamentFormat
+                {
+                    Id = 3,
+                    Name = "Deleted",
+                    GameId = 2,
+                    TeamPlayersCount = 6,
+                    TotalPlayersCount = 12,
+                    Description = "Test",
+                    IsDeleted = true }
             });
             dbContext.SaveChanges();
 

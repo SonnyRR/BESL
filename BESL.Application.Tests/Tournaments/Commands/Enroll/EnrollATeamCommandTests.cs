@@ -21,6 +21,37 @@
     public class EnrollATeamCommandTests : BaseTest<Tournament>
     {
         [Trait(nameof(Tournament), "EnrollATeam command tests")]
+        [Fact(DisplayName = "Handle given valid request should enroll team")]
+        public async Task Handle_GivenValidRequest_ShouldEnrollTeam()
+        {
+            // Arrange
+            var command = new EnrollATeamCommand { TableId = 2, TeamId = 3 };
+
+            var userAccessorMock = new Mock<IUserAccessor>();
+            userAccessorMock.Setup(x => x.UserId).Returns("Foo2");
+
+
+            var playersRepository = new EfDeletableEntityRepository<Player>(this.dbContext);
+            var teamsRepository = new EfDeletableEntityRepository<Team>(this.dbContext);
+            var tournamentTablesRepository = new EfDeletableEntityRepository<TournamentTable>(this.dbContext);
+            var teamTableResultsRepository = new EfDeletableEntityRepository<TeamTableResult>(this.dbContext);
+
+            var sut = new EnrollATeamCommandHandler(
+                teamsRepository,
+                playersRepository,
+                tournamentTablesRepository,
+                teamTableResultsRepository,
+                userAccessorMock.Object);
+
+            // Act
+            var rowsAffected = await sut.Handle(command, It.IsAny<CancellationToken>());
+
+            // Assert
+            rowsAffected.ShouldBe(2);
+        }
+
+
+        [Trait(nameof(Tournament), "EnrollATeam command tests")]
         [Fact(DisplayName = "Handle given null request should throw ArgumentNullException")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
@@ -168,14 +199,49 @@
             var tournamentTablesRepository = new EfDeletableEntityRepository<TournamentTable>(this.dbContext);
 
             var sut = new EnrollATeamCommandHandler(
-                teamsRepository, 
-                playersRepository, 
-                tournamentTablesRepository, 
+                teamsRepository,
+                playersRepository,
+                tournamentTablesRepository,
                 It.IsAny<IDeletableEntityRepository<TeamTableResult>>(),
                 userAccessorMock.Object);
 
             // Act & Assert
             await Should.ThrowAsync<NotFoundException>(sut.Handle(command, It.IsAny<CancellationToken>()));
+        }
+
+        [Trait(nameof(Tournament), "EnrollATeam command tests")]
+        [Fact(DisplayName = "Handle given invalid request should throw TeamFormatDoesNotMatchTournamentFormatException")]
+        public async Task Handle_GivenInvalidRequest_ShouldThrowTeamFormatDoesNotMatchTournamentFormatException()
+        {
+            // Arrange
+            var command = new EnrollATeamCommand { TableId = 2, TeamId = 123 };
+
+            var userAccessorMock = new Mock<IUserAccessor>();
+            userAccessorMock.Setup(x => x.UserId).Returns("Foo2");
+
+            var playersRepository = new EfDeletableEntityRepository<Player>(this.dbContext);
+            var tournamentTablesRepository = new EfDeletableEntityRepository<TournamentTable>(this.dbContext);
+            var teamTableResultsRepository = new EfDeletableEntityRepository<TeamTableResult>(this.dbContext);
+             
+            var dataSet = new List<Team>(1)
+            {
+                new Team { Id = 123, OwnerId = "Foo2", TournamentFormatId = 6969, Name = "MockTeam" }
+            }
+            .AsQueryable()
+            .BuildMock();
+
+            var teamsMockRepository = new Mock<IDeletableEntityRepository<Team>>();
+            teamsMockRepository.Setup(x => x.AllAsNoTracking()).Returns(dataSet.Object);
+
+            var sut = new EnrollATeamCommandHandler(
+                teamsMockRepository.Object,
+                playersRepository,
+                tournamentTablesRepository,
+                teamTableResultsRepository,
+                userAccessorMock.Object);
+
+            // Act & Assert
+            await Should.ThrowAsync<TeamFormatDoesNotMatchTournamentFormatException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
     }
 }
