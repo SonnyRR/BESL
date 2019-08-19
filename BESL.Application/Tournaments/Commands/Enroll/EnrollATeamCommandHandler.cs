@@ -51,14 +51,14 @@
                 .SingleOrDefaultAsync(tt => tt.Id == request.TableId, cancellationToken)
                 ?? throw new NotFoundException(nameof(TournamentTable), request.TableId);
 
-            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(this.userAccessor.UserId, desiredTable.Tournament.FormatId, teamsRepository))
-            {
-                throw new PlayerHasAlreadyEnrolledTeamException();
-            }
-
             if (await this.CheckIfTournamentTableIsFull(request.TableId, cancellationToken))
             {
                 throw new TournamentTableIsFullException();
+            }
+
+            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(this.userAccessor.UserId, desiredTable.Tournament.FormatId, teamsRepository))
+            {
+                throw new PlayerHasAlreadyEnrolledTeamException();
             }
 
             var desiredTeam = await this.teamsRepository
@@ -97,7 +97,7 @@
                 .Select(x => new { Id = x.Id, TablesCount = x.TeamTableResults.Count, MaxNumberOfTeams = x.MaxNumberOfTeams })
                 .FirstOrDefaultAsync(tt => tt.Id == tableId, cancellationToken);
 
-            return desiredTable.TablesCount > desiredTable.MaxNumberOfTeams;
+            return desiredTable.TablesCount == desiredTable.MaxNumberOfTeams;
         }
 
         private async Task<bool> CheckIfTeamToEnrollHasTheCorrectFormat(int teamId, int formatId, CancellationToken cancellationToken)

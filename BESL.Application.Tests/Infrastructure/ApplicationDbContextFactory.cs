@@ -93,6 +93,7 @@
                     {
                         new TournamentTable
                         {
+                            Id = 2,
                             Name = OPEN_TABLE_NAME,
                             MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
@@ -104,6 +105,7 @@
                         },
                         new TournamentTable
                         {
+                            Id = 3,
                             Name = MID_TABLE_NAME,
                             MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
@@ -115,6 +117,7 @@
                         },
                         new TournamentTable
                         {
+                            Id = 4,
                             Name = PREM_TABLE_NAME,
                             MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
@@ -132,10 +135,24 @@
 
             dbContext.AddRange(new[]
             {
-                new Team { Id = 2, Name = "FooTeam1", OwnerId = "Foo1", ImageUrl = "http://foo.bar/1.jpg" },
-                new Team { Id = 3, Name = "FooTeam2", OwnerId = "Foo2", ImageUrl = "http://foo.bar/1.jpg" },
-                new Team { Id = 4, Name = "FooTeam3", OwnerId = "Foo3", ImageUrl = "http://foo.bar/1.jpg", IsDeleted = true },
+                new Team { Id = 2, Name = "FooTeam1", OwnerId = "Foo1", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 2, TeamTableResults = new HashSet<TeamTableResult>()},
+                new Team { Id = 3, Name = "FooTeam2", OwnerId = "Foo2", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 2, TeamTableResults = new HashSet<TeamTableResult>()},
+                new Team { Id = 4, Name = "FooTeam3", OwnerId = "Foo3", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 2, IsDeleted = true },
             });
+            dbContext.SaveChanges();
+
+            dbContext.AddRange(new[]
+            {
+                new PlayerTeam{ TeamId = 2, PlayerId = "Foo1" },
+                new PlayerTeam{ TeamId = 3, PlayerId = "Foo2" }
+            });
+            dbContext.SaveChanges();
+
+
+            dbContext.AddRange(new[] {
+                new TeamTableResult { TournamentTableId = 2, TeamId = 2, },
+            });
+            dbContext.SaveChanges();
 
             DetachAllEntities(dbContext);
             return dbContext;
