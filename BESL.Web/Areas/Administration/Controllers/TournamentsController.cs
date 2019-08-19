@@ -52,7 +52,7 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Modify(TournamentModifyQuery query)
+        public async Task<IActionResult> Modify(ModifyTournamentQuery query)
         {
             var viewModel = await this.Mediator.Send(query);
             return this.View(viewModel);

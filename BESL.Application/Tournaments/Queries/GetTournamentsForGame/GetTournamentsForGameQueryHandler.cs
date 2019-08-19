@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.Tournaments.Queries.GetTournamentsForGame
 {
+    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -25,6 +26,8 @@
 
         public async Task<GameTournamentsViewModel> Handle(GetTournamentsForGameQuery request, CancellationToken cancellationToken)
         {
+            request = request ?? throw new ArgumentNullException(nameof(request));
+
             var lookupModels = await this.tournamentsRepository
                 .AllAsNoTracking()
                     .Include(t => t.Format)

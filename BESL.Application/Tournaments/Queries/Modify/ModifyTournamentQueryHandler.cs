@@ -13,18 +13,18 @@
     using BESL.Application.Tournaments.Commands.Modify;
     using BESL.Domain.Entities;
 
-    public class TournamentModifyQueryHandler : IRequestHandler<TournamentModifyQuery, ModifyTournamentCommand>
+    public class ModifyTournamentQueryHandler : IRequestHandler<ModifyTournamentQuery, ModifyTournamentCommand>
     {
         private readonly IDeletableEntityRepository<Tournament> tournamentsRepository;
         private readonly IMapper mapper;
 
-        public TournamentModifyQueryHandler(IDeletableEntityRepository<Tournament> tournamentsRepository, IMapper mapper)
+        public ModifyTournamentQueryHandler(IDeletableEntityRepository<Tournament> tournamentsRepository, IMapper mapper)
         {
             this.tournamentsRepository = tournamentsRepository;
             this.mapper = mapper;
         }
 
-        public async Task<ModifyTournamentCommand> Handle(TournamentModifyQuery request, CancellationToken cancellationToken)
+        public async Task<ModifyTournamentCommand> Handle(ModifyTournamentQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
