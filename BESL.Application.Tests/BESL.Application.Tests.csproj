@@ -37,6 +37,10 @@
     <Folder Include="Games\Queries\GetAllGamesSelectList\" />
     <Folder Include="Tournaments\Commands\Modify\" />
     <Folder Include="Tournaments\Commands\Enroll\" />
+    <Folder Include="TeamTableResults\" />
+    <Folder Include="TeamTableResults\Commands\" />
+    <Folder Include="TeamTableResults\Commands\Drop\" />
+    <Folder Include="TeamTableResults\Commands\AddPenaltyPoints\" />
   </ItemGroup>
 
   <ItemGroup>
