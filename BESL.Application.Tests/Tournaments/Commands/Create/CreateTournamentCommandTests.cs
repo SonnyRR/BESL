@@ -42,7 +42,7 @@
                 Description = "ValidDescription",
                 StartDate = new DateTime(2019, 08, 12),
                 EndDate = new DateTime(2019, 09, 08),
-                FormatId = 2,
+                FormatId = 1,
                 TournamentImage = It.IsAny<IFormFile>()
             };
 

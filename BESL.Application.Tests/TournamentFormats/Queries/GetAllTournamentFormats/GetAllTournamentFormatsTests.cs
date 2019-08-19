@@ -39,7 +39,7 @@
 
             // Assert
             viewModel.ShouldNotBeNull();
-            viewModel.TournamentFormats.Count().ShouldBe(1);
+            viewModel.TournamentFormats.Count().ShouldBe(2);
         }
     }
 }

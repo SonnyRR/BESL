@@ -22,7 +22,7 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
             // Arrange
             var request = new DeleteTournamentFormatCommand
             {
-                Id = 2
+                Id = 1
             };
 
             var sut = new DeleteTournamentFormatCommandHandler(base.deletableEntityRepository);
@@ -31,7 +31,7 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
             var result = await sut.Handle(request, CancellationToken.None);
 
             // Assert
-            result.ShouldBe(2);
+            result.ShouldBe(1);
         }
 
         [Trait(nameof(TournamentFormat), "DeleteTournamentFormat command tests.")]

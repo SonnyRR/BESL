@@ -22,7 +22,7 @@
         public async Task Handle_GivenValidRequest_ShouldReturnModifyTournamentCommand()
         {
             // Arrange
-            var query = new ModifyTournamentQuery { Id = 2 };
+            var query = new ModifyTournamentQuery { Id = 1 };
             var sut = new ModifyTournamentQueryHandler(this.deletableEntityRepository, this.mapper);
 
             // Act

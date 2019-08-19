@@ -16,10 +16,9 @@
     {
         public static ApplicationDbContext Create()
         {
-
             var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(DateTime.Now.ToString() + Guid.NewGuid().ToString())
-                .ReplaceService<IModelCacheKeyFactory, CustomDynamicModelCacheKeyFactory>() // maika mu deaba na toq caching
+                .ReplaceService<IModelCacheKeyFactory, CustomDynamicModelCacheKeyFactory>()
                 .Options;
 
             var dbContext = new ApplicationDbContext(dbContextOptions);
@@ -62,9 +61,9 @@
 
             dbContext.AddRange(new[]
             {
-                new Game { Id = 2, Name = "SampleGame1", Description = "SampleDescription1", GameImageUrl = Guid.NewGuid().ToString() },
-                new Game { Id = 3, Name = "SampleGame2", Description = "SampleDescription2", GameImageUrl = Guid.NewGuid().ToString() },
-                new Game { Id = 4, Name = "SampleGame3", Description = "SampleDescription3", GameImageUrl = Guid.NewGuid().ToString(), IsDeleted = true },
+                new Game { Name = "SampleGame1", Description = "SampleDescription1", GameImageUrl = Guid.NewGuid().ToString() },
+                new Game { Name = "SampleGame2", Description = "SampleDescription2", GameImageUrl = Guid.NewGuid().ToString() },
+                new Game { Name = "SampleGame3", Description = "SampleDescription3", GameImageUrl = Guid.NewGuid().ToString(), IsDeleted = true },
             });
             dbContext.SaveChanges();
 
@@ -73,22 +72,29 @@
             {
                 new TournamentFormat
                 {
-                    Id = 2,
                     Name = "6v6",
-                    GameId = 2,
+                    GameId = 1,
                     TeamPlayersCount = 6,
                     TotalPlayersCount = 12,
                     Description = "Test"
                 },
                 new TournamentFormat
                 {
-                    Id = 3,
+                    Name = "9v9",
+                    GameId = 2,
+                    TeamPlayersCount = 9,
+                    TotalPlayersCount = 18,
+                    Description = "Test",
+                },
+                new TournamentFormat
+                {
                     Name = "Deleted",
                     GameId = 2,
                     TeamPlayersCount = 6,
                     TotalPlayersCount = 12,
                     Description = "Test",
-                    IsDeleted = true }
+                    IsDeleted = true
+                }
             });
             dbContext.SaveChanges();
 
@@ -98,9 +104,8 @@
             dbContext.AddRange(new[]
             {
                 new Tournament {
-                    Id = 2,
                     Name = "TestTournament1",
-                    FormatId = 2,
+                    FormatId = 1,
                     Description = "Test",
                     StartDate = activeTournamentStartDate,
                     EndDate = activeTournamentEndDate,
@@ -109,7 +114,6 @@
                     {
                         new TournamentTable
                         {
-                            Id = 2,
                             Name = OPEN_TABLE_NAME,
                             MaxNumberOfTeams = OPEN_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
@@ -121,7 +125,6 @@
                         },
                         new TournamentTable
                         {
-                            Id = 3,
                             Name = MID_TABLE_NAME,
                             MaxNumberOfTeams = MID_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
@@ -133,7 +136,6 @@
                         },
                         new TournamentTable
                         {
-                            Id = 4,
                             Name = PREM_TABLE_NAME,
                             MaxNumberOfTeams = PREM_TABLE_MAX_TEAMS,
                             PlayWeeks = new HashSet<PlayWeek>
@@ -145,37 +147,39 @@
                         },
                     },
                 },
-                new Tournament { Id = 3, Name = "TestTournament2", FormatId = 2, Description = "Test", StartDate = new DateTime(2019, 08, 12), EndDate = new DateTime(2019, 09, 08), IsActive = true },
+                new Tournament { Name = "TestTournament2", FormatId = 1, Description = "Test", StartDate = new DateTime(2019, 08, 12), EndDate = new DateTime(2019, 09, 08), IsActive = true },
             });
             dbContext.SaveChanges();
 
             dbContext.AddRange(new[]
             {
-                new Team { Id = 2, Name = "FooTeam1", OwnerId = "Foo1", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 2, TeamTableResults = new HashSet<TeamTableResult>()},
-                new Team { Id = 3, Name = "FooTeam2", OwnerId = "Foo2", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 2, TeamTableResults = new HashSet<TeamTableResult>()},
-                new Team { Id = 4, Name = "FooTeam3", OwnerId = "Foo3", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 2, IsDeleted = true },
+                new Team { Name = "FooTeam1", OwnerId = "Foo1", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 1, },
+                new Team { Name = "FooTeam2", OwnerId = "Foo2", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 1, },
+                new Team { Name = "FooTeam3", OwnerId = "Foo3", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 1, IsDeleted = true },
             });
             dbContext.SaveChanges();
 
             dbContext.AddRange(new[]
             {
-                new PlayerTeam{ TeamId = 2, PlayerId = "Foo1" },
-                new PlayerTeam{ TeamId = 3, PlayerId = "Foo2" }
+                new PlayerTeam{ TeamId = 1, PlayerId = "Foo1" },
+                new PlayerTeam{ TeamId = 2, PlayerId = "Foo2" }
             });
             dbContext.SaveChanges();
 
 
             dbContext.AddRange(new[] {
-                new TeamTableResult { TournamentTableId = 2, TeamId = 2, },
+                new TeamTableResult { TournamentTableId = 1, TeamId = 1, },
             });
             dbContext.SaveChanges();
 
             DetachAllEntities(dbContext);
+            //dbContext.ResetValueGenerators();
             return dbContext;
         }
 
         public static void Destroy(ApplicationDbContext context)
         {
+            //context.ResetValueGenerators();
             context.Database.EnsureDeleted();
             context.Dispose();
         }

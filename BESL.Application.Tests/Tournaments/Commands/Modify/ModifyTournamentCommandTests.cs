@@ -89,7 +89,7 @@
         public async Task Handle_GivenInvalidRequest_ShouldThrowEntityAlreadyExistsException()
         {
             // Arrange
-            var command = new ModifyTournamentCommand { Id = 2, Name = "TestTournament2" };
+            var command = new ModifyTournamentCommand { Id = 1, Name = "TestTournament2" };
             var sut = new ModifyTournamentCommandHandler(this.deletableEntityRepository, It.IsAny<ICloudinaryHelper>());
 
             // Act & Assert

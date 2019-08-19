@@ -25,7 +25,7 @@
         public async Task Handle_GivenValidRequest_ShouldEnrollTeam()
         {
             // Arrange
-            var command = new EnrollATeamCommand { TableId = 2, TeamId = 3 };
+            var command = new EnrollATeamCommand { TableId = 2, TeamId = 2 };
 
             var userAccessorMock = new Mock<IUserAccessor>();
             userAccessorMock.Setup(x => x.UserId).Returns("Foo2");

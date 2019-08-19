@@ -22,7 +22,7 @@
         public async Task Handle_GivenValidRequest_ShouldReturnViewModel()
         {
             // Arrange
-            var query = new GetTournamentsForGameQuery { GameId = 2 };
+            var query = new GetTournamentsForGameQuery { GameId = 1 };
             var sut = new GetTournamentsForGameQueryHandler(this.deletableEntityRepository, this.mapper);
 
             // Act

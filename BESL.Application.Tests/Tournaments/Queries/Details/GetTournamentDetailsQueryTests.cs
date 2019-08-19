@@ -22,7 +22,7 @@
         public async Task Handle_GivenValidRequest_ShouldReturnViewModel()
         {
             // Arrange
-            var query = new GetTournamentDetailsQuery { Id = 2 };
+            var query = new GetTournamentDetailsQuery { Id = 1 };
             var userAccessorMock = new Mock<IUserAccessor>();
             userAccessorMock.Setup(x => x.UserId).Returns("Foo1");
 

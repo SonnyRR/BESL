@@ -42,7 +42,7 @@
             // Assert
             viewModel.ShouldNotBeNull();
             viewModel.ShouldBeAssignableTo<IEnumerable<TournamentFormatSelectItemLookupModel>>();
-            viewModel.Count().ShouldBe(1);
+            viewModel.Count().ShouldBe(2);
 
         }
     }

@@ -39,7 +39,7 @@
             var result = await sut.Handle(request, CancellationToken.None);
 
             // Assert
-            result.ShouldBe(1);
+            result.ShouldBe(4);
         }
 
         [Trait(nameof(TournamentFormat), "CreateTournamentFormat command tests.")]
