@@ -50,6 +50,9 @@
     <Folder Include="Teams\Queries\GetTeamTournamentsMatches\" />
     <Folder Include="Teams\Queries\Modify\" />
     <Folder Include="Teams\Queries\TransferOwnership\" />
+    <Folder Include="Teams\Commands\TransferOwnership\" />
+    <Folder Include="Teams\Commands\AddPlayer\" />
+    <Folder Include="Teams\Commands\RemovePlayer\" />
   </ItemGroup>
 
   <ItemGroup>

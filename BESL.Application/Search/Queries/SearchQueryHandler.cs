@@ -4,13 +4,15 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
+    using MediatR;
+
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using MediatR;
-    using Microsoft.EntityFrameworkCore;
 
     public class SearchQueryHandler : IRequestHandler<SearchQuery, SearchQueryViewModel>
     {
