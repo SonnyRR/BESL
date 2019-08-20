@@ -19,7 +19,7 @@
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<PlayerTeam> playerTeamsRepository;
 
-        public GetPlayersForTeamQueryHandler(IMapper mapper, IDeletableEntityRepository<PlayerTeam> playerTeamsRepository)
+        public GetPlayersForTeamQueryHandler(IDeletableEntityRepository<PlayerTeam> playerTeamsRepository, IMapper mapper)
         {
             this.mapper = mapper;
             this.playerTeamsRepository = playerTeamsRepository;

@@ -22,7 +22,7 @@
         {
             // Arrange
             var query = new GetPlayersForTeamQuery { TeamId = 1 };
-            var sut = new GetPlayersForTeamQueryHandler(this.mapper, this.deletableEntityRepository);
+            var sut = new GetPlayersForTeamQueryHandler(this.deletableEntityRepository, this.mapper);
 
             // Act
             var viewModel = await sut.Handle(query, It.IsAny<CancellationToken>());
@@ -37,7 +37,7 @@
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var sut = new GetPlayersForTeamQueryHandler(It.IsAny<IMapper>(), It.IsAny<IDeletableEntityRepository<PlayerTeam>>());
+            var sut = new GetPlayersForTeamQueryHandler(It.IsAny<IDeletableEntityRepository<PlayerTeam>>(), It.IsAny<IMapper>());
 
             // Act & Assert
             await Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));

@@ -56,7 +56,16 @@
                 new Player{ Id = "Foo2", UserName = "FooP2", Email = "Foo@bg.bg", PasswordHash = "asd"},
                 new Player{ Id = "Foo3", UserName = "FooP3", Email = "Foo@bg.bg", PasswordHash = "asd"},
                 new Player{ Id = "Foo4", UserName = "FooP4", Email = "Foo@bg.bg", PasswordHash = "asd"},
+                new Player{ Id = "Foo5", UserName = "FooP5", Email = "Foo@bg.bg", PasswordHash = "asd"},
             });
+            dbContext.SaveChanges();
+
+            var firstPlayer = dbContext.Players.SingleOrDefault(x => x.UserName == "FooP1");
+            firstPlayer.Claims.Add(new IdentityUserClaim<string> { ClaimType = STEAM_ID_64_CLAIM_TYPE, ClaimValue = "sampleId" });
+
+            var fifthPlayer = dbContext.Players.SingleOrDefault(x => x.UserName == "FooP5");
+            fifthPlayer.Claims.Add(new IdentityUserClaim<string> { ClaimType = STEAM_ID_64_CLAIM_TYPE, ClaimValue = "sampleId2" });
+
             dbContext.SaveChanges();
 
             dbContext.AddRange(new[]
