@@ -38,7 +38,7 @@
                 throw new EntityAlreadyExistsException(nameof(Game), request.Name);
             }
 
-            Game game = new Game()
+            Game game = new Game
             {
                 Name = request.Name,
                 Description = request.Description,
@@ -48,7 +48,7 @@
             await this.gamesRepository.AddAsync(game);
             await this.gamesRepository.SaveChangesAsync(cancellationToken);
 
-            await this.mediator.Publish(new GameCreatedNotification() { GameName = game.Name });
+            await this.mediator.Publish(new GameCreatedNotification { GameName = game.Name });
 
             return game.Id;
         }

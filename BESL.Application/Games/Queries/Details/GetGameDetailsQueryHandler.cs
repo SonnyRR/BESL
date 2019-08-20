@@ -36,7 +36,7 @@
 
             var lookupModel = this.mapper.Map<GameDetailsLookupModel>(gameDomain);
 
-            var viewModel = new GameDetailsViewModel()
+            var viewModel = new GameDetailsViewModel
             {
                 Id = lookupModel.Id,
                 Name = lookupModel.Name,

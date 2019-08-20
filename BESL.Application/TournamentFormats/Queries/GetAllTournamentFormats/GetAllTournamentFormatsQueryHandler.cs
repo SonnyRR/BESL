@@ -1,5 +1,6 @@
 ﻿namespace BESL.Application.TournamentFormats.Queries.GetAllTournamentFormats
 {
+    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -11,7 +12,6 @@
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using System;
 
     public class GetAllTournamentFormatsQueryHandler : IRequestHandler<GetAllTournamentFormatsQuery, GetAllTournamentFormatsQueryViewModel>
     {

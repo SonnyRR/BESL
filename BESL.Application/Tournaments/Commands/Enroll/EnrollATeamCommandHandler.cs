@@ -18,20 +18,17 @@
         private readonly IDeletableEntityRepository<Team> teamsRepository;
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly IDeletableEntityRepository<TournamentTable> tournamentTablesRepository;
-        private readonly IDeletableEntityRepository<TeamTableResult> teamTableResultsRepository;
         private readonly IUserAccessor userAccessor;
 
         public EnrollATeamCommandHandler(
             IDeletableEntityRepository<Team> teamsRepository,
             IDeletableEntityRepository<Player> playersRepository,
             IDeletableEntityRepository<TournamentTable> tournamentTablesRepository,
-            IDeletableEntityRepository<TeamTableResult> teamTableResultsRepository,
             IUserAccessor userAccessor)
         {
             this.teamsRepository = teamsRepository;
             this.playersRepository = playersRepository;
             this.tournamentTablesRepository = tournamentTablesRepository;
-            this.teamTableResultsRepository = teamTableResultsRepository;
             this.userAccessor = userAccessor;
         }
 

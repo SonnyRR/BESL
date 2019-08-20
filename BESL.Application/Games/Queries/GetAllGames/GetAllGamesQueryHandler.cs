@@ -32,7 +32,7 @@
             viewModel.Games = await this.gamesRepository
                 .AllAsNoTracking()
                     .Include(g => g.TournamentFormats)
-                    .ThenInclude(tf => tf.Tournaments)
+                        .ThenInclude(tf => tf.Tournaments)
                 .ProjectTo<GameLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

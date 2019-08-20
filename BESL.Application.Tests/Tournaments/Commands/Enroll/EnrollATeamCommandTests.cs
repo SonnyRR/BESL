@@ -34,13 +34,11 @@
             var playersRepository = new EfDeletableEntityRepository<Player>(this.dbContext);
             var teamsRepository = new EfDeletableEntityRepository<Team>(this.dbContext);
             var tournamentTablesRepository = new EfDeletableEntityRepository<TournamentTable>(this.dbContext);
-            var teamTableResultsRepository = new EfDeletableEntityRepository<TeamTableResult>(this.dbContext);
 
             var sut = new EnrollATeamCommandHandler(
                 teamsRepository,
                 playersRepository,
                 tournamentTablesRepository,
-                teamTableResultsRepository,
                 userAccessorMock.Object);
 
             // Act
@@ -60,7 +58,6 @@
                 It.IsAny<IDeletableEntityRepository<Team>>(),
                 It.IsAny<IDeletableEntityRepository<Player>>(),
                 It.IsAny<IDeletableEntityRepository<TournamentTable>>(),
-                It.IsAny<IDeletableEntityRepository<TeamTableResult>>(),
                 It.IsAny<IUserAccessor>());
 
             // Act & Assert
@@ -87,7 +84,6 @@
                 It.IsAny<IDeletableEntityRepository<Team>>(),
                 playersRepositoryMock.Object,
                 It.IsAny<IDeletableEntityRepository<TournamentTable>>(),
-                It.IsAny<IDeletableEntityRepository<TeamTableResult>>(),
                 userAccessorMock.Object);
 
             // Act & Assert
@@ -115,7 +111,6 @@
                 It.IsAny<IDeletableEntityRepository<Team>>(),
                 playersRepository,
                 tournamentTablesRepositoryMock.Object,
-                It.IsAny<IDeletableEntityRepository<TeamTableResult>>(),
                 userAccessorMock.Object);
 
             // Act & Assert
@@ -139,7 +134,6 @@
                 teamsRepository,
                 playersRepository,
                 tournamentTablesRepository,
-                It.IsAny<IDeletableEntityRepository<TeamTableResult>>(),
                 userAccessorMock.Object);
 
             // Act & Assert
@@ -177,7 +171,6 @@
                 teamsRepository,
                 playersRepository,
                 tournamentTablesRepositoryMock.Object,
-                It.IsAny<IDeletableEntityRepository<TeamTableResult>>(),
                 userAccessorMock.Object);
 
             // Act & Assert
@@ -202,7 +195,6 @@
                 teamsRepository,
                 playersRepository,
                 tournamentTablesRepository,
-                It.IsAny<IDeletableEntityRepository<TeamTableResult>>(),
                 userAccessorMock.Object);
 
             // Act & Assert
@@ -221,7 +213,6 @@
 
             var playersRepository = new EfDeletableEntityRepository<Player>(this.dbContext);
             var tournamentTablesRepository = new EfDeletableEntityRepository<TournamentTable>(this.dbContext);
-            var teamTableResultsRepository = new EfDeletableEntityRepository<TeamTableResult>(this.dbContext);
              
             var dataSet = new List<Team>(1)
             {
@@ -237,7 +228,6 @@
                 teamsMockRepository.Object,
                 playersRepository,
                 tournamentTablesRepository,
-                teamTableResultsRepository,
                 userAccessorMock.Object);
 
             // Act & Assert

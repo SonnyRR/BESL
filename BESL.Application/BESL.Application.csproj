@@ -63,7 +63,6 @@
     <Folder Include="Matches\Queries\GetMatchesForCurrentPlayWeeks\" />
     <Folder Include="Matches\Queries\GetMatchesForPlayWeek\" />
     <Folder Include="Tournaments\Queries\GetAllTournamentsSelectList\" />
-    <Folder Include="Tournaments\Queries\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Matches\Queries\Modify\ModifyMatchViewModel.cs" />

@@ -47,7 +47,6 @@
                 throw new EntityAlreadyExistsException(nameof(Tournament), request.Name);
             }
 
-
             var gameId = (await this.tournamentFormatsRepository
                 .AllAsNoTracking()
                 .SingleOrDefaultAsync(tf => tf.Id == request.FormatId, cancellationToken))

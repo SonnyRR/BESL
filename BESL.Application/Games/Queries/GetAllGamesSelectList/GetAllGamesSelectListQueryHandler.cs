@@ -27,8 +27,7 @@
 
         public async Task<IEnumerable<GameSelectItemLookupModel>> Handle(GetAllGamesSelectListQuery request, CancellationToken cancellationToken)
         {
-            if (request == null)
-                throw new ArgumentNullException(nameof(request));
+             request = request ?? throw new ArgumentNullException(nameof(request));
 
             var lookups = await this.gameRepository
                 .AllAsNoTracking()
