@@ -14,6 +14,7 @@
     using BESL.Domain.Entities;
     using BESL.Application.Exceptions;
     using BESL.Application.Infrastructure;
+
     public class GetTeamsForPlayerQueryHandler : IRequestHandler<GetTeamsForPlayerQuery, TeamsForPlayerViewModel>
     {
         private readonly IDeletableEntityRepository<PlayerTeam> playerTeamsRepository;

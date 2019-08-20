@@ -175,6 +175,20 @@
             });
             dbContext.SaveChanges();
 
+            dbContext.AddRange(new[] {
+                new Match {  HomeTeamId = 1, AwayTeamId = 2, HomeTeamScore = 2, AwayTeamScore = 1, IsResultConfirmed = true, PlayWeekId = 1, ScheduledDate = new DateTime(2019, 08, 13), WinnerTeamId = 1 },
+                new Match {  HomeTeamId = 1, AwayTeamId = 2, HomeTeamScore = 5, AwayTeamScore = 2, IsResultConfirmed = true, PlayWeekId = 1, ScheduledDate = new DateTime(2019, 08, 14), WinnerTeamId = 1 },
+            });
+            dbContext.SaveChanges();
+
+            dbContext.AddRange(new[] {
+                new PlayerMatch{ PlayerId = "Foo1", MatchId = 1},
+                new PlayerMatch{ PlayerId = "Foo2", MatchId = 1},
+                new PlayerMatch{ PlayerId = "Foo1", MatchId = 2},
+                new PlayerMatch{ PlayerId = "Foo2", MatchId = 2},
+            });
+            dbContext.SaveChanges();
+
             DetachAllEntities(dbContext);
             //dbContext.ResetValueGenerators();
             return dbContext;
