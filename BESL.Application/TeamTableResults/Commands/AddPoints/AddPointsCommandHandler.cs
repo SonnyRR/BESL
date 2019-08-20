@@ -26,7 +26,7 @@
 
             var desiredTeamTableResult = await this.teamTableResultsRepository
                 .All()
-                .SingleOrDefaultAsync(ttr=>ttr.TournamentTableId == request.TournamentId && ttr.TeamId == request.TeamId)
+                .SingleOrDefaultAsync(ttr => ttr.TournamentTableId == request.TournamentId && ttr.TeamId == request.TeamId)
                 ?? throw new NotFoundException(nameof(TeamTableResult), $"TeamId: {request.TeamId} - TournamentId = {request.TournamentId}");
 
             desiredTeamTableResult.Points += request.Points;

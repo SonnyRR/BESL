@@ -192,7 +192,7 @@
             var command = new EnrollATeamCommand { TableId = 2, TeamId = 55 };
 
             var userAccessorMock = new Mock<IUserAccessor>();
-            userAccessorMock.Setup(x => x.UserId).Returns("Foo2");
+            userAccessorMock.Setup(x => x.UserId).Returns("Foo3");
 
             var playersRepository = new EfDeletableEntityRepository<Player>(this.dbContext);
             var teamsRepository = new EfDeletableEntityRepository<Team>(this.dbContext);

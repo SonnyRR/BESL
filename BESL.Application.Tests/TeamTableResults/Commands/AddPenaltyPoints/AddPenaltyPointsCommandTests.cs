@@ -18,8 +18,8 @@
     public class AddPenaltyPointsCommandTests : BaseTest<TeamTableResult>
     {
         [Trait(nameof(TeamTableResult), "AddPenaltyPoints command tests")]
-        [Fact(DisplayName = "Handle given valid request add penalty points")]
-        public async Task Handle_GivenValidRequest_ShouldDropTeam()
+        [Fact(DisplayName = "Handle given valid request should add penalty points")]
+        public async Task Handle_GivenValidRequest_ShouldAddPenaltyPoints()
         {
             // Arrange
             var command = new AddPenaltyPointsCommand { TeamTableResultId = 1, PenaltyPoints = 5 };
@@ -36,7 +36,7 @@
         }
 
         [Trait(nameof(TeamTableResult), "AddPenaltyPoints command tests")]
-        [Fact(DisplayName = "Handle given null request add penalty points")]
+        [Fact(DisplayName = "Handle given null request should throw ArgumentNullException")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
@@ -47,7 +47,7 @@
         }
 
         [Trait(nameof(TeamTableResult), "AddPenaltyPoints command tests")]
-        [Fact(DisplayName = "Handle given invalid request add penalty points")]
+        [Fact(DisplayName = "Handle given invalid request should throw NotFoundException")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
             // Arrange
