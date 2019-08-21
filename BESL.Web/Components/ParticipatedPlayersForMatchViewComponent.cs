@@ -18,7 +18,7 @@
 
         public async Task<IViewComponentResult> InvokeAsync(int matchId)
         {
-            var viewModel = await this.mediator.Send(new GetMatchParticipatedPlayersCommand { MatchId = matchId });
+            var viewModel = await this.mediator.Send(new GetMatchParticipatedPlayersQuery { MatchId = matchId });
             return this.View(viewModel);
         }
     }

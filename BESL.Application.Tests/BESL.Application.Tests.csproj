@@ -55,14 +55,11 @@
     <Folder Include="Teams\Commands\RemovePlayer\" />
     <Folder Include="Search\" />
     <Folder Include="Search\Queries\" />
-    <Folder Include="Players\" />
     <Folder Include="Players\Commands\" />
     <Folder Include="Players\Commands\AcceptInvite\" />
     <Folder Include="Players\Commands\DeclineInvite\" />
-    <Folder Include="Players\Queries\" />
     <Folder Include="Players\Queries\Details\" />
     <Folder Include="Players\Queries\Invites\" />
-    <Folder Include="Players\Queries\GetMatchParticipatedPlayers\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,7 +4,7 @@
     using MediatR;
     using BESL.Application.Common.Models.Lookups;
 
-    public class GetMatchParticipatedPlayersCommand : IRequest<MatchParticipatedPlayersViewModel>
+    public class GetMatchParticipatedPlayersQuery : IRequest<MatchParticipatedPlayersViewModel>
     {
         public int MatchId { get; set; }
     }

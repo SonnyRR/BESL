@@ -16,18 +16,18 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
 
-    public class GetMatchParticipatedPlayersCommandHandler : IRequestHandler<GetMatchParticipatedPlayersCommand, MatchParticipatedPlayersViewModel>
+    public class GetMatchParticipatedPlayersQueryHandler : IRequestHandler<GetMatchParticipatedPlayersQuery, MatchParticipatedPlayersViewModel>
     {
         private readonly IDeletableEntityRepository<Match> matchesRepository;
         private readonly IMapper mapper;
 
-        public GetMatchParticipatedPlayersCommandHandler(IDeletableEntityRepository<Match> matchesRepository, IMapper mapper)
+        public GetMatchParticipatedPlayersQueryHandler(IDeletableEntityRepository<Match> matchesRepository, IMapper mapper)
         {
             this.matchesRepository = matchesRepository;
             this.mapper = mapper;
         }
 
-        public async Task<MatchParticipatedPlayersViewModel> Handle(GetMatchParticipatedPlayersCommand request, CancellationToken cancellationToken)
+        public async Task<MatchParticipatedPlayersViewModel> Handle(GetMatchParticipatedPlayersQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
