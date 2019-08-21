@@ -73,7 +73,7 @@
         }
 
         [Trait(nameof(Game), "GetAllGames query tests.")]
-        [Fact(DisplayName = "GetAllGamesQuery handler given null request should return valid GetAllGames viewmodel.")]
+        [Fact(DisplayName = "GetAllGamesQuery handler given null request should throw ArgumentNullException.")]
         public async Task Handle_GivenNullRequest_ShouldReturnValidViewModel()
         {
             // Act

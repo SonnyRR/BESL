@@ -12,12 +12,12 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
 
-    public class PlayerDetailsQueryHandler : IRequestHandler<GetPlayerDetailsQuery, PlayerDetailsViewModel>
+    public class GetPlayerDetailsQueryHandler : IRequestHandler<GetPlayerDetailsQuery, PlayerDetailsViewModel>
     {
         private readonly IDeletableEntityRepository<Player> playersRepository;
         private readonly IMapper mapper;
 
-        public PlayerDetailsQueryHandler(IDeletableEntityRepository<Player> playersRepository, IMapper mapper)
+        public GetPlayerDetailsQueryHandler(IDeletableEntityRepository<Player> playersRepository, IMapper mapper)
         {
             this.playersRepository = playersRepository;
             this.mapper = mapper;
