@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Tests.Matches.Details
+﻿namespace BESL.Application.Tests.Matches.Queries.Details
 {
     using System;
     using System.Threading;
@@ -18,7 +18,7 @@
 
     public class GetMatchDetailsQueryTests : BaseTest<Match>
     {
-        [Trait(nameof(Player), "GetMatchDetails query tests")]
+        [Trait(nameof(Match), "GetMatchDetails query tests")]
         [Fact(DisplayName = "Handle given valid request should return view model")]
         public async Task Handle_GivenValidRequest_ShouldReturnViewModel()
         {
@@ -43,7 +43,7 @@
             viewModel.AwayTeamScore.ShouldBe(1);
         }
 
-        [Trait(nameof(Player), "GetMatchDetails query tests")]
+        [Trait(nameof(Match), "GetMatchDetails query tests")]
         [Fact(DisplayName = "Handle given null request should throw ArgumentNullException")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
@@ -54,7 +54,7 @@
             await Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));
         }
 
-        [Trait(nameof(Player), "GetMatchDetails query tests")]
+        [Trait(nameof(Match), "GetMatchDetails query tests")]
         [Fact(DisplayName = "Handle given invalid request should throw NotFoundException")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {

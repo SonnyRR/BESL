@@ -60,7 +60,6 @@
     <Folder Include="TeamTableResults\Commands\AddPenaltyPoints\" />
     <Folder Include="PlayWeeks\Queries\GetPlayWeeksForTournamentTable\" />
     <Folder Include="Teams\Queries\GetTeamTournamentsMatches\" />
-    <Folder Include="Matches\Queries\GetMatchesForCurrentPlayWeeks\" />
     <Folder Include="Matches\Queries\GetMatchesForPlayWeek\" />
     <Folder Include="Tournaments\Queries\GetAllTournamentsSelectList\" />
   </ItemGroup>

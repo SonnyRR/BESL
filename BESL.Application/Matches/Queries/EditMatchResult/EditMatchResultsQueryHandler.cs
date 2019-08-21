@@ -13,13 +13,13 @@
     using BESL.Domain.Entities;
     using BESL.Application.Matches.Commands.EditMatchResult;
 
-    public class EditMatchResultsQueryHandler : IRequestHandler<EditMatchResultQuery, EditMatchResultCommand>
+    public class EditMatchResultQueryHandler : IRequestHandler<EditMatchResultQuery, EditMatchResultCommand>
     {
         private readonly IDeletableEntityRepository<Match> matchesRepository;
         private readonly IUserAccessor userAccessor;
         private readonly IMapper mapper;
 
-        public EditMatchResultsQueryHandler(IDeletableEntityRepository<Match> matchesRepository, IUserAccessor userAccessor, IMapper mapper)
+        public EditMatchResultQueryHandler(IDeletableEntityRepository<Match> matchesRepository, IUserAccessor userAccessor, IMapper mapper)
         {
             this.matchesRepository = matchesRepository;
             this.userAccessor = userAccessor;

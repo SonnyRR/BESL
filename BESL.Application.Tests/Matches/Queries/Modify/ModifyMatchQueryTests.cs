@@ -1,7 +1,6 @@
-﻿namespace BESL.Application.Tests.Matches.Modify
+﻿namespace BESL.Application.Tests.Matches.Queries.Modify
 {
     using System;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -16,12 +15,11 @@
     using BESL.Application.Matches.Commands.Modify;
     using BESL.Application.Matches.Queries.Modify;
     using BESL.Domain.Entities;
-    using BESL.Persistence.Repositories;
     using Match = Domain.Entities.Match;
 
     public class ModifyMatchQueryTests : BaseTest<Match>
     {
-        [Trait(nameof(Player), "ModifyMatch query tests")]
+        [Trait(nameof(Match), "ModifyMatch query tests")]
         [Fact(DisplayName = "Handle given valid request should return command")]
         public async Task Handle_GivenValidRequest_ShouldReturnCommand()
         {
@@ -40,7 +38,7 @@
             command.AwayTeamId.ShouldBe(2);
         }
 
-        [Trait(nameof(Player), "ModifyMatch query tests")]
+        [Trait(nameof(Match), "ModifyMatch query tests")]
         [Fact(DisplayName = "Handle given null request should throw ArgumentNullException")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
@@ -51,7 +49,7 @@
             await Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));
         }
 
-        [Trait(nameof(Player), "ModifyMatch query tests")]
+        [Trait(nameof(Match), "ModifyMatch query tests")]
         [Fact(DisplayName = "Handle given null request should throw NotFoundException")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {

@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Tests.Matches.Create
+﻿namespace BESL.Application.Tests.Matches.Queries.Create
 {
     using System;
     using System.Linq;
@@ -20,7 +20,7 @@
 
     public class CreateMatchQueryTests : BaseTest<TournamentTable>
     {
-        [Trait(nameof(Player), "CreateMatch query tests")]
+        [Trait(nameof(Match), "CreateMatch query tests")]
         [Fact(DisplayName = "Handle given valid request should return create command")]
         public async Task Handle_GivenValidRequest_ShouldReturnViewModel()
         {
@@ -39,7 +39,7 @@
             viewModel.Teams.Count().ShouldBe(2);
         }
 
-        [Trait(nameof(Player), "CreateMatch query tests")]
+        [Trait(nameof(Match), "CreateMatch query tests")]
         [Fact(DisplayName = "Handle given null request should throw ArgumentNullException")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
