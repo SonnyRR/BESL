@@ -181,6 +181,7 @@
             dbContext.AddRange(new[] {
                 new TeamTableResult { TournamentTableId = 1, TeamId = 1, },
                 new TeamTableResult { TournamentTableId = 1, TeamId = 4, IsDropped = true },
+                new TeamTableResult { TournamentTableId = 1, TeamId = 3, },
             });
             dbContext.SaveChanges();
 
