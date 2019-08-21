@@ -36,7 +36,7 @@
 
             // Assert
             viewModel.ShouldNotBeNull();
-            viewModel.Teams.Count().ShouldBe(2);
+            viewModel.Teams.Count().ShouldBe(3);
         }
 
         [Trait(nameof(Match), "CreateMatch query tests")]

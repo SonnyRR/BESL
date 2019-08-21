@@ -60,6 +60,8 @@
     <Folder Include="Players\Commands\DeclineInvite\" />
     <Folder Include="Players\Queries\Details\" />
     <Folder Include="Players\Queries\Invites\" />
+    <Folder Include="Matches\Commands\" />
+    <Folder Include="Matches\Commands\Create\" />
   </ItemGroup>
 
   <ItemGroup>

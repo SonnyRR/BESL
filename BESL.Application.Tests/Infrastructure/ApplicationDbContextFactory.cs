@@ -166,6 +166,7 @@
                 new Team { Name = "FooTeam2", OwnerId = "Foo2", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 1, },
                 new Team { Name = "FooTeam3", OwnerId = "Foo3", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 1, IsDeleted = true },
                 new Team { Name = "FooTeam4", OwnerId = "Foo4", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 1, },
+                new Team { Name = "FooTeam5", OwnerId = "Foo5", ImageUrl = "http://foo.bar/1.jpg", TournamentFormatId = 1, },
             });
             dbContext.SaveChanges();
 
@@ -182,6 +183,7 @@
                 new TeamTableResult { TournamentTableId = 1, TeamId = 1, },
                 new TeamTableResult { TournamentTableId = 1, TeamId = 4, IsDropped = true },
                 new TeamTableResult { TournamentTableId = 1, TeamId = 3, },
+                new TeamTableResult { TournamentTableId = 1, TeamId = 5, },
             });
             dbContext.SaveChanges();
 
