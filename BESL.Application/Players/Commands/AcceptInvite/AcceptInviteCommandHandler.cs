@@ -15,21 +15,15 @@
     public class AcceptInviteCommandHandler : IRequestHandler<AcceptInviteCommand, int>
     {
         private readonly IDeletableEntityRepository<TeamInvite> teamInvitesRepository;
-        private readonly IDeletableEntityRepository<Team> teamsRepository;
-        private readonly IDeletableEntityRepository<PlayerTeam> playerTeamsRepository;
         private readonly IMediator mediator;
         private readonly IUserAccessor userAccessor;
 
         public AcceptInviteCommandHandler(
             IDeletableEntityRepository<TeamInvite> teamInvitesRepository,
-            IDeletableEntityRepository<Team> teamsRepository,
-            IDeletableEntityRepository<PlayerTeam> playerTeamsRepository,
             IMediator mediator,
             IUserAccessor userAccessor)
         {
             this.teamInvitesRepository = teamInvitesRepository;
-            this.teamsRepository = teamsRepository;
-            this.playerTeamsRepository = playerTeamsRepository;
             this.mediator = mediator;
             this.userAccessor = userAccessor;
         }
@@ -37,6 +31,7 @@
         public async Task<int> Handle(AcceptInviteCommand request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
+
             var currentUserId = this.userAccessor.UserId;
 
             var desiredInvite = await this.teamInvitesRepository

@@ -53,6 +53,10 @@
     <Folder Include="Teams\Commands\TransferOwnership\" />
     <Folder Include="Teams\Commands\AddPlayer\" />
     <Folder Include="Teams\Commands\RemovePlayer\" />
+    <Folder Include="Search\" />
+    <Folder Include="Search\Queries\" />
+    <Folder Include="Players\" />
+    <Folder Include="Players\Commands\" />
   </ItemGroup>
 
   <ItemGroup>
