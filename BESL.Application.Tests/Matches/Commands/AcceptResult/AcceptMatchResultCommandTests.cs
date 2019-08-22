@@ -1,12 +1,12 @@
 ﻿namespace BESL.Application.Tests.Matches.Commands.AcceptResult
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Moq;
+    using MediatR;
     using Shouldly;
     using Xunit;
 
@@ -14,10 +14,8 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Matches.Commands.AcceptResult;
-    using BESL.Domain.Entities;
+    using BESL.Application.TeamTableResults.Commands.AddPoints;    
     using Match = Domain.Entities.Match;
-    using BESL.Application.TeamTableResults.Commands.AddPoints;
-    using MediatR;
 
     public class AcceptMatchResultCommandTests : BaseTest<Match>
     {
