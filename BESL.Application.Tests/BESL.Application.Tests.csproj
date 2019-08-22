@@ -66,6 +66,11 @@
     <Folder Include="Matches\Commands\Delete\" />
     <Folder Include="Matches\Commands\EditMatchResult\" />
     <Folder Include="Matches\Commands\AcceptResult\" />
+    <Folder Include="PlayWeeks\" />
+    <Folder Include="PlayWeeks\Queries\" />
+    <Folder Include="PlayWeeks\Queries\GetPlayWeeksForTournamentTable\" />
+    <Folder Include="PlayWeeks\Command\" />
+    <Folder Include="PlayWeeks\Command\Advance\" />
   </ItemGroup>
 
   <ItemGroup>
