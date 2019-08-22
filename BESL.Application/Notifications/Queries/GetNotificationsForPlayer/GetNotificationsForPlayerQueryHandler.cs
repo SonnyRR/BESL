@@ -18,7 +18,7 @@
         private readonly IMapper mapper;
         private readonly IDeletableEntityRepository<Notification> notificationRepository;
 
-        public GetNotificationsForPlayerQueryHandler(IMapper mapper, IDeletableEntityRepository<Notification> notificationRepository)
+        public GetNotificationsForPlayerQueryHandler(IDeletableEntityRepository<Notification> notificationRepository, IMapper mapper)
         {
             this.mapper = mapper;
             this.notificationRepository = notificationRepository;
