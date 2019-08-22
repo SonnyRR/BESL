@@ -72,7 +72,7 @@
                     if (!desiredMatch.HomeTeam.PlayerTeams.Any(pt => pt.PlayerId == playerId)
                         && !desiredMatch.AwayTeam.PlayerTeams.Any(at => at.PlayerId == playerId))
                     {
-                        throw new PlayerIsNotAMemberOfTeam(desiredMatch.HomeTeam.Name, desiredMatch.AwayTeam.Name);
+                        throw new PlayerIsNotAMemberOfTeamException(desiredMatch.HomeTeam.Name, desiredMatch.AwayTeam.Name);
                     }
 
                     if (desiredMatch.ParticipatedPlayers.Any(x => x.PlayerId == playerId))

@@ -14,12 +14,10 @@
     public class ModifyMatchCommandHandler : IRequestHandler<ModifyMatchCommand, int>
     {
         private readonly IDeletableEntityRepository<Match> matchesRepository;
-        private readonly IMediator mediator;
 
-        public ModifyMatchCommandHandler(IDeletableEntityRepository<Match> matchesRepository, IMediator mediator)
+        public ModifyMatchCommandHandler(IDeletableEntityRepository<Match> matchesRepository)
         {
             this.matchesRepository = matchesRepository;
-            this.mediator = mediator;
         }
 
         public async Task<int> Handle(ModifyMatchCommand request, CancellationToken cancellationToken)
@@ -41,12 +39,12 @@
                 : false;
 
             desiredMatch.WinnerTeamId =
-                request.HomeTeamScore.HasValue && request.AwayTeamScore.HasValue ?
-                    request.HomeTeamScore > request.AwayTeamScore
+                desiredMatch.HomeTeamScore.HasValue && desiredMatch.AwayTeamScore.HasValue ?
+                    desiredMatch.HomeTeamScore > desiredMatch.AwayTeamScore
                     ? desiredMatch.HomeTeamId
-                    : request.HomeTeamScore == request.AwayTeamScore
+                    : desiredMatch.HomeTeamScore == desiredMatch.AwayTeamScore
                         ? (int?)null
-                        : request.AwayTeamId
+                        : desiredMatch.AwayTeamId
                 : null;
 
             this.matchesRepository.Update(desiredMatch);

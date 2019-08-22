@@ -62,6 +62,10 @@
     <Folder Include="Players\Queries\Invites\" />
     <Folder Include="Matches\Commands\" />
     <Folder Include="Matches\Commands\Create\" />
+    <Folder Include="Matches\Commands\Modify\" />
+    <Folder Include="Matches\Commands\Delete\" />
+    <Folder Include="Matches\Commands\EditMatchResult\" />
+    <Folder Include="Matches\Commands\AcceptResult\" />
   </ItemGroup>
 
   <ItemGroup>

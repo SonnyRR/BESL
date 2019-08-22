@@ -93,7 +93,7 @@
             var sut = new TransferTeamOwnershipCommandHandler(this.deletableEntityRepository, userAccessorMock.Object);
 
             // Act & Assert
-            await Should.ThrowAsync<PlayerIsNotAMemberOfTeam>(sut.Handle(command, It.IsAny<CancellationToken>()));
+            await Should.ThrowAsync<PlayerIsNotAMemberOfTeamException>(sut.Handle(command, It.IsAny<CancellationToken>()));
         }
     }
 }

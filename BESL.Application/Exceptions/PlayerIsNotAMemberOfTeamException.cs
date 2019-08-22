@@ -1,13 +1,13 @@
 ﻿namespace BESL.Application.Exceptions
 {
-    public class PlayerIsNotAMemberOfTeam : BaseCustomException
+    public class PlayerIsNotAMemberOfTeamException : BaseCustomException
     {
-        public PlayerIsNotAMemberOfTeam()
+        public PlayerIsNotAMemberOfTeamException()
             : base ("Player is not a member of the current team!")
         {
         }
 
-        public PlayerIsNotAMemberOfTeam(string firstTeamName, string secondTeamName)
+        public PlayerIsNotAMemberOfTeamException(string firstTeamName, string secondTeamName)
             :base($"Player is not a member of either {firstTeamName} or {secondTeamName}!")
         {
         }
