@@ -6,7 +6,7 @@ build:
   project: BESL.sln
   verbosity: minimal
 test_script:
-- packages\opencover\4.7.922\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[BESL.Application*]*Query* +[BESL.Application*]*Command* +[BESL.Application*]*ViewModel* +[BESL.Application*]*Lookup* +[BESL.Application*]*Exception*  -[BESL.Application.Tests*]*" -register:user
+- packages\opencover\4.7.922\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[BESL.Application*]*Query* +[BESL.Application*]*Command* +[BESL.Application*]*ViewModel* +[BESL.Application*]*Lookup* +[BESL.Application*]*Exception*" -register:user
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
