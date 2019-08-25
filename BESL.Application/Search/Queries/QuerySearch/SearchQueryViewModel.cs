@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BESL.Application.Search.Queries
+namespace BESL.Application.Search.Queries.QuerySearch
 {
     public class SearchQueryViewModel
     {

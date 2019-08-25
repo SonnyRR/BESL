@@ -1,4 +1,4 @@
-﻿namespace BESL.Application.Search.Queries
+﻿namespace BESL.Application.Search.Queries.QuerySearch
 {
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;

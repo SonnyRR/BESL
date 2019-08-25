@@ -12,7 +12,7 @@
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
-    using BESL.Application.Search.Queries;
+    using BESL.Application.Search.Queries.QuerySearch;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Domain.Entities;
     using BESL.Persistence.Repositories;
