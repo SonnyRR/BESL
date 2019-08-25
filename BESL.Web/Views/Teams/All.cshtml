@@ -8,7 +8,7 @@
 }
 
 <h4 class="display-4">All teams</h4>
-<table class="table shadow table-hover">   
+<table class="table shadow table-hover">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Team Name</th>
@@ -18,19 +18,28 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var team in Model)
+        @if (Model.Count() > 0)
         {
-        <tr>
-            <th scope="row"><a asp-controller="Teams" asp-action="Details" asp-route-id="@team.Id">@team.Name</a></th>
-            <td>@team.TournamentFormat</td>
-            <td>@team.CreatedOn.ToString(DATE_FORMAT)</td>
-            <th><a asp-controller="Players" asp-action="Details" asp-route-id="@team.OwnerUsername">@team.OwnerUsername</a></th>
-        </tr>
+            @foreach (var team in Model)
+            {
+                <tr>
+                    <th scope="row"><a asp-controller="Teams" asp-action="Details" asp-route-id="@team.Id">@team.Name</a></th>
+                    <td>@team.TournamentFormat</td>
+                    <td>@team.CreatedOn.ToString(DATE_FORMAT)</td>
+                    <th><a asp-controller="Players" asp-action="Details" asp-route-id="@team.OwnerUsername">@team.OwnerUsername</a></th>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4"><strong class="text-danger">No registered teams.</strong></td>
+            </tr>
         }
     </tbody>
 </table>
 @Html.PagedListPager(Model, page => Url.Action("All", new { p = page }), new PagedListRenderOptions
 {
-        LiElementClasses = new string[] { "page-item" },
-        PageClasses = new string[] { "page-link" }
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" }
 })
