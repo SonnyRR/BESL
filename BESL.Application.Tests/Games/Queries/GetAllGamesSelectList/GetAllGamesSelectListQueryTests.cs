@@ -28,7 +28,7 @@
         }
 
         [Trait(nameof(Game), "GetAllGamesSelectList query tests.")]
-        [Fact(DisplayName = "GetAllGamesSelectListQuery handler given valid request should return valid GamesSelectList viewmodel.")]
+        [Fact(DisplayName = "Handle given valid request should return valid GamesSelectList viewmodel.")]
         public async Task Handle_GivenValidRequest_ShouldReturnValidViewModel()
         {
             // Arrange           
@@ -82,7 +82,7 @@
         }
 
         [Trait(nameof(Game), "GetAllGamesSelectList query tests.")]
-        [Fact(DisplayName = "GetAllGamesSelectListQuery handler given null request should throw ArgumentNullException.")]
+        [Fact(DisplayName = "Handle given null request should throw ArgumentNullException.")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Act

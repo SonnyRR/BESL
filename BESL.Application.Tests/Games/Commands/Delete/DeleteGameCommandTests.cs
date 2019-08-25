@@ -18,7 +18,7 @@
     {
 
         [Trait(nameof(Game), "DeleteGame command tests.")]
-        [Fact(DisplayName = "Handler given valid request should mark entity as deleted.")]
+        [Fact(DisplayName = "Handle given valid request should mark entity as deleted.")]
 
         public async Task Handle_GivenValidRequest_ShouldMarkEntityAsDeleted()
         {
@@ -46,7 +46,7 @@
         }
 
         [Trait(nameof(Game), "DeleteGame command tests.")]
-        [Fact(DisplayName = "Handler given invalid request should throw NotFoundException.")]
+        [Fact(DisplayName = "Handle given invalid request should throw NotFoundException.")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
             // Arrange            
@@ -62,7 +62,7 @@
         }
 
         [Trait(nameof(Game), "DeleteGame command tests.")]
-        [Fact(DisplayName = "Handler given valid request should throw ArgumentNullException")]
+        [Fact(DisplayName = "Handle given valid request should throw ArgumentNullException")]
         public async Task Handle_GivenValidRequest_ShouldThrowDeleteFailureException()
         {
             // Arrange
@@ -87,7 +87,7 @@
         }
 
         [Trait(nameof(Game), "DeleteGame command tests.")]
-        [Fact(DisplayName = "Handler given null request should throw ArgumentNullException")]
+        [Fact(DisplayName = "Handle given null request should throw ArgumentNullException")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange

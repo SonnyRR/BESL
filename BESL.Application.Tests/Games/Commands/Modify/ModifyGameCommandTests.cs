@@ -25,7 +25,7 @@
         private string imagePlaceholderUrl = "https://steamcdn-a.akamaihd.net/steam/apps/440/changed-picture.jpg";
 
         [Trait(nameof(Game), "ModifyGame command tests.")]
-        [Fact(DisplayName = "Handler given valid request should modify entity.")]
+        [Fact(DisplayName = "Handle given valid request should modify entity.")]
         public async Task Handle_GivenValidRequest_ShouldModifyEntity()
         {
             // Arrange
@@ -63,7 +63,7 @@
         }
 
         [Trait(nameof(Game), "ModifyGame command tests.")]
-        [Fact(DisplayName = "Handler given invalid request should throw NotFoundException.")]
+        [Fact(DisplayName = "Handle given invalid request should throw NotFoundException.")]
         public async Task Handle_GivenInvalidRequest_ShouldThrowNotFoundException()
         {
             // Arrange
@@ -89,7 +89,7 @@
         }
 
         [Trait(nameof(Game), "ModifyGame command tests.")]
-        [Fact(DisplayName = "Handler given null request should throw ArgumentNullException.")]
+        [Fact(DisplayName = "Handle given null request should throw ArgumentNullException.")]
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Act
