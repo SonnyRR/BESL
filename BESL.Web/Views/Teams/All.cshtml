@@ -1,0 +1,36 @@
+﻿@model IPagedList<BESL.Application.Teams.Queries.GetAllTeamsPaged.TeamLookupModel>
+@using static BESL.Common.GlobalConstants;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Common;
+@using X.PagedList;
+@{
+    ViewData["Title"] = "All teams";
+}
+
+<h4 class="display-4">All teams</h4>
+<table class="table shadow table-hover">   
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Team Name</th>
+            <th scope="col">Format</th>
+            <th scope="col">Creation date</th>
+            <th scope="col">Owner</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in Model)
+        {
+        <tr>
+            <th scope="row"><a asp-controller="Teams" asp-action="Details" asp-route-id="@team.Id">@team.Name</a></th>
+            <td>@team.TournamentFormat</td>
+            <td>@team.CreatedOn.ToString(DATE_FORMAT)</td>
+            <th><a asp-controller="Players" asp-action="Details" asp-route-id="@team.OwnerUsername">@team.OwnerUsername</a></th>
+        </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model, page => Url.Action("All", new { p = page }), new PagedListRenderOptions
+{
+        LiElementClasses = new string[] { "page-item" },
+        PageClasses = new string[] { "page-link" }
+})

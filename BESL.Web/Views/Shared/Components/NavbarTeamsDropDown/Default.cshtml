@@ -3,9 +3,10 @@
 <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users text-white"></i>&nbsp;Teams</a>
 <div class="dropdown-menu">
     <a class="dropdown-item" asp-controller="Teams" asp-action="Create">Create</a>
-    <div class="dropdown-divider"></div>
     @if (this.Model != null && this.Model.PlayerTeams != null)
     {
+        <div class="dropdown-divider"></div>
+
         @if (this.Model.PlayerTeams.Count != 0)
         {
             foreach (var team in this.Model.PlayerTeams)
@@ -18,8 +19,6 @@
             <span class="dropdown-item">You are not member of any team.</span>
         }
     }
-    else
-    {
-        <a class="dropdown-item">All</a>
-    }
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" asp-controller="Teams" asp-action="All">All</a>
 </div>
