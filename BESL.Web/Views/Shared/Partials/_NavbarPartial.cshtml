@@ -15,28 +15,14 @@
                     <vc:active-tournaments-drop-down></vc:active-tournaments-drop-down>
                 </li>
                 <li class="nav-item dropdown">
-
-                    @if (this.User.Identity.IsAuthenticated)
-                    {
-                        <vc:navbar-teams-drop-down></vc:navbar-teams-drop-down>
-                    }
-                    else
-                    {
-                        <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users text-white"></i>&nbsp;Teams</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-controller="Teams" asp-action="Create">Create</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item">All</a>
-                        
-                        </div>
-                    }
+                    <vc:navbar-teams-drop-down></vc:navbar-teams-drop-down>
                 </li>
                 @if (User.IsInRole(Role.Administrator.ToString()))
                 {
                     <li class="nav-item">
                         <a class="nav-link text-white" asp-area="Administration" asp-controller="Home" asp-action="Index"><i class="fas fa-user-shield text-white"></i>&nbsp;Administration</a>
                     </li>
-                }                
+                }
             </ul>
         </div>
     </div>

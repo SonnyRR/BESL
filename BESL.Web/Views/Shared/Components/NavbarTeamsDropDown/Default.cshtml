@@ -2,23 +2,27 @@
 
 <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users text-white"></i>&nbsp;Teams</a>
 <div class="dropdown-menu">
-    <a class="dropdown-item" asp-controller="Teams" asp-action="Create">Create</a>
-    @if (this.Model != null && this.Model.PlayerTeams != null)
-    {
-        <div class="dropdown-divider"></div>
 
-        @if (this.Model.PlayerTeams.Count != 0)
+    @if (this.User.Identity.IsAuthenticated)
+    {
+        <a class="dropdown-item" asp-controller="Teams" asp-action="Create">Create</a>
+        @if (this.Model != null && this.Model.PlayerTeams != null)
         {
-            foreach (var team in this.Model.PlayerTeams)
+            <div class="dropdown-divider"></div>
+
+            @if (this.Model.PlayerTeams.Count != 0)
             {
-                <a class="dropdown-item" asp-controller="Teams" asp-action="Details" asp-route-id="@team.TeamId">@team.TeamName</a>
+                foreach (var team in this.Model.PlayerTeams)
+                {
+                    <a class="dropdown-item" asp-controller="Teams" asp-action="Details" asp-route-id="@team.TeamId">@team.TeamName</a>
+                }
+            }
+            else
+            {
+                <span class="dropdown-item">You are not member of any team.</span>
             }
         }
-        else
-        {
-            <span class="dropdown-item">You are not member of any team.</span>
-        }
+        <div class="dropdown-divider"></div>
     }
-    <div class="dropdown-divider"></div>
     <a class="dropdown-item" asp-controller="Teams" asp-action="All">All</a>
 </div>
