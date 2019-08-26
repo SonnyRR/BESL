@@ -92,6 +92,8 @@
         {
             // Arrange
             var command = new RemovePlayerCommand { TeamId = 1, PlayerId = "Foo1" };
+            this.dbContext.PlayerTeams.Add(new PlayerTeam { PlayerId = "Foo5", TeamId = 1 });
+            this.dbContext.SaveChanges();
 
             var userAccessorMock = new Mock<IUserAccessor>();
             userAccessorMock.Setup(x => x.UserId).Returns("Foo1");
