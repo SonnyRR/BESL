@@ -32,6 +32,9 @@
                 .FirstOrDefaultAsync(pt => pt.PlayerId == request.PlayerId && pt.TeamId == request.TeamId, cancellationToken)
                 ?? throw new NotFoundException(nameof(PlayerTeam), null);
 
+            var teamPlayersCount = await this.playerTeamsRepository
+                .AllAsNoTracking()
+                .CountAsync(pt => pt.TeamId == request.TeamId);
 
             if (desiredPlayerTeamEntity.Team.OwnerId != this.userAccessor.UserId)
             {
@@ -41,7 +44,8 @@
                 }
             }
 
-            if (desiredPlayerTeamEntity.Team.OwnerId == request.PlayerId)
+            if (desiredPlayerTeamEntity.Team.OwnerId == request.PlayerId
+                && teamPlayersCount != 1)
             {
                 throw new OwnerOfAMustTransferOwnerShipBeforeLeavingTeamException();
             }
