@@ -7,11 +7,6 @@
 
     public class Game : BaseDeletableModel<int>
     {
-        public Game()
-        {
-            this.CreatedOn = DateTime.UtcNow;
-        }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
