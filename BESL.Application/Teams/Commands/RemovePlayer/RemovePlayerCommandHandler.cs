@@ -50,6 +50,12 @@
                 throw new OwnerOfAMustTransferOwnerShipBeforeLeavingTeamException();
             }
 
+            if (desiredPlayerTeamEntity.Team.OwnerId == this.userAccessor.UserId)
+            {
+                desiredPlayerTeamEntity.Team.OwnerId = null;
+                this.playerTeamsRepository.Update(desiredPlayerTeamEntity);
+            }
+
             this.playerTeamsRepository.Delete(desiredPlayerTeamEntity);
             return await this.playerTeamsRepository.SaveChangesAsync(cancellationToken);
         }

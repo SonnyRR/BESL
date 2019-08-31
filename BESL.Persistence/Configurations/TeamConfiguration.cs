@@ -13,7 +13,8 @@
 
             builder.HasOne(t => t.Owner)
                 .WithMany(p => p.OwnedTeams)
-                .HasForeignKey(t => t.OwnerId);
+                .HasForeignKey(t => t.OwnerId)
+                .IsRequired(false);
 
             //builder.HasOne(t => t.CurrentActiveTeamTableResult)
             //    .WithOne();
