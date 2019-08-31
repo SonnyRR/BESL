@@ -7,11 +7,11 @@
 
     using BESL.Application.Tournaments.Queries.GetTournamentsForGame;
 
-    public class GameTournamentsTableViewComponent : ViewComponent
+    public class TournamentsTableViewComponent : ViewComponent
     {
         private readonly IMediator mediator;
 
-        public GameTournamentsTableViewComponent(IMediator mediator)
+        public TournamentsTableViewComponent(IMediator mediator)
         {
             this.mediator = mediator;
         }

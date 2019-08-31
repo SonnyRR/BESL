@@ -63,7 +63,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Views\Shared\Components\GameTournamentsTable\" />
+    <Folder Include="Views\Shared\Components\TournamentsTable\" />
     <Folder Include="Views\Shared\Components\TournamentSkillTables\" />
     <Folder Include="Views\Shared\Components\PlayerNotifications\" />
     <Folder Include="Views\Shared\Components\PlayersForTeam\" />
