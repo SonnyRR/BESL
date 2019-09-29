@@ -23,4 +23,3 @@ Written entirely in ASP.NET Core MVC 2.2 with CQRS architecture + Mediator patte
 * CloudinaryDotNet
 * SteamWebApi2, Steam.Models, OpenId.Steam
 * Shouldy, Moq, MockQueryable
----
