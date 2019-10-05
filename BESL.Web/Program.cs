@@ -1,11 +1,9 @@
 ﻿namespace BESL.Web
 {
-    using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Configuration.AzureKeyVault;
-    using System.Globalization;
-    using System.Threading;
+    using Microsoft.Extensions.Hosting;
 
     public class Program
     {
@@ -14,21 +12,26 @@
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseApplicationInsights()
-                .ConfigureAppConfiguration((context, config) =>
+        public static IHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(hostBuilder =>
                 {
-                    if (context.HostingEnvironment.IsProduction())
+                    hostBuilder
+                    .ConfigureAppConfiguration((context, config) =>
                     {
-                        var builtConfig = config.Build();
-                        config.AddAzureKeyVault(
-                            $"https://{builtConfig["KeyVault:Vault"]}.vault.azure.net/",
-                            builtConfig["KeyVault:ClientId"],
-                            builtConfig["KeyVault:ClientSecret"],
-                            new DefaultKeyVaultSecretManager());
-                    }
-                })
-                .UseStartup<Startup>();
+                        if (context.HostingEnvironment.IsProduction())
+                        {
+                            var builtConfig = config.Build();
+                            config.AddAzureKeyVault(
+                                $"https://{builtConfig["KeyVault:Vault"]}.vault.azure.net/",
+                                builtConfig["KeyVault:ClientId"],
+                                builtConfig["KeyVault:ClientSecret"],
+                                new DefaultKeyVaultSecretManager());
+                        }
+                    })
+                    .UseStartup<Startup>();
+                });
+        }
     }
 }
