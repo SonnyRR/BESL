@@ -4,7 +4,6 @@
     using System.Reflection;
 
     using AutoMapper;
-    using CloudinaryDotNet;
     using FluentValidation.AspNetCore;
     using Hangfire;
     using MediatR;
@@ -49,11 +48,9 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry();
-            services.AddRazorPages();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -90,6 +87,7 @@
 
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).Assembly });
 
+            services.AddRazorPages();
             services.AddControllersWithViews()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ApplicationDependencyInjectionHelper>());
 
@@ -99,8 +97,7 @@
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CustomExceptionNotificationBehaviour<,>));
-            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>)); // disabled, modelstate will be checked in controllers in order to return the correct views with errors instead of throwing HTTP 5** response codes
-
+            
             services.AddScoped<IFileValidate, GameImageFileValidate>();
             services.AddScoped<INotifyService, UserNotificationHub>();
 
@@ -120,7 +117,7 @@
 
             services.AddScoped<IUserAccessor, UserAccessor>();
 
-            services.AddSingleton<Cloudinary>(x => CloudinaryFactory.GetInstance(this.Configuration));
+            services.AddSingleton(x => CloudinaryFactory.GetInstance(this.Configuration));
             services.AddTransient<ICloudinaryHelper, CloudinaryHelper>();
 
             services.Configure<RedisConfigurationOptions>(Configuration.GetSection("Redis"));
@@ -135,7 +132,7 @@
                 //if (env.IsDevelopment())
                 //{
                 //    #warning Note that this API is mutually exclusive with DbContext.Database.EnsureCreated(). EnsureCreated does not use migrations to create the database and therefore the database that is created cannot be later updated using migrations.
-                //    dbContext.Database.Migrate();
+                //    this.ApplyMigrations(dbContext);
                 //}
 
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
@@ -186,7 +183,7 @@
             });
         }
 
-        public void ApplyMigrations(ApplicationDbContext context)
+        private void ApplyMigrations(ApplicationDbContext context)
         {
             if (context.Database.GetPendingMigrations().Any())
             {

@@ -31,7 +31,6 @@
                         }
                     })
                     .UseStartup<Startup>();
-
                 });
         }
     }
