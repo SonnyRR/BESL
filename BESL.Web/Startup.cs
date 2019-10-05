@@ -12,7 +12,6 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -46,10 +45,12 @@
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+       
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry();
+            services.AddRazorPages();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -89,14 +90,13 @@
 
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).Assembly });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddControllersWithViews()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ApplicationDependencyInjectionHelper>());
 
             services.AddMediatR(typeof(ApplicationDependencyInjectionHelper).Assembly);
 
             services.AddTransient<IDateTime, MachineDateTime>();
 
-            // MediatR pipeline behaviour call order is determined by the order they are registered.
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CustomExceptionNotificationBehaviour<,>));
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>)); // disabled, modelstate will be checked in controllers in order to return the correct views with errors instead of throwing HTTP 5** response codes
@@ -126,9 +126,8 @@
             services.Configure<RedisConfigurationOptions>(Configuration.GetSection("Redis"));
             services.AddTransient(typeof(IRedisService<>), typeof(RedisService<>));
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
@@ -142,23 +141,23 @@
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseExceptionHandler("/Home/Error");            
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+            app.UseRouting();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseHangfireServer();
             app.UseHangfireDashboard("/Administration/hangfire", new DashboardOptions()
@@ -169,23 +168,21 @@
 
             HangfireJobScheduler.ScheduleRecurringJobs();
 
-            app.UseSignalR(routeBuilder =>
-            {
-                routeBuilder.MapHub<UserNotificationHub>("/userNotificationHub");
-            });
-
             app.UseNotificationHandlerMiddleware();
             app.UseCustomExceptionHandlerMiddleware();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<UserNotificationHub>("/userNotificationHub");
+                endpoints.MapRazorPages();
+                endpoints.MapAreaControllerRoute(
+                    name: "admin",
+                    areaName: "Administration",
+                    pattern: "Administration/{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 

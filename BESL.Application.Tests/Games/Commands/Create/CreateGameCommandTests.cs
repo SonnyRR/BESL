@@ -9,7 +9,6 @@
     using CloudinaryDotNet;
     using Moq;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http.Internal;
     using Shouldly;
     using Xunit;
 

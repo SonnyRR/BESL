@@ -38,7 +38,7 @@
         }
     </tbody>
 </table>
-@Html.PagedListPager(Model, page => Url.Action("All", new { p = page }), new PagedListRenderOptions
+@Html.PagedListPager(Model, page => Url.Action("All", new { p = page }), new PagedListRenderOptionsBase
 {
     LiElementClasses = new string[] { "page-item" },
     PageClasses = new string[] { "page-link" }
