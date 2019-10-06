@@ -15,11 +15,13 @@ Written entirely in ASP.NET Core MVC 2.2 with CQRS architecture + Mediator patte
 # 🛠 Built with:
 * Domain-driven design
 * CQRS & MediatR
+* ASP.NET Core MVC
+* EF Core 2.2 (soon to migrate to 3.0)
 * SignalR
 * Fluent validation
 * Custom exception-based notifications with Redis*, MediatR & ASP.NET middleware pipelines.
 * Hangfire
-* EF Core 2.2
 * CloudinaryDotNet
 * SteamWebApi2, Steam.Models, OpenId.Steam
-* Shouldy, Moq, MockQueryable
+* Shouldly, Moq, MockQueryable
+* OpenCover
