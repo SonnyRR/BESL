@@ -20,6 +20,7 @@
             {
                 await next();
             }
+
             else
             {
                 context.Result = new ForbidResult();
@@ -28,6 +29,7 @@
 
         private bool IsAjaxRequest(HttpRequest request)
         {
+            bool isAjaxRequest = false;
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
@@ -35,10 +37,10 @@
 
             if (request.Headers != null)
             {
-                return request.Headers[RequestedWithHeader] == XmlHttpRequest;
+                isAjaxRequest = request.Headers[RequestedWithHeader] == XmlHttpRequest;
             }
 
-            return false;
+            return isAjaxRequest;
         }
     }
 }

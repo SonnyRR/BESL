@@ -51,7 +51,5 @@
         int SaveChanges();
 
         int SaveChanges(bool acceptAllChangesOnSuccess);
-
-    
     }
 }

@@ -16,7 +16,7 @@
                 throw new ArgumentException("Path is not fully qualified!");
             }
 
-            else if (!File.Exists(path))
+            if (!File.Exists(path))
             {
                 throw new FileNotFoundException("File does not exist!");
             }

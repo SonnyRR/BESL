@@ -8,9 +8,10 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    using BESL.Domain.Entities;
     using BESL.Application.Interfaces;
+    using BESL.Domain.Entities;
     using BESL.Domain.Infrastructure;
+
     public class ApplicationDbContext : IdentityDbContext<Player, PlayerRole, string>, IApplicationDbContext
     {       
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

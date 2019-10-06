@@ -25,8 +25,7 @@
 
             var executor = context
                 .RequestServices
-                .GetService(typeof(IActionResultExecutor<TResult>))
-                    as IActionResultExecutor<TResult>;
+                .GetService(typeof(IActionResultExecutor<TResult>)) as IActionResultExecutor<TResult>;
 
             if (executor == null)
             {
@@ -35,7 +34,6 @@
 
             context.Response.Clear();
             var routeData = context.GetRouteData() ?? EmptyRouteData;
-
             var actionContext = new ActionContext(context, routeData, EmptyActionDescriptor);
 
             return executor.ExecuteAsync(actionContext, result);

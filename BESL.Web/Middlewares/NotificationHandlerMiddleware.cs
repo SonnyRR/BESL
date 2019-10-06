@@ -1,14 +1,11 @@
 ﻿namespace BESL.Web.Middlewares
 {
-    using System;
-    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
 
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using BESL.Web.Infrastructure;
 
     public class NotificationHandlerMiddleware
     {

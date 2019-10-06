@@ -202,13 +202,11 @@
             dbContext.SaveChanges();
 
             DetachAllEntities(dbContext);
-            //dbContext.ResetValueGenerators();
             return dbContext;
         }
 
         public static void Destroy(ApplicationDbContext context)
         {
-            //context.ResetValueGenerators();
             context.Database.EnsureDeleted();
             context.Dispose();
         }

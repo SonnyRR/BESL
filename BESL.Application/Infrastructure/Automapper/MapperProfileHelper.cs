@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Reflection;
 
-    using global::AutoMapper;
     using BESL.Application.Interfaces.Mapping;
 
     public static class MapperProfileHelper

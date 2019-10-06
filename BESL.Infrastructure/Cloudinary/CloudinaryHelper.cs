@@ -24,11 +24,8 @@
             string name,
             Transformation transformation = null)
         {
-            if (fileForm == null)
-            {
-                throw new ArgumentNullException(nameof(fileForm));
-            }
-
+            fileForm = fileForm ?? throw new ArgumentNullException(nameof(fileForm));
+   
             byte[] image;
 
             using (var memoryStream = new MemoryStream())

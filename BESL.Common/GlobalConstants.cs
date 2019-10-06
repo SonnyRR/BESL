@@ -15,6 +15,11 @@
         public const string ADMIN_EMAIL = "admin@besl.com";
         #endregion
 
+        #region League mail credentials
+        public const string LEAGUE_EMAIL = "administrator@besl.bg";
+        public const string LEAGUE_EMAIL_SENDER_NAME = "VK";
+        #endregion
+
         #region Exception messages
         public const string VALIDATION_EXCEPTION_BASE_MSG = "One or more validation failures have occurred.";
         public const string ENTITY_ALREADY_DELETED_MSG = "Entity is already deleted.";
