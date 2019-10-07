@@ -32,7 +32,7 @@
 
             var inviteLookups = await this.teamInvitesRepository
                 .AllAsNoTracking()
-                .Where(i => i.PlayerId == userAccessor.UserId)
+                .Where(i => i.PlayerId == this.userAccessor.UserId)
                 .ProjectTo<InviteLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

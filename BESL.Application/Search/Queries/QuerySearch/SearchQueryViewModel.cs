@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BESL.Application.Search.Queries.QuerySearch
+﻿namespace BESL.Application.Search.Queries.QuerySearch
 {
+    using System.Collections.Generic;
+    
     public class SearchQueryViewModel
     {
         public string SearchQuery { get; set; }

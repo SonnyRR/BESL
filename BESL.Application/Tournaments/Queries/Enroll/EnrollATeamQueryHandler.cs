@@ -45,12 +45,12 @@
             request = request ?? throw new ArgumentNullException(nameof(request));
             var currentUserId = this.userAccessor.UserId;
 
-            if (!await CommonCheckHelper.CheckIfPlayerExists(currentUserId, playersRepository))
+            if (!await CommonCheckHelper.CheckIfPlayerExists(currentUserId, this.playersRepository))
             {
                 throw new NotFoundException(nameof(Player), currentUserId);
             }
 
-            if (await CommonCheckHelper.CheckIfPlayerIsVACBanned(currentUserId, playersRepository))
+            if (await CommonCheckHelper.CheckIfPlayerIsVACBanned(currentUserId, this.playersRepository))
             {
                 throw new PlayerIsVacBannedException();
             }
@@ -62,7 +62,7 @@
                 .SingleOrDefaultAsync(t => t.Id == request.TournamentId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Tournament), currentUserId);
 
-            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(currentUserId, desiredTournament.FormatId, teamsRepository))
+            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(currentUserId, desiredTournament.FormatId, this.teamsRepository))
             {
                 throw new PlayerHasAlreadyEnrolledTeamException();
             }

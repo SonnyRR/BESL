@@ -51,7 +51,6 @@
         {
             if (desiredMatch.WinnerTeamId.HasValue)
             {
-
                 var winnerPoints = desiredMatch.HomeTeamScore > desiredMatch.AwayTeamScore
                     ? desiredMatch.HomeTeamScore
                     : desiredMatch.AwayTeamScore;
@@ -78,7 +77,6 @@
                     TournamentId = desiredMatch.PlayWeek.TournamentTable.TournamentId
                 });
             }
-
             else if (desiredMatch.IsDraw)
             {
                 await this.mediator.Send(new AddPointsCommand

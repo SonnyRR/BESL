@@ -17,7 +17,7 @@
                             <div class="media-body">
                                 <h5 class="mt-0">
                                     <a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players[i].Username">@Model.Players[i].Username</a>
-                                    @if (Model.Players[i].isOwner)
+                                    @if (Model.Players[i].IsOwner)
                                     {
                                         <strong>[Owner]</strong>
                                     }
@@ -48,7 +48,7 @@
                             <div class="media-body">
                                 <h5 class="mt-0">
                                     <a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players[i].Username">@Model.Players[i].Username</a>
-                                    @if (Model.Players[i].isOwner)
+                                    @if (Model.Players[i].IsOwner)
                                     {
                                         <strong>[Owner]</strong>
                                     }

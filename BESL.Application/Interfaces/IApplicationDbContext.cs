@@ -1,12 +1,12 @@
 ﻿namespace BESL.Application.Interfaces
 {
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Domain.Entities;
-    using System.Collections.Generic;
 
     public interface IApplicationDbContext
     {

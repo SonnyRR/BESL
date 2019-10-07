@@ -1,6 +1,7 @@
 ﻿namespace BESL.Application.Teams.Commands.AddPlayer
 {
     using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -8,11 +9,9 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Exceptions;
+    using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
-    using static BESL.Common.GlobalConstants;
-    using System.Linq;
-    using BESL.Application.Infrastructure;
 
     public class AddPlayerCommandHandler : IRequestHandler<AddPlayerCommand, int>
     {
@@ -35,7 +34,7 @@
                 .SingleOrDefaultAsync(t => t.Id == request.TeamId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.TeamId);
 
-            if (await CommonCheckHelper.CheckIfTeamIsFull(desiredTeam.Id, teamsRepository))
+            if (await CommonCheckHelper.CheckIfTeamIsFull(desiredTeam.Id, this.teamsRepository))
             {
                 throw new TeamIsFullException(desiredTeam.Name);
             }

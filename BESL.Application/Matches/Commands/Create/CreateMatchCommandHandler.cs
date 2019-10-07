@@ -33,12 +33,12 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (!await CommonCheckHelper.CheckIfTeamExists(request.HomeTeamId, teamsRepository))
+            if (!await CommonCheckHelper.CheckIfTeamExists(request.HomeTeamId, this.teamsRepository))
             {
                 throw new NotFoundException(nameof(Team), request.HomeTeamId);
             }
 
-            if (!await CommonCheckHelper.CheckIfTeamExists(request.AwayTeamId, teamsRepository))
+            if (!await CommonCheckHelper.CheckIfTeamExists(request.AwayTeamId, this.teamsRepository))
             {
                 throw new NotFoundException(nameof(Team), request.AwayTeamId);
             }

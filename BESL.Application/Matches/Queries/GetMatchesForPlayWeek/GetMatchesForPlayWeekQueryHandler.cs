@@ -47,7 +47,6 @@
                 .SingleOrDefaultAsync(pw => pw.Id == request.PlayWeekId)
                 ?? throw new NotFoundException(nameof(PlayWeek), request.PlayWeekId);
 
-
             var matches = await this.matchesRepository
                 .AllAsNoTracking()
                 .Include(m => m.HomeTeam)

@@ -74,7 +74,7 @@
                 throw new PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException(request.UserName);
             }
 
-            if (await CommonCheckHelper.CheckIfTeamIsFull(desiredTeam.Id, teamsRepository))
+            if (await CommonCheckHelper.CheckIfTeamIsFull(desiredTeam.Id, this.teamsRepository))
             {
                 throw new TeamIsFullException(desiredTeam.Name);
             }
@@ -118,6 +118,5 @@
         {
             return player.PlayerTeams.Any(x => x.Team.TournamentFormatId == formatId && !x.IsDeleted);
         }
-
     }
 }

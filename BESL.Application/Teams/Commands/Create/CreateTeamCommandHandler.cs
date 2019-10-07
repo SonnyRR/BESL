@@ -94,7 +94,6 @@
                     transformation: new Transformation().Width(TEAM_AVATAR_WIDTH).Height(TEAM_AVATAR_HEIGHT));
         }
 
-
         private async Task<bool> CheckIfTeamWithTheSameNameExists(CreateTeamCommand request)
         {
             return await this.teamsRepository

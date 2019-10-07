@@ -28,7 +28,6 @@
                 .ForMember(glm => glm.ImageUrl, o => o.MapFrom(g => g.GameImageUrl))
                 .ForMember(glm => glm.CurrentActiveTournaments, o => o.MapFrom(g => g.TournamentFormats.Count(c => c.Tournaments.Any(t => t.IsActive))))
                 .ForMember(glm => glm.RegisteredTeams, o => o.MapFrom(g => g.TournamentFormats.Sum(tf => tf.Teams.Count)));
-
         }
     }
 }

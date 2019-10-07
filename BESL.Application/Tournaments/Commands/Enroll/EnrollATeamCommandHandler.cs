@@ -36,7 +36,7 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (!await CommonCheckHelper.CheckIfPlayerExists(this.userAccessor.UserId, playersRepository))
+            if (!await CommonCheckHelper.CheckIfPlayerExists(this.userAccessor.UserId, this.playersRepository))
             {
                 throw new NotFoundException(nameof(Player), this.userAccessor.UserId);
             }
@@ -118,6 +118,5 @@
 
             return desiredTeam.PlayerTeams.Count(pt => !pt.IsDeleted) >= desiredTeam.TournamentFormat.TeamPlayersCount;
         }
-
     }
 }
