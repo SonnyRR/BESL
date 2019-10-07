@@ -3,7 +3,7 @@
     public class TournamentActiveDateMustStartOnMondayException : BaseCustomException
     {
         public TournamentActiveDateMustStartOnMondayException()
-            : base ("Tournament active date must start on Monday!")
+            : base("Tournament active date must start on Monday!")
         {
         }
     }

@@ -3,7 +3,7 @@
     public class PlayerDoesNotExistException : BaseCustomException
     {
         public PlayerDoesNotExistException(string username)
-            : base ($"Player with username: {username} does not exist!")
+            : base($"Player with username: {username} does not exist!")
         {
         }
     }

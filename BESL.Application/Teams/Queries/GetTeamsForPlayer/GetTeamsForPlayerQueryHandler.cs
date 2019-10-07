@@ -35,7 +35,7 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            if (!await CommonCheckHelper.CheckIfPlayerExists(request.UserId, playersRepository))
+            if (!await CommonCheckHelper.CheckIfPlayerExists(request.UserId, this.playersRepository))
             {
                 throw new NotFoundException(nameof(Player), request.UserId);
             }

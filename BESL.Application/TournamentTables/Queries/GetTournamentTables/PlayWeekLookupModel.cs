@@ -7,7 +7,7 @@
 
     public class PlayWeekLookupModel : IMapFrom<PlayWeek>
     {
-        public int Id  { get; set; }
+        public int Id { get; set; }
 
         public bool IsActive { get; set; }
 

@@ -4,7 +4,6 @@
     using System.Linq;
 
     using AutoMapper;
-    using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces.Mapping;
     using BESL.Domain.Entities;
 
@@ -23,7 +22,10 @@
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<TournamentTable, TournamentTableLookupModel>()
-                .ForMember(lm => lm.TableResults, o => o.MapFrom(tt => tt.TeamTableResults.OrderByDescending(ttr => ttr.IsDeleted).ThenByDescending(ttr=>ttr.TotalPoints).ThenBy(ttr=>ttr.Team.Name)))
+                .ForMember(lm => lm.TableResults, o => o.MapFrom(tt => tt.TeamTableResults
+                    .OrderByDescending(ttr => ttr.IsDeleted)
+                    .ThenByDescending(ttr => ttr.TotalPoints)
+                    .ThenBy(ttr => ttr.Team.Name)))
                 .ForMember(lm => lm.CurrentPlayWeek, o => o.MapFrom(tt => tt.PlayWeeks.SingleOrDefault(pw => pw.IsActive)));
         }
     }

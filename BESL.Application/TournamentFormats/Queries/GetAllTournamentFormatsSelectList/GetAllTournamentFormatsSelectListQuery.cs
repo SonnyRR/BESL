@@ -4,7 +4,7 @@
     using MediatR;
     using BESL.Application.Common.Models.Lookups;
 
-    public class GetAllTournamentFormatsSelectListQuery :  IRequest<IEnumerable<TournamentFormatSelectItemLookupModel>>
+    public class GetAllTournamentFormatsSelectListQuery : IRequest<IEnumerable<TournamentFormatSelectItemLookupModel>>
     {
     }
 }

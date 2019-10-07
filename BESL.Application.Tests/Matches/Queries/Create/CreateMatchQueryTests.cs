@@ -29,7 +29,7 @@
 
             var playWeeksRepository = new EfDeletableEntityRepository<PlayWeek>(this.dbContext);
 
-            var sut = new CreateMatchQueryHandler(this.deletableEntityRepository, playWeeksRepository, this.mapper);
+            var sut = new CreateMatchQueryHandler(playWeeksRepository, this.mapper);
 
             // Act
             var viewModel = await sut.Handle(query, It.IsAny<CancellationToken>());
@@ -44,7 +44,7 @@
         public async Task Handle_GivenNullRequest_ShouldThrowArgumentNullException()
         {
             // Arrange
-            var sut = new CreateMatchQueryHandler(It.IsAny<IDeletableEntityRepository<TournamentTable>>(), It.IsAny<IDeletableEntityRepository<PlayWeek>>(), It.IsAny<IMapper>());
+            var sut = new CreateMatchQueryHandler(It.IsAny<IDeletableEntityRepository<PlayWeek>>(), It.IsAny<IMapper>());
 
             // Act & Assert
             await Should.ThrowAsync<ArgumentNullException>(sut.Handle(null, It.IsAny<CancellationToken>()));

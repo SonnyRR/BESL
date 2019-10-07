@@ -11,7 +11,7 @@
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
     
-    public class AdvanceActiveTournamentsPlayWeeksCommandHandler : IRequestHandler<AdvanceActiveTournamentsPlayWeeksCommand,int>
+    public class AdvanceActiveTournamentsPlayWeeksCommandHandler : IRequestHandler<AdvanceActiveTournamentsPlayWeeksCommand, int>
     {
         private readonly IDeletableEntityRepository<PlayWeek> playWeeksRepository;
 

@@ -17,13 +17,11 @@
 
     public class CreateMatchQueryHandler : IRequestHandler<CreateMatchQuery, CreateMatchCommand>
     {
-        private readonly IDeletableEntityRepository<TournamentTable> tournamentTablesRepository;
         private readonly IDeletableEntityRepository<PlayWeek> playweeksRepository;
         private readonly IMapper mapper;
 
-        public CreateMatchQueryHandler(IDeletableEntityRepository<TournamentTable> tournamentTablesRepository, IDeletableEntityRepository<PlayWeek> playweeksRepository, IMapper mapper)
+        public CreateMatchQueryHandler(IDeletableEntityRepository<PlayWeek> playweeksRepository, IMapper mapper)
         {
-            this.tournamentTablesRepository = tournamentTablesRepository;
             this.playweeksRepository = playweeksRepository;
             this.mapper = mapper;
         }
@@ -31,15 +29,6 @@
         public async Task<CreateMatchCommand> Handle(CreateMatchQuery request, CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
-
-            //var teams = await this.tournamentTablesRepository
-            //    .AllAsNoTracking()
-            //    .Include(t => t.TeamTableResults)
-            //        .ThenInclude(t => t.Team)
-            //    .Where(t => t.Id == request.TournamentTableId)
-            //    .SelectMany(t => t.TeamTableResults.Where(ttr => !ttr.IsDropped).Select(ttr => ttr.Team))
-            //    .ProjectTo<TeamsSelectItemLookupModel>(this.mapper.ConfigurationProvider)
-            //    .ToListAsync(cancellationToken);
 
             var teams = await this.playweeksRepository
                 .AllAsNoTracking()

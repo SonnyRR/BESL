@@ -22,8 +22,8 @@
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<Team, TeamLookupModel>()
-                .ForMember(lm=>lm.OwnerUsername, o => o.MapFrom(src=>src.Owner.UserName))
-                .ForMember(lm=> lm.TournamentFormat, o => o.MapFrom(src=>$"{src.TournamentFormat.Name} - {src.TournamentFormat.Game.Name}"));
+                .ForMember(lm => lm.OwnerUsername, o => o.MapFrom(src => src.Owner.UserName))
+                .ForMember(lm => lm.TournamentFormat, o => o.MapFrom(src => $"{src.TournamentFormat.Name} - {src.TournamentFormat.Game.Name}"));
         }
     }
 }

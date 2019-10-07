@@ -26,7 +26,7 @@
 
             var desiredMatch = await this.matchesRepository
                 .AllAsNoTracking()
-                .Include(m=>m.PlayWeek)
+                .Include(m => m.PlayWeek)
                 .SingleOrDefaultAsync(m => m.Id == request.Id)
                 ?? throw new NotFoundException(nameof(Match), request.Id);
 

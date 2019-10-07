@@ -38,6 +38,6 @@
 
             return true;
         }
-# pragma warning restore
+#pragma warning restore
     }
 }

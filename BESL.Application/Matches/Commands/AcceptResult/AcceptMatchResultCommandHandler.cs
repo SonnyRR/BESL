@@ -39,7 +39,7 @@
                 throw new ForbiddenException();
             }
 
-            await AddPointsForMatch(desiredMatch);
+            await this.AddPointsForMatch(desiredMatch);
 
             desiredMatch.IsResultConfirmed = true;
 

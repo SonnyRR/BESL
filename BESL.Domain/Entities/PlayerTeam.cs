@@ -1,6 +1,5 @@
 ﻿namespace BESL.Domain.Entities
 {
-
     using BESL.Domain.Infrastructure;
 
     public class PlayerTeam : BaseDeletableModel<string>

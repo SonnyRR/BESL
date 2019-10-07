@@ -2,7 +2,7 @@
 {
     using MediatR;
 
-    public class GetMatchesForCurrentPlayWeeksQuery: IRequest<MatchesForCurrentPlayWeeksViewModel>
+    public class GetMatchesForCurrentPlayWeeksQuery : IRequest<MatchesForCurrentPlayWeeksViewModel>
     {
     }
 }

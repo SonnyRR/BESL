@@ -29,7 +29,7 @@
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 
-            var matchLookups = await matchesRepository
+            var matchLookups = await this.matchesRepository
                 .AllAsNoTracking()
                 .Where(x => x.PlayWeek.IsActive && x.PlayWeek.TournamentTable.Tournament.IsActive)
                 .OrderBy(x => x.ScheduledDate)

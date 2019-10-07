@@ -45,7 +45,7 @@
             request = request ?? throw new ArgumentNullException(nameof(request));
             var currentUserId = this.userAccessor.UserId;
 
-            if (!await CommonCheckHelper.CheckIfPlayerExists(currentUserId , playersRepository))
+            if (!await CommonCheckHelper.CheckIfPlayerExists(currentUserId, playersRepository))
             {
                 throw new NotFoundException(nameof(Player), currentUserId);
             }
@@ -60,9 +60,9 @@
                 .Include(t => t.Tables)
                     .ThenInclude(tt => tt.TeamTableResults)
                 .SingleOrDefaultAsync(t => t.Id == request.TournamentId, cancellationToken)
-                ?? throw new NotFoundException(nameof(Tournament), currentUserId );
+                ?? throw new NotFoundException(nameof(Tournament), currentUserId);
 
-            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(currentUserId , desiredTournament.FormatId, teamsRepository))
+            if (await CommonCheckHelper.CheckIfPlayerHasAlreadyEnrolledATeam(currentUserId, desiredTournament.FormatId, teamsRepository))
             {
                 throw new PlayerHasAlreadyEnrolledTeamException();
             }

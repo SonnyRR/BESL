@@ -27,7 +27,7 @@
         {
             configuration.CreateMap<Team, ModifyTeamCommand>()
                 .ForMember(vm => vm.FormatName, o => o.MapFrom(src => $"{src.TournamentFormat.Name} - {src.TournamentFormat.Game.Name}"))
-                .ForMember(vm => vm.HomepageUrl, o => o.MapFrom(src=>src.HomepageUrl));
+                .ForMember(vm => vm.HomepageUrl, o => o.MapFrom(src => src.HomepageUrl));
         }
     }
 }
