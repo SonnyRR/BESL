@@ -7,7 +7,7 @@
     {
         @foreach (var tournament in Model)
         {
-            <a class="dropdown-item" asp-controller="Tournaments" asp-action="Details" asp-route-id="@tournament.Id">@tournament.Name</a>
+            <a class="dropdown-item" asp-area="" asp-controller="Tournaments" asp-action="Details" asp-route-id="@tournament.Id">@tournament.Name</a>
         }
     }
     else

@@ -37,7 +37,8 @@
                     .ThenInclude(pp => pp.Player)
                 .Where(m => m.Id == request.MatchId)
                 .SelectMany(m => m.ParticipatedPlayers.Select(pm => pm.Player))
-                .ProjectTo<PlayerSelectItemLookupModel>(this.mapper.ConfigurationProvider)
+                .OrderBy(x => x.UserName)
+                .ProjectTo<PlayerLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
             var viewModel = new MatchParticipatedPlayersViewModel { Players = participatedPlayersLookups }; 
