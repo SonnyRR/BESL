@@ -37,6 +37,7 @@
                     .ThenInclude(pp => pp.Player)
                 .Where(m => m.Id == request.MatchId)
                 .SelectMany(m => m.ParticipatedPlayers.Select(pm => pm.Player))
+                .OrderBy(x => x.UserName)
                 .ProjectTo<PlayerLookupModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
