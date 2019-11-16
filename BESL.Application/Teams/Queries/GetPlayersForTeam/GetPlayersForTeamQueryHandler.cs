@@ -35,7 +35,7 @@
                     .Include(pt => pt.Player)
                     .Include(pt => pt.Team)
                 .Select(x => x.Player)
-                .ProjectTo<PlayerLookup>(this.mapper.ConfigurationProvider, new Dictionary<string, object>(1) { { "teamId", request.TeamId } })
+                .ProjectTo<PlayerLookupModel>(this.mapper.ConfigurationProvider, new Dictionary<string, object>(1) { { "teamId", request.TeamId } })
                 .OrderByDescending(p => p.IsOwner)
                 .ThenBy(p => p.Username)
                 .ToListAsync(cancellationToken);

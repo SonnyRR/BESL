@@ -1,22 +1,64 @@
-﻿@using BESL.Application.Common.Models.Lookups;
-@model BESL.Application.Players.Queries.GetMatchParticipatedPlayers.MatchParticipatedPlayersViewModel
+﻿@model BESL.Application.Players.Queries.GetMatchParticipatedPlayers.MatchParticipatedPlayersViewModel
+@using System.Security.Claims;
 
-<div>
-    <h4 class="display-4">Participated players:</h4>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" )>
-            @if (Model.Players.Count() != 0)
+@{
+    var currentUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+<h4 class="display-4">Participated players:</h4>
+<div class="rounded border shadow container mb-3">
+    @if (Model.Players.Count > 0)
+    {
+        @for (int i = 0; i < Model.Players.Count; i++)
+        {
+            if (i + 1 < Model.Players.Count)
             {
-                @foreach (var player in Model.Players)
-                {
-                    <li class="breadcrumb-item" aria-current="page"><a asp-controller="Players" asp-action="Details" asp-route-id="@player.UserName">@player.UserName</a></li>
-
-                }
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="media border my-2">
+                            <img src="@Model.Players[i].AvatarSmall" class="mr-3" alt="Avatar">
+                            <div class="media-body">
+                                <h5 class="mt-0">
+                                    <a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players[i].Username">@Model.Players[i].Username</a>
+                                </h5>
+                                @Model.Players[i].SteamId64
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="media border my-2">
+                            <img src="@Model.Players[i + 1].AvatarSmall" class="mr-3" alt="Avatar">
+                            <div class="media-body">
+                                <h5 class="mt-0"><a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players[i + 1].Username">@Model.Players[i + 1].Username</a></h5>
+                                @Model.Players[i + 1].SteamId64
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                i++;
             }
+
             else
             {
-                <li class="breadcrumb-item active">None</li>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="media border my-2">
+                            <img src="@Model.Players[i].AvatarSmall" class="mr-3" alt="Avatar">
+                            <div class="media-body">
+                                <h5 class="mt-0">
+                                    <a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Players[i].Username">@Model.Players[i].Username</a>
+                                </h5>
+                                @Model.Players[i].SteamId64
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
-        </ol>
-    </nav>
+        }
+    }
+    else
+    {
+            <div class="d-flex justify-content-center mt-2 mb-2">
+                <h4 class="text-danger">No participated      players</h4>
+            </div>
+    }
 </div>
