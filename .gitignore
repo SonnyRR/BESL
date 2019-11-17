@@ -7,8 +7,9 @@
 .vscode
 .DS_Store
 .zip
-StyleCop.Cache
+.Cache
 **/wwwroot/lib/**
+
 
 # User-specific files
 *.suo
