@@ -72,12 +72,10 @@
                 throw new TeamFormatDoesNotMatchTournamentFormatException();
             }
 
-            // This is commented out for testing purposes.
-
-            //if (!await this.CheckIfTeamToEnrollHasTheMinimumRequiredPlayers(desiredTeam.Id, desiredTable.Tournament.FormatId, cancellationToken))
-            //{
-            //    throw new TeamDoesNotHaveEnoughPlayersException(desiredTeam.Name);
-            //}
+            if (!await this.CheckIfTeamToEnrollHasTheMinimumRequiredPlayers(desiredTeam.Id, desiredTable.Tournament.FormatId, cancellationToken))
+            {
+                throw new TeamDoesNotHaveEnoughPlayersException(desiredTeam.Name);
+            }
 
             var tableResult = new TeamTableResult() { TeamId = request.TeamId, TournamentTableId = desiredTable.Id };
             desiredTable.TeamTableResults.Add(tableResult);

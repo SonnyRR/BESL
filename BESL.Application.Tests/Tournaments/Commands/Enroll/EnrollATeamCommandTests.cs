@@ -42,6 +42,14 @@
                 userAccessorMock.Object);
 
             // Act
+            var teamToBeEnrolled = teamsRepository.All().FirstOrDefault(t => t.Id == 2);
+            for (int i = 0; i < 6; i++)
+            {
+                teamToBeEnrolled.PlayerTeams.Add(new PlayerTeam() { PlayerId = $"FooPlayer{i + 11}", TeamId = 2 });
+            }
+
+            await teamsRepository.SaveChangesAsync();
+
             var rowsAffected = await sut.Handle(command, It.IsAny<CancellationToken>());
 
             // Assert
