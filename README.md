@@ -16,7 +16,7 @@ Written entirely in ASP.NET Core MVC 2.2 with CQRS architecture + Mediator patte
 * Domain-driven design
 * CQRS & MediatR
 * ASP.NET Core MVC
-* EF Core 2.2 (soon to migrate to 3.0)
+* EF Core 2.2
 * SignalR
 * Fluent validation
 * Custom exception-based notifications with Redis*, MediatR & ASP.NET middleware pipelines.
