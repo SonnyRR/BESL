@@ -21,6 +21,7 @@ Written entirely in ASP.NET Core MVC 2.2 with CQRS architecture + Mediator patte
 * Fluent validation
 * Custom exception-based notifications with Redis*, MediatR & ASP.NET middleware pipelines.
 * Hangfire
+* Sendgrid
 * CloudinaryDotNet
 * SteamWebApi2, Steam.Models, OpenId.Steam
 * Shouldly, Moq, MockQueryable
