@@ -10,10 +10,7 @@ Bulgarian eSports League /pronounced: Be·es·el·/. My defense project for ASP.
 
 BESL is an online eSports league for competitive tournaments on various games and formats. Everyone with a Steam account can create a team with their fellow friends and sign up for the current season tournament. Skill levels are represented by tiers and range from Open, Mid and Premiership. Match fixtures are scheduled in play weeks where teams face each other every week in order to reach the top skill table rankings.
 
-Written entirely in ASP.NET Core MVC 2.2 with CQRS architecture + Mediator pattern for the business layer, focusing on separation of concerns, testability, scalability and code quality.
-
 # 🛠 Built with:
-* Domain-driven design
 * CQRS & MediatR
 * ASP.NET Core MVC
 * EF Core 2.2
