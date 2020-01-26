@@ -5,7 +5,6 @@
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
 
-    using BESL.Application.Tournaments.Queries.GetAllTournaments;
     using BESL.Application.Tournaments.Queries.GetAllTournamentsSelectList;
 
     public class ActiveTournamentsDropDownViewComponent : ViewComponent

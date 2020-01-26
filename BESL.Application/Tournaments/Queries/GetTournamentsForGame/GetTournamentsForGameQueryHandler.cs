@@ -30,7 +30,7 @@
 
             var lookupModels = await this.tournamentsRepository
                 .AllAsNoTracking()
-                    .Include(t => t.Format)
+                .Include(t => t.Format)
                 .Where(t => t.Format.GameId == request.GameId)
                 .OrderByDescending(t => t.CreatedOn)
                 .ProjectTo<TournamentLookupModel>(this.mapper.ConfigurationProvider)

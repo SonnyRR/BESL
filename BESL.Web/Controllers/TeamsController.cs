@@ -15,7 +15,7 @@
     using BESL.Application.Teams.Queries.Modify;
     using BESL.Application.Teams.Queries.GetAllTeamsPaged;
     using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
-
+    using static BESL.Common.GlobalConstants;
     [Authorize]
     public class TeamsController : BaseController
     {
@@ -23,18 +23,29 @@
         public async Task<IActionResult> All([FromQuery(Name = "p")]int? page)
         {
             page = (page ?? 1) - 1;
-            int pageSize = 3;
 
-            var query = new GetAllTeamsPagedQuery { Page = page.Value, PageSize = pageSize };
+            // Results per page is intentionally used as a constant for testing purposes.
+            // In a real life application, the user will be able to select the results
+            // he wants to see on a given page.
+            var query = new GetAllTeamsPagedQuery { Page = page.Value, PageSize = RESULTS_PER_PAGE_COUNT };
 
             var viewModel = await this.Mediator.Send(query);
-            var pagedList = new StaticPagedList<TeamLookupModel>(viewModel.Teams, page.Value + 1, pageSize, viewModel.TotalTeamsCount);
+            var pagedList = new StaticPagedList<TeamLookupModel>(
+                viewModel.Teams,
+                page.Value + 1,
+                RESULTS_PER_PAGE_COUNT,
+                viewModel.TotalTeamsCount);
+
             return this.View(pagedList);
         }
 
         public async Task<IActionResult> Create()
         {
-            var viewModel = new CreateTeamCommand { Formats = await this.Mediator.Send(new GetAllTournamentFormatsSelectListQuery()) };
+            var viewModel = new CreateTeamCommand
+            {
+                Formats = await this.Mediator.Send(new GetAllTournamentFormatsSelectListQuery())
+            };
+            
             return this.View(viewModel);
         }
 

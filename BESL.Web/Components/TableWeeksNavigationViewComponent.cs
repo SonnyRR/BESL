@@ -18,7 +18,11 @@
 
         public async Task<IViewComponentResult> InvokeAsync(int tournamentTableId)
         {
-            var viewModel = await this.mediator.Send(new GetPlayWeeksForTournamentTableQuery { TournamentTableId = tournamentTableId });
+            var viewModel = await this.mediator.Send(new GetPlayWeeksForTournamentTableQuery
+            {
+                TournamentTableId = tournamentTableId
+            });
+            
             return this.View(viewModel);
         }
     }

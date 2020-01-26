@@ -70,6 +70,7 @@
                     request.TeamImage,
                     name: $"{request.TeamImage}-team-main-shot",
                     transformation: new Transformation().Width(TEAM_AVATAR_WIDTH).Height(TEAM_AVATAR_HEIGHT));
+            
             return url;
         }
 

@@ -1,6 +1,5 @@
 ﻿namespace BESL.Persistence
 {
-    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -14,9 +13,13 @@
 
     public class ApplicationDbContext : IdentityDbContext<Player, PlayerRole, string>, IApplicationDbContext
     {       
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+
+        private readonly IDateTime dateTime;
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateTime dateTime)
             : base(options)
         {
+            this.dateTime = dateTime;
         }
 
         public DbSet<Setting> Settings { get; set; }
@@ -124,11 +127,11 @@
                 var entity = (IAuditInfo)entry.Entity;
                 if (entry.State == EntityState.Added && entity.CreatedOn == default)
                 {
-                    entity.CreatedOn = DateTime.UtcNow;
+                    entity.CreatedOn = this.dateTime.UtcNow;
                 }
                 else
                 {
-                    entity.ModifiedOn = DateTime.UtcNow;
+                    entity.ModifiedOn = this.dateTime.UtcNow;
                 }
             }
         }

@@ -3,8 +3,9 @@
     using System;
 
     using AutoMapper;
-    using BESL.Persistence;
     using Xunit;
+    
+    using BESL.Persistence;
 
     public class QueryTestFixture : IDisposable
     {

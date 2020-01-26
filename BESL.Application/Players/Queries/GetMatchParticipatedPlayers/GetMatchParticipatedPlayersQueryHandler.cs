@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -11,8 +10,6 @@
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
-    using BESL.Application.Common.Models.Lookups;
-    using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Domain.Entities;
 

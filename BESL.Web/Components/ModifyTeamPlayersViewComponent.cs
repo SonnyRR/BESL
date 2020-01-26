@@ -21,6 +21,5 @@
             var viewModel = await this.mediator.Send(new GetPlayersForTeamQuery { TeamId = teamId });
             return this.View(viewModel);
         }
-
     }
 }

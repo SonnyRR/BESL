@@ -14,7 +14,8 @@
     using BESL.Application.Common.Models.Lookups;
     using BESL.Domain.Entities;
 
-    public class GetAllTournamentFormatsSelectListQueryHandler : IRequestHandler<GetAllTournamentFormatsSelectListQuery, IEnumerable<TournamentFormatSelectItemLookupModel>>
+    public class GetAllTournamentFormatsSelectListQueryHandler 
+        : IRequestHandler<GetAllTournamentFormatsSelectListQuery, IEnumerable<TournamentFormatSelectItemLookupModel>>
     {
         private readonly IDeletableEntityRepository<TournamentFormat> tournamentFormatsRepository;
         private readonly IMapper mapper;
@@ -25,7 +26,9 @@
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<TournamentFormatSelectItemLookupModel>> Handle(GetAllTournamentFormatsSelectListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TournamentFormatSelectItemLookupModel>> Handle(
+            GetAllTournamentFormatsSelectListQuery request, 
+            CancellationToken cancellationToken)
         {
             request = request ?? throw new ArgumentNullException(nameof(request));
 

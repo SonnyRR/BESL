@@ -32,6 +32,7 @@
         {
             var identityUserClaim = new IdentityUserClaim<string> { UserId = user.Id };
             identityUserClaim.InitializeFromClaim(claim);
+            
             return identityUserClaim;
         }
 
@@ -57,6 +58,7 @@
                 Name = name,
                 Value = value,
             };
+            
             return token;
         }
     }

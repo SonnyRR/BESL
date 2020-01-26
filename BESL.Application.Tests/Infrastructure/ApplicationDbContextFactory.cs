@@ -11,6 +11,7 @@
     using BESL.Domain.Entities;
     using BESL.Persistence;
     using static BESL.Common.GlobalConstants;
+    using BESL.Infrastructure;
 
     public class ApplicationDbContextFactory
     {
@@ -21,7 +22,7 @@
                 .ReplaceService<IModelCacheKeyFactory, CustomDynamicModelCacheKeyFactory>()
                 .Options;
 
-            var dbContext = new ApplicationDbContext(dbContextOptions);
+            var dbContext = new ApplicationDbContext(dbContextOptions, new MachineDateTime());
 
             //ServiceCollection services = new ServiceCollection();
             //services.AddDbContext<ApplicationDbContext>(x => x.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()),

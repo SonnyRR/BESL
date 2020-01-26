@@ -1,6 +1,5 @@
 ﻿namespace BESL.Persistence.Repositories
 {
-    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -9,13 +8,18 @@
     using BESL.Domain.Infrastructure;
     using BESL.Persistence.Infrastructure;
     using BESL.Application.Interfaces;
+    using BESL.Infrastructure;
 
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEntityRepository<TEntity>
         where TEntity : class, IDeletableEntity
     {
-        public EfDeletableEntityRepository(ApplicationDbContext context)
+
+        private IDateTime dateTime;
+
+        public EfDeletableEntityRepository(ApplicationDbContext context, IDateTime dateTime = null)
             : base(context)
         {
+            this.dateTime = dateTime ?? new MachineDateTime();
         }
 
         public override IQueryable<TEntity> All() => base.All().Where(x => !x.IsDeleted);
@@ -46,7 +50,7 @@
         public override void Delete(TEntity entity)
         {
             entity.IsDeleted = true;
-            entity.DeletedOn = DateTime.UtcNow;
+            entity.DeletedOn = this.dateTime.UtcNow;
 
             this.Update(entity);
         }

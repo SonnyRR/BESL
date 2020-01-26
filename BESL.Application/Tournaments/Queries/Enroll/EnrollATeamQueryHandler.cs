@@ -78,7 +78,8 @@
                 throw new PlayerHasNoEligibleTeamsToEnrollException();
             }
 
-            var skillTables = this.mapper.Map<IList<TournamentTableSelectItemLookupModel>>(desiredTournament.Tables.Where(t => t.TeamTableResults.Count < t.MaxNumberOfTeams));
+            var skillTables = this.mapper.Map<IList<TournamentTableSelectItemLookupModel>>(
+                desiredTournament.Tables.Where(t => t.TeamTableResults.Count < t.MaxNumberOfTeams));
 
             if (skillTables.Count == 0)
             {

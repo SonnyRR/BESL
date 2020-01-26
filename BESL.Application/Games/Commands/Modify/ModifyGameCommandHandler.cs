@@ -19,7 +19,10 @@
         private readonly ICloudinaryHelper cloudinaryHelper;
         private readonly IMediator mediator;
 
-        public ModifyGameCommandHandler(IDeletableEntityRepository<Game> gamesRepository, ICloudinaryHelper cloudinaryHelper, IMediator mediator)
+        public ModifyGameCommandHandler(
+            IDeletableEntityRepository<Game> gamesRepository, 
+            ICloudinaryHelper cloudinaryHelper, 
+            IMediator mediator)
         {
             this.gamesRepository = gamesRepository;
             this.cloudinaryHelper = cloudinaryHelper;

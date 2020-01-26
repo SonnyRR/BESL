@@ -21,6 +21,5 @@
             var viewModel = await this.mediator.Send(new GetAllTournamentsQuery());
             return this.View(viewModel);
         }
-
     }
 }

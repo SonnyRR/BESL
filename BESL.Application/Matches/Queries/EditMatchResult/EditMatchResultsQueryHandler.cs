@@ -34,10 +34,10 @@
                 .AllAsNoTracking()
                 .Include(m => m.HomeTeam)
                     .ThenInclude(ht => ht.PlayerTeams)
-                    .ThenInclude(pt => pt.Player)
+                        .ThenInclude(pt => pt.Player)
                 .Include(m => m.AwayTeam)
                     .ThenInclude(at => at.PlayerTeams)
-                    .ThenInclude(at => at.Player)
+                        .ThenInclude(at => at.Player)
                 .SingleOrDefaultAsync(m => m.Id == request.Id)
                 ?? throw new NotFoundException(nameof(Match), request.Id);
 

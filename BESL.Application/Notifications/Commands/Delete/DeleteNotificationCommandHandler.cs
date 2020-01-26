@@ -34,7 +34,8 @@
 
             if (desiredNotification.PlayerId != this.userAccessor.UserId)
             {
-                throw new DeleteFailureException(nameof(Notification), desiredNotification.Id, PLAYER_CAN_ONLY_DELETE_HIS_OWN_NOTIFICATIONS_MSG);
+                throw new DeleteFailureException(
+                    nameof(Notification), desiredNotification.Id, PLAYER_CAN_ONLY_DELETE_HIS_OWN_NOTIFICATIONS_MSG);
             }
 
             this.notificationsRepository.Delete(desiredNotification);

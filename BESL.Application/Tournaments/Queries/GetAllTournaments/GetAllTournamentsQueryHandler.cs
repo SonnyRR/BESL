@@ -30,7 +30,7 @@
 
             var tournamentsMapped = await this.tournamentsRepository
                 .AllAsNoTracking()
-                    .Include(t => t.Format)
+                .Include(t => t.Format)
                 .Where(t => !t.Format.IsDeleted && !t.Format.Game.IsDeleted)
                 .Where(t => t.IsActive != false || t.AreSignupsOpen != false)
                 .ProjectTo<TournamentLookupModel>(this.mapper.ConfigurationProvider)

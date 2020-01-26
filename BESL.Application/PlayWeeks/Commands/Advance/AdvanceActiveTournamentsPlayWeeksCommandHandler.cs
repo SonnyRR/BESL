@@ -35,7 +35,9 @@
             {
                 week.IsActive = false;
                 var nextWeek = new PlayWeek { StartDate = week.EndDate.Date, IsActive = true, TournamentTableId = week.TournamentTableId };
+                
                 this.playWeeksRepository.Update(week);
+                
                 await this.playWeeksRepository.AddAsync(nextWeek);
             }
 

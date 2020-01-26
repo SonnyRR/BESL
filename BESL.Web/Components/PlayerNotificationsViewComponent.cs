@@ -18,7 +18,9 @@
 
         public async Task<IViewComponentResult> InvokeAsync(string userId)
         {
-            var currentActiveTournamentsViewModel = await this.mediator.Send(new GetNotificationsForPlayerQuery() { UserId = userId });
+            var currentActiveTournamentsViewModel = await this.mediator.Send(
+                new GetNotificationsForPlayerQuery() { UserId = userId });
+            
             return this.View(currentActiveTournamentsViewModel);
         }
     }

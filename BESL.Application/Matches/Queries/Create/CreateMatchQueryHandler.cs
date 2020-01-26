@@ -34,7 +34,7 @@
                 .AllAsNoTracking()
                 .Include(pw => pw.TournamentTable)
                     .ThenInclude(tt => tt.TeamTableResults)
-                    .ThenInclude(ttr => ttr.Team)
+                    .   ThenInclude(ttr => ttr.Team)
                 .Where(pw => pw.Id == request.PlayWeekId)
                 .SelectMany(x => x.TournamentTable.TeamTableResults.Where(ttr => !ttr.IsDropped).Select(e => e.Team))
                 .ProjectTo<TeamsSelectItemLookupModel>(this.mapper.ConfigurationProvider)
