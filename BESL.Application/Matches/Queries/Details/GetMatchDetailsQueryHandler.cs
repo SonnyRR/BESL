@@ -41,7 +41,8 @@
                 .SingleOrDefaultAsync(m => m.Id == request.Id)
                 ?? throw new NotFoundException(nameof(Match), request.Id);
 
-            var viewModel = this.mapper.Map<GetMatchDetailsViewModel>(desiredMatch, opts => opts.Items.Add("CurrentUserId", this.userAccessor.UserId));
+            var viewModel = this.mapper.Map<GetMatchDetailsViewModel>(desiredMatch, 
+                opts => opts.Items.Add("CurrentUserId", this.userAccessor.UserId));
 
             return viewModel;
         }

@@ -6,10 +6,10 @@
 
     public class BaseController : Controller
     {
-        private IMediator _mediator;
+        private IMediator mediator;
 
         protected IMediator Mediator 
-            => _mediator 
-            ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
+            => mediator 
+            ?? (mediator = HttpContext.RequestServices.GetService<IMediator>());
     }
 }

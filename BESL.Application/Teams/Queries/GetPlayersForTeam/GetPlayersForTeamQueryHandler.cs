@@ -32,8 +32,8 @@
             var teamPlayers = await this.playerTeamsRepository
                 .AllAsNoTracking()
                 .Where(pt => pt.TeamId == request.TeamId)
-                    .Include(pt => pt.Player)
-                    .Include(pt => pt.Team)
+                .Include(pt => pt.Player)
+                .Include(pt => pt.Team)
                 .Select(x => x.Player)
                 .ProjectTo<PlayerLookupModel>(this.mapper.ConfigurationProvider, new Dictionary<string, object>(1) { { "teamId", request.TeamId } })
                 .OrderByDescending(p => p.IsOwner)

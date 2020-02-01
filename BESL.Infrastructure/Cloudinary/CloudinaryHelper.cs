@@ -34,17 +34,17 @@
                 image = memoryStream.ToArray();
             }
 
-            var stream = new MemoryStream(image);
+            var imageStream = new MemoryStream(image);
 
             var uploadParams = new ImageUploadParams()
             {
-                File = new FileDescription(name, stream),
+                File = new FileDescription(name, imageStream),
                 Transformation = transformation
             };
 
             var uploadResult = this.cloudinary.Upload(uploadParams);
 
-            stream.Dispose();
+            imageStream.Dispose();
             return uploadResult.SecureUri.AbsoluteUri;
         }
     }

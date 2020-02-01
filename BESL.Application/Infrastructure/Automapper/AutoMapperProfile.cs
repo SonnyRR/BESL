@@ -2,7 +2,6 @@
 {
     using System.Reflection;
 
-    using Infrastructure.AutoMapper;
     using global::AutoMapper;
 
     public class AutoMapperProfile : Profile

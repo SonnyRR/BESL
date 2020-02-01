@@ -43,7 +43,7 @@
             var teams = await (request.WithDeleted
                 ? this.playerTeamsRepository.AllAsNoTrackingWithDeleted()
                 : this.playerTeamsRepository.AllAsNoTracking())
-                    .Include(x => x.Team)
+                .Include(x => x.Team)
                 .Where(x => x.PlayerId == request.UserId)
                 .OrderByDescending(x => x.CreatedOn)
                 .ProjectTo<TeamForPlayerLookupModel>(this.mapper.ConfigurationProvider)

@@ -1,9 +1,11 @@
 ﻿namespace BESL.Web.Components
 {
     using System.Threading.Tasks;
-    using BESL.Application.Matches.Queries.GetMatchesForPlayWeek;
+    
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
+    
+    using BESL.Application.Matches.Queries.GetMatchesForPlayWeek;
 
     public class MatchesForPlayWeekViewComponent : ViewComponent
     {

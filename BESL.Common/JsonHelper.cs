@@ -21,15 +21,26 @@
             var serializerSettings = new JsonSerializerSettings();
 
             if (ignoreNullValues)
+            {
                 serializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            }
 
             if (indentJson == false)
+            {
                 serializerSettings.Formatting = Formatting.None;
+            }
             else
+            {
                 serializerSettings.Formatting = Formatting.Indented;
+            }
 
             if (shouldUseCamelCase)
-                serializerSettings.ContractResolver = new DefaultContractResolver() { NamingStrategy = new CamelCaseNamingStrategy() };
+            {
+                serializerSettings.ContractResolver = new DefaultContractResolver()
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                };
+            }
 
 
             string json = JsonConvert.SerializeObject(@object, serializerSettings);

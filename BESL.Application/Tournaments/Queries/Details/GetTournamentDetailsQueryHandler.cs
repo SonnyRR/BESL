@@ -36,7 +36,7 @@
                 .Include(t => t.Tables)
                     .ThenInclude(tb => tb.TeamTableResults)
                         .ThenInclude(ttr => ttr.Team)
-                        .ThenInclude(ttr => ttr.PlayerTeams)
+                        .   ThenInclude(ttr => ttr.PlayerTeams)
                 .SingleOrDefaultAsync(t => t.Id == request.Id && !t.Format.IsDeleted && !t.Format.Game.IsDeleted, cancellationToken)
                 ?? throw new NotFoundException(nameof(Tournament), request.Id);
 

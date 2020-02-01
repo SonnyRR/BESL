@@ -62,7 +62,7 @@
                 .AllAsNoTracking()
                 .Include(t => t.TeamTableResults)
                     .ThenInclude(ttr => ttr.TournamentTable)
-                    .ThenInclude(tt => tt.Tournament)
+                        .ThenInclude(tt => tt.Tournament)
                 .Include(t => t.PlayerTeams)
                 .SingleOrDefaultAsync(t => t.Id == request.TeamId, cancellationToken)
                 ?? throw new NotFoundException(nameof(Team), request.TeamId);

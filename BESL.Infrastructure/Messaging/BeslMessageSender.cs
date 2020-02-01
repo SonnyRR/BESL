@@ -8,15 +8,12 @@
 
     using static BESL.Common.GlobalConstants;
 
-    // This class is used by the application to send Email and SMS
-    // when you turn on two-factor authentication in ASP.NET Identity.
-    // For more details see this link https://go.microsoft.com/fwlink/?LinkID=532713
-    public class NullMessageSender : IEmailSender, ISmsSender
+    public class BeslMessageSender : IEmailSender, ISmsSender
     {
         private readonly ILoggerFactory loggerFactory;
         private readonly string sendGridApiKey;
 
-        public NullMessageSender(ILoggerFactory logger, IConfiguration configuration)
+        public BeslMessageSender(ILoggerFactory logger, IConfiguration configuration)
         {
             this.loggerFactory = logger;
             this.sendGridApiKey = configuration["sendgrid-api-key"];

@@ -39,8 +39,8 @@
                 : false;
 
             desiredMatch.WinnerTeamId =
-                desiredMatch.HomeTeamScore.HasValue && desiredMatch.AwayTeamScore.HasValue ?
-                    desiredMatch.HomeTeamScore > desiredMatch.AwayTeamScore
+                desiredMatch.HomeTeamScore.HasValue && desiredMatch.AwayTeamScore.HasValue 
+                ? desiredMatch.HomeTeamScore > desiredMatch.AwayTeamScore
                     ? desiredMatch.HomeTeamId
                     : desiredMatch.HomeTeamScore == desiredMatch.AwayTeamScore
                         ? (int?)null

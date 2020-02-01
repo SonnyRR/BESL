@@ -2,6 +2,11 @@
 {
     public class GlobalConstants
     {
+        #region Environments
+        public const string ENV_DEVELOPMENT = "Development";
+        public const string ENV_PRODUCTION = "Production";        
+        #endregion
+
         #region Culture
         public const string DATE_FORMAT = @"dd/MM/yyyy";
         public const string DATE_HOUR_FORMAT = @"dd/MM/yyyy HH:mm";
@@ -55,6 +60,7 @@
         #region BESL
         public const string DEFAULT_AVATAR = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,w_184/v1563120448/BESL/Missing_avatar.svg_dykhcv.png";
         public const string DEFAULT_AVATAR_MEDIUM = "https://res.cloudinary.com/vasil-kotsev/image/upload/c_scale,w_64/v1563120448/BESL/Missing_avatar.svg_dykhcv.png";
+        public const int RESULTS_PER_PAGE_COUNT = 3;
         #endregion
 
         #region Teams
