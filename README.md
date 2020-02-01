@@ -20,6 +20,10 @@ BESL is an online eSports league for competitive tournaments on various games an
 * Hangfire
 * Sendgrid
 * CloudinaryDotNet
-* SteamWebApi2, Steam.Models, OpenId.Steam
-* Shouldly, Moq, MockQueryable
+* SteamWebApi2
+* Steam.Models 
+* OpenId.Steam
+* Shouldly
+* Moq
+* MockQueryable
 * OpenCover
