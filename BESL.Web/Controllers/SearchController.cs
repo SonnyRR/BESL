@@ -7,9 +7,6 @@
     public class SearchController : BaseController
     {
         public async Task<IActionResult> Index([FromQuery]string query)
-        {
-            var viewModel = await this.Mediator.Send(new SearchQuery { Query = query });
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(new SearchQuery { Query = query }));
     }
 }

@@ -16,6 +16,7 @@
     using BESL.Application.Teams.Queries.GetAllTeamsPaged;
     using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
     using static BESL.SharedKernel.GlobalConstants;
+    
     [Authorize]
     public class TeamsController : BaseController
     {
@@ -40,14 +41,10 @@
         }
 
         public async Task<IActionResult> Create()
-        {
-            var viewModel = new CreateTeamCommand
+            => this.View(new CreateTeamCommand
             {
                 Formats = await this.Mediator.Send(new GetAllTournamentFormatsSelectListQuery())
-            };
-            
-            return this.View(viewModel);
-        }
+            });
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateTeamCommand command)
@@ -64,16 +61,10 @@
 
         [AllowAnonymous]
         public async Task<IActionResult> Details(GetTeamDetailsQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
 
         public async Task<IActionResult> Modify(ModifyTeamQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
 
         [HttpPost]
         public async Task<IActionResult> Modify(ModifyTeamCommand command)
@@ -83,7 +74,7 @@
                 return this.View(command);
             }
 
-            var viewModel = await this.Mediator.Send(command);
+            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Details), new GetTeamDetailsQuery { Id = command.Id });
         }
 
