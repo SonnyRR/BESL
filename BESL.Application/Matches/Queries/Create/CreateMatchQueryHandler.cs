@@ -13,7 +13,7 @@
     using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces;
     using BESL.Application.Matches.Commands.Create;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class CreateMatchQueryHandler : IRequestHandler<CreateMatchQuery, CreateMatchCommand>
     {

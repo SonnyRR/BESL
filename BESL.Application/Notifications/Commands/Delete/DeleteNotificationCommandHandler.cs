@@ -9,7 +9,7 @@
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using static BESL.Common.GlobalConstants;
 
     public class DeleteNotificationCommandHandler : IRequestHandler<DeleteNotificationCommand, string>

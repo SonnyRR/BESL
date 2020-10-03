@@ -13,7 +13,7 @@
     using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Common.Models.Lookups;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GetAllTournamentFormatsSelectListTests : BaseTest<TournamentFormat>
     {

@@ -12,7 +12,7 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Games.Commands.Delete;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class DeleteGameCommandTests : BaseTest<Game>
     {

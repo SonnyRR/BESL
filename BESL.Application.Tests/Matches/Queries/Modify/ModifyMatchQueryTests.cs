@@ -14,8 +14,8 @@
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Matches.Commands.Modify;
     using BESL.Application.Matches.Queries.Modify;
-    using BESL.Domain.Entities;
-    using Match = Domain.Entities.Match;
+    using BESL.Entities;
+    using Match = BESL.Entities.Match;
 
     public class ModifyMatchQueryTests : BaseTest<Match>
     {

@@ -1,7 +1,7 @@
-﻿namespace BESL.Domain.Entities
+﻿namespace BESL.Entities
 {
-    using BESL.Domain.Entities.Enums;
-    using BESL.Domain.Infrastructure;
+    using BESL.Entities.Enums;
+    using BESL.Entities.Infrastructure;
 
     public class Notification : BaseDeletableModel<string>
     {

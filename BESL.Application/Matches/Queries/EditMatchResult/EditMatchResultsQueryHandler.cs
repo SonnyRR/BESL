@@ -10,7 +10,7 @@
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.Matches.Commands.EditMatchResult;
 
     public class EditMatchResultQueryHandler : IRequestHandler<EditMatchResultQuery, EditMatchResultCommand>

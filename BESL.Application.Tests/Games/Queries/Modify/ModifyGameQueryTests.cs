@@ -15,7 +15,7 @@
     using BESL.Application.Games.Queries.Modify;
     using BESL.Application.Interfaces;
     using BESL.Application.Games.Commands.Modify;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class Modify
     {

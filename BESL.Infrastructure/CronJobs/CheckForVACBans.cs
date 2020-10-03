@@ -9,7 +9,7 @@
     using Microsoft.Extensions.Configuration;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Infrastructure.SteamWebAPI2;
     using BESL.Infrastructure.SteamWebAPI2.Interfaces;
     using static BESL.Common.GlobalConstants;

@@ -7,7 +7,7 @@
 
     using BESL.Application.Interfaces.Mapping;
     using BESL.Application.Common.Models.Lookups;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class CreateTeamCommand : IRequest<int>, IMapTo<Team>
     {

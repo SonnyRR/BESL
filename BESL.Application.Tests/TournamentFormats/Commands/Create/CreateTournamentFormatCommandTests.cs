@@ -14,7 +14,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.TournamentFormats.Commands.Create;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence.Repositories;
 
     public class CreateTournamentFormatCommandTests : BaseTest<TournamentFormat>

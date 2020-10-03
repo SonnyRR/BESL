@@ -10,7 +10,7 @@
     using MediatR;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using Microsoft.EntityFrameworkCore;
 
     public class GetNotificationsForPlayerQueryHandler : IRequestHandler<GetNotificationsForPlayerQuery, PlayerNotificationsViewModel>

@@ -13,8 +13,8 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Players.Queries.GetMatchParticipatedPlayers;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
-    using Match = Domain.Entities.Match;
+    using BESL.Entities;
+    using Match = BESL.Entities.Match;
 
     public class GetMatchParticipatedPlayersQueryTests : BaseTest<Match>
     {

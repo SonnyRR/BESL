@@ -17,7 +17,7 @@
     using BESL.Application.Games.Commands.Modify;
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class ModifyGameCommandTests : BaseTest<Game>
     {

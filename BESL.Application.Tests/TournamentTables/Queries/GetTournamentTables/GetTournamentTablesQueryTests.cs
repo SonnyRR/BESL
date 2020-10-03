@@ -14,7 +14,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.TournamentTables.Queries.GetTournamentTables;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GetTournamentTablesQueryTests : BaseTest<TournamentTable>
     {

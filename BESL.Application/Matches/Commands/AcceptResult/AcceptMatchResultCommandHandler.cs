@@ -9,7 +9,7 @@
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.TeamTableResults.Commands.AddPoints;
 
     public class AcceptMatchResultCommandHandler : IRequestHandler<AcceptMatchResultCommand, int>

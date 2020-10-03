@@ -1,6 +1,6 @@
-﻿namespace BESL.Domain.Entities
+﻿namespace BESL.Entities
 {
-    using BESL.Domain.Infrastructure;
+    using BESL.Entities.Infrastructure;
 
     public class TeamTableResult : BaseDeletableModel<int>
     {

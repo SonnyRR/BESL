@@ -13,7 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Players.Queries.Details;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class PlayerDetailsQueryTests : BaseTest<Player>
     {

@@ -11,7 +11,7 @@
 
     using BESL.Application.Teams.Queries.GetAllTeamsPaged;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GetAllTeamsPagedQueryTests : BaseTest<Team>
     {

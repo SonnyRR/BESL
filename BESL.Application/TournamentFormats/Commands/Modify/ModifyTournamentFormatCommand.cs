@@ -2,7 +2,7 @@
 {
     using MediatR;
     using BESL.Application.Interfaces.Mapping;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class ModifyTournamentFormatCommand : IRequest<int>, IMapFrom<TournamentFormat>
     {

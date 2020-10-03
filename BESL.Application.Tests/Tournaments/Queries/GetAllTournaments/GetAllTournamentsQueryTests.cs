@@ -13,7 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Tournaments.Queries.GetAllTournaments;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GetAllTournamentsQueryTests : BaseTest<Tournament>
     {

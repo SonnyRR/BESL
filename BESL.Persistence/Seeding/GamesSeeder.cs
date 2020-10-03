@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GamesSeeder : IDbSeeder
     {

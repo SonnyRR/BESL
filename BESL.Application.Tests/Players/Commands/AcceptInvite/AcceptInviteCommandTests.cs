@@ -14,7 +14,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Players.Commands.AcceptInvite;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class AcceptInviteCommandTests : BaseTest<TeamInvite>
     {

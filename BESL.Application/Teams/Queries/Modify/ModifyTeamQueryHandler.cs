@@ -11,7 +11,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.Modify;
     using BESL.Application.Exceptions;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class ModifyTeamQueryHandler : IRequestHandler<ModifyTeamQuery, ModifyTeamCommand>
     {

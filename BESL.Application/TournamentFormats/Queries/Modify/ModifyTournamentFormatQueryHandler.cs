@@ -11,7 +11,7 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Application.TournamentFormats.Commands.Modify;
-    using BESL.Domain.Entities;   
+    using BESL.Entities;   
 
     public class ModifyTournamentFormatQueryHandler : IRequestHandler<ModifyTournamentFormatQuery, ModifyTournamentFormatCommand>
     {

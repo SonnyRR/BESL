@@ -11,7 +11,7 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class EnrollATeamCommandHandler : IRequestHandler<EnrollATeamCommand, int>
     {

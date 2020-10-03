@@ -9,7 +9,7 @@
 
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class DeleteTournamentCommandHandler : IRequestHandler<DeleteTournamentCommand, int>
     {

@@ -16,7 +16,7 @@
     using BESL.Application.Games.Queries.GetAllGamesSelectList;
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GetAllGamesSelectListQueryTests
     {

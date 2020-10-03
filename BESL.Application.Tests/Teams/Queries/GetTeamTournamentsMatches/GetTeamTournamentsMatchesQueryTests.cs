@@ -10,10 +10,10 @@
     using Xunit;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.Teams.Queries.GetTeamTournamentsMatches;
     using BESL.Application.Tests.Infrastructure;
-    using Match = Domain.Entities.Match;
+    using Match = BESL.Entities.Match;
 
     public class GetTeamTournamentsMatchesQueryTests : BaseTest<Match>
     {

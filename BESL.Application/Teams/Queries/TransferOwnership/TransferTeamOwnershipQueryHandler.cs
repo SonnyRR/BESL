@@ -13,7 +13,7 @@
     using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.TransferOwnership;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class TransferTeamOwnershipQueryHandler : IRequestHandler<TransferTeamOwnershipQuery, TransferTeamOwnershipCommand>
     {

@@ -2,7 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
     {

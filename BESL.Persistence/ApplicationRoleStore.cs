@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class ApplicationRoleStore : RoleStore<
         PlayerRole,

@@ -7,7 +7,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class MatchesSeeder : IDbSeeder
     {

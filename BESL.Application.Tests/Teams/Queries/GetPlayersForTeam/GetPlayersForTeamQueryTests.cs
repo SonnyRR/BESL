@@ -12,7 +12,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Queries.GetPlayersForTeam;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GetPlayersForTeamQueryTests : BaseTest<PlayerTeam>
     {

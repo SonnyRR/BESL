@@ -3,7 +3,7 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.TournamentFormats.Queries.Modify;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using Moq;
     using Shouldly;
     using System;

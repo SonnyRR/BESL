@@ -5,7 +5,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using BESL.Domain.Infrastructure;
+    using BESL.Entities.Infrastructure;
     using BESL.Persistence.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Infrastructure;

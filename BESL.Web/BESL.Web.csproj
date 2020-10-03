@@ -47,7 +47,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BESL.Application\BESL.Application.csproj" />
-    <ProjectReference Include="..\BESL.Domain\BESL.Domain.csproj" />
+    <ProjectReference Include="..\BESL.Entities\BESL.Entities.csproj" />
     <ProjectReference Include="..\BESL.Common\BESL.Common.csproj" />
     <ProjectReference Include="..\BESL.Persistence\BESL.Persistence.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>

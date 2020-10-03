@@ -22,7 +22,7 @@
     using BESL.Application.Infrastructure.AutoMapper;
     using BESL.Application.Infrastructure.Validators;
     using BESL.Common;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Infrastructure;
     using BESL.Infrastructure.Messaging;
     using BESL.Infrastructure.Cloudinary;

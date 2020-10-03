@@ -1,7 +1,7 @@
 ﻿namespace BESL.Application.Players.Queries.Invites
 {
     using BESL.Application.Interfaces.Mapping;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class InviteLookupModel : IMapFrom<TeamInvite>
     {

@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using BESL.Domain.Infrastructure;
+    using BESL.Entities.Infrastructure;
 
     public interface IDeletableEntityRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IDeletableEntity

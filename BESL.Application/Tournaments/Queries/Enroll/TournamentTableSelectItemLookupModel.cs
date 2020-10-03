@@ -1,7 +1,7 @@
 ﻿namespace BESL.Application.Tournaments.Queries.Enroll
 {
     using BESL.Application.Interfaces.Mapping;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class TournamentTableSelectItemLookupModel : IMapFrom<TournamentTable>
     {

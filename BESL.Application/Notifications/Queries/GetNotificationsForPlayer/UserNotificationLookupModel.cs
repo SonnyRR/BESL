@@ -3,7 +3,7 @@
     using System;
 
     using BESL.Application.Interfaces.Mapping;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class PlayerNotificationLookupModel : IMapFrom<Notification>
     {

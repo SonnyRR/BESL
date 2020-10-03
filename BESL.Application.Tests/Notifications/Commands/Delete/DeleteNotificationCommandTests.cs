@@ -13,7 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Notifications.Queries.GetNotificationsForPlayer;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.Notifications.Commands.Delete;
     using BESL.Application.Exceptions;
 
@@ -24,7 +24,7 @@
         public async Task Handle_GivenValidRequest_ShouldReturnViewModel()
         {
             // Arrange
-            var notification = new Notification { PlayerId = "Foo1", Content = "TestContent", Header = "TestHeader", Type = Domain.Entities.Enums.NotificationType.Info };
+            var notification = new Notification { PlayerId = "Foo1", Content = "TestContent", Header = "TestHeader", Type = BESL.Entities.Enums.NotificationType.Info };
             this.dbContext.Add(notification);
             this.dbContext.SaveChanges();
             this.dbContext.ChangeTracker.Entries().ToList().ForEach(x => x.State = Microsoft.EntityFrameworkCore.EntityState.Detached);
@@ -76,7 +76,7 @@
         public async Task Handle_GivenInvalidRequest_ShouldThrowDeleteFailureException()
         {
             // Arrange
-            var notification = new Notification { PlayerId = "Foo1", Content = "TestContent", Header = "TestHeader", Type = Domain.Entities.Enums.NotificationType.Info };
+            var notification = new Notification { PlayerId = "Foo1", Content = "TestContent", Header = "TestHeader", Type = BESL.Entities.Enums.NotificationType.Info };
             this.dbContext.Add(notification);
             this.dbContext.SaveChanges();
 

@@ -14,7 +14,7 @@
 
     using BESL.Application.Games.Queries.GetAllGames;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.Interfaces;
 
     public class GetAllGamesQueryTests
