@@ -11,17 +11,9 @@
     {
         private readonly IMediator mediator;
 
-        public PlayerNotificationsViewComponent(IMediator mediator)
-        {
-            this.mediator = mediator;
-        }
+        public PlayerNotificationsViewComponent(IMediator mediator) => this.mediator = mediator;
 
         public async Task<IViewComponentResult> InvokeAsync(string userId)
-        {
-            var currentActiveTournamentsViewModel = await this.mediator.Send(
-                new GetNotificationsForPlayerQuery() { UserId = userId });
-            
-            return this.View(currentActiveTournamentsViewModel);
-        }
+            => this.View(await this.mediator.Send(new GetNotificationsForPlayerQuery() { UserId = userId }));        
     }
 }

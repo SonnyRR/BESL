@@ -11,19 +11,9 @@
     {
         private IMediator mediator;
 
-        public TableWeeksNavigationViewComponent(IMediator mediator)
-        {
-            this.mediator = mediator;
-        }
+        public TableWeeksNavigationViewComponent(IMediator mediator) => this.mediator = mediator;
 
         public async Task<IViewComponentResult> InvokeAsync(int tournamentTableId)
-        {
-            var viewModel = await this.mediator.Send(new GetPlayWeeksForTournamentTableQuery
-            {
-                TournamentTableId = tournamentTableId
-            });
-            
-            return this.View(viewModel);
-        }
+            => this.View(await this.mediator.Send(new GetPlayWeeksForTournamentTableQuery { TournamentTableId = tournamentTableId }));
     }
 }

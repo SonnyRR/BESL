@@ -8,10 +8,7 @@
     {
 #pragma warning disable CS1998
         public async Task<IViewComponentResult> InvokeAsync(int teamId)
-        {
-            var viewModel = new InvitePlayerCommand { TeamId = teamId };
-            return this.View(viewModel);
-        }
+            => this.View(new InvitePlayerCommand { TeamId = teamId });
 #pragma warning restore CS1998
     }
 }

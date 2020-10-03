@@ -11,15 +11,9 @@
     {
         private readonly IMediator mediator;
 
-        public TeamTournamentsMatchesViewComponent(IMediator mediator)
-        {
-            this.mediator = mediator;
-        }
+        public TeamTournamentsMatchesViewComponent(IMediator mediator) => this.mediator = mediator;
 
         public async Task<IViewComponentResult> InvokeAsync(int teamId)
-        {
-            var viewModel = await this.mediator.Send(new GetTeamTournamentsMatchesQuery { TeamId = teamId });
-            return this.View(viewModel);
-        }
+            => this.View(await this.mediator.Send(new GetTeamTournamentsMatchesQuery { TeamId = teamId }));
     }
 }
