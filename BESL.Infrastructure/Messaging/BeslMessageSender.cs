@@ -6,7 +6,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
 
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class BeslMessageSender : IEmailSender, ISmsSender
     {

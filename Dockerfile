@@ -9,7 +9,7 @@ FROM base AS build
 WORKDIR /src
 COPY ["BESL.Web/BESL.Web.csproj", "BESL.Web/"]
 COPY ["BESL.Web.Tests/BESL.Web.Tests.csproj", "BESL.Web.Tests/"]
-COPY ["BESL.Common/BESL.Common.csproj", "BESL.Common/"]
+COPY ["BESL.SharedKernel/BESL.SharedKernel.csproj", "BESL.SharedKernel/"]
 COPY ["BESL.Application/BESL.Application.csproj", "BESL.Application/"]
 COPY ["BESL.Application.Tests/BESL.Application.Tests.csproj", "BESL.Application.Tests/"]
 COPY ["BESL.Entities/BESL.Entities.csproj", "BESL.Entities/"]

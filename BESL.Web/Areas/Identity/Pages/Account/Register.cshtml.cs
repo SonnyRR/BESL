@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using static BESL.Common.GlobalConstants;
+using static BESL.SharedKernel.GlobalConstants;
 
 namespace BESL.Web.Areas.Identity.Pages.Account
 {

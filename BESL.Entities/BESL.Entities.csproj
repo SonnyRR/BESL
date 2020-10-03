@@ -16,6 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BESL.Common\BESL.Common.csproj" />
+    <ProjectReference Include="..\BESL.SharedKernel\BESL.SharedKernel.csproj" />
   </ItemGroup>
 </Project>

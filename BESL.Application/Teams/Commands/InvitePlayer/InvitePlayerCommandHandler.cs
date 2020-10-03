@@ -12,7 +12,7 @@
     using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Entities;
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class InvitePlayerCommandHandler : IRequestHandler<InvitePlayerCommand, int>
     {

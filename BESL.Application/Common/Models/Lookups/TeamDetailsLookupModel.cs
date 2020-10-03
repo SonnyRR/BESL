@@ -6,7 +6,7 @@
     using BESL.Application.Interfaces.Mapping;
     using BESL.Entities;
 
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class TeamDetailsLookupModel : IHaveCustomMapping
     {

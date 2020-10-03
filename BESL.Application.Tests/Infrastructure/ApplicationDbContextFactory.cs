@@ -10,7 +10,7 @@
 
     using BESL.Entities;
     using BESL.Persistence;
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
     using BESL.Infrastructure;
 
     public class ApplicationDbContextFactory

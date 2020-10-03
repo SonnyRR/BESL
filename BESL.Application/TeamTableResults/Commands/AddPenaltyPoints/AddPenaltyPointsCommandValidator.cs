@@ -1,7 +1,7 @@
 ﻿namespace BESL.Application.TeamTableResults.Commands.AddPenaltyPoints
 {
     using FluentValidation;
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class AddPenaltyPointsCommandValidator : AbstractValidator<AddPenaltyPointsCommand>
     {

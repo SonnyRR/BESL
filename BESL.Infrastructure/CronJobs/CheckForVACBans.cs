@@ -12,7 +12,7 @@
     using BESL.Entities;
     using BESL.Infrastructure.SteamWebAPI2;
     using BESL.Infrastructure.SteamWebAPI2.Interfaces;
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class CheckForVACBans
     {

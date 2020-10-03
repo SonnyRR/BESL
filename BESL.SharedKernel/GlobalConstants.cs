@@ -1,4 +1,4 @@
-﻿namespace BESL.Common
+﻿namespace BESL.SharedKernel
 {
     public class GlobalConstants
     {

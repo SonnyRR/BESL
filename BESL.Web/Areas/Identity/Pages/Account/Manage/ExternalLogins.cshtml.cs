@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
-using static BESL.Common.GlobalConstants;
+using static BESL.SharedKernel.GlobalConstants;
 
 namespace BESL.Web.Areas.Identity.Pages.Account.Manage
 {

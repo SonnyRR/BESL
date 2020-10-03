@@ -5,7 +5,7 @@
 
     using StackExchange.Redis;
 
-    using BESL.Common;
+    using BESL.SharedKernel;
     using BESL.Application.Interfaces;
     using Microsoft.Extensions.Options;
 

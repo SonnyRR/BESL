@@ -8,7 +8,7 @@
     using BESL.Application.Interfaces;
     using BESL.Entities;
     using BESL.Entities.Enums;
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class PlayerInvitedNotification : INotification
     {

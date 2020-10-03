@@ -7,7 +7,7 @@
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
 
-    using BESL.Common;
+    using BESL.SharedKernel;
 
     public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> 
         where TContext : DbContext
