@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     public abstract class BaseModel<TKey> : IAuditInfo
+        where TKey : IComparable<TKey>, IEquatable<TKey>
     {
         [Key]
         public TKey Id { get; set; }
