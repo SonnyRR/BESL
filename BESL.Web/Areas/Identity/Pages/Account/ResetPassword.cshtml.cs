@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using BESL.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace BESL.Web.Areas.Identity.Pages.Account
+﻿namespace BESL.Web.Areas.Identity.Pages.Account
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
+
+    using BESL.Entities;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     [AllowAnonymous]
     public class ResetPasswordModel : PageModel
     {
-        private readonly UserManager<Player> _userManager;
+        private readonly UserManager<Player> userManager;
 
-        public ResetPasswordModel(UserManager<Player> userManager)
-        {
-            _userManager = userManager;
-        }
+        public ResetPasswordModel(UserManager<Player> userManager) => this.userManager = userManager;
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -66,14 +62,14 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                 return Page();
             }
 
-            var user = await _userManager.FindByEmailAsync(Input.Email);
+            var user = await userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 
-            var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
+            var result = await userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
                 return RedirectToPage("./ResetPasswordConfirmation");
@@ -83,6 +79,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
+
             return Page();
         }
     }

@@ -4,9 +4,6 @@
 
     public class HomeController : AdminController
     {
-        public IActionResult Index()
-        {
-            return this.RedirectToAction("Index", "Games");
-        }
+        public IActionResult Index() => this.RedirectToAction("Index", "Games");
     }
 }

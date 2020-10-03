@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace BESL.Web.Areas.Identity.Pages.Account
+﻿namespace BESL.Web.Areas.Identity.Pages.Account
 {
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    
     public class AccessDeniedModel : PageModel
     {
         public void OnGet()
         {
-
         }
     }
 }
