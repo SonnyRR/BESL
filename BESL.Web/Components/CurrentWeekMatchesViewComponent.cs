@@ -11,15 +11,9 @@
     {
         private readonly IMediator mediator;
 
-        public CurrentWeekMatchesViewComponent(IMediator mediator)
-        {
-            this.mediator = mediator;
-        }
+        public CurrentWeekMatchesViewComponent(IMediator mediator) => this.mediator = mediator;
 
         public async Task<IViewComponentResult> InvokeAsync()
-        {
-            var viewModel = await this.mediator.Send(new GetMatchesForCurrentPlayWeeksQuery());
-            return this.View(viewModel);
-        }
+            => this.View(await this.mediator.Send(new GetMatchesForCurrentPlayWeeksQuery()));
     }
 }

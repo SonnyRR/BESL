@@ -11,15 +11,9 @@
     {
         private readonly IMediator mediator;
 
-        public AddMatchFixtureViewComponent(IMediator mediator)
-        {
-            this.mediator = mediator;
-        }
+        public AddMatchFixtureViewComponent(IMediator mediator) => this.mediator = mediator;
 
         public async Task<IViewComponentResult> InvokeAsync(int playWeekId)
-        {
-            var viewModel = await this.mediator.Send(new CreateMatchQuery { PlayWeekId = playWeekId });
-            return this.View(viewModel);
-        }
+            => this.View(await this.mediator.Send(new CreateMatchQuery { PlayWeekId = playWeekId }));
     }
 }
