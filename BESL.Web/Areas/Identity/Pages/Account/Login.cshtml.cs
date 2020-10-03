@@ -1,39 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using BESL.Entities;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-using BESL.Application.Interfaces;
-using BESL.Application.Exceptions;
-
-namespace BESL.Web.Areas.Identity.Pages.Account
+﻿namespace BESL.Web.Areas.Identity.Pages.Account
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.Logging;
+
+    using BESL.Entities;
+
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<Player> _userManager;
-        private readonly SignInManager<Player> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<Player> userManager;
+        private readonly SignInManager<Player> signInManager;
+        private readonly ILogger<LoginModel> logger;
 
         public LoginModel(UserManager<Player> userManager, SignInManager<Player> signInManager, ILogger<LoginModel> logger)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._logger = logger;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.logger = logger;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public IList<AuthenticationScheme> ExternalLogins { get => _signInManager.GetExternalAuthenticationSchemesAsync().GetAwaiter().GetResult().ToList(); }
+        public IList<AuthenticationScheme> ExternalLogins { get => signInManager.GetExternalAuthenticationSchemesAsync().GetAwaiter().GetResult().ToList(); }
 
         public string ReturnUrl { get; set; }
 
@@ -86,8 +84,8 @@ namespace BESL.Web.Areas.Identity.Pages.Account
 
             Player user = Input.Username
                 .Contains('@')
-                ? await this._userManager.FindByEmailAsync(Input.Username)
-                : await this._userManager.FindByNameAsync(Input.Username);
+                ? await this.userManager.FindByEmailAsync(Input.Username)
+                : await this.userManager.FindByNameAsync(Input.Username);
 
             if (ModelState.IsValid)
             {
@@ -101,10 +99,10 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                     
                     // This doesn't count login failures towards account lockout
                     // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                    var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                    var result = await signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation("User logged in.");
+                        logger.LogInformation("User logged in.");
                         return LocalRedirect(returnUrl);
                     }
                     if (result.RequiresTwoFactor)
@@ -113,7 +111,7 @@ namespace BESL.Web.Areas.Identity.Pages.Account
                     }
                     if (result.IsLockedOut)
                     {
-                        _logger.LogWarning("User account locked out.");
+                        logger.LogWarning("User account locked out.");
                         return RedirectToPage("./Lockout");
                     }
                     else

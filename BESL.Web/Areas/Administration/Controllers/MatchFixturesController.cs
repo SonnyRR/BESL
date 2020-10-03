@@ -14,29 +14,24 @@
     public class MatchFixturesController : AdminController
     {
         public async Task<IActionResult> Details(GetMatchesForPlayWeekQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateMatchCommand command)
         {
             if (!this.ModelState.IsValid)
             {
-                var notValidViewModel = await this.Mediator.Send(new GetMatchesForPlayWeekQuery { PlayWeekId = command.PlayWeekId });
-                return this.View("~/Areas/Administration/Views/MatchFixtures/Details.cshtml", notValidViewModel);
+                return this.View(
+                    "~/Areas/Administration/Views/MatchFixtures/Details.cshtml", 
+                    await this.Mediator.Send(new GetMatchesForPlayWeekQuery { PlayWeekId = command.PlayWeekId }));
             }
-
-            var viewModel = await this.Mediator.Send(command);
+            
+            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Details), new GetMatchesForPlayWeekQuery { PlayWeekId = command.PlayWeekId });
         }
 
         public async Task<IActionResult> Modify(ModifyMatchQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
 
         [HttpPost]
         public async Task<IActionResult> Modify(ModifyMatchCommand command)

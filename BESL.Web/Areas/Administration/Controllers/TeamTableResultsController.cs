@@ -25,10 +25,7 @@
         }
 
         public IActionResult AddPenaltyPoints(int teamTableResultId)
-        {
-            var viewModel = new AddPenaltyPointsCommand { TeamTableResultId = teamTableResultId };
-            return this.View(viewModel);
-        }
+            =>  this.View(new AddPenaltyPointsCommand { TeamTableResultId = teamTableResultId });
 
         [HttpPost]
         public async Task<IActionResult> AddPenaltyPoints(AddPenaltyPointsCommand command, int tournamentId)

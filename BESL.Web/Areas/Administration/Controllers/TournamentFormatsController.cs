@@ -14,10 +14,7 @@
     public class TournamentFormatsController : AdminController
     {
         public async Task<IActionResult> Create()
-        {
-            var viewModel = new CreateTournamentFormatCommand { Games = await this.Mediator.Send(new GetAllGamesSelectListQuery()) };
-            return this.View(viewModel);
-        }
+            => this.View(new CreateTournamentFormatCommand { Games = await this.Mediator.Send(new GetAllGamesSelectListQuery()) });
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateTournamentFormatCommand command)
@@ -33,10 +30,7 @@
         }
 
         public async Task<IActionResult> Modify(ModifyTournamentFormatQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
 
         [HttpPost]
         public async Task<IActionResult> Modify(ModifyTournamentFormatCommand command)
@@ -51,10 +45,7 @@
         }
 
         public async Task<IActionResult> Index()
-        {
-            var viewModel = await this.Mediator.Send(new GetAllTournamentFormatsQuery()); 
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(new GetAllTournamentFormatsQuery()));
 
         public async Task<IActionResult> Delete(DeleteTournamentFormatCommand command)
         {

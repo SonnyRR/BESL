@@ -12,10 +12,7 @@
     
     public class GamesController : AdminController
     {
-        public IActionResult Create()
-        {
-            return this.View();
-        }
+        public IActionResult Create() => this.View();
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateGameCommand command)
@@ -30,16 +27,10 @@
         }
 
         public async Task<IActionResult> Index()
-        {
-            var viewModel = await this.Mediator.Send(new GetAllGamesQuery());
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(new GetAllGamesQuery()));
 
         public async Task<IActionResult> Modify(ModifyGameQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
 
         [HttpPost]
         public async Task<IActionResult> Modify(ModifyGameCommand command)
