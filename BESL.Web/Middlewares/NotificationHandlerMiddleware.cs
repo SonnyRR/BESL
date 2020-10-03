@@ -27,7 +27,6 @@
             if (context.User.Identity.IsAuthenticated && context.Response.StatusCode == StatusCodes.Status204NoContent)
             {
                 var notification = await this.redisNotificationService.Get(userAccessor.UserId);
-
                 if (notification != null)
                 {
                     await notifyService.SendUserPushNotification(notification.Header, notification.Content, notification.Type.ToString());
