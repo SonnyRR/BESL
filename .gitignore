@@ -9,7 +9,7 @@
 .zip
 .Cache
 **/wwwroot/lib/**
-
+5e811f6c54bfa90d22aa88bdecd802cabea9346f
 
 # User-specific files
 *.suo
@@ -58,7 +58,6 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-**/Properties/launchSettings.json
 
 # StyleCop
 StyleCopReport.xml
@@ -186,7 +185,10 @@ PublishScripts/
 # NuGet Packages
 *.nupkg
 # The packages folder can be ignored because of Package Restore
-**/[Pp]ackages/*
+\\packages/*
+.\\packages/*
+packages/*  
+*/[Pp]ackages/*
 # except build/, which is used as an MSBuild target.
 !**/[Pp]ackages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
