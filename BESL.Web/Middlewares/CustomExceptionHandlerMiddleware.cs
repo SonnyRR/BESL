@@ -12,10 +12,7 @@
     {
         private readonly RequestDelegate next;
 
-        public CustomExceptionHandlerMiddleware(RequestDelegate next)
-        {
-            this.next = next;
-        }
+        public CustomExceptionHandlerMiddleware(RequestDelegate next) => this.next = next;
 
         public async Task InvokeAsync(HttpContext context)
         {
@@ -38,7 +35,6 @@
                         await context.WriteResultAsync(result);
                     }
                 }
-
                 else if (ex is ForbiddenException)
                 {
                     var result = new ViewResult
@@ -52,7 +48,6 @@
                         await context.WriteResultAsync(result);
                     }
                 }
-
                 else
                 {
                     context.Response.StatusCode = StatusCodes.Status204NoContent;

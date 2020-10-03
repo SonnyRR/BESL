@@ -7,18 +7,13 @@
 
     public class Program
     {
-        public static void Main(string[] args)
-        {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+        public static void Main(string[] args) => CreateWebHostBuilder(args).Build().Run();
 
         public static IHostBuilder CreateWebHostBuilder(string[] args)
         {
-            return Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(hostBuilder =>
+            return Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(hostBuilder =>
                 {
-                    hostBuilder
-                    .ConfigureAppConfiguration((context, config) =>
+                    hostBuilder.ConfigureAppConfiguration((context, config) =>
                     {
                         if (context.HostingEnvironment.IsProduction())
                         {

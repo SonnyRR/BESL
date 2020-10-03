@@ -5,13 +5,9 @@
     public static class MiddlewareExtensions
     {
         public static IApplicationBuilder UseCustomExceptionHandlerMiddleware(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<CustomExceptionHandlerMiddleware>();
-        }
+            => builder.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
         public static IApplicationBuilder UseNotificationHandlerMiddleware(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<NotificationHandlerMiddleware>();
-        }
+            => builder.UseMiddleware<NotificationHandlerMiddleware>();
     }
 }

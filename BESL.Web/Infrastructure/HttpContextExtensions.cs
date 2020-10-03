@@ -12,7 +12,6 @@
     public static class HttpContextExtensions
     {
         private static readonly RouteData EmptyRouteData = new RouteData();
-
         private static readonly ActionDescriptor EmptyActionDescriptor = new ActionDescriptor();
 
         public static Task WriteResultAsync<TResult>(this HttpContext context, TResult result)
