@@ -2,7 +2,7 @@
 {
     using Hangfire.Annotations;
     using Hangfire.Dashboard;
-    using BESL.Domain.Entities.Enums;
+    using BESL.Entities.Enums;
 
     public class DashboardAuthorizationFilter : IDashboardAuthorizationFilter
     {

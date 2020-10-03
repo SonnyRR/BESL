@@ -5,7 +5,7 @@
     using MediatR;
 
     using BESL.Application.Interfaces.Mapping;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class ModifyMatchCommand : IMapFrom<Match>, IRequest<int>
     {

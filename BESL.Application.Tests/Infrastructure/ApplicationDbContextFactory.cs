@@ -8,7 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Infrastructure;
 
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence;
     using static BESL.Common.GlobalConstants;
     using BESL.Infrastructure;

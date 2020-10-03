@@ -1,7 +1,7 @@
-﻿namespace BESL.Domain.Entities
+﻿namespace BESL.Entities
 {
     using System;
-    using BESL.Domain.Infrastructure;
+    using BESL.Entities.Infrastructure;
     using Microsoft.AspNetCore.Identity;
 
     public class PlayerRole : IdentityRole, IAuditInfo, IDeletableEntity

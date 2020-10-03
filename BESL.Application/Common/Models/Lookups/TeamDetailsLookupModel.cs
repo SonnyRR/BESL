@@ -4,7 +4,7 @@
     using AutoMapper;
 
     using BESL.Application.Interfaces.Mapping;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     using static BESL.Common.GlobalConstants;
 

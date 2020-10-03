@@ -13,9 +13,9 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Matches.Commands.Create;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence.Repositories;
-    using Match = Domain.Entities.Match;
+    using Match = BESL.Entities.Match;
 
     public class CreateMatchCommandTests : BaseTest<Match>
     {

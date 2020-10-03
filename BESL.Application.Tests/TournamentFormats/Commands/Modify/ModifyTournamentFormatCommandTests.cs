@@ -10,7 +10,7 @@
     using Shouldly;
 
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.TournamentFormats.Commands.Modify;
 
     public class ModifyTournamentFormatCommandTests : BaseTest<TournamentFormat>

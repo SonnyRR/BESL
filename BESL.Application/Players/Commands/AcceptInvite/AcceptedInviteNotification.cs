@@ -6,8 +6,8 @@
     using MediatR;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
-    using BESL.Domain.Entities.Enums;
+    using BESL.Entities;
+    using BESL.Entities.Enums;
 
     public class AcceptedInviteNotification : INotification
     {

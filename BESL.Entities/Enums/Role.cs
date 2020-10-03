@@ -1,4 +1,4 @@
-﻿namespace BESL.Domain.Entities.Enums
+﻿namespace BESL.Entities.Enums
 {
     public enum Role
     {

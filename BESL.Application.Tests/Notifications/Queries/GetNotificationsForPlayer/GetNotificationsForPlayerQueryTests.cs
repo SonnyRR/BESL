@@ -13,7 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Notifications.Queries.GetNotificationsForPlayer;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GetNotificationsForPlayerQueryTests : BaseTest<Notification>
     {
@@ -25,7 +25,7 @@
             var query = new GetNotificationsForPlayerQuery { UserId = "Foo1" };
             var sut = new GetNotificationsForPlayerQueryHandler(this.deletableEntityRepository, this.mapper);
 
-            this.dbContext.Notifications.Add(new Notification { PlayerId = "Foo1", Content = "TestContent", Header = "TestHeader", Type = Domain.Entities.Enums.NotificationType.Info });
+            this.dbContext.Notifications.Add(new Notification { PlayerId = "Foo1", Content = "TestContent", Header = "TestHeader", Type = BESL.Entities.Enums.NotificationType.Info });
             this.dbContext.SaveChanges();
 
             // Act

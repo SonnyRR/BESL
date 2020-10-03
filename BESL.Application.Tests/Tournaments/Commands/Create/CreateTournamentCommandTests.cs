@@ -17,7 +17,7 @@
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Tournaments.Commands.Create;
     using BESL.Persistence.Repositories;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class CreateTournamentCommandTests : BaseTest<Tournament>
     {

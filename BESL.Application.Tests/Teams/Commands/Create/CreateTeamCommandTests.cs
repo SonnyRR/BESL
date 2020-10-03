@@ -16,7 +16,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.Create;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence.Repositories;
 
     public class CreateTeamCommandTests : BaseTest<Team>

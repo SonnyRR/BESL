@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using static BESL.Common.GlobalConstants;
 
     public class TournamentsSeeder : IDbSeeder

@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Http;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class NotificationHandlerMiddleware
     {

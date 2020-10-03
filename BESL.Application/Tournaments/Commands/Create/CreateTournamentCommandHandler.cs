@@ -11,7 +11,7 @@
     using BESL.Application.Interfaces;    
     using BESL.Application.Exceptions;
     using BESL.Application.TournamentTables.Commands.Create;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using static BESL.Common.GlobalConstants;
 
     public class CreateTournamentCommandHandler : IRequestHandler<CreateTournamentCommand, int>

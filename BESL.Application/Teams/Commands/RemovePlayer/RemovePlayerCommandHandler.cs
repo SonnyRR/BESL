@@ -9,7 +9,7 @@
 
     using BESL.Application.Interfaces;
     using BESL.Application.Exceptions;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class RemovePlayerCommandHandler : IRequestHandler<RemovePlayerCommand, int>
     {

@@ -13,7 +13,7 @@
     using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Application.Exceptions;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GetPlayWeeksForTournamentTableQueryHandler : IRequestHandler<GetPlayWeeksForTournamentTableQuery, PlayWeeksForTournamentTableViewModel>
     {

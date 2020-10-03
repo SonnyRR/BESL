@@ -1,4 +1,4 @@
-﻿@using BESL.Domain.Entities
+﻿@using BESL.Entities
 @inject SignInManager<Player> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

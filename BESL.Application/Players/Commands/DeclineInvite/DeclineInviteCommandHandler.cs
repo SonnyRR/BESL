@@ -8,7 +8,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.Exceptions;
 
     public class DeclineInviteCommandHandler : IRequestHandler<DeclineInviteCommand, int>

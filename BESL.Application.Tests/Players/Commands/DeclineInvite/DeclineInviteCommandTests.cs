@@ -13,7 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Players.Commands.DeclineInvite;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
 
     public class DeclineInviteCommandTests : BaseTest<TeamInvite>

@@ -6,8 +6,8 @@
     using MediatR;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
-    using BESL.Domain.Entities.Enums;
+    using BESL.Entities;
+    using BESL.Entities.Enums;
     using static BESL.Common.GlobalConstants;
 
     public class GameModifiedNotification : INotification

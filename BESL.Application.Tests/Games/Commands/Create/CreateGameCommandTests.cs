@@ -15,7 +15,7 @@
     using BESL.Application.Games.Commands.Create;
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.Exceptions;
 
     public class CreateGameCommandTests : BaseTest<Game>

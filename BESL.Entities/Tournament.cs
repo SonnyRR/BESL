@@ -1,9 +1,9 @@
-﻿namespace BESL.Domain.Entities
+﻿namespace BESL.Entities
 {
     using System;
     using System.Collections.Generic;
 
-    using BESL.Domain.Infrastructure;
+    using BESL.Entities.Infrastructure;
 
     public class Tournament : BaseDeletableModel<int>
     { 

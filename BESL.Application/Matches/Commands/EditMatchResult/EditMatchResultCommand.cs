@@ -8,7 +8,7 @@
 
     using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces.Mapping;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class EditMatchResultCommand : IRequest<int>, IHaveCustomMapping
     {

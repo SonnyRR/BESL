@@ -12,7 +12,7 @@
 
     using BESL.Application.Common.Models.Lookups;
     using BESL.Application.Interfaces;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class GetMatchesForCurrentPlayWeeksQueryHandler : IRequestHandler<GetMatchesForCurrentPlayWeeksQuery, MatchesForCurrentPlayWeeksViewModel>
     {

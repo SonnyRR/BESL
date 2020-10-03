@@ -15,7 +15,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.Modify;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class ModifyTeamCommandTests : BaseTest<Team>
     {

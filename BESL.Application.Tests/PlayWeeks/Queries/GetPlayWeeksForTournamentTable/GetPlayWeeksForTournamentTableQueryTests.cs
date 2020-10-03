@@ -14,7 +14,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.PlayWeeks.Queries.GetPlayWeeksForTournamentTable;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence.Repositories;
 
     public class GetPlayWeeksForTournamentTableQueryTests : BaseTest<PlayWeek>

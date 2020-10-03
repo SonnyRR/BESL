@@ -12,7 +12,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.TournamentTables.Commands.Create;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence.Repositories;
 
     public class CreateTournamentTableCommandTests : BaseTest<TournamentTable>

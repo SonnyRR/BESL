@@ -1,7 +1,7 @@
-﻿namespace BESL.Domain.Entities
+﻿namespace BESL.Entities
 {
     using System;
-    using BESL.Domain.Infrastructure;
+    using BESL.Entities.Infrastructure;
 
     public class PlayerMatch : IDeletableEntity
     {

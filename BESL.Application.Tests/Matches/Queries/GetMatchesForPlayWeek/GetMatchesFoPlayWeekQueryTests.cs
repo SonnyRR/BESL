@@ -14,9 +14,9 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Matches.Queries.GetMatchesForPlayWeek;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence.Repositories;
-    using Match = Domain.Entities.Match;
+    using Match = BESL.Entities.Match;
 
     public class GetMatchesFoPlayWeekQueryTests : BaseTest<PlayWeek>
     {

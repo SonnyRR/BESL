@@ -15,7 +15,7 @@
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Matches.Commands.AcceptResult;
     using BESL.Application.TeamTableResults.Commands.AddPoints;    
-    using Match = Domain.Entities.Match;
+    using Match = BESL.Entities.Match;
 
     public class AcceptMatchResultCommandTests : BaseTest<Match>
     {

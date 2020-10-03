@@ -14,7 +14,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.InvitePlayer;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence.Repositories;
     using static BESL.Common.GlobalConstants;
 

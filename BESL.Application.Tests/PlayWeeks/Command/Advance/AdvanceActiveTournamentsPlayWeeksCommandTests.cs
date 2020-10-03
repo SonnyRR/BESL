@@ -11,7 +11,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.PlayWeeks.Commands.Advance;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class AdvanceActiveTournamentsPlayWeeksCommandTests : BaseTest<PlayWeek>
     {

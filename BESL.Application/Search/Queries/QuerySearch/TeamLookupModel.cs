@@ -1,7 +1,7 @@
 ﻿namespace BESL.Application.Search.Queries.QuerySearch
 {
     using BESL.Application.Interfaces.Mapping;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class TeamLookupModel : IMapFrom<Team>
     {

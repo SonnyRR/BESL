@@ -10,7 +10,7 @@
     using Xunit;
 
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormats;
 
     public class GetAllTournamentFormatsTests : BaseTest<TournamentFormat>

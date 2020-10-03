@@ -21,7 +21,7 @@ namespace BESL.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BESL.Domain.Entities.Player", b =>
+            modelBuilder.Entity("BESL.Entities.Player", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -84,7 +84,7 @@ namespace BESL.Persistence.Migrations
                     
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.Competition", b =>
+            modelBuilder.Entity("BESL.Entities.Competition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,7 +123,7 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("Competitions");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.CompetitionFormat", b =>
+            modelBuilder.Entity("BESL.Entities.CompetitionFormat", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,7 +148,7 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("CompetitionFormats");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.CompetitionTable", b =>
+            modelBuilder.Entity("BESL.Entities.CompetitionTable", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,7 +178,7 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("CompetitionTables");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.Game", b =>
+            modelBuilder.Entity("BESL.Entities.Game", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -207,7 +207,7 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("Games");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.Match", b =>
+            modelBuilder.Entity("BESL.Entities.Match", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -250,7 +250,7 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("Matches");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.PlayerMatch", b =>
+            modelBuilder.Entity("BESL.Entities.PlayerMatch", b =>
                 {
                     b.Property<string>("PlayerId");
 
@@ -267,7 +267,7 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("PlayerMatches");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.PlayerTeam", b =>
+            modelBuilder.Entity("BESL.Entities.PlayerTeam", b =>
                 {
                     b.Property<string>("PlayerId");
 
@@ -284,7 +284,7 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("PlayerTeams");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.Setting", b =>
+            modelBuilder.Entity("BESL.Entities.Setting", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -306,7 +306,7 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("Settings");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.Team", b =>
+            modelBuilder.Entity("BESL.Entities.Team", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -349,7 +349,7 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.TeamTableResult", b =>
+            modelBuilder.Entity("BESL.Entities.TeamTableResult", b =>
                 {
                     b.Property<int>("Id");
 
@@ -486,107 +486,107 @@ namespace BESL.Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.Player", b =>
+            modelBuilder.Entity("BESL.Entities.Player", b =>
                 {
 
 
                     
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.Competition", b =>
+            modelBuilder.Entity("BESL.Entities.Competition", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.CompetitionFormat", "Format")
+                    b.HasOne("BESL.Entities.CompetitionFormat", "Format")
                         .WithMany()
                         .HasForeignKey("FormatId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Game", "Game")
+                    b.HasOne("BESL.Entities.Game", "Game")
                         .WithMany("Competitions")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.CompetitionTable", b =>
+            modelBuilder.Entity("BESL.Entities.CompetitionTable", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.Competition", "Competition")
+                    b.HasOne("BESL.Entities.Competition", "Competition")
                         .WithMany("Tables")
                         .HasForeignKey("CompetitionId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.Match", b =>
+            modelBuilder.Entity("BESL.Entities.Match", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.Team", "AwayTeam")
+                    b.HasOne("BESL.Entities.Team", "AwayTeam")
                         .WithMany()
                         .HasForeignKey("AwayTeamId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.TeamTableResult", "CompetitionTableResult")
+                    b.HasOne("BESL.Entities.TeamTableResult", "CompetitionTableResult")
                         .WithMany("PlayedMatches")
                         .HasForeignKey("CompetitionTableResultId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Team", "HomeTeam")
+                    b.HasOne("BESL.Entities.Team", "HomeTeam")
                         .WithMany()
                         .HasForeignKey("HomeTeamId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Team", "WinnerTeam")
+                    b.HasOne("BESL.Entities.Team", "WinnerTeam")
                         .WithMany()
                         .HasForeignKey("WinnerTeamId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.PlayerMatch", b =>
+            modelBuilder.Entity("BESL.Entities.PlayerMatch", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.Match", "Match")
+                    b.HasOne("BESL.Entities.Match", "Match")
                         .WithMany("ParticipatedPlayers")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Player", "Player")
+                    b.HasOne("BESL.Entities.Player", "Player")
                         .WithMany("PlayerMatches")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.PlayerTeam", b =>
+            modelBuilder.Entity("BESL.Entities.PlayerTeam", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.Player", "Player")
+                    b.HasOne("BESL.Entities.Player", "Player")
                         .WithMany("PlayerTeams")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Team", "Team")
+                    b.HasOne("BESL.Entities.Team", "Team")
                         .WithMany("PlayerTeams")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.Team", b =>
+            modelBuilder.Entity("BESL.Entities.Team", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.CompetitionTable", "CurrentActiveCompetitionTable")
+                    b.HasOne("BESL.Entities.CompetitionTable", "CurrentActiveCompetitionTable")
                         .WithMany("SignedUpTeams")
                         .HasForeignKey("CurrentActiveCompetitionTableId");
 
-                    b.HasOne("BESL.Domain.Entities.Game", "Game")
+                    b.HasOne("BESL.Entities.Game", "Game")
                         .WithMany("Teams")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Player", "Owner")
+                    b.HasOne("BESL.Entities.Player", "Owner")
                         .WithMany("OwnedTeams")
                         .HasForeignKey("OwnerId");
                 });
 
-            modelBuilder.Entity("BESL.Domain.Entities.TeamTableResult", b =>
+            modelBuilder.Entity("BESL.Entities.TeamTableResult", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.CompetitionTable", "CompetitionTable")
+                    b.HasOne("BESL.Entities.CompetitionTable", "CompetitionTable")
                         .WithMany("CompetitionTableResults")
                         .HasForeignKey("CompetitionTableId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Team", "Team")
+                    b.HasOne("BESL.Entities.Team", "Team")
                         .WithMany("PreviousCompetitionTablesResults")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -602,7 +602,7 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.Player")
+                    b.HasOne("BESL.Entities.Player")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -610,7 +610,7 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.Player")
+                    b.HasOne("BESL.Entities.Player")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -623,7 +623,7 @@ namespace BESL.Persistence.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BESL.Domain.Entities.Player")
+                    b.HasOne("BESL.Entities.Player")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -631,7 +631,7 @@ namespace BESL.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("BESL.Domain.Entities.Player")
+                    b.HasOne("BESL.Entities.Player")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);

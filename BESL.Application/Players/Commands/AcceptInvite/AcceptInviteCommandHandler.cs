@@ -10,7 +10,7 @@
     using BESL.Application.Exceptions;
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.AddPlayer;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class AcceptInviteCommandHandler : IRequestHandler<AcceptInviteCommand, int>
     {

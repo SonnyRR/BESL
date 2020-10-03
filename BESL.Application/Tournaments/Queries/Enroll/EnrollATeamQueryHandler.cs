@@ -16,7 +16,7 @@
     using BESL.Application.Infrastructure;
     using BESL.Application.Interfaces;
     using BESL.Application.Tournaments.Commands.Enroll;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class EnrollATeamQueryHandler : IRequestHandler<EnrollATeamQuery, EnrollATeamCommand>
     {

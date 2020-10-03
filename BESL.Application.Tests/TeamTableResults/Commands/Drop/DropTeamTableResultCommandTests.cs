@@ -12,7 +12,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.TeamTableResults.Commands.Drop;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using System.Linq;
 
     public class DropTeamTableResultCommandTests : BaseTest<TeamTableResult>

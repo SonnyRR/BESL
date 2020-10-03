@@ -11,7 +11,7 @@ using BESL.Application.Exceptions;
 using BESL.Application.Interfaces;
 using BESL.Application.Teams.Queries.Details;
 using BESL.Application.Tests.Infrastructure;
-using BESL.Domain.Entities;
+using BESL.Entities;
 
 namespace BESL.Application.Tests.Teams.Queries.Details
 {

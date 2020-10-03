@@ -1,11 +1,11 @@
-﻿namespace BESL.Domain.Entities
+﻿namespace BESL.Entities
 {
     using System;
     using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Identity;
 
-    using BESL.Domain.Infrastructure;
+    using BESL.Entities.Infrastructure;
 
     public class Player : IdentityUser, IDeletableEntity
     {

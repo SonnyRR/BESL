@@ -13,7 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Matches.Commands.Delete;
-    using Match = Domain.Entities.Match;
+    using Match = BESL.Entities.Match;
 
     public class DeleteMatchCommandTests : BaseTest<Match>
     {

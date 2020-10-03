@@ -16,7 +16,7 @@
     using BESL.Application.Games.Queries.Details;
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence.Repositories;
 
     [Collection("QueryCollection")]

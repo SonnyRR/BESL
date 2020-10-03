@@ -15,7 +15,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Tournaments.Commands.Enroll;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Persistence.Repositories;
 
     public class EnrollATeamCommandTests : BaseTest<Tournament>

@@ -10,7 +10,7 @@ namespace BESL.Application.Tests.TournamentFormats.Commands.Delete
 
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.TournamentFormats.Commands.Delete;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.Exceptions;
 
     public class DeleteTournamentFormatCommandTests : BaseTest<TournamentFormat>

@@ -11,7 +11,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using BESL.Application.Interfaces;   
-    using BESL.Domain.Entities;
+    using BESL.Entities;
     using BESL.Application.Common.Models.Lookups;
 
     public class GetAllGamesSelectListQueryHandler : IRequestHandler<GetAllGamesSelectListQuery, IEnumerable<GameSelectItemLookupModel>>

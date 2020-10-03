@@ -1,5 +1,5 @@
 ﻿using BESL.Application.Interfaces;
-using BESL.Domain.Entities;
+using BESL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

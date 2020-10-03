@@ -1,4 +1,4 @@
-﻿namespace BESL.Domain.Infrastructure
+﻿namespace BESL.Entities.Infrastructure
 {
     using System;
 

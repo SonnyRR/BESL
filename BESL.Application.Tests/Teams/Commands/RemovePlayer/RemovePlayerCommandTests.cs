@@ -13,7 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Teams.Commands.RemovePlayer;
     using BESL.Application.Tests.Infrastructure;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class RemovePlayerCommandTests : BaseTest<PlayerTeam>
     {

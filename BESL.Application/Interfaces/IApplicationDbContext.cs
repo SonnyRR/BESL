@@ -6,7 +6,7 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public interface IApplicationDbContext
     {

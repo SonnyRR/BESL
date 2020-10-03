@@ -14,7 +14,7 @@
     using BESL.Application.Teams.Commands.Modify;
     using BESL.Application.Tests.Infrastructure;
     using BESL.Application.Teams.Queries.Modify;
-    using BESL.Domain.Entities;
+    using BESL.Entities;
 
     public class ModifyTeamQueryTests : BaseTest<Team>
     {

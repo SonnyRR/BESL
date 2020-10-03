@@ -7,7 +7,7 @@
     using Moq;
 
     using BESL.Application.Interfaces;
-    using BESL.Domain.Infrastructure;
+    using BESL.Entities.Infrastructure;
     using BESL.Persistence;
     using BESL.Persistence.Repositories;
 
