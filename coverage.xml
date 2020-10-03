@@ -28185,9 +28185,9 @@
       <Classes />
     </Module>
     <Module skippedDueTo="Filter" hash="16-36-F4-1D-3D-36-F8-67-D2-5A-6A-AE-F2-31-C3-BB-51-65-B8-7E">
-      <ModulePath>C:\Users\Vasil Kotsev\source\repos\BESL\BESL.Application.Tests\bin\Debug\netcoreapp3.0\BESL.Common.dll</ModulePath>
+      <ModulePath>C:\Users\Vasil Kotsev\source\repos\BESL\BESL.Application.Tests\bin\Debug\netcoreapp3.0\BESL.SharedKernel.dll</ModulePath>
       <ModuleTime>2019-11-16T19:09:36.6396276Z</ModuleTime>
-      <ModuleName>BESL.Common</ModuleName>
+      <ModuleName>BESL.SharedKernel</ModuleName>
       <Classes />
     </Module>
     <Module skippedDueTo="Filter" hash="E8-68-7E-7B-11-9C-44-38-92-39-C3-1E-79-60-D2-59-1D-87-B1-8E">

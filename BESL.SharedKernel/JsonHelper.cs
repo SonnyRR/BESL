@@ -1,4 +1,4 @@
-﻿namespace BESL.Common
+﻿namespace BESL.SharedKernel
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;

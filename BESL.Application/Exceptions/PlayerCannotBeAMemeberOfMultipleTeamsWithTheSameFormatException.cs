@@ -1,6 +1,6 @@
 ﻿namespace BESL.Application.Exceptions
 {
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class PlayerCannotBeAMemeberOfMultipleTeamsWithTheSameFormatException : BaseCustomException
     {

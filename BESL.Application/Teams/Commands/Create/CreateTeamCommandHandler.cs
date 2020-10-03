@@ -13,7 +13,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Infrastructure;
     using BESL.Entities;
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommand, int>
     {

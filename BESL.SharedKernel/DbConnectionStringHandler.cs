@@ -1,4 +1,4 @@
-﻿namespace BESL.Common
+﻿namespace BESL.SharedKernel
 {   
     using System.Runtime.InteropServices;
 

@@ -21,7 +21,7 @@
     using BESL.Application.Interfaces;
     using BESL.Application.Infrastructure.AutoMapper;
     using BESL.Application.Infrastructure.Validators;
-    using BESL.Common;
+    using BESL.SharedKernel;
     using BESL.Entities;
     using BESL.Infrastructure;
     using BESL.Infrastructure.Messaging;

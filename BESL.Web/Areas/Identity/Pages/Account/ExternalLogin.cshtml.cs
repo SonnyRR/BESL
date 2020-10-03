@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using BESL.Infrastructure.SteamWebAPI2;
 using Microsoft.Extensions.Configuration;
 using MediatR;
-using static BESL.Common.GlobalConstants;
+using static BESL.SharedKernel.GlobalConstants;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BESL.Application.Interfaces;

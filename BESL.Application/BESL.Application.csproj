@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BESL.Entities\BESL.Entities.csproj" />
-    <ProjectReference Include="..\BESL.Common\BESL.Common.csproj" />
+    <ProjectReference Include="..\BESL.SharedKernel\BESL.SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

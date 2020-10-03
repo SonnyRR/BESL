@@ -5,7 +5,7 @@
     using System.Text;
     using FluentValidation.Results;
 
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class ValidationException : BaseCustomException
     {

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
 
     using BESL.Entities.Infrastructure;
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class PlayWeek : BaseDeletableModel<int>
     {

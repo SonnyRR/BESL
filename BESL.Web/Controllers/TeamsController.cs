@@ -15,7 +15,7 @@
     using BESL.Application.Teams.Queries.Modify;
     using BESL.Application.Teams.Queries.GetAllTeamsPaged;
     using BESL.Application.TournamentFormats.Queries.GetAllTournamentFormatsSelectList;
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
     [Authorize]
     public class TeamsController : BaseController
     {

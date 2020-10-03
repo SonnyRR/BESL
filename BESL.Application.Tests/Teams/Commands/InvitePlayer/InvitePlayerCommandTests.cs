@@ -16,7 +16,7 @@
     using BESL.Application.Tests.Infrastructure;
     using BESL.Entities;
     using BESL.Persistence.Repositories;
-    using static BESL.Common.GlobalConstants;
+    using static BESL.SharedKernel.GlobalConstants;
 
     public class InvitePlayerCommandTests : BaseTest<Team>
     {
