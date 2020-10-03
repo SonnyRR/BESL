@@ -5,9 +5,11 @@
     using Microsoft.Extensions.Configuration.AzureKeyVault;
     using Microsoft.Extensions.Hosting;
 
+    using BESL.Web.Extensions;
+
     public class Program
     {
-        public static void Main(string[] args) => CreateWebHostBuilder(args).Build().Run();
+        public static void Main(string[] args) => CreateWebHostBuilder(args).Build().InitializeDatabase().Run();
 
         public static IHostBuilder CreateWebHostBuilder(string[] args)
         {
