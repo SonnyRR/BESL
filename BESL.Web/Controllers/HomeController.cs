@@ -7,19 +7,12 @@
     public class HomeController : BaseController
     {
         public IActionResult Index()
-        {
-            return this.View();
-        }
-
+            => this.View();
+        
         public IActionResult Privacy()
-        {
-            return this.View();
-        }
+            => this.View();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            => this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

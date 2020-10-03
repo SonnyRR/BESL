@@ -15,34 +15,24 @@
     {
         [AllowAnonymous]
         public async Task<IActionResult> Details(GetTournamentDetailsQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
 
         public async Task<IActionResult> Enroll(EnrollATeamQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));      
 
         [HttpPost]
         public async Task<IActionResult> Enroll(EnrollATeamCommand command)
         {
-            if (!this.ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                return this.RedirectToAction(nameof(Details), new GetTournamentDetailsQuery { Id = command.TournamentId });
+                await this.Mediator.Send(command);
             }
 
-            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Details), new GetTournamentDetailsQuery { Id = command.TournamentId });
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> PlayWeeks(GetPlayWeeksForTournamentTableQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
     }
 }

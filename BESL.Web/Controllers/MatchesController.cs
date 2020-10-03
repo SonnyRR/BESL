@@ -14,21 +14,15 @@
     {
         [AllowAnonymous]
         public async Task<IActionResult> Details(GetMatchDetailsQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
 
         public async Task<IActionResult> EditResult(EditMatchResultQuery query)
-        {
-            var result = await this.Mediator.Send(query);
-            return this.View(result);
-        }
+            => this.View(await this.Mediator.Send(query));
 
         [HttpPost]
         public async Task<IActionResult> EditResult(EditMatchResultCommand command)
         {
-            var result = await this.Mediator.Send(command);
+            await this.Mediator.Send(command);
             return this.RedirectToAction(nameof(Details), new GetMatchDetailsQuery { Id = command.Id });
         }
     }

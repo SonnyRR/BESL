@@ -15,16 +15,10 @@
     {
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
-        {
-            var viewModel = await this.Mediator.Send(new GetPlayerDetailsQuery() { Username = id });
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(new GetPlayerDetailsQuery() { Username = id }));
 
         public async Task<IActionResult> Invites()
-        {
-            var viewModel = await this.Mediator.Send(new GetInvitesForPlayerQuery());
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(new GetInvitesForPlayerQuery()));
 
         [HttpPost]
         public async Task<IActionResult> AcceptInvite(AcceptInviteCommand command)

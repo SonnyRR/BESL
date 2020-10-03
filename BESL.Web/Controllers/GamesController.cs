@@ -10,20 +10,12 @@
     public class GamesController : BaseController
     {
         public IActionResult Index()
-        {
-            return this.View();
-        }   
+            => this.View();
 
         public async Task<IActionResult> All()
-        {
-            var viewModel = await this.Mediator.Send(new GetAllGamesQuery());
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(new GetAllGamesQuery()));
 
         public async Task<IActionResult> Details(GetGameDetailsQuery query)
-        {
-            var viewModel = await this.Mediator.Send(query);
-            return this.View(viewModel);
-        }
+            => this.View(await this.Mediator.Send(query));
     }
 }
