@@ -7,13 +7,11 @@
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
 
-    using BESL.SharedKernel;
-
     public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> 
         where TContext : DbContext
     {
         private const string AspNetCoreEnvironment = "ASPNETCORE_ENVIRONMENT";
-        private string connectionStringName = DbConnectionStringHandler.GetConnectionStringNameForCurrentOS();
+        private const string connectionStringName = "Database";
 
         public TContext CreateDbContext(string[] args)
         {
@@ -35,7 +33,7 @@
                 .AddEnvironmentVariables()
                 .Build();
 
-            var connectionString = configuration.GetConnectionString(this.connectionStringName);
+            var connectionString = configuration.GetConnectionString(connectionStringName);
 
             return this.Create(connectionString);
         }

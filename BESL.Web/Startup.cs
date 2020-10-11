@@ -13,7 +13,6 @@
     using BESL.Infrastructure;
     using BESL.Infrastructure.Hubs;
     using BESL.Persistence;
-    using BESL.SharedKernel;
     using BESL.Web.Filters;
     using BESL.Web.Infrastructure;
     using BESL.Web.Middlewares;
@@ -34,7 +33,7 @@
             services.AddHttpContextAccessor();
             services.AddAuthentication().AddSteam();
             services.AddRazorPages();
-            services.AddHangfire(cfg => cfg.UseSqlServerStorage(this.Configuration.GetConnectionString(DbConnectionStringHandler.GetHangfireConnectionStringNameForCurrentOS())));
+            services.AddHangfire(cfg => cfg.UseSqlServerStorage(this.Configuration.GetConnectionString("Hangfire")));
             services.AddControllersWithViews()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IApplicationDbContext>())
                 .AddRazorRuntimeCompilation();

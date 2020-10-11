@@ -9,7 +9,6 @@
 
     using BESL.Application.Interfaces;
     using BESL.Entities;
-    using BESL.SharedKernel;
     using BESL.Persistence.Repositories;
     using BESL.Persistence.Infrastructure;
 
@@ -20,10 +19,10 @@
             configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
+                    options.UseSqlServer(configuration.GetConnectionString("Database")));
 
             services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString(DbConnectionStringHandler.GetConnectionStringNameForCurrentOS())));
+                    options.UseSqlServer(configuration.GetConnectionString("Database")));
 
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
