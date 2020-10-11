@@ -1,12 +1,22 @@
 version: 1.0.{build}
 image: Visual Studio 2019
+
+branches:
+  only:
+    - master
+
 before_build:
-- ps: nuget restore
+  - ps: "nuget restore"
+
 build:
-  project: BESL.sln
-  verbosity: minimal
+  project: "BESL.sln"
+  verbosity: "normal"
+
 test_script:
-- packages\opencover\4.7.922\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[BESL.Application*]* -[BESL.Application]Exceptions.* -[BESL.Application]Common.* -[BESL.Application]*ViewModel* -[BESL.Application]*Command* -[BESL.Application]*Query* -[BESL.Application]*LookupModel*" -register:administrator
+    - ps: "dotnet test --verbosity n"
+
+# test_script:
+# - packages\opencover\4.7.922\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[BESL.Application*]* -[BESL.Application]Exceptions.* -[BESL.Application]Common.* -[BESL.Application]*ViewModel* -[BESL.Application]*Command* -[BESL.Application]*Query* -[BESL.Application]*LookupModel*" -register:administrator
 # after_test:
 #   - ps: |
 #       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
