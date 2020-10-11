@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <UserSecretsId>39537b44-0d91-4b5f-9e4c-623c1b4983be</UserSecretsId>
     <ApplicationInsightsResourceId>/subscriptions/c423efad-61a1-4b3f-a1dc-6208534fa56a/resourcegroups/besl/providers/microsoft.insights/components/besl</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/c423efad-61a1-4b3f-a1dc-6208534fa56a/resourcegroups/besl/providers/microsoft.insights/components/besl</ApplicationInsightsAnnotationResourceId>
+    <ContainerDevelopmentMode>Regular</ContainerDevelopmentMode>
   </PropertyGroup>
 
   <ItemGroup>
