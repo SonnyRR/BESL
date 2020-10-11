@@ -14,16 +14,19 @@ variables:
 
 steps:
 - task: UseDotNet@2
+  displayName: 'Download .NET SDK'
   inputs:
     packageType: 'sdk'
-    version: '3.0.x'
+    version: '3.1.x'
 
 - task: NuGetToolInstaller@1
+  displayName: 'Acquire NuGet tool installer'
   inputs:
     versionSpec: 
     checkLatest: true
 
 - task: NuGetCommand@2
+  displayName: 'Restore NuGet packages'
   inputs:
     command: 'restore'
     restoreSolution: '$(solution)'
@@ -31,12 +34,14 @@ steps:
     noCache: true
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build projects'
   inputs:
     command: 'build'
     arguments: '--configuration="$(buildConfiguration)" --verbosity="$(verbosityLevel)"'
     projects: '$(projects)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Run tests'
   inputs:
     command: 'test'
     projects: $(testProjects)
@@ -44,6 +49,7 @@ steps:
     publishTestResults: false
 
 - task: DotNetCoreCLI@2
+  displayName: 'Publish'
   inputs:
     command: publish
     publishWebProjects: True
@@ -51,6 +57,7 @@ steps:
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifact'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'BESL-drop'
