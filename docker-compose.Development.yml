@@ -1,13 +1,22 @@
-version: "3"
+version: "3.6"
 services:
     db:
         image: "mcr.microsoft.com/mssql/server:latest"
+        container_name: "mssqlserver"
         environment:
             SA_PASSWORD: "EmanuelaPreslavaEmilia2"
             ACCEPT_EULA: "Y"
         ports:
-            - "1433:1433" 
-    web:
+            - "1433:1433"
+        
+    redis:
+        container_name: "redis"
+        image: "redis:latest"
+        ports:
+            - "6379:6379"
+            
+    besl:
+        container_name: "web"
         build: .
         ports:
             - "5003:80"
@@ -17,8 +26,3 @@ services:
         depends_on:
             - db
             - redis
-    redis:
-        image: "redis:latest"
-        ports:
-            - "6379:6379"
-            
