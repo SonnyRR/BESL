@@ -15,14 +15,15 @@ services:
         ports:
             - "6379:6379"
             
-    besl:
-        container_name: "web"
+    asp:
+        container_name: "besl-web"
         build: .
         ports:
-            - "5003:80"
-            - "5004:443"
+            - "5000:5000"
+            - "5001:5001"
         environment: 
             - "ASPNETCORE_ENVIRONMENT=Development"
+            - "ASPNETCORE_URLS=http://+:5000;https://+:5001"
         depends_on:
             - db
             - redis
