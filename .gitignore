@@ -4,12 +4,10 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Custom
-.vscode
 .DS_Store
 .zip
 .Cache
 **/wwwroot/lib/**
-5e811f6c54bfa90d22aa88bdecd802cabea9346f
 
 # User-specific files
 *.suo
