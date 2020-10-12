@@ -28,7 +28,9 @@ BESL is an online eSports league for competitive tournaments on various games an
 * MockQueryable
 * OpenCover
 
-## Local setup
+&nbsp;
+
+# ⚙️ Local setup
 1. Make sure you have the following app secrets set in either the 'Secret Manager' or 'Azure KeyVault' if you decide to deploy this application:
     * Cloudinary:
         - cloudinary-cloud
@@ -44,9 +46,9 @@ BESL is an online eSports league for competitive tournaments on various games an
 docker-compose -f docker-compose.Development.yml up
 ```
 
-__NB: The Web App container is build under the "Development" environment and the developer exception page is enabled. If you manage to get a HTTP 500 response you will be greeted with the stack-trace of the exception.__
+📌 __The Web App container is build under the "Development" environment and the developer exception page is enabled. If you manage to get a HTTP 500 response you will be greeted with the stack-trace of the exception.__
 
-3. To shutdown all containers used by the application run the following command from the root of the repository:
+3. To shutdown all containers used by the application run the following command from the root directory of the repository:
 ```
 docker-compose -f docker-compose.Development.yml down
 ```
