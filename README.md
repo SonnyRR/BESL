@@ -28,8 +28,6 @@ BESL is an online eSports league for competitive tournaments on various games an
 * MockQueryable
 * OpenCover
 
-&nbsp;
-
 # ⚙️ Local setup
 1. Make sure you have the following app secrets set in either the 'Secret Manager' or 'Azure KeyVault' if you decide to deploy this application:
     * Cloudinary:
