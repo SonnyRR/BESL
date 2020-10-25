@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
@@ -9,7 +8,9 @@
     <ApplicationInsightsAnnotationResourceId>/subscriptions/c423efad-61a1-4b3f-a1dc-6208534fa56a/resourcegroups/besl/providers/microsoft.insights/components/besl</ApplicationInsightsAnnotationResourceId>
     <ContainerDevelopmentMode>Regular</ContainerDevelopmentMode>
   </PropertyGroup>
-
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'BESL.Web PROD' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'BESL.Web DEV' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'BESL.Web LOCAL' " />
   <ItemGroup>
     <Compile Remove="Areas\Administration\Data\**" />
     <Compile Remove="Areas\Administration\Models\**" />
@@ -24,8 +25,6 @@
     <None Remove="Areas\Administration\Models\**" />
     <None Remove="Views\Competitions\**" />
   </ItemGroup>
-
-
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OpenId.Steam" Version="2.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
@@ -43,22 +42,23 @@
     <PackageReference Include="UAParser" Version="3.1.43" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="7.9.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00839" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.5.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
   </ItemGroup>
-
-
   <ItemGroup>
     <ProjectReference Include="..\BESL.Application\BESL.Application.csproj" />
     <ProjectReference Include="..\BESL.Entities\BESL.Entities.csproj" />
     <ProjectReference Include="..\BESL.SharedKernel\BESL.SharedKernel.csproj" />
     <ProjectReference Include="..\BESL.Persistence\BESL.Persistence.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+      <GlobalPropertiesToRemove />
     </ProjectReference>
     <ProjectReference Include="..\BESL.Infrastructure\BESL.Infrastructure.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+      <GlobalPropertiesToRemove />
     </ProjectReference>
   </ItemGroup>
-
-
   <ItemGroup>
     <Folder Include="Views\Shared\Components\TournamentsTable\" />
     <Folder Include="Views\Shared\Components\TournamentSkillTables\" />
@@ -76,8 +76,6 @@
     <Folder Include="Views\Shared\Components\CurrentWeekMatches\" />
     <Folder Include="Views\Shared\Components\FrontPageActiveTournaments\" />
   </ItemGroup>
-
-
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
