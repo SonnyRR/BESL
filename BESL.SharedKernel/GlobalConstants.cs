@@ -3,6 +3,7 @@
     public class GlobalConstants
     {
         #region Environments
+        public const string ENV_LOCAL = "Local";
         public const string ENV_DEVELOPMENT = "Development";
         public const string ENV_PRODUCTION = "Production";        
         #endregion

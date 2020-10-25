@@ -6,6 +6,7 @@
     using Microsoft.Extensions.Hosting;
 
     using BESL.Web.Extensions;
+    using Serilog;
 
     public class Program
     {
@@ -17,6 +18,9 @@
                 {
                     hostBuilder.ConfigureAppConfiguration((context, config) =>
                     {
+                        hostBuilder.UseSerilog((hostingContext, loggerCfg)
+                            => loggerCfg.Configure(hostingContext.Configuration));
+
                         if (context.HostingEnvironment.IsProduction())
                         {
                             var builtConfig = config.Build();

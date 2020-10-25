@@ -19,14 +19,14 @@
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 var env = serviceScope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
-                if (env.EnvironmentName == GlobalConstants.ENV_DEVELOPMENT)
+                if (env.EnvironmentName == GlobalConstants.ENV_DEVELOPMENT
+                    || env.EnvironmentName == GlobalConstants.ENV_LOCAL)
                 {
                     if (dbContext.Database.GetPendingMigrations().Any())
                     {
                         dbContext.Database.Migrate();
                     }
                 }
-
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
             return host;
