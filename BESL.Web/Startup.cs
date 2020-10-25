@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     
@@ -34,6 +35,7 @@
             services.AddAuthentication().AddSteam();
             services.AddRazorPages();
             services.AddHangfire(cfg => cfg.UseSqlServerStorage(this.Configuration.GetConnectionString("Hangfire")));
+            services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
             services.AddControllersWithViews()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IApplicationDbContext>())
                 .AddRazorRuntimeCompilation();
@@ -43,7 +45,6 @@
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
         }
     
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
