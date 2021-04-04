@@ -13,12 +13,10 @@ build:
   verbosity: "normal"
 
 test_script:
-    - ps: "dotnet test --verbosity n"
+  - $env:USERPROFILE\.nuget\packages\opencover\4.7.922\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[BESL.Application*]* -[BESL.Application]Exceptions.* -[BESL.Application]Common.* -[BESL.Application]*ViewModel* -[BESL.Application]*Command* -[BESL.Application]*Query* -[BESL.Application]*LookupModel*" -register:administrator
 
-# test_script:
-# - packages\opencover\4.7.922\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[BESL.Application*]* -[BESL.Application]Exceptions.* -[BESL.Application]Common.* -[BESL.Application]*ViewModel* -[BESL.Application]*Command* -[BESL.Application]*Query* -[BESL.Application]*LookupModel*" -register:administrator
-# after_test:
-#   - ps: |
-#       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
-#       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-#       bash codecov.sh -f "coverage.xml" -t a32d568f-4132-4996-a91d-08a9bf805c41
+after_test:
+  - ps: |
+      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "coverage.xml" -t a32d568f-4132-4996-a91d-08a9bf805c41
