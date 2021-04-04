@@ -18,4 +18,4 @@ test_script:
 after_test:
   - ps: |
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      ./codecov.sh -f "coverage.xml" -t a32d568f-4132-4996-a91d-08a9bf805c41 -v
+      bash codecov.sh -f "coverage.xml" -t a32d568f-4132-4996-a91d-08a9bf805c41 -U "-s" -A "-s"
