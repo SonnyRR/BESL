@@ -13,7 +13,7 @@ build:
   verbosity: "normal"
 
 test_script:
-  - '&$env:USERPROFILE\.nuget\packages\opencover\4.7.922\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[BESL.Application*]* -[BESL.Application]Exceptions.* -[BESL.Application]Common.* -[BESL.Application]*ViewModel* -[BESL.Application]*Command* -[BESL.Application]*Query* -[BESL.Application]*LookupModel*" -register:administrator'
+  - .\packages\opencover\4.7.922\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[BESL.Application*]* -[BESL.Application]Exceptions.* -[BESL.Application]Common.* -[BESL.Application]*ViewModel* -[BESL.Application]*Command* -[BESL.Application]*Query* -[BESL.Application]*LookupModel*" -register:administrator
 
 after_test:
   - ps: |
