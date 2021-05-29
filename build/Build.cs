@@ -10,7 +10,7 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[CheckBuildProjectConfigurations]
+[CheckBuildProjectConfigurations(TimeoutInMilliseconds = 1_500)]
 [ShutdownDotNetAfterServerBuild]
 class Build : NukeBuild
 {
@@ -55,5 +55,4 @@ class Build : NukeBuild
             DotNetTest(s => s
                 .SetTestAdapterPath("."));
         });
-
 }
