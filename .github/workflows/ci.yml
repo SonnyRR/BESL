@@ -17,3 +17,6 @@ jobs:
 
       - name: Build
         run: ./build.sh --configuration Release
+
+      - name: Run Unit Tests
+        run: ./build.sh rununittests --configuration Debug

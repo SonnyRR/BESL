@@ -57,6 +57,7 @@ class Build : NukeBuild
         });
 
     Target RunUnitTests => _ => _
+        .DependsOn(Compile)
         .Executes(() =>
         {
             var testProjects = GlobFiles(TestsDirectory, "**/*.csproj");
