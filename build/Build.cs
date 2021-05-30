@@ -1,9 +1,14 @@
+using System;
+using System.IO;
+using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
+using Nuke.Common.Tooling;
+using Nuke.Common.Tools.Coverlet;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.IO.FileSystemTasks;
@@ -23,6 +28,8 @@ class Build : NukeBuild
     [GitRepository] readonly GitRepository GitRepository;
 
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
+
+    AbsolutePath TestsDirectory = RootDirectory / "BESL.Application.Tests";
 
     Target Clean => _ => _
         .Before(Restore)
@@ -52,7 +59,24 @@ class Build : NukeBuild
     Target RunUnitTests => _ => _
         .Executes(() =>
         {
+            var testProjects = GlobFiles(TestsDirectory, "**/*.csproj");
+
             DotNetTest(s => s
-                .SetTestAdapterPath("."));
+                .EnableNoBuild()
+                .EnableCollectCoverage()
+                .SetCoverletOutputFormat(CoverletOutputFormat.opencover)
+                .SetTestAdapterPath(".")
+                .CombineWith(csw => testProjects
+                    .Select(p =>
+                    {
+                        string assemblyName = Path.GetFileNameWithoutExtension(p);
+                        Logger.Normal($"Adding test congiruations for assembly: '{assemblyName}'");
+                        string projectRoutePrefix = ArtifactsDirectory / assemblyName;
+
+                        return csw
+                            .SetProjectFile(p)
+                            .SetLogger($"xunit;LogFilePath={projectRoutePrefix}_testresults.xml")
+                            .SetCoverletOutput($"{projectRoutePrefix}_coverage.xml");
+                    })), Environment.ProcessorCount, true);
         });
 }
