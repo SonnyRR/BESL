@@ -4,7 +4,8 @@ Bulgarian eSports League /pronounced: Be·es·el·/. My defense project for ASP.
 
 🏆 Awarded 1st place in top 5 best projects (June-August 2019).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/a8x6minra5yhem07?svg=true)](https://ci.appveyor.com/project/SonnyRR/besl)
+<!-- [![Build status](https://ci.appveyor.com/api/projects/status/a8x6minra5yhem07?svg=true)](https://ci.appveyor.com/project/SonnyRR/besl) -->
+[![ci](https://github.com/SonnyRR/BESL/actions/workflows/ci.yml/badge.svg)](https://github.com/SonnyRR/BESL/actions/workflows/ci.yml)
 [![Build Status](https://sonnyrr.visualstudio.com/BESL/_apis/build/status/SonnyRR.BESL?branchName=master)](https://sonnyrr.visualstudio.com/BESL/_build/latest?definitionId=1&branchName=master)
 [![codecov](https://codecov.io/gh/SonnyRR/BESL/branch/master/graph/badge.svg)](https://codecov.io/gh/SonnyRR/BESL)
 ![](http://estruyf-github.azurewebsites.net/api/VisitorHit?user=SonnyRR&repo=BESL&countColorcountColor&countColor=%237B1E7A)
@@ -27,7 +28,8 @@ BESL is an online eSports league for competitive tournaments on various games an
 * Shouldly
 * Moq
 * MockQueryable
-* OpenCover
+* Coverlet
+* NUKE Build System
 
 # ⚙️ Local setup
 1. Make sure you have the following app secrets set in either the 'Secret Manager' or 'Azure KeyVault' if you decide to deploy this application:
