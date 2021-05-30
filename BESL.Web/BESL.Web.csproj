@@ -1,82 +1,91 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-    <UserSecretsId>39537b44-0d91-4b5f-9e4c-623c1b4983be</UserSecretsId>
-    <ApplicationInsightsResourceId>/subscriptions/c423efad-61a1-4b3f-a1dc-6208534fa56a/resourcegroups/besl/providers/microsoft.insights/components/besl</ApplicationInsightsResourceId>
-    <ApplicationInsightsAnnotationResourceId>/subscriptions/c423efad-61a1-4b3f-a1dc-6208534fa56a/resourcegroups/besl/providers/microsoft.insights/components/besl</ApplicationInsightsAnnotationResourceId>
-    <ContainerDevelopmentMode>Regular</ContainerDevelopmentMode>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'BESL.Web PROD' " />
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'BESL.Web DEV' " />
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'BESL.Web LOCAL' " />
-  <ItemGroup>
-    <Compile Remove="Areas\Administration\Data\**" />
-    <Compile Remove="Areas\Administration\Models\**" />
-    <Compile Remove="Views\Competitions\**" />
-    <Content Remove="Areas\Administration\Data\**" />
-    <Content Remove="Areas\Administration\Models\**" />
-    <Content Remove="Views\Competitions\**" />
-    <EmbeddedResource Remove="Areas\Administration\Data\**" />
-    <EmbeddedResource Remove="Areas\Administration\Models\**" />
-    <EmbeddedResource Remove="Views\Competitions\**" />
-    <None Remove="Areas\Administration\Data\**" />
-    <None Remove="Areas\Administration\Models\**" />
-    <None Remove="Views\Competitions\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="AspNet.Security.OpenId.Steam" Version="2.1.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.8.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
-    <PackageReference Include="Hangfire" Version="1.7.6" />
-    <PackageReference Include="Hangfire.SqlServer" Version="1.7.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.96" />
-    <PackageReference Include="Microsoft.ApplicationInsights.Web" Version="2.11.0" />
-    <PackageReference Include="UAParser" Version="3.1.43" />
-    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.9.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
-    <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00839" />
-    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.5.1" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BESL.Application\BESL.Application.csproj" />
-    <ProjectReference Include="..\BESL.Entities\BESL.Entities.csproj" />
-    <ProjectReference Include="..\BESL.SharedKernel\BESL.SharedKernel.csproj" />
-    <ProjectReference Include="..\BESL.Persistence\BESL.Persistence.csproj">
-      <GlobalPropertiesToRemove />
-    </ProjectReference>
-    <ProjectReference Include="..\BESL.Infrastructure\BESL.Infrastructure.csproj">
-      <GlobalPropertiesToRemove />
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Shared\Components\TournamentsTable\" />
-    <Folder Include="Views\Shared\Components\TournamentSkillTables\" />
-    <Folder Include="Views\Shared\Components\PlayerNotifications\" />
-    <Folder Include="Views\Shared\Components\PlayersForTeam\" />
-    <Folder Include="Views\Search\" />
-    <Folder Include="Views\Shared\Components\InvitePlayerModal\" />
-    <Folder Include="Views\Shared\Components\TransferTeamOwnership\" />
-    <Folder Include="Areas\Administration\Views\MatchFixtures\" />
-    <Folder Include="Views\Shared\Components\AddMatchFixture\" />
-    <Folder Include="Views\Shared\Components\TableWeeksNavigation\" />
-    <Folder Include="Areas\Administration\Views\TeamTableResults\" />
-    <Folder Include="Views\Shared\Components\MatchesForPlayWeek\" />
-    <Folder Include="Views\Shared\Components\TeamTournamentsMatches\" />
-    <Folder Include="Views\Shared\Components\CurrentWeekMatches\" />
-    <Folder Include="Views\Shared\Components\FrontPageActiveTournaments\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+        <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+        <UserSecretsId>39537b44-0d91-4b5f-9e4c-623c1b4983be</UserSecretsId>
+        <ApplicationInsightsResourceId>/subscriptions/c423efad-61a1-4b3f-a1dc-6208534fa56a/resourcegroups/besl/providers/microsoft.insights/components/besl</ApplicationInsightsResourceId>
+        <ApplicationInsightsAnnotationResourceId>/subscriptions/c423efad-61a1-4b3f-a1dc-6208534fa56a/resourcegroups/besl/providers/microsoft.insights/components/besl</ApplicationInsightsAnnotationResourceId>
+        <ContainerDevelopmentMode>Regular</ContainerDevelopmentMode>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'BESL.Web PROD' "/>
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'BESL.Web DEV' "/>
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'BESL.Web LOCAL' "/>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Areas\Administration\Data\**"/>
+        <Compile Remove="Areas\Administration\Models\**"/>
+        <Compile Remove="Views\Competitions\**"/>
+        <Content Remove="Areas\Administration\Data\**"/>
+        <Content Remove="Areas\Administration\Models\**"/>
+        <Content Remove="Views\Competitions\**"/>
+        <EmbeddedResource Remove="Areas\Administration\Data\**"/>
+        <EmbeddedResource Remove="Areas\Administration\Models\**"/>
+        <EmbeddedResource Remove="Views\Competitions\**"/>
+        <None Remove="Areas\Administration\Data\**"/>
+        <None Remove="Areas\Administration\Models\**"/>
+        <None Remove="Views\Competitions\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AspNet.Security.OpenId.Steam" Version="2.1.0"/>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
+        <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.0"/>
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
+        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.8.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.0.0"/>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0"/>
+        <PackageReference Include="Hangfire" Version="1.7.6"/>
+        <PackageReference Include="Hangfire.SqlServer" Version="1.7.6"/>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.96"/>
+        <PackageReference Include="Microsoft.ApplicationInsights.Web" Version="2.11.0"/>
+        <PackageReference Include="UAParser" Version="3.1.43"/>
+        <PackageReference Include="X.PagedList.Mvc.Core" Version="7.9.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="3.4.0"/>
+        <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00839"/>
+        <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.5.1"/>
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BESL.Application\BESL.Application.csproj"/>
+        <ProjectReference Include="..\BESL.Entities\BESL.Entities.csproj"/>
+        <ProjectReference Include="..\BESL.SharedKernel\BESL.SharedKernel.csproj"/>
+        <ProjectReference Include="..\BESL.Persistence\BESL.Persistence.csproj">
+            <GlobalPropertiesToRemove/>
+        </ProjectReference>
+        <ProjectReference Include="..\BESL.Infrastructure\BESL.Infrastructure.csproj">
+            <GlobalPropertiesToRemove/>
+        </ProjectReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Views\Shared\Components\TournamentsTable\"/>
+        <Folder Include="Views\Shared\Components\TournamentSkillTables\"/>
+        <Folder Include="Views\Shared\Components\PlayerNotifications\"/>
+        <Folder Include="Views\Shared\Components\PlayersForTeam\"/>
+        <Folder Include="Views\Search\"/>
+        <Folder Include="Views\Shared\Components\InvitePlayerModal\"/>
+        <Folder Include="Views\Shared\Components\TransferTeamOwnership\"/>
+        <Folder Include="Areas\Administration\Views\MatchFixtures\"/>
+        <Folder Include="Views\Shared\Components\AddMatchFixture\"/>
+        <Folder Include="Views\Shared\Components\TableWeeksNavigation\"/>
+        <Folder Include="Areas\Administration\Views\TeamTableResults\"/>
+        <Folder Include="Views\Shared\Components\MatchesForPlayWeek\"/>
+        <Folder Include="Views\Shared\Components\TeamTournamentsMatches\"/>
+        <Folder Include="Views\Shared\Components\CurrentWeekMatches\"/>
+        <Folder Include="Views\Shared\Components\FrontPageActiveTournaments\"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <WCFMetadata Include="Connected Services"/>
+    </ItemGroup>
 </Project>

@@ -1,38 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20190728132735_IntroducedPlayerNotificationDomainModel.cs" />
-    <Compile Remove="Migrations\20190728132735_IntroducedPlayerNotificationDomainModel.Designer.cs" />
-  </ItemGroup>
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6"><IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-<PrivateAssets>all</PrivateAssets>
-</PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.0.0" />
-    <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Remove="Migrations\20190728132735_IntroducedPlayerNotificationDomainModel.cs"/>
+        <Compile Remove="Migrations\20190728132735_IntroducedPlayerNotificationDomainModel.Designer.cs"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BESL.Application\BESL.Application.csproj" />
-    <ProjectReference Include="..\BESL.SharedKernel\BESL.SharedKernel.csproj" />
-    <ProjectReference Include="..\BESL.Entities\BESL.Entities.csproj" />
-    <ProjectReference Include="..\BESL.Infrastructure\BESL.Infrastructure.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.0.0"/>
+        <PackageReference Include="StackExchange.Redis" Version="2.0.601"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Seeding\AspNetUsers.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\BESL.Application\BESL.Application.csproj"/>
+        <ProjectReference Include="..\BESL.SharedKernel\BESL.SharedKernel.csproj"/>
+        <ProjectReference Include="..\BESL.Entities\BESL.Entities.csproj"/>
+        <ProjectReference Include="..\BESL.Infrastructure\BESL.Infrastructure.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Seeding\AspNetUsers.sql">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 </Project>

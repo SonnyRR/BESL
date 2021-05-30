@@ -1,23 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Messaging\" />
-    <Folder Include="Messaging\SendGrid\" />
-    <Folder Include="SteamWebApi2\" />
-    <Folder Include="Cloudinary\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-    <PackageReference Include="Steam.Models" Version="3.0.8" />
-    <PackageReference Include="CloudinaryDotNet" Version="1.8.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BESL.Application\BESL.Application.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Messaging\"/>
+        <Folder Include="Messaging\SendGrid\"/>
+        <Folder Include="SteamWebApi2\"/>
+        <Folder Include="Cloudinary\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0"/>
+        <PackageReference Include="AutoMapper" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0"/>
+        <PackageReference Include="Steam.Models" Version="3.0.8"/>
+        <PackageReference Include="CloudinaryDotNet" Version="1.8.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BESL.Application\BESL.Application.csproj"/>
+    </ItemGroup>
 </Project>
