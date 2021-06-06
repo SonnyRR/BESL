@@ -20,3 +20,9 @@ jobs:
 
       - name: Run Unit Tests
         run: ./build.sh rununittests --configuration Debug
+      
+      - name: Publish Docker Image
+        run: ./build.sh publishdockerimage --configuration Release
+        env:
+          GitHubPersonalAccessToken: ${{ secrets.GITHUB_TOKEN }}
+          GitHubUsername: ${{ github.actor }}
