@@ -1,10 +1,11 @@
 # ![BESL](https://res.cloudinary.com/vasil-kotsev/image/upload/v1565288701/BESL/besl-logo.png)
 
-Bulgarian eSports League /pronounced: Be·es·el·/. My defense project for ASP.NET Core MVC course at SoftUni (June-August 2019). 
+Bulgarian eSports League /pronounced: Be·es·el·/. My defense project for ASP.NET Core MVC course at SoftUni (June-August 2019).
 
 🏆 Awarded 1st place in top 5 best projects (June-August 2019).
 
 <!-- [![Build status](https://ci.appveyor.com/api/projects/status/a8x6minra5yhem07?svg=true)](https://ci.appveyor.com/project/SonnyRR/besl) -->
+
 [![ci](https://github.com/SonnyRR/BESL/actions/workflows/ci.yml/badge.svg)](https://github.com/SonnyRR/BESL/actions/workflows/ci.yml)
 [![Build Status](https://sonnyrr.visualstudio.com/BESL/_apis/build/status/SonnyRR.BESL?branchName=master)](https://sonnyrr.visualstudio.com/BESL/_build/latest?definitionId=1&branchName=master)
 [![codecov](https://codecov.io/gh/SonnyRR/BESL/branch/master/graph/badge.svg)](https://codecov.io/gh/SonnyRR/BESL)
@@ -12,46 +13,122 @@ Bulgarian eSports League /pronounced: Be·es·el·/. My defense project for ASP.
 
 BESL is an online eSports league for competitive tournaments on various games and formats. Everyone with a Steam account can create a team with their fellow friends and sign up for the current season tournament. Skill levels are represented by tiers and range from Open, Mid and Premiership. Match fixtures are scheduled in play weeks where teams face each other every week in order to reach the top skill table rankings.
 
-Здравейте, споделям ви един инструмент (алтернатива на Cake, Bullseye), който ползвам в практиката си успешно от известно време, и съм доста впечатлен от него. Улесни ни CI/CD процесите и ги направи по-гъвкави, има приятен Fluent interface, лесно се скейлват таргети и има много добра интеграция с 3rd party tools OOB: (всякакви CLI инструменти, Docker, Kubernetes Helm, DocFX, NSwag, GitVersion, Coverlet, Xunit, SonarQube и др.) Разбира се върви под Windows/Mac OS/Linux, има и екстеншъни за Rider, VS Code & Visual Studio.
-
 # 🛠 Built with:
-* CQRS & MediatR
-* ASP.NET Core MVC
-* EF Core 2.2
-* SignalR
-* Fluent validation
-* Custom exception-based notifications with Redis*, MediatR & ASP.NET middleware pipelines.
-* Hangfire
-* Sendgrid
-* CloudinaryDotNet
-* SteamWebApi2
-* Steam.Models 
-* OpenId.Steam
-* Shouldly
-* Moq
-* MockQueryable
-* Coverlet
-* NUKE Build System
 
-# ⚙️ Local setup
+-   CQRS & MediatR
+-   ASP.NET Core MVC
+-   NUKE Build System
+-   EF Core 2.2
+-   SignalR
+-   Fluent validation
+-   Custom exception-based notifications with Redis\*, MediatR & ASP.NET middleware pipelines.
+-   Hangfire
+-   Sendgrid
+-   CloudinaryDotNet
+-   SteamWebApi2
+-   Steam.Models
+-   OpenId.Steam
+-   Shouldly
+-   Moq
+-   MockQueryable
+-   Coverlet
+
+# ⚙️ Local setup using Docker
+The following instructions are tested on `macOS` & `Linux` if you're running a `Windows` machine, you'll have to change certain directory routes in both the `docker-compose` files and `Kestrel` user secrets.
+### BESL Application Secrets
+
 1. Make sure you have the following app secrets set in either the 'Secret Manager' or 'Azure KeyVault' if you decide to deploy this application:
-    * Cloudinary:
+    - Cloudinary:
         - cloudinary-cloud
         - cloudinary-apiKey
         - cloudinary-apiSecret
-    * Steam
+    - Steam
         - steam-api-key
-    * SendGrid
+    - SendGrid
         - sendgrid-api-key
 
-2. Run the following docker command from the root directory of the repository to set up the necessary containers (you could also start the containers in detached mode if you want):
-``` 
-docker-compose -f docker-compose.Development.yml up
+### Creating a development HTTPS certificate
+
+1. Clean development certificates:
+
+```sh
+  dotnet dev-certs https --clean
 ```
 
-📌 __The Web App container is build under the "Development" environment and the developer exception page is enabled. If you manage to get a HTTP 500 response you will be greeted with the stack-trace of the exception.__
+2. Export the HTTPS certificate using the dev-certs global tool and a password of your choice:
 
-3. To shutdown all containers used by the application run the following command from the root directory of the repository:
+```ps
+# Windows
+dotnet dev-certs https -v ep ${USERPROFILE}/.aspnet/https/cert.pfx -p aR@ndomPassw0rd
 ```
-docker-compose -f docker-compose.Development.yml down
+
+```sh
+# MacOS/Linux
+dotnet dev-certs https -v -ep ~/.aspnet/https/cert.pfx -p aR@ndomPassw0rd
+```
+
+3. Trust the new development certificate **[OPTIONAL]**
+
+```sh
+dotnet dev-certs https -t #The certificate is trusted automatically after generating it.
+```
+
+### Adding the required 'user secrets' for the development HTTPS certificate
+
+\*The user secrets will not be available under 'Production' environment so keep that in mind if you want to run the container with `docker compose` you'll need to temporarily change the `ASPNETCORE_ENVIRONMENT` variable value to `Development` for example.
+
+1. **[Optional]** Initialize the user secrets if you haven't already.
+
+```sh
+dotnet user-secrets init
+```
+
+2. Run the following commands in the project folder in order to set the certificate path and password:
+
+```sh
+dotnet user-secrets remove "Kestrel:Certificates:Default:Password"
+dotnet user-secrets remove "Kestrel:Certificates:Default:Path"
+dotnet user-secrets set "Kestrel:Certificates:Default:Password" "{your password here}"
+dotnet user-secrets set "Kestrel:Certificates:Default:Path" "/root/.aspnet/https/cert.pfx"
+```
+
+### Starting the containers
+
+\* The volumes mounted in the `docker-compose` files are Linux/MacOS paths, if you're running Docker + WSL2 make sure that the volumes are mounted correctly:
+
+```yml
+volumes:
+    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    - ${USERPROFILE}/.aspnet/https:/root/.aspnet/https:ro
+```
+
+
+1. Run the following docker command from the root directory of the repository to start up the necessary containers:
+
+```sh
+#Development
+docker-compose -f docker-compose.yml -f docker-compose.development.yml up
+```
+
+📌 **Before running the application under the 'Production' environment ensure that the necessary credentials are added in the appsettings.production.json file. e.g. Azure KeyVault, Redis credentials, etc.**
+
+```sh
+#Production
+docker-compose -f docker-compose.yml -f docker-compose.production.yml up
+```
+
+2. To stop the containers press `CTRL+C` in your terminal client or use the Docker desktop utility.
+
+### Removing the containers
+
+2. To remove all containers used by the application run the following command from the root directory of the repository:
+
+```sh
+#Development
+docker-compose -f docker-compose.yml -f docker-compose.development.yml down
+```
+
+```sh
+#Production
+docker-compose -f docker-compose.yml -f docker-compose.production.yml down
 ```
