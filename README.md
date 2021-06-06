@@ -34,7 +34,12 @@ BESL is an online eSports league for competitive tournaments on various games an
 -   Coverlet
 
 # ⚙️ Local setup using Docker
+
 The following instructions are tested on `macOS` & `Linux` if you're running a `Windows` machine, you'll have to change certain directory routes in both the `docker-compose` files and `Kestrel` user secrets.
+
+There is also a docker image available under the `packages` tab that is built everytime a `push` is made on the `master` branch if you want to fire it up using `docker run`.
+
+
 ### BESL Application Secrets
 
 1. Make sure you have the following app secrets set in either the 'Secret Manager' or 'Azure KeyVault' if you decide to deploy this application:
