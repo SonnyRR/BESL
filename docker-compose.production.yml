@@ -1,0 +1,10 @@
+version: '3.6'
+services:
+    asp:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=Som#securePassw0rd
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.aspnet/https/cert.pfx
+        volumes:
+            - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+            - ~/.aspnet/https:/root/.aspnet/https:ro
