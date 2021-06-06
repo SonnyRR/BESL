@@ -18,7 +18,6 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.GitHub.GitHubTasks;
-using Nuke.Common.CI.GitHubActions;
 
 [CheckBuildProjectConfigurations(TimeoutInMilliseconds = 1_500)]
 [ShutdownDotNetAfterServerBuild]
@@ -116,7 +115,7 @@ class Build : NukeBuild
 
     Target PublishDockerImage => _ => _
         .DependsOn(BuildDockerImage)
-        // .OnlyWhenDynamic(() => GitRepository.IsOnMasterBranch())
+        .OnlyWhenDynamic(() => GitRepository.IsOnMasterBranch())
         .Requires(
             () => GitHubUsername,
             () => GitHubPersonalAccessToken)
