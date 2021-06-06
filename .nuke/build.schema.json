@@ -18,6 +18,14 @@
           "type": "boolean",
           "description": "Indicates to continue a previously failed build attempt"
         },
+        "GitHubPersonalAccessToken": {
+          "type": "string",
+          "description": "The PAT used in order to push the Docker image to the container registry as an owner of the repository"
+        },
+        "GitHubUsername": {
+          "type": "string",
+          "description": "The GitHub user account that will be used to push the Docker image to the container registry"
+        },
         "Help": {
           "type": "boolean",
           "description": "Shows the help text for this build assembly"
@@ -64,8 +72,10 @@
           "items": {
             "type": "string",
             "enum": [
+              "BuildDockerImage",
               "Clean",
               "Compile",
+              "PublishDockerImage",
               "Restore",
               "RunUnitTests"
             ]
@@ -81,8 +91,10 @@
           "items": {
             "type": "string",
             "enum": [
+              "BuildDockerImage",
               "Clean",
               "Compile",
+              "PublishDockerImage",
               "Restore",
               "RunUnitTests"
             ]
