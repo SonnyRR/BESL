@@ -1,29 +1,8 @@
-version: "3.6"
+version: '3.6'
 services:
-    db:
-        image: "mcr.microsoft.com/mssql/server:latest"
-        container_name: "mssqlserver"
-        environment:
-            SA_PASSWORD: "EmanuelaPreslavaEmilia2"
-            ACCEPT_EULA: "Y"
-        ports:
-            - "1433:1433"
-        
-    redis:
-        container_name: "redis"
-        image: "redis:latest"
-        ports:
-            - "6379:6379"
-            
     asp:
-        container_name: "besl-web"
-        build: .
-        ports:
-            - "5000:5000"
-            - "5001:5001"
-        environment: 
-            - "ASPNETCORE_ENVIRONMENT=Development"
-            - "ASPNETCORE_URLS=http://+:5000;https://+:5001"
-        depends_on:
-            - db
-            - redis
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+        volumes:
+            - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+            - ~/.aspnet/https:/root/.aspnet/https:ro
