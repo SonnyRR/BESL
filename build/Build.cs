@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using JetBrains.Annotations;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.Execution;
@@ -13,9 +17,11 @@ using Nuke.Common.Tools.Coverlet;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Utilities.Collections;
 using Nuke.Common.Tools.Docker;
+using Polly;
 using static Nuke.Common.Tools.Docker.DockerTasks;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
+using static Nuke.Common.Tooling.ProcessTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.GitHub.GitHubTasks;
 
@@ -38,12 +44,14 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Parameter(
-        "The PAT used in order to push the Docker image to the container registry as an owner of the repository")]
+    [Parameter("The PAT used in order to push the Docker image to the container registry as an owner of the repository")]
     readonly string GitHubPersonalAccessToken;
 
     [Parameter("The GitHub user account that will be used to push the Docker image to the container registry")]
     readonly string GitHubUsername;
+
+    [Parameter("The CodeCov token used for authenticating when uploading coverage reports.")]
+    readonly string CodeCovToken;
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
@@ -132,6 +140,56 @@ class Build : NukeBuild
             PushDockerImageWithTag("latest", repositoryOwner, repositoryName);
         });
 
+    Target UploadCodeCoverageArtifact => _ => _
+        .Requires(() => CodeCovToken)
+        .After(RunUnitTests)
+        .Executes(() =>
+        {
+            Policy
+                .HandleResult<int>(ec => ec == 1)
+                .WaitAndRetry(
+                    new[]
+                    {
+                        TimeSpan.FromSeconds(1),
+                        TimeSpan.FromSeconds(3),
+                        TimeSpan.FromSeconds(5),
+                        TimeSpan.FromSeconds(10),
+                        TimeSpan.FromSeconds(15),
+                    }, (ec, timeSpan, retryCount) =>
+                    {
+                        Logger.Info($"Process exited with code: '{ec}'");
+                        Logger.Info($"Attempting to fetch the 'CodeCov' uploader. Try: {retryCount}");
+                    }).Execute(() => FetchCodeCovUploader(RootDirectory));
+
+            var scriptPath = Directory
+                .GetFiles(RootDirectory, "codecov*")
+                .SingleOrDefault();
+
+            ControlFlow.Assert(!string.IsNullOrWhiteSpace(scriptPath), "'CodeCov' uploader is not present.");
+            using var changePermissionsProcess = StartShell($"chmod +x {scriptPath}");
+            using var coverageReportUploadProcess = StartShell($"{scriptPath} -t {CodeCovToken}", RootDirectory, logOutput: true);
+            Thread.Sleep(1000);
+        });
+
+    int FetchCodeCovUploader(AbsolutePath downloadPath)
+    {
+        if (string.IsNullOrWhiteSpace(downloadPath))
+        {
+            throw new ArgumentNullException(nameof(downloadPath));
+        }
+        
+        var process = Environment.OSVersion.Platform switch
+        {
+            PlatformID.Win32Windows => StartShell(
+                "Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -Outfile codecov.exe", RootDirectory),
+            PlatformID.Unix => StartShell("curl -Os https://uploader.codecov.io/latest/linux/codecov", RootDirectory),
+            PlatformID.MacOSX => StartShell("curl -Os https://uploader.codecov.io/latest/macos/codecov", RootDirectory),
+            _ => throw new PlatformNotSupportedException()
+        };
+        
+        process.WaitForExit();
+        return process.ExitCode;
+    }
     void PushDockerImageWithTag(string tag, string repositoryOwner, string repositoryName)
     {
         tag = tag?.ToLower();

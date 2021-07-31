@@ -21,6 +21,11 @@ jobs:
       - name: Run Unit Tests
         run: ./build.sh rununittests --configuration Debug
       
+      - name: Publish Code Coverage Report
+        run ./build.sh uploadcodecoverageartifact
+        env:
+          CodeCovToken: ${{ secrets.CodeCovToken }}
+      
       - name: Publish Docker Image
         run: ./build.sh publishdockerimage --configuration Release
         env:

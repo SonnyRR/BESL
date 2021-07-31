@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Nuke.Common" Version="5.1.2" />
     <PackageReference Include="Nuke.GitHub" Version="2.0.0" />
+    <PackageReference Include="Polly" Version="7.2.2" />
   </ItemGroup>
 
 </Project>
