@@ -20,8 +20,14 @@ jobs:
 
       - name: Run Unit Tests
         run: ./build.sh rununittests --configuration Debug
+
+      - name: Upload Code Coverage Report as Artifact
+        uses: actions/upload-artifact@v2.2.4
+        with: 
+          name: coverage-report
+          path: ./artifacts/*_coverage.xml
       
-      - name: Publish Code Coverage Report
+      - name: Publish Code Coverage Report to CodeCov
         run: ./build.sh uploadcodecoverageartifact
         env:
           CodeCovToken: ${{ secrets.CodeCovToken }}
