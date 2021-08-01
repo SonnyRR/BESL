@@ -22,7 +22,7 @@ jobs:
         run: ./build.sh rununittests --configuration Debug
       
       - name: Publish Code Coverage Report
-        run ./build.sh uploadcodecoverageartifact
+        run: ./build.sh uploadcodecoverageartifact
         env:
           CodeCovToken: ${{ secrets.CodeCovToken }}
       
