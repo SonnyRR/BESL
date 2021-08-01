@@ -32,6 +32,8 @@ BESL is an online eSports league for competitive tournaments on various games an
 -   Moq
 -   MockQueryable
 -   Coverlet
+-   Polly
+-   CodeCov
 
 # ⚙️ Local setup using Docker
 
