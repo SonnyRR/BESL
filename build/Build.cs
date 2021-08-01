@@ -1,27 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using JetBrains.Annotations;
 using Nuke.Common;
 using Nuke.Common.CI;
+using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
-using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.Coverlet;
+using Nuke.Common.Tools.Docker;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Utilities.Collections;
-using Nuke.Common.Tools.Docker;
 using Polly;
-using static Nuke.Common.Tools.Docker.DockerTasks;
+using System;
+using System.IO;
+using System.Linq;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tooling.ProcessTasks;
+using static Nuke.Common.Tools.Docker.DockerTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.GitHub.GitHubTasks;
 
@@ -143,32 +139,34 @@ class Build : NukeBuild
     Target UploadCodeCoverageArtifact => _ => _
         .Requires(() => CodeCovToken)
         .After(RunUnitTests)
+        .OnlyWhenStatic(() => GitRepository.IsOnMasterBranch())
         .Executes(() =>
         {
             Policy
                 .HandleResult<int>(ec => ec == 1)
-                .WaitAndRetry(
-                    new[]
-                    {
-                        TimeSpan.FromSeconds(1),
-                        TimeSpan.FromSeconds(3),
-                        TimeSpan.FromSeconds(5),
-                        TimeSpan.FromSeconds(10),
-                        TimeSpan.FromSeconds(15),
-                    }, (ec, timeSpan, retryCount) =>
-                    {
-                        Logger.Info($"Process exited with code: '{ec}'");
-                        Logger.Info($"Attempting to fetch the 'CodeCov' uploader. Try: {retryCount}");
-                    }).Execute(() => FetchCodeCovUploader(RootDirectory));
+                .WaitAndRetry(5,
+                    ra => TimeSpan.FromSeconds(Math.Pow(2, ra)),
+                    (ec, timeSpan, retryCount, context) =>
+                        {
+                            Logger.Normal($"Process exited with code: '{ec}'");
+                            Logger.Normal($"Attempting to fetch the 'CodeCov' uploader. Try: {retryCount}");
+                        })
+                .Execute(() => FetchCodeCovUploader(RootDirectory));
 
             var scriptPath = Directory
                 .GetFiles(RootDirectory, "codecov*")
                 .SingleOrDefault();
 
             ControlFlow.Assert(!string.IsNullOrWhiteSpace(scriptPath), "'CodeCov' uploader is not present.");
-            using var changePermissionsProcess = StartShell($"chmod +x {scriptPath}");
+
+            if (string.IsNullOrWhiteSpace(Path.GetExtension(scriptPath)))
+            {
+                Logger.Normal("Adding executable permissions to the CodeCov shell script.");
+                using var changePermissionsProcess = StartShell($"chmod +x {scriptPath}");
+            }
+
             using var coverageReportUploadProcess = StartShell($@"{scriptPath} -t {CodeCovToken}", RootDirectory, logOutput: true);
-            Thread.Sleep(1000);
+            coverageReportUploadProcess.WaitForExit();
         });
 
     int FetchCodeCovUploader(AbsolutePath downloadPath)
