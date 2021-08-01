@@ -167,7 +167,7 @@ class Build : NukeBuild
 
             ControlFlow.Assert(!string.IsNullOrWhiteSpace(scriptPath), "'CodeCov' uploader is not present.");
             using var changePermissionsProcess = StartShell($"chmod +x {scriptPath}");
-            using var coverageReportUploadProcess = StartShell($"{scriptPath} -t {CodeCovToken}", RootDirectory, logOutput: true);
+            using var coverageReportUploadProcess = StartShell($@"{scriptPath} -t {CodeCovToken}", RootDirectory, logOutput: true);
             Thread.Sleep(1000);
         });
 
@@ -177,16 +177,15 @@ class Build : NukeBuild
         {
             throw new ArgumentNullException(nameof(downloadPath));
         }
-        
+
         var process = Environment.OSVersion.Platform switch
         {
-            PlatformID.Win32Windows => StartShell(
-                "Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -Outfile codecov.exe", RootDirectory),
-            PlatformID.Unix => StartShell("curl -Os https://uploader.codecov.io/latest/linux/codecov", RootDirectory),
-            PlatformID.MacOSX => StartShell("curl -Os https://uploader.codecov.io/latest/macos/codecov", RootDirectory),
+            PlatformID.Win32NT => StartProcess("powershell", "Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -Outfile codecov.exe", RootDirectory, logOutput: true),
+            PlatformID.Unix => StartShell("curl -Os https://uploader.codecov.io/latest/linux/codecov", RootDirectory, logOutput: true),
+            PlatformID.MacOSX => StartShell("curl -Os https://uploader.codecov.io/latest/macos/codecov", RootDirectory, logOutput: true),
             _ => throw new PlatformNotSupportedException()
         };
-        
+
         process.WaitForExit();
         return process.ExitCode;
     }
