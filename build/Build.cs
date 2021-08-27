@@ -101,7 +101,7 @@ class Build : NukeBuild
 
                         return csw
                             .SetProjectFile(p)
-                            .SetLogger($"xunit;LogFilePath={projectRoutePrefix}_testresults.xml")
+                            .SetLoggers($"xunit;LogFilePath={projectRoutePrefix}_testresults.xml")
                             .SetCoverletOutput($"{projectRoutePrefix}_coverage.xml");
                     })), Environment.ProcessorCount, true);
         });
