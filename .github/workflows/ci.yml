@@ -5,7 +5,8 @@ on: [push]
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
-
+    env:
+      NUKE_TELEMETRY_OPTOUT: 1
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v1
